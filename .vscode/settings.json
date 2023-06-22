@@ -6,11 +6,14 @@
         "vercel",
         "volta"
     ],
+    "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
         "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js, $(capture)*.snap",
         "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture)*.snap",
         "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",
         "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture)*.snap",
+        "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*",
+        "package.json": ".eslint*, .prettier*, .stylelint*, package-lock.json",
     },
     "emmet.excludeLanguages": [],
     "emmet.includeLanguages": {
