@@ -1,5 +1,5 @@
 import { beforeEach, it, expect, describe, vi } from 'vitest'
-import { DateInformation } from './date-time.types'
+import { DateInformation, EventDate } from './date-time.types'
 import { isValidTimeZone, convertGmtToNumber, getDateInformation } from './date-time'
 
 describe('isValidTimeZone()', () => {
@@ -65,7 +65,7 @@ describe('getDateInformation()', () => {
       timeFormat: 12,
     }
 
-    const expected = {
+    const expected: EventDate = {
       countryCode: 'AU',
       name: 'Australia/Adelaide',
       date: '6/10/2023',
@@ -96,7 +96,7 @@ describe('getDateInformation()', () => {
       timeFormat: 24,
     }
 
-    const expected = {
+    const expected: EventDate = {
       countryCode: 'AU',
       name: 'Australia/Adelaide',
       date: '6/10/2023',

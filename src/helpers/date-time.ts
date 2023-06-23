@@ -15,7 +15,6 @@ export const isValidTimeZone = (timeZone: string): boolean => {
 
 export const convertGmtToNumber = (gmtTime: string): number | null => {
   if (!gmtTime) return null
-  console.log(gmtTime)
 
   const time = gmtTime.replace('GMT', '')
 
@@ -91,6 +90,8 @@ export const getDateInformation = ({
     offset,
     i18n,
   }
+
+  return eventDate
 }
 
 export const getDatesList = ({
