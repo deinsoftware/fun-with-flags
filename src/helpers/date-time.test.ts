@@ -267,4 +267,75 @@ describe('sortDatesList()', () => {
     const result = sortDatesList(valueList)
     expect(result).toMatchObject(expected)
   })
+
+  it('should sort a zone list with null offset', () => {
+    const valueList: EventDate[] = [
+      {
+        countryCode: 'ES',
+        name: 'Europe/Madrid',
+        date: '6/10/2023',
+        time: '03:36:42',
+        acronym: 'GMT+2',
+        gmt: 'GMT+2',
+        offset: null,
+        i18n: {
+          region: 'Spain',
+          timestamp: '6/10/2023, 03:36:42',
+          date: '6/10/2023',
+          time: '03:36:42'
+        }
+      },
+      {
+        countryCode: 'US',
+        name: 'America/New_York',
+        date: '6/9/2023',
+        time: '21:36:42',
+        acronym: 'EDT',
+        gmt: 'GMT-4',
+        offset: null,
+        i18n: {
+          region: 'United States',
+          timestamp: '6/9/2023, 21:36:42',
+          date: '6/9/2023',
+          time: '21:36:42'
+        }
+      }
+    ]
+
+    const expected: EventDate[] = [
+      {
+        countryCode: 'US',
+        name: 'America/New_York',
+        date: '6/9/2023',
+        time: '21:36:42',
+        acronym: 'EDT',
+        gmt: 'GMT-4',
+        offset: null,
+        i18n: {
+          region: 'United States',
+          timestamp: '6/9/2023, 21:36:42',
+          date: '6/9/2023',
+          time: '21:36:42'
+        }
+      },
+      {
+        countryCode: 'ES',
+        name: 'Europe/Madrid',
+        date: '6/10/2023',
+        time: '03:36:42',
+        acronym: 'GMT+2',
+        gmt: 'GMT+2',
+        offset: null,
+        i18n: {
+          region: 'Spain',
+          timestamp: '6/10/2023, 03:36:42',
+          date: '6/10/2023',
+          time: '03:36:42'
+        }
+      }
+    ]
+
+    const result = sortDatesList(valueList)
+    expect(result).toMatchObject(expected)
+  })
 })
