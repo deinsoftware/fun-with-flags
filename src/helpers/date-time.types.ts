@@ -1,6 +1,9 @@
+import {Countries} from '@/shared/types/countries.types'
+import {TimeZones} from '@/shared/types/timeZones.types'
+
 export type Zone = {
-    countryCode: string
-    name: string
+    countryCode: Countries
+    name: TimeZones
 }
 
 export type DateInformation = {
@@ -18,8 +21,8 @@ export type ZoneList = {
 }
 
 export type EventDate = {
-    countryCode: string,
-    name: string,
+    countryCode: Countries,
+    name: TimeZones,
     date: string,
     time: string,
     acronym: string | undefined,
@@ -32,14 +35,3 @@ export type EventDate = {
       time: string
     }
   }
-
-/*
-ICU (International Components for Unicode)
-https://www.localeplanet.com/icu/
-
-Country List
-https://www.localeplanet.com/icu/iso3166.html
-
-Language List
-https://www.localeplanet.com/icu/iso639.html
-*/
