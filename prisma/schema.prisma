@@ -42,7 +42,7 @@ model Events {
   name        String
   tags        String[]
   timeZone    EventsTimeZone
-  timestamp   DateTime
+  timestamp   DateTime       @default(now())
   url         String
   userName    String
 }
