@@ -7,11 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type EventsTimeZone {
-  list   EventsTimeZoneList[]
-  origin EventsTimeZoneOrigin
-}
-
 type EventsTimeZoneList {
   countryCode String
   name        String
@@ -23,15 +18,9 @@ type EventsTimeZoneOrigin {
   timestamp   DateTime @db.Date
 }
 
-type TimeZoneListTimezone {
-  capital      Boolean
-  countryId    Int
-  fullName     String
-  id           Int
-  initial      String
-  offset       Float
-  summerOffset Float?
-  zoneNames    String[]
+type EventsTimeZone {
+  list   EventsTimeZoneList[]
+  origin EventsTimeZoneOrigin
 }
 
 model Events {
@@ -47,10 +36,21 @@ model Events {
   userName    String
 }
 
-model TimeZoneList {
-  id          String                 @id @default(auto()) @map("_id") @db.ObjectId
-  Timezone    TimeZoneListTimezone[]
+type TimeZoneList {
+  capital      Boolean
+  countryId    Int
+  fullName     String
+  id           Int
+  initial      String
+  offset       Float
+  summerOffset Float?
+  zoneNames    String[]
+}
+
+model TimeZones {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
   countryCode String
   countryName String
-  id_         Int                    @map("id")
+  id_         Int            @map("id")
+  timeZone    TimeZoneList[]
 }
