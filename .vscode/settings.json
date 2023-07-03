@@ -76,5 +76,9 @@
         "editor.codeActionsOnSave": [
             "source.fixAll.stylelint"
         ]
+    },
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma",
+        "editor.formatOnSave": true
     }
 }
