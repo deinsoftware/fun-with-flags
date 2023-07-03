@@ -3,6 +3,7 @@ import { DateInformation, EventDate, ZoneList } from './date-time.types'
 import {
   isValidTimeZone,
   convertGmtToNumber,
+  getRegionNames,
   getDateInformation,
   getDatesList,
   sortDatesList
@@ -56,6 +57,22 @@ describe('convertGmtToNumber()', () => {
     const value = ''
     const result = convertGmtToNumber(value)
     expect(result).toBeNull()
+  })
+})
+
+describe('getRegionNames()', () => {
+  it('should return the region name in english', () => {
+    const locale = 'en-US'
+    const countryCode = 'US'
+    const result = getRegionNames(locale, countryCode)
+    expect(result).toBe('United States')
+  })
+
+  it('should return the region name in traditional chinese', () => {
+    const locale = 'zh-Hant'
+    const countryCode = 'US'
+    const result = getRegionNames(locale, countryCode)
+    expect(result).toBe('美國')
   })
 })
 

@@ -1,4 +1,5 @@
 import {Countries} from '@/shared/types/countries.types'
+import {Locale} from '@/shared/types/locale.types'
 import {TimeZones} from '@/shared/types/timeZones.types'
 
 export type Zone = {
@@ -9,14 +10,14 @@ export type Zone = {
 export type DateInformation = {
     originDate: Date
     zone: Zone
-    locale: string
+    locale: Locale
     timeFormat: (12 | 24)
 }
 
 export type ZoneList = {
     originDate: Date
     zoneList: Zone[],
-    locale: string
+    locale: Locale
     timeFormat: (12 | 24)
 }
 

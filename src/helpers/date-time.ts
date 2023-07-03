@@ -1,3 +1,5 @@
+import { Countries } from '@/shared/types/countries.types'
+import { Locale } from '@/shared/types/locale.types'
 import { DateInformation, Zone, ZoneList, EventDate } from './date-time.types'
 
 export const isValidTimeZone = (timeZone: string): boolean => {
@@ -27,6 +29,11 @@ export const convertGmtToNumber = (gmtTime: string): number | null => {
       return +time + seconds * 60
     }, 0) / 60
   )
+}
+
+export const getRegionNames = (locale: Locale, countryCode: Countries) => {
+  const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
+  return regionNames.of(countryCode)
 }
 
 export const getDateInformation = ({
@@ -66,10 +73,10 @@ export const getDateInformation = ({
 
   const offset = convertGmtToNumber(gmt ?? '')
 
-  const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
+
 
   const i18n = {
-    region: regionNames.of(zone.countryCode),
+    region: getRegionNames(locale, zone.countryCode),
     timestamp: originDate.toLocaleString(locale, {
       ...options,
       hour12: timeFormat == 12,
