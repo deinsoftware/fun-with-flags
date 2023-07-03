@@ -10,14 +10,14 @@ export type Zone = {
 export type DateInformation = {
     originDate: Date
     zone: Zone
-    locale: Locale
+    locale: Locale | undefined
     timeFormat: (12 | 24)
 }
 
 export type ZoneList = {
     originDate: Date
     zoneList: Zone[],
-    locale: Locale
+    locale: Locale | undefined
     timeFormat: (12 | 24)
 }
 

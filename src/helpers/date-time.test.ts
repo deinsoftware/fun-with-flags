@@ -74,6 +74,13 @@ describe('getRegionNames()', () => {
     const result = getRegionNames(locale, countryCode)
     expect(result).toBe('美國')
   })
+
+  it('should return the region name with default language', () => {
+    const locale = undefined
+    const countryCode = 'US'
+    const result = getRegionNames(locale, countryCode)
+    expect(result).toBe('United States')
+  })
 })
 
 describe('getDateInformation()', () => {

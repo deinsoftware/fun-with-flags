@@ -31,7 +31,7 @@ export const convertGmtToNumber = (gmtTime: string): number | null => {
   )
 }
 
-export const getRegionNames = (locale: Locale, countryCode: Countries) => {
+export const getRegionNames = (locale: Locale | undefined, countryCode: Countries) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
 }
