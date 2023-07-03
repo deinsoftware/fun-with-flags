@@ -9,6 +9,9 @@
         "streetsidesoftware.code-spell-checker-spanish",
         "christian-kohler.path-intellisense",
         "deinsoftware.vitest-snippets",
-        "deinsoftware.testing-library-snippets"
+        "deinsoftware.testing-library-snippets",
+        "usernamehw.errorlens",
+        "mongodb.mongodb-vscode",
+        "Prisma.prisma"
     ]
 }
