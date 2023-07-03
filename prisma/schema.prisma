@@ -36,11 +36,8 @@ model Events {
   userName    String
 }
 
-type TimeZoneList {
+type TimeZonesList {
   capital      Boolean
-  countryId    Int
-  fullName     String
-  id           Int
   initial      String
   offset       Float
   summerOffset Float?
@@ -48,9 +45,7 @@ type TimeZoneList {
 }
 
 model TimeZones {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
   countryCode String
-  countryName String
-  id_         Int            @map("id")
-  timeZone    TimeZoneList[]
+  timeZone    TimeZonesList[]
 }
