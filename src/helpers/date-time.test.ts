@@ -64,21 +64,21 @@ describe('getRegionNames()', () => {
   it('should return the region name in english', () => {
     const locale = 'en-US'
     const countryCode = 'US'
-    const result = getRegionNames(locale, countryCode)
+    const result = getRegionNames(countryCode, locale)
     expect(result).toBe('United States')
   })
 
   it('should return the region name in traditional chinese', () => {
     const locale = 'zh-Hant'
     const countryCode = 'US'
-    const result = getRegionNames(locale, countryCode)
+    const result = getRegionNames(countryCode, locale)
     expect(result).toBe('美國')
   })
 
   it('should return the region name with default language', () => {
     const locale = undefined
     const countryCode = 'US'
-    const result = getRegionNames(locale, countryCode)
+    const result = getRegionNames(countryCode, locale)
     expect(result).toBe('United States')
   })
 })

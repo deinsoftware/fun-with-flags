@@ -15,7 +15,7 @@ export const isValidTimeZone = (timeZone: string): boolean => {
   }
 }
 
-export const convertGmtToNumber = (gmtTime: string): number | null => {
+export const convertGmtToNumber = (gmtTime: string) => {
   if (!gmtTime) return null
 
   const time = gmtTime.replace('GMT', '')
@@ -31,7 +31,7 @@ export const convertGmtToNumber = (gmtTime: string): number | null => {
   )
 }
 
-export const getRegionNames = (locale: Locale | undefined, countryCode: Countries) => {
+export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
 }
@@ -76,7 +76,7 @@ export const getDateInformation = ({
 
 
   const i18n = {
-    region: getRegionNames(locale, zone.countryCode),
+    region: getRegionNames(zone.countryCode, locale),
     timestamp: originDate.toLocaleString(locale, {
       ...options,
       hour12: timeFormat == 12,
@@ -122,13 +122,13 @@ export const sortDatesList = (eventList: EventDate[]) => {
   return eventList.sort((a, z) => {
     type Sort = {
       date: number
-      offset: number | null
+      offset?: number
       countryCode: number
     }
 
     const sort: Sort = {
       date: Date.parse(a.date) - Date.parse(z.date),
-      offset: a.offset && z.offset ? a.offset - z.offset : null,
+      offset: a.offset && z.offset ? a.offset - z.offset : undefined,
       countryCode: a.countryCode.localeCompare(z.countryCode),
     }
 

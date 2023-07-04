@@ -10,14 +10,14 @@ export type Zone = {
 export type DateInformation = {
     originDate: Date
     zone: Zone
-    locale: Locale | undefined
+    locale?: Locale
     timeFormat: (12 | 24)
 }
 
 export type ZoneList = {
     originDate: Date
     zoneList: Zone[],
-    locale: Locale | undefined
+    locale?: Locale
     timeFormat: (12 | 24)
 }
 
@@ -26,13 +26,13 @@ export type EventDate = {
     name: TimeZones
     date: string
     time: string
-    acronym: string | undefined
-    gmt: string | undefined
-    offset: number | null
+    acronym?: string
+    gmt?: string
+    offset?: number
     i18n: {
-      region: string | undefined
-      timestamp: string
-      date: string
-      time: string
+        region?: string
+        timestamp: string
+        date: string
+        time: string
     }
-  }
+}
