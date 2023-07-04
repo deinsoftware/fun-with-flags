@@ -22,17 +22,17 @@ export type ZoneList = {
 }
 
 export type EventDate = {
-    countryCode: Countries,
-    name: TimeZones,
-    date: string,
-    time: string,
-    acronym: string | undefined,
-    gmt: string | undefined,
-    offset: number | null,
+    countryCode: Countries
+    name: TimeZones
+    date: string
+    time: string
+    acronym: string | undefined
+    gmt: string | undefined
+    offset: number | null
     i18n: {
-      region: string | undefined,
-      timestamp: string,
-      date: string,
+      region: string | undefined
+      timestamp: string
+      date: string
       time: string
     }
   }

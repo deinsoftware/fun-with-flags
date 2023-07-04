@@ -37,11 +37,11 @@ model Events {
 }
 
 type TimeZonesList {
-  capital      Boolean
-  initial      String
-  offset       Float
-  summerOffset Float?
-  zoneNames    String[]
+  capital   String
+  initial   String
+  offset    Float
+  dst       Boolean
+  zoneNames String[]
 }
 
 model TimeZones {
