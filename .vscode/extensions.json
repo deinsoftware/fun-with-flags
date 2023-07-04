@@ -12,6 +12,7 @@
         "deinsoftware.testing-library-snippets",
         "usernamehw.errorlens",
         "mongodb.mongodb-vscode",
-        "Prisma.prisma"
+        "Prisma.prisma",
+        "yoavbls.pretty-ts-errors"
     ]
 }
