@@ -1,0 +1,37 @@
+.header {
+    background-color: var(--color-purple-500);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    max-height: 80px;
+    padding: 20px;
+
+    position: relative;
+
+    & h1 {
+        display: none;
+    }
+}
+
+.themeToggler {
+    width: 66px;
+    height: 28px;
+    background-color: var(--color-neutral-500);
+
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+
+    & .toggler {
+        width: 26px;
+        height: 26px;
+        background-color: var(--color-whywhite-500);
+
+        border-radius: 30px;
+
+        cursor: pointer;
+    }
+}
