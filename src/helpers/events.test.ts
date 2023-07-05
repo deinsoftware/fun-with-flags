@@ -1,63 +1,8 @@
-import { beforeEach, it, expect, describe, vi } from 'vitest'
-import { DateInformation, EventDate, ZoneList } from './date-time.types'
-import {
-  isValidTimeZone,
-  convertGmtToNumber,
-  getDateInformation,
-  getDatesList,
-  sortDatesList
-} from './date-time'
+import { it, expect, describe, vi } from 'vitest'
 
-describe('isValidTimeZone()', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetAllMocks()
-  })
+import { DateInformation, EventDate, ZoneList } from './events.types'
 
-  it('should return true when using a correct time zone', () => {
-    const value = 'Australia/Adelaide'
-    const result = isValidTimeZone(value)
-    expect(result).toBeTruthy()
-  })
-
-  it('should return false when using an incorrect time zone', () => {
-    const value = 'Foo/Bar'
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-  })
-
-  it('should return false when Intl is not available', () => {
-    // FIXME: change any types https://vitest.dev/api/vi.html#vi-spyon
-    const spy = vi.spyOn<any, any>(Intl, 'DateTimeFormat')
-    spy.mockImplementation(() => undefined)
-
-    const value = 'Foo/Bar'
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-
-    spy.mockRestore()
-  })
-})
-
-describe('convertGmtToNumber()', () => {
-  it('should return an integer on GMT with exact time', () => {
-    const value = 'GMT+1'
-    const result = convertGmtToNumber(value)
-    expect(result).toBe(1)
-  })
-
-  it('should return a decimal on GMT with non exact time ', () => {
-    const value = 'GMT+5:45'
-    const result = convertGmtToNumber(value)
-    expect(result).toBe(5.75)
-  })
-
-  it('should return a decimal on empty GMT', () => {
-    const value = ''
-    const result = convertGmtToNumber(value)
-    expect(result).toBeNull()
-  })
-})
+import { getDateInformation, getDatesList, sortDatesList } from './events'
 
 describe('getDateInformation()', () => {
   it('should return the date information with 12 time format', () => {
@@ -172,8 +117,8 @@ describe('getDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -187,9 +132,9 @@ describe('getDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     expect(result).toMatchObject(expected)
@@ -211,8 +156,8 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
+          time: '03:36:42',
+        },
       },
       {
         countryCode: 'US',
@@ -226,9 +171,9 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
-      }
+          time: '21:36:42',
+        },
+      },
     ]
 
     const expected: EventDate[] = [
@@ -244,8 +189,8 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -259,16 +204,16 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     const result = sortDatesList(valueList)
     expect(result).toMatchObject(expected)
   })
 
-  it('should sort a zone list with null offset', () => {
+  it('should sort a zone list with undefined offset', () => {
     const valueList: EventDate[] = [
       {
         countryCode: 'ES',
@@ -277,13 +222,13 @@ describe('sortDatesList()', () => {
         time: '03:36:42',
         acronym: 'GMT+2',
         gmt: 'GMT+2',
-        offset: null,
+        offset: undefined,
         i18n: {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
+          time: '03:36:42',
+        },
       },
       {
         countryCode: 'US',
@@ -292,14 +237,14 @@ describe('sortDatesList()', () => {
         time: '21:36:42',
         acronym: 'EDT',
         gmt: 'GMT-4',
-        offset: null,
+        offset: undefined,
         i18n: {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
-      }
+          time: '21:36:42',
+        },
+      },
     ]
 
     const expected: EventDate[] = [
@@ -310,13 +255,13 @@ describe('sortDatesList()', () => {
         time: '21:36:42',
         acronym: 'EDT',
         gmt: 'GMT-4',
-        offset: null,
+        offset: undefined,
         i18n: {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -325,14 +270,14 @@ describe('sortDatesList()', () => {
         time: '03:36:42',
         acronym: 'GMT+2',
         gmt: 'GMT+2',
-        offset: null,
+        offset: undefined,
         i18n: {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     const result = sortDatesList(valueList)

@@ -10,6 +10,7 @@ export default defineConfig({
       reporter: ['text', 'html', 'lcov'],
       include: ['**/src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
+        '.next/',
         '**/src/main.{js,jsx,ts,tsx}',
         '**/*.types.{ts,tsx}',
         '**/*.test.{js,jsx,ts,tsx}',

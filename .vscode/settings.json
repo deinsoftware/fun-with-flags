@@ -1,80 +1,173 @@
 {
-    "cSpell.words": [
-        "htmlhint",
-        "lcov",
-        "swpm",
-        "vercel",
-        "volta"
-    ],
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js, $(capture)*.snap",
-        "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture)*.snap",
-        "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",
-        "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture)*.snap",
-        "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*",
-        "package.json": ".eslint*, .prettier*, .stylelint*, package-lock.json",
+  "cSpell.words": [
+    "Aaiun",
+    "Adak",
+    "Addis",
+    "Anadyr",
+    "Aqtau",
+    "Aqtobe",
+    "Araguaina",
+    "Atikokan",
+    "Atyrau",
+    "Barthelemy",
+    "Branco",
+    "Busingen",
+    "Catamarca",
+    "Choibalsan",
+    "Chuuk",
+    "Creston",
+    "Cuiaba",
+    "Danmarkshavn",
+    "Dili",
+    "Dumont",
+    "Efate",
+    "Eirunepe",
+    "esnext",
+    "Eucla",
+    "Fakaofo",
+    "Hovd",
+    "htmlhint",
+    "Inuvik",
+    "Jujuy",
+    "Kanton",
+    "Khandyga",
+    "Kiritimati",
+    "Kolkata",
+    "Kosrae",
+    "Kralendijk",
+    "Kuala",
+    "lcov",
+    "Lindeman",
+    "Longyearbyen",
+    "Lumpur",
+    "Magadan",
+    "Mahe",
+    "Manaus",
+    "Marigot",
+    "Metlakatla",
+    "Minh",
+    "Moresby",
+    "Murdo",
+    "Nera",
+    "Noronha",
+    "Nuuk",
+    "Ojinaga",
+    "Pohnpei",
+    "Qostanay",
+    "Qyzylorda",
+    "Rothera",
+    "Sablon",
+    "Santarem",
+    "Scoresbysund",
+    "Srednekolymsk",
+    "swpm",
+    "Syowa",
+    "Tfng",
+    "Tongatapu",
+    "Ulaanbaatar",
+    "Urville",
+    "Ushuaia",
+    "Vaii",
+    "Velho",
+    "vercel",
+    "Vevay",
+    "volta",
+    "Winamac",
+    "Yakutat"
+  ],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js, $(capture)*.snap",
+    "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture)*.snap",
+    "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",
+    "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture)*.snap",
+    "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*",
+    "package.json": ".eslint*, .prettier*, .stylelint*, package-lock.json"
+  },
+  "emmet.excludeLanguages": [],
+  "emmet.includeLanguages": {
+    "markdown": "html",
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": true,
+  "files.exclude": {
+    "**/*.js.map": {
+      "when": "$(basename)"
     },
-    "emmet.excludeLanguages": [],
-    "emmet.includeLanguages": {
-        "markdown": "html",
-        "javascript": "javascriptreact",
-        "typescript": "typescriptreact"
+    "**/node_modules": true
+  },
+  "editor.linkedEditing": true,
+  "html.autoClosingTags": true,
+  "javascript.autoClosingTags": true,
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "javascript.suggest.autoImports": true,
+  "search.exclude": {
+    "**/coverage": true,
+    "**/node_modules": true
+  },
+  "typescript.autoClosingTags": true,
+  "typescript.suggest.autoImports": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "[javascript][typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    // Runs Prettier, then ESLint
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ]
+  },
+  "javascript.format.enable": false,
+  "javascript.validate.enable": true,
+  "typescript.format.enable": false,
+  "typescript.validate.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "stylelint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "[css][scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    "editor.codeActionsOnSave": [
+      "source.fixAll.stylelint"
+    ]
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
     },
-    "emmet.showSuggestionsAsSnippets": true,
-    "emmet.triggerExpansionOnTab": true,
-    "files.exclude": {
-        "**/*.js.map": {
-            "when": "$(basename)"
-        },
-        "**/node_modules": true,
-    },
-    "editor.linkedEditing": true,
-    "html.autoClosingTags": true,
-    "javascript.autoClosingTags": true,
-    "javascript.suggest.completeFunctionCalls": true,
-    "typescript.suggest.completeFunctionCalls": true,
-    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "javascript.inlayHints.parameterNames.enabled": "all",
-    "typescript.inlayHints.parameterNames.enabled": "all",
-    "javascript.suggest.autoImports": true,
-    "search.exclude": {
-        "**/coverage": true,
-        "**/node_modules": true
-    },
-    "typescript.autoClosingTags": true,
-    "typescript.suggest.autoImports": true,
-    "eslint.probe": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ],
-    "[javascript][typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": false,
-        // Runs Prettier, then ESLint
-        "editor.codeActionsOnSave": [
-            "source.formatDocument",
-            "source.fixAll.eslint"
-        ],
-    },
-    "javascript.format.enable": false,
-    "javascript.validate.enable": true,
-    "typescript.format.enable": false,
-    "typescript.validate.enable": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "stylelint.enable": true,
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "[css][scss]": {
-        "editor.defaultFormatter": "stylelint.vscode-stylelint",
-        "editor.codeActionsOnSave": [
-            "source.fixAll.stylelint"
-        ],
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+  "markdownlint.config": {
+    "MD024": {
+      "siblings_only": true
     }
+  },
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  }
 }
