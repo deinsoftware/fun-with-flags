@@ -15,7 +15,7 @@ type EventsTimeZoneList {
 type EventsTimeZoneOrigin {
   countryCode String
   name        String
-  timestamp   DateTime @db.Date
+  date        DateTime @db.Date
 }
 
 type EventsTimeZone {
@@ -37,7 +37,7 @@ model Events {
 }
 
 type TimeZonesList {
-  capital   String
+  capital   Boolean
   initial   String
   offset    Float
   dst       Boolean
