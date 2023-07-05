@@ -1,19 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/utils/prisma";
 
-const getAll = async (res: NextApiResponse) => {
+const getAllEvents = async (res: NextApiResponse) => {
     const events = await prisma.events.findMany();
     res.status(200).json(events);
 }
 
-const getById = async (id: string, res: NextApiResponse) => {
+const getEventsById = async (id: string, res: NextApiResponse) => {
     const eventById = await prisma.events.findUnique({
         where: { id }
     });
     return res.status(200).json(eventById);
 }
 
-const getByUserName = async (userName: string, res: NextApiResponse) => {
+const getEventsByUserName = async (userName: string, res: NextApiResponse) => {
     const eventByUserName = await prisma.events.findMany({
         where: { userName }
     });
@@ -27,7 +27,7 @@ const handler = async (
     try {
         switch (req.method) {
             case 'GET':
-                await getAll(res);
+                await getAllEvents(res);
                 break
 
             case 'POST':
@@ -35,8 +35,9 @@ const handler = async (
                 if (!id && !userName){
                     res.status(400).send({ error: 'not valid parameters' })
                 }
-                if (id) await getById(id, res)
-                if (userName) await getByUserName(userName, res)
+
+                if (id) await getEventsById(id, res)
+                if (userName) await getEventsByUserName(userName, res)
                 break
 
             default:
