@@ -8,7 +8,7 @@ const Footer = () => {
         <div className={styles.btnContainer}>
           {/* use "passHref"? (https://nextjs.org/docs/messages/link-passhref) */}
 
-          <Link href="/home" className={styles.btn} passHref>
+          <Link href="/" className={styles.btn} passHref>
             <span className="material-symbols-outlined">arrow_back_ios</span>
           </Link>
           <Link href="/create-event" className={styles.btn} passHref>
