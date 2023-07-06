@@ -14,8 +14,8 @@ type EventsTimeZoneList {
 
 type EventsTimeZoneOrigin {
   countryCode String
-  name        String
   date        DateTime @db.Date
+  name        String
 }
 
 type EventsTimeZone {
@@ -26,21 +26,24 @@ type EventsTimeZone {
 model Events {
   id          String         @id @default(auto()) @map("_id") @db.ObjectId
   description String
-  img         String
+  img         String?
   lang        String
   name        String
   tags        String[]
   timeZone    EventsTimeZone
-  timestamp   DateTime       @default(now())
-  url         String
-  userName    String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime?
+  url         String?
+
+  author Users  @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
 }
 
 type TimeZonesList {
   capital   Boolean
+  dst       Boolean
   initial   String
   offset    Float
-  dst       Boolean
   zoneNames String[]
 }
 
@@ -48,4 +51,22 @@ model TimeZones {
   id          String          @id @default(auto()) @map("_id") @db.ObjectId
   countryCode String
   timeZone    TimeZonesList[]
+}
+
+type UsersProvidersAuth {
+  image String
+  name  String
+  user  String
+}
+
+type UsersProviders {
+  auth UsersProvidersAuth
+  name String
+}
+
+model Users {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  providers UsersProviders[]
+  userName  String           @unique
+  Events    Events[]
 }

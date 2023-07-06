@@ -6,20 +6,40 @@ const getAllEvents = async (res: NextApiResponse) => {
     res.status(200).json(events);
 }
 
-const getEventsById = async (id: string, res: NextApiResponse) => {
+const getEventById = async (id: string, res: NextApiResponse) => {
     const eventById = await prisma.events.findUnique({
         where: { id }
-    });
+    })
     return res.status(200).json(eventById);
 }
 
 const getEventsByUserName = async (userName: string, res: NextApiResponse) => {
-    const eventByUserName = await prisma.events.findMany({
-        where: { userName }
-    });
-    res.status(200).json(eventByUserName);
+    const eventsByUserName = await prisma.events.findMany({
+        where: {
+            author: {
+                userName
+            }
+        },
+        select: {
+            id: true,
+            description: true,
+            img: true,
+            lang: true,
+            name: true,
+            tags: true,
+            timeZone: true,
+            createdAt: true,
+            updatedAt: true,
+            url: true,
+            author: {
+                select: {
+                    userName: true
+                }
+            }
+        }
+    })
+    return res.status(200).json(eventsByUserName)
 }
-
 
 const handler = async (
     req: NextApiRequest,
@@ -36,7 +56,7 @@ const handler = async (
                     res.status(400).send({ error: 'not valid parameters' })
                 }
 
-                if (id) await getEventsById(id, res)
+                if (id) await getEventById(id, res)
                 if (userName) await getEventsByUserName(userName, res)
                 break
 
@@ -52,8 +72,3 @@ const handler = async (
 }
 
 export default handler
-
-
-
-
-
