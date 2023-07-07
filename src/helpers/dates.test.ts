@@ -1,10 +1,6 @@
 import { beforeEach, it, expect, describe, vi } from 'vitest'
 
-import {
-  isValidTimeZone,
-  convertGmtToNumber,
-  getRegionNames,
-} from './dates'
+import { isValidTimeZone, convertGmtToNumber, getRegionNames } from './dates'
 
 describe('isValidTimeZone()', () => {
   beforeEach(() => {

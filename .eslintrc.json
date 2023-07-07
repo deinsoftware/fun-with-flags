@@ -5,18 +5,12 @@
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended"
   ],
-  "plugins": [
-    "html",
-    "testing-library",
-    "jest-dom"
-  ],
+  "plugins": ["html", "testing-library", "jest-dom"],
   "rules": {
     "no-console": [
       "warn",
       {
-        "allow": [
-          "error"
-        ]
+        "allow": ["error"]
       }
     ],
     "react/prop-types": "off",

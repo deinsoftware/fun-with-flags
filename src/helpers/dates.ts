@@ -26,7 +26,10 @@ export const getTime = (options: { timeZone: TimeZones }, originDate: Date) => {
   })
 }
 
-export const getAcronym = (options: { timeZone: TimeZones }, originDate: Date) => {
+export const getAcronym = (
+  options: { timeZone: TimeZones },
+  originDate: Date
+) => {
   return Intl.DateTimeFormat('default', {
     ...options,
     timeZoneName: 'short',

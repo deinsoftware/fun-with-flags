@@ -1,18 +1,18 @@
 {
-    "recommendations": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "stylelint.vscode-stylelint",
-        "ZixuanChen.vitest-explorer",
-        "Lokalise.i18n-ally",
-        "streetsidesoftware.code-spell-checker",
-        "streetsidesoftware.code-spell-checker-spanish",
-        "christian-kohler.path-intellisense",
-        "deinsoftware.vitest-snippets",
-        "deinsoftware.testing-library-snippets",
-        "usernamehw.errorlens",
-        "mongodb.mongodb-vscode",
-        "Prisma.prisma",
-        "yoavbls.pretty-ts-errors"
-    ]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "ZixuanChen.vitest-explorer",
+    "Lokalise.i18n-ally",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-spanish",
+    "christian-kohler.path-intellisense",
+    "deinsoftware.vitest-snippets",
+    "deinsoftware.testing-library-snippets",
+    "usernamehw.errorlens",
+    "mongodb.mongodb-vscode",
+    "Prisma.prisma",
+    "yoavbls.pretty-ts-errors"
+  ]
 }

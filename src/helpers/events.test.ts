@@ -2,11 +2,7 @@ import { it, expect, describe, vi } from 'vitest'
 
 import { DateInformation, EventDate, ZoneList } from './events.types'
 
-import {
-  getDateInformation,
-  getDatesList,
-  sortDatesList
-} from './events'
+import { getDateInformation, getDatesList, sortDatesList } from './events'
 
 describe('getDateInformation()', () => {
   it('should return the date information with 12 time format', () => {
@@ -121,8 +117,8 @@ describe('getDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -136,9 +132,9 @@ describe('getDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     expect(result).toMatchObject(expected)
@@ -160,8 +156,8 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
+          time: '03:36:42',
+        },
       },
       {
         countryCode: 'US',
@@ -175,9 +171,9 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
-      }
+          time: '21:36:42',
+        },
+      },
     ]
 
     const expected: EventDate[] = [
@@ -193,8 +189,8 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -208,9 +204,9 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     const result = sortDatesList(valueList)
@@ -231,8 +227,8 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
+          time: '03:36:42',
+        },
       },
       {
         countryCode: 'US',
@@ -246,9 +242,9 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
-      }
+          time: '21:36:42',
+        },
+      },
     ]
 
     const expected: EventDate[] = [
@@ -264,8 +260,8 @@ describe('sortDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42'
-        }
+          time: '21:36:42',
+        },
       },
       {
         countryCode: 'ES',
@@ -279,9 +275,9 @@ describe('sortDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42'
-        }
-      }
+          time: '03:36:42',
+        },
+      },
     ]
 
     const result = sortDatesList(valueList)
