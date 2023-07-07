@@ -3,9 +3,6 @@ import styles from './CreateEventComponent.module.css'
 const CreateEventComponent = () => {
   return (
     <>
-      <h1>Title</h1>
-      {/* // ! Cambiar el h1 a un componente, porque se repite en todas las páginas y luego pasarlo como prop, dependiendo de dónde se esté */}
-
       <div className={styles.containerForm}>
         <form action="" className={styles.form}>
           <div>
