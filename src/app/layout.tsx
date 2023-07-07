@@ -3,7 +3,8 @@ import '../../styles/globals.css'
 
 import Head from 'next/head'
 import Header from './components/Header'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
+import FooterTwo from './components/FooterTwo'
 
 // const inter = Inter({ subsets: ['latin']})
 
@@ -35,7 +36,8 @@ export default function RootLayout({
 
         {children}
 
-        <Footer />
+        {/* <Footer /> */}
+        <FooterTwo />
       </body>
     </html>
   )

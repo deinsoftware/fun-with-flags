@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styles from './Header.module.css'
+import LoginButton from './LoginButton'
 
 const Header = () => {
   return (
@@ -12,9 +13,7 @@ const Header = () => {
           height={60}
           alt="Logo"
         />
-        <div className={styles.themeToggler}>
-          <div className={styles.toggler} />
-        </div>
+        <LoginButton />
       </header>
     </>
   )

@@ -1,12 +1,12 @@
 .header {
-    background-color: var(--color-purple-500);
+    background-color: var(--color-purple-900);
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     width: 100%;
     max-height: 80px;
-    padding: 20px;
+    padding: 20px 40px;
 
     position: relative;
 
