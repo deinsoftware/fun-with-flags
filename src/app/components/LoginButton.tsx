@@ -9,7 +9,7 @@ const LoginButton = () => {
   return (
     <>
     {session ? (
-      <button  className={styles["login-button"]} onClick={() => signOut()}>
+      <a className={styles["login-button"]} onClick={() => signOut()}>
         
           <Image
             className={styles.icon}
@@ -19,7 +19,7 @@ const LoginButton = () => {
             alt="Login button"
           />
         {/* Sign Out */}
-      </button>
+      </a>
       
     ) : (
       <button className={styles["login-button"]} onClick={() => signIn()}>
