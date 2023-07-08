@@ -72,7 +72,6 @@
   }
 }
 
-
 .center {
   position: relative;
   display: flex;
@@ -104,7 +103,6 @@
     transform: translateZ(0);
   }
 }
-
 
 .logo {
   position: relative;
@@ -183,11 +181,11 @@
       border-bottom: 1px solid rgb(var(--callout-border-rgb) 0.25);
       backdrop-filter: blur(24px);
       background:
-        linear-gradient(
-          to bottom,
-          rgb(var(--background-start-rgb) 1),
-          rgb(var(--callout-rgb) 0.5)
-        );
+ linear-gradient(
+        to bottom,
+        rgb(var(--background-start-rgb) 1),
+        rgb(var(--callout-rgb) 0.5)
+      );
       background-clip: padding-box;
       inset: 0 0 auto;
     }
@@ -198,11 +196,11 @@
       align-items: flex-end;
       padding: 2rem;
       background:
-        linear-gradient(
-          to bottom,
-          transparent 0%,
-          rgb(var(--background-end-rgb)) 40%
-        );
+ linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%
+      );
       inset: auto 0 0;
       pointer-events: none;
     }

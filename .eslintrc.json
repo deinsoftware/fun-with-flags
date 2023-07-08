@@ -5,13 +5,14 @@
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended"
   ],
-  "plugins": [
-    "html",
-    "testing-library",
-    "jest-dom"
-  ],
+  "plugins": ["html", "testing-library", "jest-dom"],
   "rules": {
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": ["error"]
+      }
+    ],
     "react/prop-types": "off",
     "react/self-closing-comp": "warn",
     "react/react-in-jsx-scope": "off",
