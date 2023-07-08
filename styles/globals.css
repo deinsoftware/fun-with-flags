@@ -1,0 +1,98 @@
+@import './minireset.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+  /* Font-family */
+  --font-family-primary: 'Poppins', sans-serif;
+
+  /* Font-size*/
+  --font-size-small: 12px;
+  --font-size-medium: 14px;
+  --font-size-large: 16px;
+  --font-size-title: 28px;
+
+  /* Font-weight */
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+
+  /* 
+    ! Add (#1F1F1F) color (background-componentFooter)
+    */
+
+  /* Colors */
+  --color-neutral-300: #252525;
+  --color-neutral-400: #1D1D1D;
+  --color-neutral-500: #141414;
+  --color-neutral-600: #121212;
+  --color-neutral-700: #000000;
+
+  --color-purple-300: #976DF5;
+  --color-purple-400: #895EEB;
+  --color-purple-500: #7E56DA;
+  --color-purple-600: #7349D4;
+  --color-purple-700: #6135C6;
+  --color-purple-800: #;
+  --color-purple-900: #5220C6;
+  --color-purple-950: #;
+
+  --color-darkgray-300: #454545;
+  --color-darkgray-400: #3D3D3D;
+  --color-darkgray-500: #333333;
+  --color-darkgray-600: #2E2E2E;
+  --color-darkgray-700: #292929;
+  --color-darkgray-800: #;
+  --color-darkgray-900: #202020;
+  --color-darkgray-950: #;
+
+
+  --color-whywhite-300: #FFFFFF;
+  --color-whywhite-400: #FBFCFD;
+  --color-whywhite-500: #F9FBFC;
+  --color-whywhite-600: #F4F4F4;
+  --color-whywhite-700: #E8E8E8;
+
+  --color-gray-300: #BABABA;
+  --color-gray-400: #AFAFAF;
+  --color-gray-500: #A4A4A4;
+  --color-gray-600: #939393;
+  --color-gray-700: #8C8C8C;
+
+  --color-darkmagenta-300: #1D0016;
+  --color-darkmagenta-400: #160011;
+  --color-darkmagenta-500: #12000E;
+  --color-darkmagenta-600: #0D000A;
+  --color-darkmagenta-700: #070006;
+
+  /* FIXME: change name to bg-input-darkmode | I need ideas */
+  --color-input-bg-darkmode-025opacity: #66666625;
+  --color-whywhite-500-025opacity: #F9FBFC25;
+
+
+  /*! Media query (Breakpoints) */
+  /* > 640px */
+  /* @media screen and (min-width: 640px) {
+        body {
+            background-color: #111;
+        }
+    } */
+
+  /* > 920px */
+  /* @media screen and (min-width: 920px) {
+        body {
+            background-color: #fff;
+        }
+    } */
+
+  /* > 1200px */
+  /* @media screen and (min-width: 1200px) {
+        body {
+            background-color: #ccc;
+        }
+    } */
+}
+
+body {
+  background-color: var(--color-neutral-500);
+  font-family: var(--font-family-primary);
+}
