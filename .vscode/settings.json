@@ -163,5 +163,10 @@
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnSave": true,
     "editor.tabSize": 2
-  }
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
 }
