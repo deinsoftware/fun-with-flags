@@ -142,10 +142,32 @@
   "scss.validate": false,
   "[css][scss]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint",
-    "editor.codeActionsOnSave": ["source.fixAll.stylelint"]
+    "editor.codeActionsOnSave": [
+      "source.fixAll.stylelint"
+    ]
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
     "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+  "markdownlint.config": {
+    "MD024": {
+      "siblings_only": true
+    }
+  },
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
   }
 }

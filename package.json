@@ -15,8 +15,8 @@
     "test:ui": "vitest --ui",
     "test:c": "vitest run --coverage",
     "test:cw": "vitest watch --coverage",
-    "prisma:p": "npx prisma db pull --force",
-    "prisma:c": "npx prisma generate"
+    "prisma:pull": "npx prisma db pull --force",
+    "prisma:client": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "4.16.2",
