@@ -92,12 +92,6 @@
   },
   "emmet.showSuggestionsAsSnippets": true,
   "emmet.triggerExpansionOnTab": true,
-  "files.exclude": {
-    "**/*.js.map": {
-      "when": "$(basename)"
-    },
-    "**/node_modules": true
-  },
   "editor.linkedEditing": true,
   "html.autoClosingTags": true,
   "javascript.autoClosingTags": true,
