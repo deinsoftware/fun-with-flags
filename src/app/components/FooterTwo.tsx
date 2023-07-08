@@ -7,7 +7,7 @@ const FooterTwo = () => {
     <>
       <footer className={styles.footer}>
         <div className={styles.btnContainer}>
-          <Link href="home" className="">
+          <Link href="/" className="">
             <div className="">
               <Image
                 className=""
@@ -19,7 +19,7 @@ const FooterTwo = () => {
             </div>
           </Link>
 
-          <Link href="events" className="">
+          <Link href="/events" className="">
             <div className="">
               <Image
                 className=""
@@ -31,7 +31,7 @@ const FooterTwo = () => {
             </div>
           </Link>
 
-          <Link href="create-event" className="">
+          <Link href="/create-event" className="">
             <div className="">
               <Image
                 className=""

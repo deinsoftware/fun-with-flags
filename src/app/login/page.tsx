@@ -1,8 +1,14 @@
+"use client"
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './page.module.css'
 
+import { signIn } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation'
 const LoginPage = () => {
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams?.get('callbackUrl') || '/'
+
   return (
     <>
       <div className={styles.loginContainer}>
@@ -13,7 +19,7 @@ const LoginPage = () => {
         </div>
 
         <div className={styles.providersButton}>
-          <button>
+          <button onClick={() => signIn('google', {callbackUrl})}>
             <Image
               className=""
               src="/img/btnGoogle.png"
