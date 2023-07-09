@@ -9,6 +9,7 @@
   --font-size-small: 12px;
   --font-size-medium: 14px;
   --font-size-large: 16px;
+  --font-size-xlarge: 18px;
   --font-size-title: 28px;
 
   /* Font-weight */
@@ -78,6 +79,10 @@
 
   --color-white-000: #ffffff;
   --color-black-000: #000000;
+
+  --color-btn-google: #4285F4;
+  --color-btn-google-hover: #3d7de4;
+  --color-btn-google-active: #3367d6;
 }
 
 body {

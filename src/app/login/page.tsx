@@ -6,30 +6,35 @@ const LoginPage = () => {
   return (
     <>
       <div className={styles.loginContainer}>
-        <div className={styles.text}>
-          <span>
+        <div className="">
+          <span className={styles.paragraph}>
             Use your email or another service to continue with FwF (it's free)!
           </span>
         </div>
 
         <div className={styles.providersButton}>
-          <button>
+          <button className={`${styles.provider} ${styles.googleProvider}`}>
             <Image
-              className=""
+              className={styles.imageProvider}
               src="/img/btnGoogle.png"
               alt="Login with Google"
               width={32}
               height={32}
             />
-            <span>Continue with Google</span>
+            <span className={styles.nameProvider}>Continue with Google</span>
           </button>
         </div>
 
-        <div className={styles.helperText}>
-          <span>
+        <div className="">
+          <span className={styles.helperText}>
             By continuing, you agree to FwF’s{' '}
-            <Link href="#">Terms of Use.</Link> Read our{' '}
-            <Link href="#">Privacy Policy.</Link>
+            <Link href="#" className={styles.helperTextLink}>
+              Terms of Use.
+            </Link>{' '}
+            Read our{' '}
+            <Link href="#" className={styles.helperTextLink}>
+              Privacy Policy.
+            </Link>
           </span>
         </div>
       </div>
