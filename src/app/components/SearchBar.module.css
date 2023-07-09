@@ -1,0 +1,40 @@
+.searchBarContainer {
+    padding: 12px 40px;
+
+    & .searchBar {
+        width: 100%;
+        height: 40px;
+        padding: 4px;
+        border-radius: 8px;
+
+        display: flex;
+
+        background-color: var(--color-darkgray-800);
+
+        & .search {
+            width: 100%;
+
+            background-color: transparent;
+            border: 1px solid transparent;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        & .actions {
+            display: flex;
+            gap: 4px;
+
+            & .btnAction {
+                width: 32px;
+                height: 100%;
+
+                background-color: transparent;
+                border: none;
+
+                cursor: pointer;
+            }
+        }
+    }
+}

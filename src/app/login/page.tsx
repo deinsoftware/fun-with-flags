@@ -8,7 +8,7 @@ const LoginPage = () => {
       <div className={styles.loginContainer}>
         <div className="">
           <span className={styles.paragraph}>
-            Use your email or another service to continue with FwF (it's free)!
+            {`Use your email or another service to continue with FwF (it's free)!`}
           </span>
         </div>
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
 
         <div className="">
           <span className={styles.helperText}>
-            By continuing, you agree to FwF’s{' '}
+            {`By continuing, you agree to FwF’s`}{' '}
             <Link href="#" className={styles.helperTextLink}>
               Terms of Use.
             </Link>{' '}
