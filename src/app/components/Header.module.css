@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--color-purple-900);
+    background-color: var(--color-darkgray-900);
     display: flex;
     justify-content: space-between;
     align-items: center;

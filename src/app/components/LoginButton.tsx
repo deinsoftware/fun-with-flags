@@ -7,13 +7,7 @@ const LoginButton = () => {
     <>
       <Link href="login" className={styles.loginButton}>
         <div className={styles.bgIcon}>
-          <Image
-            className={styles.icon}
-            src="/img/btnLogin.png"
-            width={32}
-            height={32}
-            alt="Login button"
-          />
+          <span className={styles.text}>Sign Up</span>
         </div>
       </Link>
     </>

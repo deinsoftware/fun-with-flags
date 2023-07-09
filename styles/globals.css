@@ -75,6 +75,9 @@
   --color-darkpurple-800: #0A0518;
   --color-darkpurple-900: #080413;
   --color-darkpurple-950: #;
+
+  --color-white-000: #ffffff;
+  --color-black-000: #000000;
 }
 
 body {

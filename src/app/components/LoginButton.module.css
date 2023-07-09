@@ -1,29 +1,23 @@
 .loginButton {
+    text-decoration: none;
 
     & .bgIcon {
-        width: 36px;
+        width: 72px;
         height: 36px;
-        padding: 4px;
-        background-color: #202020;
+        background-color: var(--color-purple-900);
 
-            {
-            /* Añadir a variables*/
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        border-radius: 50%;
-        transition: background 0.3s ease-in-out;
+        border: 1px solid var(--color-darkgray-500);
+        border-radius: 2px;
+        box-shadow: 0 2px 2px var(--color-black-000);
 
-        &:hover {
-            background-color: var(--color-neutral-500);
-        }
-
-        & Image {
-            /* .icon es la clase, pero no funciona (? siento que es el postcss con el nesting */
-        }
-
-            {
-            width: 32px;
-            height: 32px;
+        & .text {
+            color: var(--color-whywhite-500);
+            font-size: var(--font-size-small);
+            font-weight: var(--font-weight-bold);
         }
     }
 }
