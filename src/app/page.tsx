@@ -1,9 +1,11 @@
 import styles from './page.module.css'
 
-export default function MainPage() {
+const  HomePage = () => {
   return (
     <>
       
     </>
   )
 }
+
+export default HomePage
