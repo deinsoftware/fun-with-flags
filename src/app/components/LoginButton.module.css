@@ -2,9 +2,9 @@
     text-decoration: none;
 
     & .bgIcon {
-        width: 72px;
-        height: 36px;
-        background-color: var(--color-purple-900);
+        width: 92px;
+        height: 40px;
+        background-color: var(--color-purple-700);
 
         display: flex;
         align-items: center;
@@ -14,10 +14,30 @@
         border-radius: 2px;
         box-shadow: 0 2px 2px var(--color-black-000);
 
+        &:hover {
+            background-color: var(--color-purple-800);
+        }
+
+        &:focus {
+            outline: none;
+            border: none;
+        }
+
+        &:active {
+            background-color: var(--color-purple-900);
+            box-shadow: none;
+            border: 1px solid var(--color-darkgray-500);
+        }
+
         & .text {
             color: var(--color-whywhite-500);
-            font-size: var(--font-size-small);
+            font-size: var(--font-size-medium);
             font-weight: var(--font-weight-bold);
+
+            /* &:hover {
+                color: var(--color-whywhite-500);
+            } */
+            /* TODO: Agregar más variables de blanco para utilizar en el hover de los botones con texto blanco*/
         }
     }
 }
