@@ -3,17 +3,18 @@ import Image from 'next/image'
 import styles from './Footer.module.css'
 
 const FooterTwo = () => {
+  const imageWidth = 25
   return (
     <>
       <footer className={styles.footer}>
-        <div className={styles.btnContainer}>
+        <div className={styles['btn-container']}>
           <Link href="/" className="">
             <div className="">
               <Image
                 className=""
                 src="/img/home.png"
-                width={28}
-                height={28}
+                width={imageWidth}
+                height={imageWidth}
                 alt="Home"
               />
             </div>
@@ -24,8 +25,8 @@ const FooterTwo = () => {
               <Image
                 className=""
                 src="/img/events.png"
-                width={28}
-                height={28}
+                width={imageWidth}
+                height={imageWidth}
                 alt="Events"
               />
             </div>
@@ -36,8 +37,8 @@ const FooterTwo = () => {
               <Image
                 className=""
                 src="/img/createEvent.png"
-                width={28}
-                height={28}
+                width={imageWidth}
+                height={imageWidth}
                 alt="Create event"
               />
             </div>
@@ -48,8 +49,8 @@ const FooterTwo = () => {
               <Image
                 className=""
                 src="/img/menu.png"
-                width={28}
-                height={28}
+                width={imageWidth}
+                height={imageWidth}
                 alt="Settings"
               />
             </div>

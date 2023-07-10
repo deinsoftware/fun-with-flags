@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <>
       <SearchBar />
-      <div className={styles.containerCards}>
+      <div className={styles['container-cards']}>
         <CardPost />
         <CardPost />
       </div>

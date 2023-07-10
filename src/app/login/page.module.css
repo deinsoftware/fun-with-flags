@@ -3,13 +3,13 @@
     width: 100%;
     height: 400px;
     flex-direction: column;
-    justify-content: space-between;
 
     /* ! Buscar mejor manera de poner el height */
 
     /* TODO: No funciona en dispositivos de diferentes alturas */
     padding: 12px 40px;
     color: var(--color-whywhite-500);
+    gap: 3rem;
 
     & .paragraph {
         font-size: var(--font-size-medium);
@@ -35,7 +35,9 @@
     & .providers-button {
         display: flex;
         width: 100%;
+        max-width: 250px;
         flex-direction: column;
+        color: var(--color-neutral-700);
         gap: 16px;
 
         /* Estos estilos serviran para cuando tengamos más de un provider */
@@ -43,13 +45,14 @@
         & .provider {
             display: flex;
             width: 100%;
-            height: 48px;
             align-items: center;
-            padding: 2px;
+            padding: .6rem 1rem;
             border: 1px solid transparent;
-            border-radius: 2px;
+            border-radius: 4px;
             cursor: pointer;
-            outline: 1px solid transparent;
+            font-size: 15px;
+            gap: 1rem;
+            
 
             &:hover {
                 border: none;
@@ -69,16 +72,18 @@
         }
 
         & .google-provider {
-            background-color: var(--color-btn-google);
-            color: var(--color-whywhite-500);
+            background-color: var(--color-white-000);
+            color: var(--color-neutral-400);
+            font-weight: 700;
 
             &:hover {
                 border: 1px solid transparent;
-                background-color: var(--color-btn-google-hover);
+                background-color: var(--color-purple-800);
+                color: var(--color-whywhite-500);
             }
 
             &:active {
-                background-color: var(--color-btn-google-active);
+                background-color: var(--color-purple-800);
             }
         }
     }
