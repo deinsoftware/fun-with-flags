@@ -23,7 +23,7 @@ const handler = async (request: Request) => {
     const { provider, user } = (await request.json()) || {}
     if (!provider && !user) {
       return NextResponse.json(
-        { error: 'not valid parameters' },
+        { error: 'not valid body parameters' },
         { status: 400 },
       )
     }
