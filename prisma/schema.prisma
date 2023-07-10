@@ -64,8 +64,10 @@ type UsersProviders {
 
 model Users {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
-  providers UsersProviders[]
   userName  String           @unique
+  providers UsersProviders[]
+  createdAt DateTime         @default(now())
+  loginAt   DateTime?        @updatedAt
 
   Events Events[]
 }
