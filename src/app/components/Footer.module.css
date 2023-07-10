@@ -1,3 +1,9 @@
+/* ! FIXME: Cambiar este nombre */
+.estoEmpujaElFooterSuTamañoHaciaAbajo {
+    width: 100%;
+    height: 80px;
+}
+
 .footer {
     position: fixed;
     bottom: 0;

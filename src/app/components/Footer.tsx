@@ -5,6 +5,9 @@ import styles from './Footer.module.css'
 const FooterTwo = () => {
   return (
     <>
+      <div className={styles.estoEmpujaElFooterSuTamañoHaciaAbajo} />
+      {/* ! FIXME: Cambiar el nombre de la clase de arriba */}
+
       <footer className={styles.footer}>
         <div className={styles.btnContainer}>
           <Link href="/" className="">
