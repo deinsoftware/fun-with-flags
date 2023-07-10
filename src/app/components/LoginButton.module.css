@@ -1,6 +1,7 @@
 .login-button {
     display: flex;
-    width: 92px;
+
+    /* max-width: 92px; */
     align-items: center;
     justify-content: center;
     padding: .6rem 1rem;
@@ -9,6 +10,7 @@
     background-color: var(--color-purple-700);
     box-shadow: 0 2px 2px var(--color-black-000);
     cursor: pointer;
+    gap: .5rem;
 
     &:hover {
         background-color: var(--color-purple-800);

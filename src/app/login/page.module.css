@@ -38,7 +38,7 @@
         max-width: 250px;
         flex-direction: column;
         color: var(--color-neutral-700);
-        gap: 16px;
+        gap: 1rem;
 
         /* Estos estilos serviran para cuando tengamos más de un provider */
 
@@ -51,7 +51,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 15px;
-            gap: 1rem;
+            gap: .5rem;
             
 
             &:hover {
