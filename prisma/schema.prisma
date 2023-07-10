@@ -32,7 +32,7 @@ model Events {
   tags        String[]
   timeZone    EventsTimeZone
   createdAt   DateTime       @default(now())
-  updatedAt   DateTime?
+  updatedAt   DateTime?      @updatedAt
   url         String?
 
   Users  Users  @relation(fields: [userId], references: [id])
