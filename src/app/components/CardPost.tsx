@@ -1,28 +1,26 @@
 import Image from 'next/image'
 import styles from './CardPost.module.css'
 
-const CardPost = () => {
+// TODO:
+// ! Por ahora funciona, pero hay un error con el typado de typescrit
+const CardPost = ({ srcImage, title, text, date }) => {
   return (
     <>
       <article className={styles.cardContainer}>
         <Image
           className={styles.imagenCard}
-          src="/img/placeholderlogo.png"
+          src={srcImage}
           width={200}
           height={60}
           alt="Post image"
         />
         <div className={styles.containerInformation}>
           <header>
-            <h3 className={styles.titleCard}>{'¿Qué es una zona horaria?'}</h3>
+            <h3 className={styles.titleCard}>{title}</h3>
           </header>
-          <p className={styles.textCard}>
-            Es conveniente que las áreas en estrecha comunicación comercial o de
-            otra índole se mantengan al mismo tiempo, por lo que las zonas
-            horarias...
-          </p>
+          <p className={styles.textCard}>{text}</p>
           <footer className={styles.footerCard}>
-            <span className={styles.dateCard}>Abr 27, 2054</span>
+            <span className={styles.dateCard}>{date}</span>
             <button className={styles.openPostButton}>{'Open ->'}</button>
           </footer>
         </div>
