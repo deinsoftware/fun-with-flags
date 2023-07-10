@@ -1,0 +1,12 @@
+.loginContainer {
+    width: 100%;
+    height: 400px;
+    /* ! Buscar mejor manera de poner el height*/
+    padding: 12px 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    color: white;
+}
