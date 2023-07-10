@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-import { Prisma } from '@prisma/client'
-import prisma from '@/utils/prisma'
-import type { Events } from '@prisma/client'
+import { prisma, Prisma } from '@/utils/prisma'
 
 const getEventById = async (id: string) => {
   const eventById = await prisma.events.findUnique({
@@ -79,7 +77,7 @@ const postHandler = async (request: Request) => {
 const putHandler = async (request: Request) => {
   try {
     const { userName, ...rest } = (await request.json()) || {}
-    const data: Events = {
+    const data: Prisma.EventsCreateInput = {
       ...rest,
       Users: {
         connect: {
@@ -102,7 +100,7 @@ const putHandler = async (request: Request) => {
 const patchHandler = async (request: Request) => {
   try {
     const { id, ...rest } = (await request.json()) || {}
-    const data: Events = {
+    const data: Prisma.EventsUpdateInput = {
       ...rest,
     }
 
@@ -111,7 +109,7 @@ const patchHandler = async (request: Request) => {
       where: { id },
       select: eventsSelect,
     })
-    return NextResponse.json(event, { status: 201 })
+    return NextResponse.json(event)
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === 'P2025') {
