@@ -1,10 +1,15 @@
-import SearchBar from './components/SearchBar'
 import styles from './page.module.css'
+import SearchBar from './components/SearchBar'
+import CardPost from './components/CardPost'
 
 const HomePage = () => {
   return (
     <>
       <SearchBar />
+      <div className={styles.containerCards}>
+        <CardPost />
+        <CardPost />
+      </div>
     </>
   )
 }

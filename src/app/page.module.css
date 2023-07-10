@@ -1,0 +1,7 @@
+.containerCards {
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px 40px;
+    gap: 36px;
+}
