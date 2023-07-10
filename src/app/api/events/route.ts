@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/utils/prisma'
+import { prisma } from '@/utils/prisma'
 
 const getEventById = async (id: string) => {
   const eventById = await prisma.events.findUnique({

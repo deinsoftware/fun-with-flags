@@ -66,8 +66,9 @@ model Users {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
   userName  String           @unique
   providers UsersProviders[]
+  role      String           @default("USER")
   createdAt DateTime         @default(now())
-  loginAt   DateTime?        @updatedAt
+  updatedAt DateTime?        @updatedAt
 
   Events Events[]
 }

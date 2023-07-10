@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/utils/prisma'
+import { prisma, Prisma } from '@/utils/prisma'
 import { Providers } from '@/shared/types/providers.types'
 
-const getUser = async (provider: Providers, user: string) => {
+const getUserByProvider = async (provider: Providers, user: string) => {
   const userByProvider = await prisma.users.findFirst({
     where: {
       providers: {
@@ -18,7 +18,7 @@ const getUser = async (provider: Providers, user: string) => {
   return NextResponse.json(userByProvider)
 }
 
-const handler = async (request: Request) => {
+const postHandler = async (request: Request) => {
   try {
     const { provider, user } = (await request.json()) || {}
     if (!provider && !user) {
@@ -28,11 +28,82 @@ const handler = async (request: Request) => {
       )
     }
 
-    return await getUser(provider, user)
+    return await getUserByProvider(provider, user)
   } catch (error) {
-    console.error({ 'API Events Error': error })
+    console.error({ 'API Users Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
   }
 }
 
-export { handler as POST }
+const putHandler = async (request: Request) => {
+  try {
+    const data: Prisma.UsersCreateInput = (await request.json()) || {}
+
+    const user = await prisma.users.create({
+      data,
+    })
+    return NextResponse.json(user, { status: 201 })
+  } catch (error) {
+    console.error({ 'API Users Error': error })
+    return NextResponse.json({ error: 'failed to create' }, { status: 500 })
+  }
+}
+
+const patchHandler = async (request: Request) => {
+  try {
+    const { id, ...rest } = (await request.json()) || {}
+    const data: Prisma.UsersUpdateInput = {
+      ...rest,
+    }
+
+    const user = await prisma.users.update({
+      data,
+      where: { id },
+    })
+    return NextResponse.json(user)
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json({ error: 'user not found' }, { status: 404 })
+      }
+    }
+
+    console.error({ 'API Users Error': error })
+    return NextResponse.json({ error: 'failed to update' }, { status: 500 })
+  }
+}
+
+const delHandler = async (request: Request) => {
+  try {
+    const { id } = (await request.json()) || {}
+    if (!id) {
+      return NextResponse.json(
+        { error: 'not valid body parameters' },
+        { status: 400 },
+      )
+    }
+
+    const user = await prisma.users.delete({
+      where: {
+        id,
+      },
+    })
+    return NextResponse.json(user)
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json({ error: 'user not found' }, { status: 404 })
+      }
+    }
+
+    console.error({ 'API Events Error': error })
+    return NextResponse.json({ error: 'failed to delete' }, { status: 501 })
+  }
+}
+
+export {
+  postHandler as POST,
+  putHandler as PUT,
+  patchHandler as PATCH,
+  delHandler as DEL,
+}

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/utils/prisma'
+import { prisma } from '@/utils/prisma'
 
 import { Locale } from '@/shared/types/locale.types'
 import { Countries } from '@/shared/types/countries.types'
