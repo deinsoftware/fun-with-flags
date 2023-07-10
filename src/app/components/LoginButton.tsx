@@ -8,24 +8,28 @@ const LoginButton = () => {
   const {data: session } = useSession()
   return (
     <>
-    {session ? (
-      <a className={styles["login-button"]} onClick={() => signOut()}>
-        
+      {session ? (
+         
+        <button className={styles['login-button']} onClick={() => signOut()}>
           <Image
-            className={styles.icon}
-            src={session?.user?.image ||"/img/btnLogin.png"}
-            width={32}
-            height={32}
-            alt="Login button"
+              className={styles['bg-icon']}
+              src={session?.user?.image ||"/img/btnLogin.png"}
+              width={32}
+              height={32}
+              alt="Login button"
           />
-        {/* Sign Out */}
-      </a>
+          <div className={styles['bg-icon']}>
+            <span className={styles.text}>Sign Out</span>
+          </div>
+        </button>
+      ) : (
+        <button className={styles['login-button']} onClick={() => signIn()}>
+            <div className={styles['bg-icon']}>
+              <span className={styles.text}>Sign Up</span>
+            </div>
+        </button>
+      )}
       
-    ) : (
-      <button className={styles["login-button"]} onClick={() => signIn()}>
-          Sign In
-      </button>
-    )}
     </>
   )
 }

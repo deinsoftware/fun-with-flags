@@ -1,19 +1,43 @@
 .login-button {
-    width: 50px;
-    height: 50px;
-    padding: 4px;
-    border-radius: 50%;
-    background-color: #202020;
-    color: #fff;
-    transition: background 0.3s ease-in-out;
+    text-decoration: none;
 
-    
-    & img {
-        width: 100%;
-        border-radius: 50%;
+    & .bg-icon {
+        display: flex;
+        width: 92px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-darkgray-500);
+        border-radius: 2px;
+        background-color: var(--color-purple-700);
+        box-shadow: 0 2px 2px var(--color-black-000);
 
-        /* .icon es la clase, pero no funciona (? siento que es el postcss con el nesting */
-        object-fit: cover;
+        &:hover {
+            background-color: var(--color-purple-800);
+        }
+
+        &:focus {
+            border: none;
+            outline: none;
+        }
+
+        &:active {
+            border: 1px solid var(--color-darkgray-500);
+            background-color: var(--color-purple-900);
+            box-shadow: none;
+        }
+
+        & .text {
+            color: var(--color-whywhite-500);
+            font-size: var(--font-size-medium);
+            font-weight: var(--font-weight-bold);
+
+            /* &:hover {
+                color: var(--color-whywhite-500);
+            } */
+
+            /* TODO: Agregar más variables de blanco para utilizar en el hover de los botones con texto blanco */
+        }
     }
 
    
