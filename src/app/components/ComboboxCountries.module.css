@@ -31,3 +31,20 @@
     justify-content: flex-start;
     gap: .2rem;
 }
+
+
+
+.flag:hover {
+    background-image: url("/img/trash-can-regular.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    cursor: pointer;
+
+
+    & img {
+        /* display: none; */
+        opacity: 0.1;
+    }
+}
+

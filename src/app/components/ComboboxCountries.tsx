@@ -1,5 +1,6 @@
 "use client"
 import ReactCountryFlag from "react-country-flag"
+import Image from 'next/image'
 import style from './ComboboxCountries.module.css'
 
 import { getDatesList, sortDatesList } from "@/helpers/events"
@@ -74,7 +75,7 @@ const ComboboxCountries = () => {
         timeFormat: 24,
     }
     const dateList =sortDatesList(getDatesList(valueList))
-    
+
     const filterDates = (dateList: EventDate[]) =>{
         let groupedDates: TimezoneInfo = {}
 
@@ -97,22 +98,25 @@ const ComboboxCountries = () => {
         const timeToRender = groupedDatesArray.map(([time, groupedDate]) => {
             return (
                 <div key={time} className={style['countries']}>
-                    <p >{` ${time} (${groupedDate.gmt})`}</p>
+                    <p >{`${time} (${groupedDate.gmt})`}</p>
                     <div className={style['flags-container']}>
                     {groupedDate.countryCodes.map(([countryCode, name]) =>{
                         return (
-                            <ReactCountryFlag
-                            onClick={() => {
-                                console.log(name)
-                            }}
-                            key={name}
-                            countryCode={countryCode}
-                            svg
-                            style={{
-                                width: '1.4rem',
-                                height: '1.4rem',
-                            }}
-                            />
+                            <div key={name} className={style['flag']}>
+                                
+                                <ReactCountryFlag
+                                onClick={() => {
+                                    console.log(name)
+                                }} 
+                                id={name}
+                                countryCode={countryCode}
+                                svg
+                                style={{
+                                    width: '1.8rem',
+                                    height: '1.8rem',
+                                }}
+                                />
+                            </div>
                         )
                     })}
                     </div>
@@ -126,7 +130,6 @@ const ComboboxCountries = () => {
     return (
         
         <div className={style['countries-container']}>
-
             {(typeof dateList !== 'undefined') ?  filterDates(dateList)
             : 'Add a timezone to start'}
             
