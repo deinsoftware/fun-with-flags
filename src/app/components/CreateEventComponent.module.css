@@ -1,25 +1,23 @@
-.containerForm {
+.container-form {
     width: 100%;
     height: auto;
     padding: 0 40px;
 }
 
 .form {
-    width: 100%;
-    margin: 0 auto;
-
     display: flex;
+    width: 100%;
     flex-direction: column;
+    margin: 0 auto;
     gap: 16px;
 
-    & .fullWidth {
+    & .full-width {
         width: 100%;
     }
 
     & textarea {
-        resize: none;
-
         height: 80px;
+        resize: none;
     }
 
     & input,
@@ -30,12 +28,11 @@
     & input,
     select,
     textarea {
-        color: var(--color-whywhite-500);
-        border-radius: 10px;
-
-        background-color: #66666625;
         /* Este color no tiene variable todavía */
         border: 1.5px solid var(--color-darkgray-500);
+        border-radius: 10px;
+        background-color: #66666625;
+        color: var(--color-whywhite-500);
 
         &::placeholder {
             color: var(--color-gray-500);
@@ -48,7 +45,7 @@
     }
 }
 
-.containerHalfWidth {
+.container-half-width {
     display: flex;
     gap: 8px;
 

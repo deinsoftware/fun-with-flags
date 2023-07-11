@@ -3,36 +3,36 @@ import styles from './CreateEventComponent.module.css'
 const CreateEventComponent = () => {
   return (
     <>
-      <div className={styles.containerForm}>
+      <div className={styles['container-form']}>
         <form action="" className={styles.form}>
           <div>
             <input
               type="text"
               name=""
               id=""
-              className={styles.fullWidth}
+              className={styles['full-width']}
               placeholder="Event name"
             />
           </div>
 
-          <div className={styles.containerHalfWidth}>
+          <div className={styles['container-half-width']}>
             <div>
-              <input type="time" name="" id="" className={styles.fullWidth} />
+              <input type="time" name="" id="" className={styles['full-width']} />
             </div>
             <div>
-              <input type="date" name="" id="" className={styles.fullWidth} />
+              <input type="date" name="" id="" className={styles['full-width']} />
             </div>
           </div>
 
-          <div className={styles.containerHalfWidth}>
+          <div className={styles['container-half-width']}>
             <div className={styles.halfWidth}>
-              <select name="" id="" className={styles.fullWidth}>
+              <select name="" id="" className={styles['full-width']}>
                 <option value="tm-1">Time zone 1</option>
                 <option value="tm-2">Time zone 2</option>
               </select>
             </div>
             <div className={styles.halfWidth}>
-              <select name="" id="" className={styles.fullWidth}>
+              <select name="" id="" className={styles['full-width']}>
                 <option value="lg-1">First language</option>
                 <option value="lg-2">Second language</option>
               </select>
@@ -45,7 +45,7 @@ const CreateEventComponent = () => {
               name=""
               id=""
               placeholder="Hyperlink"
-              className={styles.fullWidth}
+              className={styles['full-width']}
             />
           </div>
           <div className={styles.prueba}>
@@ -54,7 +54,7 @@ const CreateEventComponent = () => {
               name=""
               id=""
               placeholder="Description"
-              className={styles.fullWidth}
+              className={styles['full-width']}
             />
           </div>
           <div>
@@ -64,7 +64,7 @@ const CreateEventComponent = () => {
               name=""
               id=""
               placeholder="how to do an update image?"
-              className={styles.fullWidth}
+              className={styles['full-width']}
             />
           </div>
           <div>
@@ -73,7 +73,7 @@ const CreateEventComponent = () => {
               name=""
               id=""
               placeholder="🚩 🚩 🚩 🚩 🚩 🚩 🚩 🚩"
-              className={styles.fullWidth}
+              className={styles['full-width']}
             />
           </div>
         </form>
