@@ -10,7 +10,7 @@
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
     "styles": "stylelint \"**/*.css\"",
-    "styles:fix": "stylelint --fix",
+    "styles:fix": "stylelint \"**/*.css\" --fix",
     "prepare": "husky install",
     "test": "vitest --run --reporter verbose",
     "test:w": "vitest",
