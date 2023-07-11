@@ -35,8 +35,10 @@ model Events {
   updatedAt   DateTime?      @updatedAt
   url         String?
 
-  Users  Users  @relation(fields: [userId], references: [id])
+  Users  Users  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId String @db.ObjectId
+
+  @@unique([id, timeZone.list.countryCode, timeZone.list.name])
 }
 
 type TimeZonesList {
@@ -55,6 +57,13 @@ model TimeZones {
 
 enum Providers {
   google
+  facebook
+}
+
+enum Role {
+  USER
+  ADMIN
+  MANAGER
 }
 
 type UsersProviders {
@@ -66,9 +75,11 @@ model Users {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
   userName  String           @unique
   providers UsersProviders[]
-  role      String           @default("USER")
+  role      Role             @default(USER)
   createdAt DateTime         @default(now())
   updatedAt DateTime?        @updatedAt
 
   Events Events[]
+
+  @@unique([id, providers.name, providers.user])
 }

@@ -51,14 +51,14 @@ const putHandler = async (request: Request) => {
 
 const patchHandler = async (request: Request) => {
   try {
-    const { id, ...rest } = (await request.json()) || {}
+    const { userName, ...rest } = (await request.json()) || {}
     const data: Prisma.UsersUpdateInput = {
       ...rest,
     }
 
     const user = await prisma.users.update({
       data,
-      where: { id },
+      where: { userName },
     })
     return NextResponse.json(user)
   } catch (error) {
@@ -75,8 +75,8 @@ const patchHandler = async (request: Request) => {
 
 const delHandler = async (request: Request) => {
   try {
-    const { id } = (await request.json()) || {}
-    if (!id) {
+    const { userName } = (await request.json()) || {}
+    if (!userName) {
       return NextResponse.json(
         { error: 'not valid body parameters' },
         { status: 400 },
@@ -85,9 +85,13 @@ const delHandler = async (request: Request) => {
 
     const user = await prisma.users.delete({
       where: {
-        id,
+        userName,
+      },
+      include: {
+        Events: true,
       },
     })
+
     return NextResponse.json(user)
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -105,5 +109,5 @@ export {
   postHandler as POST,
   putHandler as PUT,
   patchHandler as PATCH,
-  delHandler as DEL,
+  delHandler as DELETE,
 }
