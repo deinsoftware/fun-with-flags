@@ -21,6 +21,15 @@ jobs:
       - run: npm ci
       - run: npm run test:c
 
+      - name: Display coverage files
+        run: ls -R
+        working-directory: coverage
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: coverage-artifact
+          path: coverage/lcov.info
+
   sonar:
     needs: build
     if: ${{ success() }}
@@ -30,6 +39,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - uses: actions/download-artifact@master
+        with:
+          name: coverage-artifact
+          path: coverage
+
+      - name: Display coverage files
+        run: ls -R
+        working-directory: coverage
 
       - name: Get package info
         id: package
@@ -45,8 +63,9 @@ jobs:
             -Dsonar.projectKey=dein:fwf
             -Dsonar.organization=dein
             -Dsonar.projectName=fwf
-            -Dsonar.coverage.exclusions=**/*.test.ts,**/*.test.tsx
             -Dsonar.projectVersion=${{ steps.package.outputs.version }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=**/*.test.ts,**/*.test.tsx
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
             # When you need the analysis to take place in a directory other than the one from which it was launched
