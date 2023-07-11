@@ -1,0 +1,33 @@
+.countries-container {
+    min-height: 80px;
+    padding: 1rem;
+    border: 1.5px solid var(--color-darkgray-500);
+    border-radius: 10px;
+    background-color: #66666625;
+    color: var(--color-whywhite-500);
+    line-height: 1.5;
+    resize: none;
+
+    &::placeholder {
+        color: var(--color-gray-500);
+    }
+
+    &:focus {
+        border: 1px solid transparent;
+        outline: 1px solid var(--color-purple-500);
+    }
+}
+
+.countries {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+}
+
+.flags-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .2rem;
+}
