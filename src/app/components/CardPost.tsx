@@ -8,7 +8,7 @@ const CardPost = ({ srcImage, title, text, date }) => {
     <>
       <article className={styles['card-container']}>
         <Image
-          className={styles['imagen-card']}
+          className={styles['image-card']}
           src={srcImage}
           width={200}
           height={60}

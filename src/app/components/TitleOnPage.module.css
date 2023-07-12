@@ -1,7 +1,6 @@
 .title {
-    padding: 32px 20px 0;
+    padding: 32px 40px 0;
     color: var(--color-whywhite-500);
     font-size: var(--font-size-title);
     font-weight: var(--font-weight-bold);
-    text-align: center;
 }

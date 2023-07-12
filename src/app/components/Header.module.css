@@ -5,7 +5,7 @@
     max-height: 80px;
     align-items: center;
     justify-content: space-between;
-    padding: 20px ;
+    padding: 20px 40px;
     background-color: var(--color-darkgray-900);
 
     & h1 {
