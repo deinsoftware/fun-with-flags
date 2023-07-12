@@ -10,8 +10,16 @@ import { calcOffset } from '@/helpers/flags'
 
 const handler = async (request: Request) => {
   try {
-    const { locale = 'en-US', date = new Date().toISOString() } =
-      (await request.json()) || {}
+    let locale = 'en-US'
+    let date = new Date().toISOString()
+
+    const contentType = request.headers.get('content-type')
+    const contentLength = request.headers.get('content-length')
+    if (contentType === 'application/json' && contentLength !== '0') {
+      const body = await request.json()
+      if (body.locale) locale = body.locale
+      if (body.date) date = body.date
+    }
 
     const result = (await prisma.timeZones.findMany()) as FlagCountry[]
     const timeZones = result.map((country) => {
