@@ -40,6 +40,8 @@ export const getDateInformation = ({
     time: originDate.toLocaleTimeString(locale, {
       ...options,
       hour12: timeFormat == 12,
+      hour: 'numeric',
+      minute: 'numeric',
     }),
   }
 

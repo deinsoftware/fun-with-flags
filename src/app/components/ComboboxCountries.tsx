@@ -9,6 +9,7 @@ type TimezoneInfo = {
     [time: string]: {
         countryCodes: [string[]];
         gmt?: string;
+        date: string;
     }
   };
 
@@ -24,6 +25,10 @@ const data = `{
     ],
     "timeZone": {
         "list": [
+            {
+                "countryCode": "CO",
+                "name": "America/Bogota"
+            },
             {
                 "countryCode": "CO",
                 "name": "America/Bogota"
@@ -99,6 +104,7 @@ const ComboboxCountries = () => {
                 groupedDates[time] = {
                     countryCodes: [[countryCode, name]],
                     gmt,
+                    date,
                 }
             }})
         const groupedDatesArray = Object.entries(groupedDates)
@@ -106,6 +112,7 @@ const ComboboxCountries = () => {
         const timeToRender = groupedDatesArray.map(([time, groupedDate]) => {
             return (
                 <div key={time} className={style['countries']}>
+                    <p className={style['gmt']}>{`${groupedDate.date}`}</p>
                     <p className={style['time']}>{`${time}`}</p>
                     <p className={style['gmt']}>{`(${groupedDate.gmt})`}</p>
                     <div className={style['flags-container']}>

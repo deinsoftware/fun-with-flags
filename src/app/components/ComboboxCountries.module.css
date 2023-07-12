@@ -6,7 +6,6 @@
     background-color: #66666625;
     color: var(--color-whywhite-500);
     line-height: 1.8;
-    resize: none;
 
     &::placeholder {
         color: var(--color-gray-500);
@@ -20,12 +19,13 @@
 
 .countries {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     gap: .5rem;
 
     & .time {
-        width: 65px;
+        width: 43px;
         flex-shrink: 0;
     }
 
@@ -41,6 +41,11 @@
     align-items: center;
     justify-content: flex-start;
     gap: .2rem;
+
+    & .flag {
+        flex-shrink: 0;
+
+    }
 }
 
 
