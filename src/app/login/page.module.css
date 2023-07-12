@@ -1,29 +1,28 @@
-.loginContainer {
+.login-container {
+    display: flex;
     width: 100%;
     height: 400px;
+    flex-direction: column;
+
     /* ! Buscar mejor manera de poner el height */
+
     /* TODO: No funciona en dispositivos de diferentes alturas */
     padding: 12px 40px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
     color: var(--color-whywhite-500);
+    gap: 3rem;
 
     & .paragraph {
         font-size: var(--font-size-medium);
     }
 
-    & .helperText {
-        font-size: var(--font-size-small);
-        color: var(--color-gray-500);
-
+    & .helper-text {
         display: block;
+        color: var(--color-gray-500);
+        font-size: var(--font-size-small);
         line-height: 1.4;
 
 
-        & .helperTextLink {
+        & .helper-text-link {
             color: var(--color-purple-500);
             text-decoration: none;
 
@@ -33,58 +32,73 @@
         }
     }
 
-    & .providersButton {
-        width: 100%;
+    & .providers-button {
         display: flex;
+        width: 100%;
+        max-width: 250px;
         flex-direction: column;
-        gap: 16px;
+        color: var(--color-neutral-700);
+        gap: 1rem;
+
         /* Estos estilos serviran para cuando tengamos más de un provider */
 
         & .provider {
-            height: 48px;
-            width: 100%;
-            cursor: pointer;
-            padding: 2px;
-
             display: flex;
+            width: 100%;
             align-items: center;
-
-            outline: 1px solid transparent;
+            padding: .6rem 1rem;
             border: 1px solid transparent;
-            border-radius: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            gap: .5rem;
+            
 
             &:hover {
                 border: none;
                 outline: none;
             }
 
-            & .imageProvider {
+            & .image-provider {
                 width: 46px;
                 height: auto;
             }
 
-            & .nameProvider {
+            & .name-provider {
                 width: 100%;
                 font-size: var(--font-size-xlarge);
                 font-weight: var(--font-weight-bold);
             }
         }
 
-        & .googleProvider {
-            color: var(--color-whywhite-500);
-            background-color: var(--color-btn-google);
+        & .google-provider {
+            background-color: var(--color-white-000);
+            color: var(--color-neutral-400);
+            font-weight: 700;
 
             &:hover {
                 border: 1px solid transparent;
-                background-color: var(--color-btn-google-hover);
+                background-color: var(--color-purple-800);
+                color: var(--color-whywhite-500);
             }
 
             &:active {
-                background-color: var(--color-btn-google-active);
+                background-color: var(--color-purple-800);
             }
         }
     }
 
 
 
+}
+
+.google-login-button {
+    display: flex;
+    align-items: center;
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    gap: .5rem;
 }

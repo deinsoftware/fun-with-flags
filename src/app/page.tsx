@@ -34,7 +34,6 @@ const posts = [
 ]
 
 const HomePage = () => {
-  
   const postList = posts.map((post) => {
     return <CardPost key={post.id} {...post} />
   })
@@ -42,7 +41,7 @@ const HomePage = () => {
   return (
     <>
       <SearchBar />
-      <div className={styles.containerCards}>{postList}</div>
+      <div className={styles['container-cards']}>{postList}</div>
     </>
   )
 }

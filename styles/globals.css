@@ -1,11 +1,11 @@
-@import './minireset.min.css';
+@import url('./minireset.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 :root {
   /* Font-family */
   --font-family-primary: 'Poppins', sans-serif;
 
-  /* Font-size*/
+  /* Font-size */
   --font-size-small: 12px;
   --font-size-medium: 14px;
   --font-size-large: 16px;
@@ -28,7 +28,6 @@
   --color-neutral-800: #0C0C0C;
   --color-neutral-900: #080808;
   --color-neutral-950: #040404;
-
   --color-purple-050: #;
   --color-purple-100: #;
   --color-purple-200: #;
@@ -40,31 +39,27 @@
   --color-purple-800: #5D32C1;
   --color-purple-900: #5220C6;
   --color-purple-950: #;
-
   --color-darkgray-050: #;
   --color-darkgray-100: #;
   --color-darkgray-200: #;
   --color-darkgray-300: #454545;
   --color-darkgray-400: #3D3D3D;
-  --color-darkgray-500: #333333;
+  --color-darkgray-500: #333;
   --color-darkgray-600: #2E2E2E;
   --color-darkgray-700: #292929;
   --color-darkgray-800: #272727;
   --color-darkgray-900: #202020;
   --color-darkgray-950: #151515;
-
-  --color-whywhite-300: #FFFFFF;
+  --color-whywhite-300: #FFF;
   --color-whywhite-400: #FBFCFD;
   --color-whywhite-500: #F9FBFC;
   --color-whywhite-600: #F4F4F4;
   --color-whywhite-700: #E8E8E8;
-
   --color-gray-300: #BABABA;
   --color-gray-400: #AFAFAF;
   --color-gray-500: #A4A4A4;
   --color-gray-600: #939393;
   --color-gray-700: #8C8C8C;
-
   --color-darkpurple-050: #;
   --color-darkpurple-100: #2D1663;
   --color-darkpurple-200: #251056;
@@ -76,10 +71,8 @@
   --color-darkpurple-800: #0A0518;
   --color-darkpurple-900: #080413;
   --color-darkpurple-950: #;
-
-  --color-white-000: #ffffff;
-  --color-black-000: #000000;
-
+  --color-white-000: #fff;
+  --color-black-000: #000;
   --color-btn-google: #4285F4;
   --color-btn-google-hover: #3d7de4;
   --color-btn-google-active: #3367d6;

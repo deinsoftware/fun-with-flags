@@ -6,22 +6,22 @@ import styles from './CardPost.module.css'
 const CardPost = ({ srcImage, title, text, date }) => {
   return (
     <>
-      <article className={styles.cardContainer}>
+      <article className={styles['card-container']}>
         <Image
-          className={styles.imagenCard}
+          className={styles['imagen-card']}
           src={srcImage}
           width={200}
           height={60}
           alt="Post image"
         />
-        <div className={styles.containerInformation}>
+        <div className={styles['container-information']}>
           <header>
-            <h3 className={styles.titleCard}>{title}</h3>
+            <h3 className={styles['title-card']}>{title}</h3>
           </header>
-          <p className={styles.textCard}>{text}</p>
-          <footer className={styles.footerCard}>
-            <span className={styles.dateCard}>{date}</span>
-            <button className={styles.openPostButton}>{'Open ->'}</button>
+          <p className={styles['text-card']}>{text}</p>
+          <footer className={styles['footer-card']}>
+            <span className={styles['date-card']}>{date}</span>
+            <button className={styles['open-post-button']}>{'Open ->'}</button>
           </footer>
         </div>
       </article>
