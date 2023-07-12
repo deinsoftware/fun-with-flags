@@ -3,9 +3,9 @@
     width: 100%;
     height: 65vh;
     flex-direction: column;
+    justify-content: space-between;
     padding: 12px 40px;
     color: var(--color-whywhite-500);
-    justify-content: space-between;
 
     & .paragraph {
         font-size: var(--font-size-medium);
@@ -63,8 +63,8 @@
         }
 
         & .google-provider {
-            color: var(--color-whywhite-500);
             background-color: var(--color-btn-google);
+            color: var(--color-whywhite-500);
 
             &:hover {
                 border: 1px solid transparent;
