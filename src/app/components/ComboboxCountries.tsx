@@ -1,6 +1,5 @@
 "use client"
 import ReactCountryFlag from "react-country-flag"
-import Image from 'next/image'
 import style from './ComboboxCountries.module.css'
 
 import { getDatesList, sortDatesList } from "@/helpers/events"
@@ -25,6 +24,14 @@ const data = `{
     ],
     "timeZone": {
         "list": [
+            {
+                "countryCode": "CO",
+                "name": "America/Bogota"
+            },
+            {
+                "countryCode": "JP",
+                "name": "Asia/Tokyo"
+            },
             {
                 "countryCode": "ES",
                 "name": "Europe/Madrid"
@@ -56,7 +63,7 @@ const data = `{
         ],
         "origin": {
             "countryCode": "CO",
-            "date": "2023-06-10T01:36:42.271Z",
+            "date": "2023-06-10T22:36:42.271Z",
             "name": "America/Bogota"
         }
     },
@@ -75,15 +82,16 @@ const ComboboxCountries = () => {
         timeFormat: 24,
     }
     const dateList =sortDatesList(getDatesList(valueList))
-
+    // console.log(dateList)
     const filterDates = (dateList: EventDate[]) =>{
         let groupedDates: TimezoneInfo = {}
 
-        dateList?.forEach((date) => {
-            const countryCode: string = date.countryCode
-            const time: string = date.time
-            const gmt = date.gmt
-            const name = date.name
+        dateList?.forEach((dateInfo) => {
+            const countryCode: string = dateInfo.countryCode
+            const time: string = dateInfo.i18n.time
+            const date = dateInfo.i18n.date
+            const gmt = dateInfo.gmt
+            const name = dateInfo.name
 
             if (groupedDates[time]){
                 groupedDates[time].countryCodes.push([countryCode, name])
@@ -98,7 +106,8 @@ const ComboboxCountries = () => {
         const timeToRender = groupedDatesArray.map(([time, groupedDate]) => {
             return (
                 <div key={time} className={style['countries']}>
-                    <p >{`${time} (${groupedDate.gmt})`}</p>
+                    <p className={style['time']}>{`${time}`}</p>
+                    <p className={style['gmt']}>{`(${groupedDate.gmt})`}</p>
                     <div className={style['flags-container']}>
                     {groupedDate.countryCodes.map(([countryCode, name]) =>{
                         return (
@@ -112,8 +121,8 @@ const ComboboxCountries = () => {
                                 countryCode={countryCode}
                                 svg
                                 style={{
-                                    width: '1.8rem',
-                                    height: '1.8rem',
+                                    width: '1.6rem',
+                                    height: '1.6rem',
                                 }}
                                 />
                             </div>
