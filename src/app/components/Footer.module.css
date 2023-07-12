@@ -1,5 +1,4 @@
-/* ! FIXME: Cambiar este nombre */
-.estoEmpujaElFooterSuTamañoHaciaAbajo {
+.footer-pusher {
     width: 100%;
     height: 80px;
 }

@@ -34,14 +34,15 @@ const posts = [
 ]
 
 const HomePage = () => {
+  
+  const postList = posts.map((post) => {
+    return <CardPost key={post.id} {...post} />
+  })
+
   return (
     <>
       <SearchBar />
-      <div className={styles.containerCards}>
-        {posts.map((post) => {
-          return <CardPost key={post.id} {...post} />
-        })}
-      </div>
+      <div className={styles.containerCards}>{postList}</div>
     </>
   )
 }

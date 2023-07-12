@@ -2,11 +2,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Footer.module.css'
 
-const FooterTwo = () => {
+const Footer = () => {
   return (
     <>
-      <div className={styles.estoEmpujaElFooterSuTamañoHaciaAbajo} />
-      {/* ! FIXME: Cambiar el nombre de la clase de arriba */}
+      <div className={styles['footer-pusher']} />
 
       <footer className={styles.footer}>
         <div className={styles.btnContainer}>
@@ -63,4 +62,4 @@ const FooterTwo = () => {
   )
 }
 
-export default FooterTwo
+export default Footer
