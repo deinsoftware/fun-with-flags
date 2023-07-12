@@ -21,7 +21,11 @@ const handler = async (request: Request) => {
       if (body.date) date = body.date
     }
 
-    const result = (await prisma.timeZones.findMany()) as FlagCountry[]
+    const result = (await prisma.timeZones.findMany({
+      orderBy: {
+        countryCode: 'asc',
+      },
+    })) as FlagCountry[]
     const timeZones = result.map((country) => {
       const { id, countryCode, timeZone } = country
       const regionName = getRegionNames(
@@ -29,6 +33,7 @@ const handler = async (request: Request) => {
         locale as Locale,
       )
       const zoneList = calcOffset(timeZone, new Date(date))
+      zoneList.sort((a, z) => a.offset - z.offset)
       return { id, countryCode, regionName, timeZone: zoneList }
     })
 
