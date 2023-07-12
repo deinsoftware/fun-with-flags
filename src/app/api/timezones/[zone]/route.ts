@@ -31,9 +31,7 @@ const handler = async (
       },
     })
 
-    const { countryCode } = timeZone || {}
-
-    return NextResponse.json(countryCode)
+    return NextResponse.json(timeZone)
   } catch (error) {
     console.error({ 'API Events Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
