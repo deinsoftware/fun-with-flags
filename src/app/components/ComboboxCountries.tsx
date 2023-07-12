@@ -79,6 +79,7 @@ const data = `{
 }`
 
 const mockData=JSON.parse(data)
+const currentDate = new Date(mockData.timeZone.origin.date)
 
 const ComboboxCountries = () => {
     const valueList: ZoneList ={
@@ -110,9 +111,14 @@ const ComboboxCountries = () => {
         const groupedDatesArray = Object.entries(groupedDates)
 
         const timeToRender = groupedDatesArray.map(([time, groupedDate]) => {
+            const date= new Date(groupedDate.date)
+            const isSameDate = date.toDateString() === currentDate.toDateString()
+            const isNextDate = date.getDate() > currentDate.getDate() 
+            const isPrevDate = date.getDate() < currentDate.getDate() 
             return (
                 <div key={time} className={style['countries']}>
-                    <p className={style['gmt']}>{`${groupedDate.date}`}</p>
+                    {isNextDate && <p >{`Next day`}</p>}
+                    {isPrevDate && <p >{`Previous day`}</p>}
                     <p className={style['time']}>{`${time}`}</p>
                     <p className={style['gmt']}>{`(${groupedDate.gmt})`}</p>
                     <div className={style['flags-container']}>
@@ -146,6 +152,7 @@ const ComboboxCountries = () => {
     return (
         
         <div className={style['countries-container']}>
+            <p><strong>{currentDate.toDateString()}</strong></p>
             {(typeof dateList !== 'undefined') ?  filterDates(dateList)
             : 'Add a timezone to start'}
             

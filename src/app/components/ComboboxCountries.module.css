@@ -25,7 +25,7 @@
     gap: .5rem;
 
     & .time {
-        width: 43px;
+        width: 43   px;
         flex-shrink: 0;
     }
 
