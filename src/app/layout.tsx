@@ -1,4 +1,4 @@
-import '../../styles/globals.css'
+import '../styles/globals.css'
 // import { Inter } from 'next/font/google'
 import Provider from './components/Provider'
 import Header from './components/Header'
@@ -23,7 +23,7 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {
@@ -36,10 +36,9 @@ export default function RootLayout({
 
           {children}
 
-            <Footer />
-        </body> 
+          <Footer />
+        </body>
       </Provider>
-      
     </html>
   )
 }
