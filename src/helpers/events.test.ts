@@ -1,4 +1,4 @@
-import { it, expect, describe, vi } from 'vitest'
+import { it, expect, describe } from 'vitest'
 
 import { DateInformation, EventDate, ZoneList } from './events.types'
 

@@ -29,7 +29,7 @@ const handler = async (request: Request) => {
     const timeZones = result.map((country) => {
       const { id, countryCode, timeZone } = country
       const regionName = getRegionNames(
-        country.countryCode as Countries,
+        country.countryCode,
         locale as Locale,
       )
       const zoneList = calcOffset(timeZone, new Date(date))
