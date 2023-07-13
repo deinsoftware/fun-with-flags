@@ -18,10 +18,11 @@
     "test:c": "vitest run --coverage",
     "test:cw": "vitest watch --coverage",
     "prisma:pull": "prisma db pull --force",
-    "prisma:client": "prisma generate"
+    "prisma:client": "prisma generate",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "4.16.2",
+    "@prisma/client": "5.0.0",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -58,7 +59,7 @@
     "postcss-nesting": "12.0.0",
     "postcss-syntax": "0.36.2",
     "prettier": "3.0.0",
-    "prisma": "4.16.2",
+    "prisma": "5.0.0",
     "stylelint": "15.10.1",
     "stylelint-config-idiomatic-order": "9.0.0",
     "stylelint-config-standard": "34.0.0",

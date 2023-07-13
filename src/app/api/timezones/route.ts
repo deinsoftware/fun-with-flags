@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/utils/prisma'
+import { prisma } from '@/utils/prisma'
 
 import { Locale } from '@/shared/types/locale.types'
 import { Countries } from '@/shared/types/countries.types'
@@ -10,10 +10,22 @@ import { calcOffset } from '@/helpers/flags'
 
 const handler = async (request: Request) => {
   try {
-    const { locale = 'en-US', date = new Date().toISOString() } =
-      (await request.json()) || {}
+    let locale = 'en-US'
+    let date = new Date().toISOString()
 
-    const result = (await prisma.timeZones.findMany()) as FlagCountry[]
+    const contentType = request.headers.get('content-type')
+    const contentLength = request.headers.get('content-length')
+    if (contentType === 'application/json' && contentLength !== '0') {
+      const body = await request.json()
+      if (body.locale) locale = body.locale
+      if (body.date) date = body.date
+    }
+
+    const result = (await prisma.timeZones.findMany({
+      orderBy: {
+        countryCode: 'asc',
+      },
+    })) as FlagCountry[]
     const timeZones = result.map((country) => {
       const { id, countryCode, timeZone } = country
       const regionName = getRegionNames(
@@ -21,6 +33,7 @@ const handler = async (request: Request) => {
         locale as Locale,
       )
       const zoneList = calcOffset(timeZone, new Date(date))
+      zoneList.sort((a, z) => a.offset - z.offset)
       return { id, countryCode, regionName, timeZone: zoneList }
     })
 
