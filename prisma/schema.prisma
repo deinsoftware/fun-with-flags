@@ -37,8 +37,6 @@ model Events {
 
   Users  Users  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId String @db.ObjectId
-
-  // @@unique([id, timeZone.list.countryCode, timeZone.list.name])
 }
 
 type TimeZonesList {
@@ -80,6 +78,4 @@ model Users {
   updatedAt DateTime         @updatedAt
 
   Events Events[]
-
-  // @@unique([id, providers.name, providers.user])
 }
