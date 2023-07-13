@@ -32,7 +32,7 @@ model Events {
   tags        String[]
   timeZone    EventsTimeZone
   createdAt   DateTime       @default(now())
-  updatedAt   DateTime?      @updatedAt
+  updatedAt   DateTime       @updatedAt
   url         String?
 
   Users  Users  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
@@ -77,7 +77,7 @@ model Users {
   providers UsersProviders[]
   role      Role             @default(USER)
   createdAt DateTime         @default(now())
-  updatedAt DateTime?        @updatedAt
+  updatedAt DateTime         @updatedAt
 
   Events Events[]
 

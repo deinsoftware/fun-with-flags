@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/utils/prisma'
+import { prisma, Prisma } from '@/utils/prisma'
 
 import { TimeZones } from '@/shared/types/timeZones.types'
 
@@ -16,7 +16,7 @@ const handler = async (
       )
     }
 
-    const timeZone = await prisma.timeZones.findFirst({
+    const timeZone = await prisma.timeZones.findFirstOrThrow({
       where: {
         timeZone: {
           some: {
@@ -33,6 +33,15 @@ const handler = async (
 
     return NextResponse.json(timeZone)
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.message || 'timezone not found' },
+          { status: 404 },
+        )
+      }
+    }
+
     console.error({ 'API Events Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
   }

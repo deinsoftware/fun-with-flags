@@ -1,22 +1,5 @@
 import { NextResponse } from 'next/server'
 import { prisma, Prisma } from '@/utils/prisma'
-import { Providers } from '@/shared/types/providers.types'
-
-const getUserByProvider = async (provider: Providers, user: string) => {
-  const userByProvider = await prisma.users.findFirst({
-    where: {
-      providers: {
-        name: provider,
-        user: user,
-      },
-    },
-    select: {
-      userName: true,
-    },
-  })
-
-  return NextResponse.json(userByProvider)
-}
 
 const postHandler = async (request: Request) => {
   try {
@@ -28,8 +11,31 @@ const postHandler = async (request: Request) => {
       )
     }
 
-    return await getUserByProvider(provider, user)
+    const userByProvider = await prisma.users.findFirstOrThrow({
+      where: {
+        providers: {
+          some: {
+            name: provider,
+            user: user,
+          },
+        },
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    return NextResponse.json(userByProvider)
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.message || 'user not found' },
+          { status: 404 },
+        )
+      }
+    }
+
     console.error({ 'API Users Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
   }
@@ -37,7 +43,23 @@ const postHandler = async (request: Request) => {
 
 const putHandler = async (request: Request) => {
   try {
-    const data: Prisma.UsersCreateInput = (await request.json()) || {}
+    const data = (await request.json()) || {}
+
+    const userExists = await prisma.users.findFirst({
+      where: {
+        userName: data.userName,
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    if (userExists !== null) {
+      return NextResponse.json(
+        { error: 'user already exists' },
+        { status: 409 },
+      )
+    }
 
     const user = await prisma.users.create({
       data,
@@ -64,7 +86,10 @@ const patchHandler = async (request: Request) => {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === 'P2025') {
-        return NextResponse.json({ error: 'user not found' }, { status: 404 })
+        return NextResponse.json(
+          { error: error?.meta?.cause || 'user to update not found' },
+          { status: 404 },
+        )
       }
     }
 
@@ -96,7 +121,10 @@ const delHandler = async (request: Request) => {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === 'P2025') {
-        return NextResponse.json({ error: 'user not found' }, { status: 404 })
+        return NextResponse.json(
+          { error: error?.meta?.cause || 'user to delete not exist' },
+          { status: 404 },
+        )
       }
     }
 

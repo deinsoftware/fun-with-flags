@@ -1,13 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma, Prisma } from '@/utils/prisma'
 
-const getEventById = async (id: string) => {
-  const eventById = await prisma.events.findUnique({
-    where: { id },
-  })
-  return NextResponse.json(eventById)
-}
-
 const eventsSelect: Prisma.EventsSelect = {
   id: true,
   description: true,
@@ -26,6 +19,13 @@ const eventsSelect: Prisma.EventsSelect = {
       userName: true,
     },
   },
+}
+
+const getEventById = async (id: string) => {
+  const eventById = await prisma.events.findUniqueOrThrow({
+    where: { id },
+  })
+  return NextResponse.json(eventById)
 }
 
 const getEventsByUserName = async (userName: string) => {
@@ -69,6 +69,15 @@ const postHandler = async (request: Request) => {
 
     return NextResponse.json({ error: 'bad request' }, { status: 400 })
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.message || 'event not found' },
+          { status: 404 },
+        )
+      }
+    }
+
     console.error({ 'API Events Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
   }
