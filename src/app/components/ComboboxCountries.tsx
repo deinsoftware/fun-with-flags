@@ -73,11 +73,11 @@ const data = `{
         ],
         "origin": {
             "countryCode": "CO",
-            "date": "2023-06-10T22:36:42.271Z",
+            "date": "2023-07-13T05:38:42.271Z",
             "name": "America/Bogota"
         }
     },
-    "createdAt": "2023-07-03T05:26:33.000Z",
+    "createdAt": "2023-07-03T15:26:33.000Z",
     "updatedAt": null,
     "url": "http://youtube.com/channel/event-video",
     "userId": "64a62f9cfd16fa4f76403358"
@@ -96,9 +96,14 @@ const ComboboxCountries = () => {
 
     const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
     const [isNextDate, setIsNextDate] = useState<boolean>(false)
-    const currentDatePlusOne = new Date(currentDate)
+    const [isPrevDate, setIsPrevDate] = useState<boolean>(false)
+   
+    const currentDatePlusOne = new Date(currentDate.getTime())
     currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
-
+    
+    const currentDateMinusOne = new Date(currentDate.getTime())
+    currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
+    console.log(currentDate, currentDatePlusOne, currentDateMinusOne)
     useEffect(()=>{
         const filterDates = (dateList: EventDate[]): DateArray[] =>{
             let groupedDates: TimezoneInfo = {}
@@ -126,25 +131,34 @@ const ComboboxCountries = () => {
     }, [])  
 
     useEffect(()=>{
-        const thereIsNextDate = (datesArray: DateArray[], currentDate: Date)=>{
+        const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
             let nextDate = false
-            const validation = datesArray.some(([, groupedDate]) => {
+            let prevDate = false
+            const validationNextDay = datesArray.some(([, groupedDate]) => {
                 const date= new Date(groupedDate.date)
-                const isNextDate = date.getDate() > currentDate.getDate()
-                return isNextDate 
+                const isNextDate = date.getDate() === currentDate.getDate()+1
+                return isNextDate
             })
-            setIsNextDate(validation)
+            const validationPrevDay = datesArray.some(([, groupedDate]) => {
+                const date= new Date(groupedDate.date)
+                const isPrevDate = date.getDate() === currentDate.getDate()-1
+                return isPrevDate
+            })
+
+            setIsNextDate(validationNextDay)
+            setIsPrevDate(validationPrevDay)
         }  
-        thereIsNextDate(filteredDates, currentDate)
+        thereIsNextOrPrevDate(filteredDates, currentDate)
     }, [filteredDates])
 
     
-    const datesToRender =(datesArray: DateArray[], nextDate: boolean= false )=>{
+    const datesToRender =({datesArray, nextDate= false, prevDate=false}
+        :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)
-            const isSameDate = date.toDateString() === currentDate.toDateString()
-            const isNextDate = date.getDate() > currentDate.getDate() 
-            const isPrevDate = date.getDate() < currentDate.getDate() 
+            const isSameDate = date.getDate() === currentDate.getDate()
+            const isNextDate = date.getDate() === currentDate.getDate()+1
+            const isPrevDate = date.getDate() === currentDate.getDate()-1
 
             const handleClick = (event: React.MouseEvent<HTMLImageElement>)=>{
                 const target = event.target as HTMLImageElement
@@ -181,8 +195,9 @@ const ComboboxCountries = () => {
             
             return (
                 <div key={time} className={style['countries']}>
-                    {!nextDate && isSameDate && elementJSX()}              
+                    {!nextDate && !prevDate && isSameDate && elementJSX()}              
                     {nextDate && isNextDate && elementJSX()} 
+                    {prevDate && isPrevDate && elementJSX()} 
                 </div>
             )
         })
@@ -193,17 +208,28 @@ const ComboboxCountries = () => {
     return (
         
         <div className={style['countries-container']}>
-            <p><strong>{currentDate.toDateString()}</strong></p>
-            {(typeof dateList !== 'undefined') ?  datesToRender(filteredDates) 
+            {isPrevDate && 
+             <>
+                <p><strong>{currentDateMinusOne.toDateString()}</strong></p>
+                {datesToRender({datesArray: filteredDates, prevDate: true})}
+             </> 
+            }
+            
+            {(typeof dateList !== 'undefined') ? 
+            <>
+                <p><strong>{currentDate.toDateString()}</strong></p>
+                {datesToRender({datesArray: filteredDates})} 
+            </> 
             : 'Add a timezone to start'}
 
             
             {isNextDate && 
              <>
                 <p><strong>{currentDatePlusOne.toDateString()}</strong></p>
-                {datesToRender(filteredDates, true)}
+                {datesToRender({datesArray: filteredDates, nextDate: true})}
              </> 
             }
+            
         </div>     
         
     )
