@@ -73,14 +73,31 @@ const putHandler = async (request: Request) => {
 
 const patchHandler = async (request: Request) => {
   try {
-    const { userName, ...rest } = (await request.json()) || {}
-    const data: Prisma.UsersUpdateInput = {
-      ...rest,
+    const { userName } = (await request.json()) || {}
+
+    const userExists = await prisma.users.findFirst({
+      where: {
+        userName: userName.new,
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    if (userExists !== null) {
+      return NextResponse.json(
+        { error: 'new user already exists' },
+        { status: 409 },
+      )
     }
 
     const user = await prisma.users.update({
-      data,
-      where: { userName },
+      data: {
+        userName: userName.new,
+      },
+      where: {
+        userName: userName.current,
+      },
     })
     return NextResponse.json(user)
   } catch (error) {
