@@ -101,6 +101,15 @@ const putHandler = async (request: Request) => {
     })
     return NextResponse.json(event, { status: 201 })
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.meta?.cause || 'failed to create' },
+          { status: 404 },
+        )
+      }
+    }
+
     console.error({ 'API Events Error': error })
     return NextResponse.json({ error: 'failed to create' }, { status: 501 })
   }
