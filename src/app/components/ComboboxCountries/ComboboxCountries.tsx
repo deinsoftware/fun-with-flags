@@ -103,7 +103,6 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
     
     const currentDateMinusOne = new Date(currentDate.getTime())
     currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
-    console.log(currentDate, currentDatePlusOne, currentDateMinusOne)
     useEffect(()=>{
         const filterDates = (dateList: EventDate[]): DateArray[] =>{
             let groupedDates: TimezoneInfo = {}
@@ -128,7 +127,7 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
             return groupedDatesArray
         } 
         setFilteredDates(filterDates(dateList))  
-    }, [dateList])  
+    }, [mockData])  
 
     useEffect(()=>{
         const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
@@ -144,7 +143,6 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
                 const isPrevDate = date.getDate() === currentDate.getDate()-1
                 return isPrevDate
             })
-
             setIsNextDate(validationNextDay)
             setIsPrevDate(validationPrevDay)
         }  
