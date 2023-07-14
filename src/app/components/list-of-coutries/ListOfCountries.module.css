@@ -1,0 +1,23 @@
+.container-list-of-countries {
+    padding: 12px 40px;
+}
+
+.item-country-container {
+    display: flex;
+    border-bottom: 1px solid rgb(124, 124, 124);
+    justify-content: space-between;
+
+    color: white;
+
+    align-items: center;
+
+    padding: 4px 8px;
+
+    & .flag-country {
+        font-size: var(--font-size-title);
+    }
+
+    & .name-country {
+        font-size: var(--font-size-large);
+    }
+}
