@@ -24,9 +24,13 @@
     justify-content: flex-start;
     gap: .5rem;
 
-    & .time {
+    & .time-24 {
         width: 43px;
         flex-shrink: 0;
+    }
+
+    & .time-12 {
+        width: 67px;
     }
 
     & .gmt {

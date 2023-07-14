@@ -86,11 +86,11 @@ const data = `{
 const mockData=JSON.parse(data)
 const currentDate = new Date(mockData.timeZone.origin.date)
 
-const ComboboxCountries = () => {
+const ComboboxCountries = ({format}: {format: 12 | 24}) => {
     const valueList: ZoneList ={
         originDate: new Date(mockData.timeZone.origin.date),
         zoneList: mockData.timeZone.list,
-        timeFormat: 24,
+        timeFormat: format,
     }
     const dateList =sortDatesList(getDatesList(valueList))
 
@@ -128,7 +128,7 @@ const ComboboxCountries = () => {
             return groupedDatesArray
         } 
         setFilteredDates(filterDates(dateList))  
-    }, [])  
+    }, [dateList])  
 
     useEffect(()=>{
         const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
@@ -167,7 +167,7 @@ const ComboboxCountries = () => {
             const elementJSX = ()=>{
                 return (
                     <>
-                        <p className={style['time']}>{`${time}`}</p>
+                        <p className={format === 12 ? style['time-12'] : style['time-24'] }>{`${time}`}</p>
                         <p className={style['gmt']}>{`(${groupedDate.gmt})`}</p>
                         <div className={style['flags-container']}>
                         {groupedDate.countryCodes.map(([countryCode, name]) =>{
