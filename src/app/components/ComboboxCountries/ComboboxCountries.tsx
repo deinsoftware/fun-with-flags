@@ -131,8 +131,7 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
 
     useEffect(()=>{
         const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
-            let nextDate = false
-            let prevDate = false
+            
             const validationNextDay = datesArray.some(([, groupedDate]) => {
                 const date= new Date(groupedDate.date)
                 const isNextDate = date.getDate() === currentDate.getDate()+1
