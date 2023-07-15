@@ -1,13 +1,8 @@
-import { beforeEach, it, expect, describe, vi } from 'vitest'
+import { afterEach, it, expect, describe, vi } from 'vitest'
 
 import { isValidTimeZone, convertGmtToNumber, getRegionNames } from './dates'
 
 describe('isValidTimeZone()', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetAllMocks()
-  })
-
   it('should return true when using a correct time zone', () => {
     const value = 'Australia/Adelaide'
     const result = isValidTimeZone(value)
@@ -16,6 +11,7 @@ describe('isValidTimeZone()', () => {
 
   it('should return false when using an incorrect time zone', () => {
     const value = 'Foo/Bar'
+    // @ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
   })
@@ -25,6 +21,7 @@ describe('isValidTimeZone()', () => {
     spy.mockImplementation(() => undefined)
 
     const value = 'Foo/Bar'
+    // @ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
 
