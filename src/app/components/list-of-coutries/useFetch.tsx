@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react'
 
-export function useFetch(url) {
+export function useFetch(url, locale, date) {
   const [data, setData] = useState(null)
 
   let myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/json')
 
-  let raw = JSON.stringify({
-    locale: 'en-US',
-    date: '2023-02-24',
+  // let body = JSON.stringify({
+  //   locale: 'en-US',
+  //   date: '2023-02-24',
+  // })
+
+  let body = JSON.stringify({
+    locale,
+    date,
   })
 
   let requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: raw,
+    body: body,
     redirect: 'follow',
   }
 
@@ -22,7 +27,7 @@ export function useFetch(url) {
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((data) => setData(data))
-      .catch((error) => console.log('error', error))
+      .catch((error) => console.error('error', error))
   }, [])
 
   return { data }
