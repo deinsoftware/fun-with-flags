@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/libs/prisma'
+import { prisma } from '@/utils/prisma'
 
 const handler = async (
   request: Request,
