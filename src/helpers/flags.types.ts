@@ -4,7 +4,7 @@ import { TimeZones } from '../shared/types/timeZones.types'
 export type FlagZone = {
   capital: boolean
   initial: string
-  offset: Number
+  offset: number
   dst: boolean
   zoneNames: TimeZones[]
 }
@@ -12,6 +12,6 @@ export type FlagZone = {
 export type FlagCountry = {
   id: string
   countryCode: Countries
-  regionName?: String
+  regionName?: string
   timeZone: FlagZone[]
 }

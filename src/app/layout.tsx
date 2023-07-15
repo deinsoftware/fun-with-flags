@@ -1,4 +1,4 @@
-import '../../styles/globals.css'
+import '../styles/globals.css'
 // import { Inter } from 'next/font/google'
 import Provider from './components/Provider'
 import Header from './components/Header'
@@ -16,15 +16,14 @@ export const metadata = {
   keywords: ['EMPTY', 'EMPTY', 'EMPTY'],
   themeColor: [
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
-    // Discutir si vale la pena esta etiqueta, ya que no tiene tanta compatibilidad
-    { media: '(prefers-color-scheme: dark)', color: '#202020' },
     // ! pay attention, here should be the base color of each theme in hexadecimal
+    { media: '(prefers-color-scheme: dark)', color: '#202020' },
     { media: '(prefers-color-scheme: light)', color: 'EMPTY' },
   ],
 }
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {
@@ -37,10 +36,9 @@ export default function RootLayout({
 
           {children}
 
-            <Footer />
-        </body> 
+          <Footer />
+        </body>
       </Provider>
-      
     </html>
   )
 }

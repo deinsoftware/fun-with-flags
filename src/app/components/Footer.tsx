@@ -2,10 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Footer.module.css'
 
-const FooterTwo = () => {
+const Footer = () => {
   const imageWidth = 25
   return (
     <>
+      <div className={styles['footer-pusher']} />
+
       <footer className={styles.footer}>
         <div className={styles['btn-container']}>
           <Link href="/" className="">
@@ -61,4 +63,4 @@ const FooterTwo = () => {
   )
 }
 
-export default FooterTwo
+export default Footer

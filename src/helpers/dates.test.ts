@@ -21,7 +21,6 @@ describe('isValidTimeZone()', () => {
   })
 
   it('should return false when Intl is not available', () => {
-    // FIXME: change any types https://vitest.dev/api/vi.html#vi-spyon
     const spy = vi.spyOn<any, any>(Intl, 'DateTimeFormat')
     spy.mockImplementation(() => undefined)
 
