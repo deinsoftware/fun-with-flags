@@ -174,6 +174,8 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
                                 <ReactCountryFlag
                                 onClick={handleClick} 
                                 id={name}
+                                alt={`Flag of ${countryCode}`}
+                                title={`Flag of ${countryCode}`}
                                 countryCode={countryCode}
                                 svg
                                 style={{
