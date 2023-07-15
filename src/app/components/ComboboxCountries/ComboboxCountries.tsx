@@ -127,7 +127,7 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
             return groupedDatesArray
         } 
         setFilteredDates(filterDates(dateList))  
-    }, [mockData])  
+    }, [format])  
 
     useEffect(()=>{
         const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
