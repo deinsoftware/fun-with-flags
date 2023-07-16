@@ -17,7 +17,7 @@ describe('isValidTimeZone()', () => {
   })
 
   it('should return false when Intl is not available', () => {
-    const spy = vi.spyOn<any, any>(Intl, 'DateTimeFormat')
+    const spy = vi.spyOn<typeof Intl, any>(Intl, 'DateTimeFormat')
     spy.mockImplementation(() => undefined)
 
     const value = 'Foo/Bar'
