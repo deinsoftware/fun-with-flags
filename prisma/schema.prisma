@@ -58,7 +58,7 @@ enum Providers {
   facebook
 }
 
-enum Role {
+enum Roles {
   USER
   ADMIN
   MANAGER
@@ -73,7 +73,7 @@ model Users {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
   userName  String           @unique
   providers UsersProviders[]
-  role      Role             @default(USER)
+  role      Roles            @default(USER)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 
