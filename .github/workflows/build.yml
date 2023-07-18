@@ -11,5 +11,16 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm ci
-      - run: npm run test:c
+      - name: install packages
+        run: npm ci
+      - name: run test and coverage
+        run: npm run test:c
+
+      - name: Display coverage files
+        run: ls -R
+        working-directory: coverage
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: coverage-artifact
+          path: coverage/lcov.info
