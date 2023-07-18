@@ -14,7 +14,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/build.yml@sonar-cloud
+      - name: build project
+        uses: ./.github/workflows/build.yml@sonar-cloud
 
   dependency-review:
     needs: build
