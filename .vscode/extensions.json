@@ -13,6 +13,7 @@
     "usernamehw.errorlens",
     "mongodb.mongodb-vscode",
     "Prisma.prisma",
-    "yoavbls.pretty-ts-errors"
+    "yoavbls.pretty-ts-errors",
+    "SonarSource.sonarlint-vscode"
   ]
 }
