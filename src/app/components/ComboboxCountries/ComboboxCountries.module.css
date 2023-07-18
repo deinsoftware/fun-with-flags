@@ -24,16 +24,16 @@
     justify-content: flex-start;
     gap: .5rem;
 
-    & .time-24 {
+    .time-24 {
         width: 43px;
         flex-shrink: 0;
     }
 
-    & .time-12 {
+    .time-12 {
         width: 67px;
     }
 
-    & .gmt {
+    .gmt {
         width: 75px;
         flex-shrink: 0;
     }
@@ -46,9 +46,8 @@
     justify-content: flex-start;
     gap: .2rem;
 
-    & .flag {
+    .flag {
         flex-shrink: 0;
-
     }
 }
 
@@ -63,8 +62,6 @@
 
 
     & img {
-        /* display: none; */
         opacity: 0.1;
     }
 }
-
