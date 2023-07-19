@@ -15,8 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build project
-        uses: ./.github/workflows/build.yml@sonar-cloud
-        secrets: inherit
+        uses: ./.github/workflows/build.yml
 
       - name: Display coverage files
         run: ls -R
