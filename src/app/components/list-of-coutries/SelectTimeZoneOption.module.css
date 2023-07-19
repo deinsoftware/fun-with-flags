@@ -1,0 +1,50 @@
+& .item-country-container {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    padding: 8px 12px;
+    border: 1.5px solid var(--color-darkgray-500);
+    color: white;
+
+    cursor: pointer;
+
+    & .flag-and-country-name {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+
+        & .flag-country {
+            font-size: var(--font-size-title);
+        }
+
+        & .name-country {
+            font-size: var(--font-size-large);
+        }
+    }
+
+    & .more-countries-button {
+        width: 22px;
+        height: 22px;
+
+        background-color: transparent;
+
+        transform: rotate(-0.25turn);
+
+        /* Esto no sería :hover, si no .isOpen */
+        /* Clase dinámica al darle click al botón | toggle */
+        &:hover {
+            transform: rotate(0deg);
+        }
+    }
+}
+
+& .more-time-zones {
+    width: 100%;
+    display: none;
+}
+
+& .more-time-zones.is-open {
+    display: flex;
+    flex-direction: column;
+}

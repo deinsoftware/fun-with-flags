@@ -1,8 +1,10 @@
 'use client'
-import React from 'react'
+
 import styles from './ListOfCountries.module.css'
-import ReactCountryFlag from 'react-country-flag'
 import { useFetch } from './useFetch'
+
+import SelectTimeZoneOption from './SelectTimeZoneOption'
+import SelectTimeZone from './SelectTimeZone'
 
 const ListOfCountries = () => {
   const locale = Intl.NumberFormat().resolvedOptions().locale
@@ -18,25 +20,9 @@ const ListOfCountries = () => {
     <>
       <div className={styles['container-list-with-search']}>
         <input type="text" className={styles['search-bar']} />
-
         <div className={styles['container-list-of-countries']}>
-          {data?.map(({ id, countryCode, regionName }) => {
-            return (
-              <div className={styles['item-country-container']} key={id}>
-                <ReactCountryFlag
-                  countryCode={countryCode}
-                  svg
-                  className={styles['flag-country']}
-                  title={`Flag of ${regionName}`}
-                  alt={`Flag of ${regionName}`}
-                />
-                <span className={styles['name-country']}>{regionName}</span>
-                <button className={styles['more-countries-arrow']}>
-                  {'->'}
-                </button>
-              </div>
-            )
-          })}
+          <SelectTimeZoneOption data={data} />
+          <SelectTimeZone data={data} />
         </div>
       </div>
     </>
