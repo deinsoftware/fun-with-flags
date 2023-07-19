@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: build project
         uses: ./.github/workflows/build.yml@sonar-cloud
+        secrets: inherit
 
       - name: Display coverage files
         run: ls -R
