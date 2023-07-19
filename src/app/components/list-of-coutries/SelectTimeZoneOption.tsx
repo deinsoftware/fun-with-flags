@@ -7,14 +7,17 @@ import MoreCountries from './MoreCountries'
 
 import styles from './SelectTimeZoneOption.module.css'
 
-// import data from '../list-of-coutries/data.json'
-
-const SelectTimeZoneOption = ({data}) => {
+const SelectTimeZoneOption = ({ data }) => {
   // const [countries, setCountries] = useState(data)
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleIsOpen = () => {
-    setIsOpen(!isOpen)
+  const toggleIsOpen = (id) => {
+    setIsOpen((prev) => {
+      return {
+        ...prev,
+        [id]: !prev[id],
+      }
+    })
   }
 
   return (
@@ -26,7 +29,7 @@ const SelectTimeZoneOption = ({data}) => {
               <button
                 className={styles['item-country-container']}
                 key={id}
-                onClick={() => toggleIsOpen()}
+                onClick={() => toggleIsOpen(id)}
               >
                 <div className={styles['flag-and-country-name']}>
                   <ReactCountryFlag
@@ -49,7 +52,7 @@ const SelectTimeZoneOption = ({data}) => {
 
               <div
                 className={`${styles['more-time-zones']} ${
-                  isOpen ? styles['is-open'] : ''
+                  isOpen[id] ? styles['is-open'] : ''
                 } `}
               >
                 <MoreCountries timeZone={timeZone} />

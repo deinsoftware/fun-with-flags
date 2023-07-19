@@ -14,7 +14,6 @@ const ListOfCountries = () => {
     locale,
     '2023-02-24',
   )
-  // console.log(locale)
 
   return (
     <>
