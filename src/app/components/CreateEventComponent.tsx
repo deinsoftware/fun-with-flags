@@ -1,3 +1,4 @@
+import ComboboxCountries from './ComboboxCountries/ComboboxCountries'
 import styles from './CreateEventComponent.module.css'
 
 const CreateEventComponent = () => {
@@ -67,6 +68,7 @@ const CreateEventComponent = () => {
               className={styles['full-width']}
             />
           </div>
+          <ComboboxCountries format= {24} />
           <div>
             {/* // TODO: El div que envuelve los dos textarea, tiene como 2-3 más de altura | Help */}
             <textarea
