@@ -1,38 +1,158 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/utils/prisma'
-import { Providers } from '@/shared/types/providers.types'
+import { prisma, Prisma } from '@/libs/prisma'
 
-const getUser = async (provider: Providers, user: string) => {
-  const userByProvider = await prisma.users.findFirst({
-    where: {
-      providers: {
-        name: provider,
-        user: user,
-      },
-    },
-    select: {
-      userName: true,
-    },
-  })
-
-  return NextResponse.json(userByProvider)
-}
-
-const handler = async (request: Request) => {
+const postHandler = async (request: Request) => {
   try {
     const { provider, user } = (await request.json()) || {}
     if (!provider && !user) {
       return NextResponse.json(
-        { error: 'not valid parameters' },
+        { error: 'not valid body parameters' },
         { status: 400 },
       )
     }
 
-    return await getUser(provider, user)
+    const userByProvider = await prisma.users.findFirstOrThrow({
+      where: {
+        providers: {
+          some: {
+            name: provider,
+            user: user,
+          },
+        },
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    return NextResponse.json(userByProvider)
   } catch (error) {
-    console.error({ 'API Events Error': error })
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.message || 'user not found' },
+          { status: 404 },
+        )
+      }
+    }
+
+    console.error({ 'API Users Error': error })
     return NextResponse.json({ error: 'failed to fetch data' }, { status: 500 })
   }
 }
 
-export { handler as POST }
+const putHandler = async (request: Request) => {
+  try {
+    const data = (await request.json()) || {}
+
+    const userExists = await prisma.users.findFirst({
+      where: {
+        userName: data.userName,
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    if (userExists !== null) {
+      return NextResponse.json(
+        { error: 'user already exists' },
+        { status: 409 },
+      )
+    }
+
+    const user = await prisma.users.create({
+      data,
+    })
+    return NextResponse.json(user, { status: 201 })
+  } catch (error) {
+    console.error({ 'API Users Error': error })
+    return NextResponse.json({ error: 'failed to create' }, { status: 500 })
+  }
+}
+
+const patchHandler = async (request: Request) => {
+  try {
+    const { userName } = (await request.json()) || {}
+
+    const userExists = await prisma.users.findFirst({
+      where: {
+        userName: userName.new,
+      },
+      select: {
+        userName: true,
+      },
+    })
+
+    if (userExists !== null) {
+      return NextResponse.json(
+        { error: 'new user already exists' },
+        { status: 409 },
+      )
+    }
+
+    const user = await prisma.users.update({
+      data: {
+        userName: userName.new,
+      },
+      where: {
+        userName: userName.current,
+      },
+    })
+    return NextResponse.json(user)
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.meta?.cause || 'user to update not found' },
+          { status: 404 },
+        )
+      }
+    }
+
+    console.error({ 'API Users Error': error })
+    return NextResponse.json({ error: 'failed to update' }, { status: 500 })
+  }
+}
+
+const delHandler = async (request: Request) => {
+  try {
+    const { userName } = (await request.json()) || {}
+    if (!userName) {
+      return NextResponse.json(
+        { error: 'not valid body parameters' },
+        { status: 400 },
+      )
+    }
+
+    const user = await prisma.users.delete({
+      where: {
+        userName,
+      },
+      include: {
+        Events: true,
+      },
+    })
+
+    return NextResponse.json(user)
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: error?.meta?.cause || 'user to delete not exist' },
+          { status: 404 },
+        )
+      }
+    }
+
+    console.error({ 'API Events Error': error })
+    return NextResponse.json({ error: 'failed to delete' }, { status: 501 })
+  }
+}
+
+export {
+  postHandler as POST,
+  putHandler as PUT,
+  patchHandler as PATCH,
+  delHandler as DELETE,
+}

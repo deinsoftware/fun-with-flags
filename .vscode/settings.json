@@ -169,4 +169,8 @@
     "editor.tabSize": 2,
     "files.trimTrailingWhitespace": false
   },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "dein-vscode",
+    "projectKey": "dein:fwf"
+  },
 }
