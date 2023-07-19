@@ -28,7 +28,7 @@ describe('getDateInformation()', () => {
         region: 'Australia',
         timestamp: '6/10/2023, 11:06:42 AM',
         date: '6/10/2023',
-        time: '11:06:42 AM',
+        time: '11:06 AM',
       },
     }
 
@@ -59,7 +59,7 @@ describe('getDateInformation()', () => {
         region: 'Australia',
         timestamp: '6/10/2023, 11:06:42',
         date: '6/10/2023',
-        time: '11:06:42',
+        time: '11:06',
       },
     }
 
@@ -72,6 +72,7 @@ describe('getDateInformation()', () => {
       originDate: new Date('2023-06-10T01:36:42.271Z'),
       zone: {
         countryCode: 'AU',
+        // @ts-expect-error
         name: 'Foo/Bar',
       },
       locale: 'en-US',
@@ -117,7 +118,7 @@ describe('getDatesList()', () => {
           region: 'United States',
           timestamp: '6/9/2023, 21:36:42',
           date: '6/9/2023',
-          time: '21:36:42',
+          time: '21:36',
         },
       },
       {
@@ -132,7 +133,7 @@ describe('getDatesList()', () => {
           region: 'Spain',
           timestamp: '6/10/2023, 03:36:42',
           date: '6/10/2023',
-          time: '03:36:42',
+          time: '03:36',
         },
       },
     ]
