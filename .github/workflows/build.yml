@@ -3,16 +3,23 @@ name: Build
 on:
   workflow_call:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+
       - name: install packages
         run: npm ci
+
       - name: run test and coverage
         run: npm run test:c
 
