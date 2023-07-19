@@ -2,9 +2,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: ['main', 'dev']
+    branches: ["main", "dev"]
   pull_request:
-    branches: ['main']
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -12,19 +12,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: build project
-        uses: ./.github/workflows/build.yml
-
-      - name: Display coverage files
-        run: ls -R
-        working-directory: coverage
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: coverage-artifact
-          path: coverage/lcov.info
+    uses: ./.github/workflows/build.yml
 
   sonar:
     needs: build
