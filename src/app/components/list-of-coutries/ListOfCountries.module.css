@@ -1,8 +1,9 @@
 .container-list-with-search {
-    margin: 40px;
     /* Borrar cuando se pase a modal */
 
     max-width: 80%;
+    margin: 40px;
+
     /* Calcular el ancho en modale */
 
     & .search-bar {
@@ -13,56 +14,12 @@
 
     .container-list-of-countries {
         max-height: 50vh;
+
         /* Cambiar cuando se pase a modal */
 
         border: 1.5px solid var(--color-darkgray-500);
         border-radius: 10px;
-
         overflow-y: scroll;
         scroll-behavior: smooth;
-
-        .item-country-container {
-            width: 100%;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            padding: 4px 8px;
-            border: 1.5px solid var(--color-darkgray-500);
-            color: white;
-            gap: 12px;
-
-            & .flag-country {
-                width: 52px;
-                font-size: var(--font-size-title);
-            }
-
-            & .name-country {
-                flex: 1;
-                font-size: var(--font-size-large);
-            }
-
-            & .more-countries-button {
-                width: 32px;
-                height: 32px;
-                cursor: pointer;
-
-                background-color: transparent;
-
-                border: none;
-
-                transform: rotate(-0.25turn);
-
-                /* Esto no sería :hover, si no .opened */
-                /* Clase dinámica al darle click al botón | toggle */
-                &:hover {
-                    transform: rotate(0deg);
-                }
-
-                & .more-countries-button-image {
-                    width: 22px;
-                    height: 22px;
-                }
-            }
-        }
     }
 }

@@ -1,4 +1,6 @@
 @import url('./minireset.min.css');
+
+/* @import url('/node_modules/minireset.css/minireset.min.css'); */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 :root {
@@ -71,7 +73,7 @@
   --color-darkpurple-800: #0A0518;
   --color-darkpurple-900: #080413;
   --color-darkpurple-950: #;
-  --color-white-000: #fff;
+  --color-white-000: #FFF;
   --color-black-000: #000;
   --color-btn-google: #4285F4;
   --color-btn-google-hover: #3d7de4;

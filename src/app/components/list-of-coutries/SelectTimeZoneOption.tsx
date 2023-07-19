@@ -46,7 +46,9 @@ const SelectTimeZoneOption = ({ data }) => {
                   alt="More time zones"
                   width={10}
                   height={10}
-                  className={styles['more-countries-button']}
+                  className={`${styles['more-countries-button']} ${
+                    isOpen[id] ? styles['rotated'] : ''
+                  }`}
                 />
               </button>
 

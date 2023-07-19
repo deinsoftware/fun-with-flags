@@ -1,18 +1,17 @@
         .item-country-container {
-            width: 100%;
-            background-color: transparent;
             display: flex;
+            width: 100%;
             padding: 8px 12px;
             border: 1.5px solid var(--color-darkgray-500);
+            background-color: transparent;
             color: white;
-
             cursor: pointer;
 
             .flag-and-country-name {
                 display: flex;
+                width: 100%;
                 align-items: center;
                 gap: 12px;
-                width: 100%;
 
                 & .flag-country {
                     font-size: var(--font-size-title);
