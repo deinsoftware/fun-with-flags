@@ -1,4 +1,4 @@
-import ListOfCountries from '../components/list-of-coutries/ListOfCountries'
+import ListOfCountries from '../components/ListOfCoutries/ListOfCountries'
 
 const ListCountriesPage = () => {
   return (
