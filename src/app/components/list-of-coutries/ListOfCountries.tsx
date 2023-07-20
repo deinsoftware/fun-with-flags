@@ -18,10 +18,15 @@ const ListOfCountries = () => {
   return (
     <>
       <div className={styles['container-list-with-search']}>
-        <input type="text" className={styles['search-bar']} />
+        <input type="text" placeholder={`Search for time zones`} className={styles['search-bar']} />
         <div className={styles['container-list-of-countries']}>
-          <SelectTimeZoneOption data={data} />
-          <SelectTimeZone data={data} />
+          {data?.map((country)=>{
+            if(country.timeZone.length>1) {
+              return <SelectTimeZoneOption key={country.countryCode} {...country}  />
+            } else {
+             return <SelectTimeZone key={country.countryCode} {...country}  />
+            }
+          })}
         </div>
       </div>
     </>

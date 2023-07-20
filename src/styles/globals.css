@@ -80,4 +80,9 @@
 body {
   background-color: var(--color-neutral-500);
   font-family: var(--font-family-primary);
+
+  ::selection {
+    color: var(--color-white-000);
+    background: var(--color-purple-800);
+  }
 }

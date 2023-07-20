@@ -1,11 +1,18 @@
 & .item-country-container {
     display: flex;
+    align-items: center;
     width: 100%;
     padding: 8px 12px;
     border: 1.5px solid var(--color-darkgray-500);
     background-color: transparent;
     color: white;
     cursor: pointer;
+
+    max-height: 48px;
+
+    &:active {
+        border: 1.5px solid var(--color-purple-500)
+    }
 
     & .flag-and-country-name {
         display: flex;
