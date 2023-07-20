@@ -27,6 +27,9 @@
         height: 22px;
         background-color: transparent;
         transform: rotate(-0.25turn);
+
+        /* ¿La transición más rápido o más lenta? */
+        transition: transform 0.054321s linear;
     }
 
     & .more-countries-button.rotated {
