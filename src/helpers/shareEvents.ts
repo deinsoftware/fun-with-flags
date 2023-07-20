@@ -1,4 +1,4 @@
-const shareEvents = ({
+export const shareEventsTwitter = ({
   url,
   text,
   hashtags,
@@ -20,5 +20,19 @@ const shareEvents = ({
   twitterURL.searchParams.append('text', text)
   if (hashtags) twitterURL.searchParams.append('hashtags', hashtags.toString())
 
-  return { twitter: twitterURL.href }
+  return twitterURL.href
+}
+
+export const shareEventsLinkedin = ({ url }: { url: string }) => {
+  const linkedinBaseURL = 'https://www.linkedin.com/sharing/share-offsite'
+  const linkedinURL = new URL(linkedinBaseURL)
+  linkedinURL.searchParams.append('url', url)
+  return linkedinURL.href
+}
+
+export const shareEventsFacebook = ({ url }: { url: string }) => {
+  const facebookBaseURL = 'https://www.facebook.com/sharer.php'
+  const facebookURL = new URL(facebookBaseURL)
+  facebookURL.searchParams.append('u', url)
+  return facebookURL.href
 }
