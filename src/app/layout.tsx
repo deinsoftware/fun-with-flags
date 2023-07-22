@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 // import { Inter } from 'next/font/google'
-import Provider from './components/Provider'
+import Provider from './components/auth/Provider'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import TitleOnPage from './components/TitleOnPage'
@@ -22,11 +22,7 @@ export const metadata = {
   ],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <Provider>
@@ -42,3 +38,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+export default RootLayout
