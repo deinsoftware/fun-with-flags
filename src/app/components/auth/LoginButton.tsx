@@ -23,7 +23,6 @@ const LoginButton = () => {
 
   return (
     <>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
       <button className={styles['login-button']} onClick={() => signOut()}>
         <Image
           className={styles['bg-icon']}
