@@ -7,10 +7,6 @@ import styles from './page.module.css'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
-export const metadata = {
-  title: 'Login',
-}
-
 const LoginPage = () => {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams?.get('callbackUrl') ?? '/'
