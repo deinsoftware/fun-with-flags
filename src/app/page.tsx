@@ -1,6 +1,6 @@
 import styles from './page.module.css'
 import SearchBar from './components/SearchBar'
-import CardPost from './components/CardPost'
+import CardPost from './components/CardPost/CardPost'
 
 const posts = [
   {

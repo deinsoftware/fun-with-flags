@@ -20,7 +20,6 @@
 
     &:focus {
         border: none;
-
     }
 
     &:active {
@@ -39,7 +38,6 @@
             } */
 
         /* TODO: Agregar más variables de blanco para utilizar en el hover de los botones con texto blanco */
-
     }
 
     & img {

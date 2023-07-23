@@ -7,8 +7,7 @@ import MoreCountries from './MoreCountries'
 
 import styles from './SelectTimeZoneOption.module.css'
 
-const SelectTimeZoneOption = ({id, countryCode, regionName, timeZone}) => {
-  // const [countries, setCountries] = useState(data)
+const SelectTimeZoneOption = ({ id, countryCode, regionName, timeZone }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = (id) => {
@@ -19,8 +18,6 @@ const SelectTimeZoneOption = ({id, countryCode, regionName, timeZone}) => {
       }
     })
   }
-
-  // const {id, timeZone, countryCode, regionName} = country;
 
   return (
     <>
