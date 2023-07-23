@@ -6,15 +6,14 @@
     height: 100%;
 
     /* *Pensar este overlay */
-    background-color: rgba(138, 0, 0, 0.2);
+    background-color: rgb(138 0 0 / 20%);
 
     .container-list-with-search {
         display: block;
         width: 90%;
         height: calc(90% - 60px);
-        margin: 30px auto;
         border-radius: 10px;
-
+        margin: 30px auto;
         background-color: var(--color-neutral-500);
 
         & .search-bar-container {
@@ -23,15 +22,13 @@
             & .search-bar {
                 width: 100%;
                 height: 32px;
-                border-radius: 10px 0 0 0;
-
+                padding: 0 8px;
+                border-radius: 10px 0 0;
                 border-top: 1.5px solid var(--color-darkgray-500);
                 border-right: 1.5px solid transparent;
                 border-bottom: 1.5px solid var(--color-darkgray-500);
                 border-left: 1.5px solid var(--color-darkgray-500);
                 background-color: var(--color-darkgray-800);
-
-                padding: 0 8px;
 
                 /* Acá está el color del input, cambiar si es necesario */
                 color: var(--color-purple-300);
@@ -51,11 +48,11 @@
             }
 
             & .close-modal {
+                border-radius: 0 10px 0 0;
                 border-top: 1.5px solid var(--color-darkgray-500);
                 border-right: 1.5px solid var(--color-darkgray-500);
                 border-bottom: 1.5px solid var(--color-darkgray-500);
                 border-left: 1.5px solid transparent;
-                border-radius: 0 10px 0 0;
                 background-color: var(--color-darkgray-800);
 
                 &:focus {

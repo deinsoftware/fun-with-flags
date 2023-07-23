@@ -27,8 +27,8 @@
 
         & .name-country {
             width: 100%;
-            text-align: left;
             font-size: var(--font-size-large);
+            text-align: left;
         }
     }
 }

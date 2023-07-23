@@ -82,7 +82,7 @@ body {
   font-family: var(--font-family-primary);
 
   ::selection {
-    color: var(--color-whywhite-500);
     background: var(--color-purple-800);
+    color: var(--color-whywhite-500);
   }
 }
