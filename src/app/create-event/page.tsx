@@ -1,15 +1,14 @@
-'use client'
 import CreateEventComponent from '../components/CreateEventComponent'
 
-// export const metadata = {
-//   title: 'Create event',
-// }
+export const metadata = {
+  title: 'Create event',
+}
 
-const CreateEvent = () => {
+const CreateEventPage = () => {
   return (
     <>
       <CreateEventComponent />
     </>
   )
 }
-export default CreateEvent
+export default CreateEventPage

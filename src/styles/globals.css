@@ -49,7 +49,7 @@
   --color-darkgray-800: #272727;
   --color-darkgray-900: #202020;
   --color-darkgray-950: #151515;
-  --color-whywhite-300: #FFF;
+  --color-whywhite-300: #FEFEFE;
   --color-whywhite-400: #FBFCFD;
   --color-whywhite-500: #F9FBFC;
   --color-whywhite-600: #F4F4F4;
@@ -82,7 +82,7 @@ body {
   font-family: var(--font-family-primary);
 
   ::selection {
-    color: var(--color-white-000);
+    color: var(--color-whywhite-500);
     background: var(--color-purple-800);
   }
 }
