@@ -30,9 +30,8 @@ const ListOfCountries = ({ onClose }) => {
 
     if (query.length <= 2) {
       filterTimeout = setTimeout(() => {
-        console.log('🌌🌌🌌 =>', query, '<= 🌌🌌🌌')
         setFilteredCountries(
-          data.filter(({ countryCode }) =>
+          data?.filter(({ countryCode }) =>
             countryCode.toLowerCase().includes(query.toLowerCase()),
           ),
         )
@@ -45,9 +44,8 @@ const ListOfCountries = ({ onClose }) => {
     // *Discutir cuál es el más acertado
     if (query.length >= 3) {
       filterTimeout = setTimeout(() => {
-        console.log('🌌🌌🌌 =>', query, '<= 🌌🌌🌌')
         setFilteredCountries(
-          data.filter(({ regionName }) =>
+          data?.filter(({ regionName }) =>
             regionName.toLowerCase().includes(query.toLowerCase()),
           ),
         )
