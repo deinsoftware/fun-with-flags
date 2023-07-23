@@ -6,7 +6,11 @@ import styles from './SelectTimeZone.module.css'
 const SelectTimeZone = ({ id, countryCode, regionName, timeZone }) => {
   return (
     <>
-      <button className={styles['item-country-container']} key={id}>
+      <button
+        className={styles['item-country-container']}
+        key={id}
+        type="button"
+      >
         <div className={styles['flag-and-country-name']}>
           <ReactCountryFlag
             countryCode={countryCode}

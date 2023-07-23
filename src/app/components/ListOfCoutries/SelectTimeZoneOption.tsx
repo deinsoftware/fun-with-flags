@@ -24,6 +24,7 @@ const SelectTimeZoneOption = ({ id, countryCode, regionName, timeZone }) => {
       <button
         className={styles['item-country-container']}
         key={id}
+        type="button"
         onClick={() => toggleIsOpen(id)}
       >
         <div className={styles['flag-and-country-name']}>

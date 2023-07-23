@@ -1,43 +1,80 @@
-.container-list-with-search {
-    /* Borrar cuando se pase a modal */
-    max-width: 80%;
-    margin: 40px;
-    /* Calcular el ancho en modale */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
-    & .search-bar {
-        width: 100%;
-        height: 32px;
-        border-radius: 10px 10px 0 0;
+    /* *Pensar este overlay */
+    background-color: rgba(138, 0, 0, 0.2);
 
-        border: 1.5px solid var(--color-darkgray-500);
-        background-color: var(--color-darkgray-800);
+    .container-list-with-search {
+        display: block;
+        width: 90%;
+        height: calc(90% - 60px);
+        margin: 30px auto;
+        border-radius: 10px;
 
-        padding: 0 8px;
+        background-color: var(--color-neutral-500);
 
-        /* Acá está el color del input, cambiar si es necesario */
-        color: var(--color-purple-300);
-        font-weight: var(--font-weight-bold);
+        & .search-bar-container {
+            display: flex;
 
-        &::placeholder {
-            color: var(--color-gray-500);
+            & .search-bar {
+                width: 100%;
+                height: 32px;
+                border-radius: 10px 0 0 0;
+
+                border-top: 1.5px solid var(--color-darkgray-500);
+                border-right: 1.5px solid transparent;
+                border-bottom: 1.5px solid var(--color-darkgray-500);
+                border-left: 1.5px solid var(--color-darkgray-500);
+                background-color: var(--color-darkgray-800);
+
+                padding: 0 8px;
+
+                /* Acá está el color del input, cambiar si es necesario */
+                color: var(--color-purple-300);
+                font-weight: var(--font-weight-bold);
+
+                &::placeholder {
+                    color: var(--color-gray-500);
+                }
+
+                &:focus {
+                    outline: none
+                }
+
+                &:active {
+                    border: 1.5px solid var(--color-purple-500)
+                }
+            }
+
+            & .close-modal {
+                border-top: 1.5px solid var(--color-darkgray-500);
+                border-right: 1.5px solid var(--color-darkgray-500);
+                border-bottom: 1.5px solid var(--color-darkgray-500);
+                border-left: 1.5px solid transparent;
+                border-radius: 0 10px 0 0;
+                background-color: var(--color-darkgray-800);
+
+                &:focus {
+                    outline: 1.5px solid var(--color-purple-500)
+                }
+
+                &:active {
+                    border: 1.5px solid var(--color-purple-500)
+                }
+            }
         }
 
-        &:focus {
-            outline: none
+        .container-list-of-countries {
+            /* Los 32px son la altura de la .search-bar */
+            height: calc(100% - 32px);
+            border: 1.5px solid var(--color-darkgray-500);
+            border-radius: 0 0 10px 10px;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
         }
-
-        &:active {
-            border: 1.5px solid var(--color-purple-500)
-        }
-    }
-
-    .container-list-of-countries {
-        max-height: 50vh;
-        /* Cambiar cuando se pase a modal */
-
-        border: 1.5px solid var(--color-darkgray-500);
-        border-radius: 0 0 10px 10px;
-        overflow-y: scroll;
-        scroll-behavior: smooth;
     }
 }
