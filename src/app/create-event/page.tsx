@@ -1,4 +1,5 @@
-"use client"
+'use client'
+
 import CreateEventComponent from '../components/CreateEventComponent'
 
 const CreateEvent = () => {
