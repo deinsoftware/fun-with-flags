@@ -11,7 +11,6 @@ describe('isValidTimeZone()', () => {
 
   it('should return false when using an incorrect time zone', () => {
     const value = 'Foo/Bar'
-    // @ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
   })
@@ -21,7 +20,6 @@ describe('isValidTimeZone()', () => {
     spy.mockImplementation(() => undefined)
 
     const value = 'Foo/Bar'
-    // @ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
 

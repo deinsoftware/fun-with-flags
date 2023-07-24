@@ -1,4 +1,4 @@
-import { createUser, getUserByProvider, getUserByUser } from '@/helpers/users'
+import { createUser, getUserByProvider, getUserByUser } from '@/services/users'
 import {
   Account,
   User,
@@ -65,10 +65,9 @@ const callbacks = {
   async session({ session }: { session: Session | DefaultSession }) {
     const user = session?.user?.email ?? ''
     const currentUser = await getUserByUser(user)
-    if (currentUser && !!session?.user) {
+    if (currentUser !== null && !!session?.user) {
       session.user.name = currentUser.userName
     }
-
     return session
   },
 }

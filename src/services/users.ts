@@ -1,6 +1,12 @@
-import { Prisma, UsersProviders } from '@prisma/client'
+import { UsersProviders } from '@prisma/client'
+import { Prisma } from '@/libs/prisma'
 
-export const getUserByProvider = async ({ user, name }: UsersProviders) => {
+const { NEXT_PUBLIC_API_URL } = process.env ?? ''
+
+export const getUserByProvider = async ({
+  user,
+  name,
+}: UsersProviders): Promise<{ userName: string } | null> => {
   const payload = JSON.stringify({
     provider: name,
     user: user,
@@ -11,18 +17,17 @@ export const getUserByProvider = async ({ user, name }: UsersProviders) => {
     body: payload,
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
-    options,
-  )
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/users`, options)
   if (response.status !== 200) {
-    return ''
+    return null
   }
   const result = await response.json()
   return result
 }
 
-export const getUserByUser = async (user: string) => {
+export const getUserByUser = async (
+  user: string,
+): Promise<{ userName: string } | null> => {
   const payload = JSON.stringify({
     user: user,
   })
@@ -32,12 +37,9 @@ export const getUserByUser = async (user: string) => {
     body: payload,
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
-    options,
-  )
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/users`, options)
   if (response.status !== 200) {
-    return ''
+    return null
   }
   const result = await response.json()
   return result
@@ -46,7 +48,7 @@ export const getUserByUser = async (user: string) => {
 export const createUser = async ({
   userName,
   providers,
-}: Prisma.UsersCreateInput) => {
+}: Prisma.UsersCreateInput): Promise<{ userName: string } | null> => {
   const payload = JSON.stringify({
     userName,
     providers,
@@ -57,10 +59,7 @@ export const createUser = async ({
     body: payload,
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
-    options,
-  )
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/users`, options)
   if (response.status !== 201) {
     throw new Error("User can't be created")
   }
