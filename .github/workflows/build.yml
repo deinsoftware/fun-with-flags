@@ -17,7 +17,7 @@ jobs:
         run: npm ci
 
       - name: build project
-        run: nmp run build
+        run: npm run build
 
       - name: run test and coverage
         run: npm run test:c
