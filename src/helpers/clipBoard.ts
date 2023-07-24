@@ -1,8 +1,10 @@
-async function copyText(text: string) {
-  try {
-    await navigator.clipboard.writeText(text)
-    alert('Text copied to clipboard')
-  } catch (error) {
-    console.error('Failed to copy text')
-  }
+export function copyText(text: string) {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      alert('Text copied')
+    })
+    .catch((err) => {
+      console.error('Failed to copy text')
+    })
 }
