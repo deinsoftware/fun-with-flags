@@ -33,7 +33,7 @@ const handler = async (request: Request) => {
         zoneList.sort((a, z) => a.offset - z.offset)
         return { id, countryCode, regionName, timeZone: zoneList }
       })
-      .sort((a, z) => a?.regionName.localeCompare(z?.regionName))
+      .sort((a, z) => (a?.regionName ?? '').localeCompare(z?.regionName ?? ''))
 
     return NextResponse.json(timeZones)
   } catch (error) {
