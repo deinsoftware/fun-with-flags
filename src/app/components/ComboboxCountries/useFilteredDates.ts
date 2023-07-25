@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { EventDate, ZoneList } from '@/helpers/events.types'
+import { EventDate } from '@/helpers/events.types'
 import { DateArray } from '@/types/DateArray.types'
 
 type TimezoneInfo = {

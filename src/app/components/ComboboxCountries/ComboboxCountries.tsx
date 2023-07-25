@@ -2,16 +2,38 @@
 import ReactCountryFlag from "react-country-flag"
 import style from './ComboboxCountries.module.css'
 
-import { getDatesList, sortDatesList } from "@/helpers/events"
-import { ZoneList } from "@/helpers/events.types"
+import { useGetNextAndPrevDay } from "./useGetNextAndPrevDay"
 import { useFilteredDates } from "./useFilteredDates"
+
+import { getDatesList, sortDatesList } from "@/helpers/events"
+import { Zone, ZoneList } from "@/helpers/events.types"
 import { DateArray } from "@/types/DateArray.types"
-import { useNextAndPrevDay } from "./useNextAndPrevDay"
 
-
+interface Data {
+    id: string;
+    description: string;
+    img: string;
+    lang: string;
+    name: string;
+    tags: string[];
+    timeZone: {
+      list: Zone[];
+      origin: {
+        countryCode: string;
+        date: string;
+        name: string;
+      };
+    };
+    createdAt: string;
+    updatedAt: string | null;
+    url: string;
+    userId: string;
+  }
+  
 
  type Format = {
     format: 12 | 24
+    data?: Data
  }
 
 const data = `{
@@ -75,19 +97,19 @@ const data = `{
     "userId": "64a62f9cfd16fa4f76403358"
 }`
 
-const mockData=JSON.parse(data)
+const mockData:Data =JSON.parse(data)
 const currentDate = new Date(mockData.timeZone.origin.date)
 
-const ComboboxCountries = ({format}: Format) => {
+const ComboboxCountries = ({format, data=mockData}: Format) => {
     const valueList: ZoneList ={
-        originDate: new Date(mockData.timeZone.origin.date),
-        zoneList: mockData.timeZone.list,
+        originDate: new Date(data.timeZone.origin.date),
+        zoneList: data.timeZone.list,
         timeFormat: format,
     }
     const dateList =sortDatesList(getDatesList(valueList))
 
     const filteredDates = useFilteredDates(dateList, format)
-    const {isNextDate, isPrevDate} = useNextAndPrevDay(filteredDates, currentDate)
+    const {isNextDate, isPrevDate} = useGetNextAndPrevDay(filteredDates, currentDate)
    
     const currentDatePlusOne = new Date(currentDate.getTime())
     currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
