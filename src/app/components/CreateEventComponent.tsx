@@ -1,7 +1,17 @@
+'use client'
+
+import { useState } from 'react'
 import ComboboxCountries from './ComboboxCountries/ComboboxCountries'
 import styles from './CreateEventComponent.module.css'
+import ListOfCountries from './ListOfCoutries/ListOfCountries'
 
 const CreateEventComponent = () => {
+  const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
+
+  const handleClose = () => {
+    setIsOpenSelectTimeZone(false)
+  }
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -18,19 +28,35 @@ const CreateEventComponent = () => {
 
           <div className={styles['container-half-width']}>
             <div>
-              <input type="time" name="" id="" className={styles['full-width']} />
+              <input
+                type="time"
+                name=""
+                id=""
+                className={styles['full-width']}
+              />
             </div>
             <div>
-              <input type="date" name="" id="" className={styles['full-width']} />
+              <input
+                type="date"
+                name=""
+                id=""
+                className={styles['full-width']}
+              />
             </div>
           </div>
 
           <div className={styles['container-half-width']}>
             <div className={styles.halfWidth}>
-              <select name="" id="" className={styles['full-width']}>
-                <option value="tm-1">Time zone 1</option>
-                <option value="tm-2">Time zone 2</option>
-              </select>
+              {/* Acá se abre el modal de los timeZone */}
+              <button
+                type="button"
+                onClick={() => setIsOpenSelectTimeZone(true)}
+              >
+                Time zone
+              </button>
+              {isOpenSelectTimeZone && (
+                <ListOfCountries onClose={handleClose} />
+              )}
             </div>
             <div className={styles.halfWidth}>
               <select name="" id="" className={styles['full-width']}>
@@ -68,7 +94,7 @@ const CreateEventComponent = () => {
               className={styles['full-width']}
             />
           </div>
-          <ComboboxCountries format= {24} />
+          <ComboboxCountries format={24} />
           <div>
             {/* // TODO: El div que envuelve los dos textarea, tiene como 2-3 más de altura | Help */}
             <textarea

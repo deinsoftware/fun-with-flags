@@ -1,12 +1,10 @@
-'use client'
-
 import CreateEventComponent from '../components/CreateEventComponent'
 
-const CreateEvent = () => {
+const CreateEventPage = () => {
   return (
     <>
       <CreateEventComponent />
     </>
   )
 }
-export default CreateEvent
+export default CreateEventPage

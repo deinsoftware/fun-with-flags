@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '/node_modules/minireset.css/minireset.min.css'
 // import { Inter } from 'next/font/google'
 import Provider from './components/auth/Provider'
 import Header from './components/Header'
