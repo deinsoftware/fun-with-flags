@@ -183,9 +183,14 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
                                     height: '1.6rem',
                                 }}
                                 />
+                                <ReactCountryFlag 
+                                    countryCode={countryCode} 
+                                    style={{display: 'none'}}
+                                />
                             </div>
                             )
                         })}
+                        {`\n`}
                     </div>
                     </>
                     
@@ -209,14 +214,14 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
         <div className={style['countries-container']}>
             {isPrevDate && 
              <>
-                <p><strong>{currentDateMinusOne.toDateString()}</strong></p>
+                <p><strong>{`${currentDateMinusOne.toDateString()}\n`}</strong></p>
                 {datesToRender({datesArray: filteredDates, prevDate: true})}
              </> 
             }
             
             {(typeof dateList !== 'undefined') ? 
             <>
-                <p><strong>{currentDate.toDateString()}</strong></p>
+                <p><strong>{`${currentDate.toDateString()}\n`}</strong></p>
                 {datesToRender({datesArray: filteredDates})} 
             </> 
             : 'Add a timezone to start'}
@@ -224,7 +229,7 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
             
             {isNextDate && 
              <>
-                <p><strong>{currentDatePlusOne.toDateString()}</strong></p>
+                <p><strong>{`${currentDatePlusOne.toDateString()}\n`}</strong></p>
                 {datesToRender({datesArray: filteredDates, nextDate: true})}
              </> 
             }
