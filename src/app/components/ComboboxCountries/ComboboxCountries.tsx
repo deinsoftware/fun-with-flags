@@ -3,24 +3,16 @@ import ReactCountryFlag from "react-country-flag"
 import style from './ComboboxCountries.module.css'
 
 import { getDatesList, sortDatesList } from "@/helpers/events"
-import { EventDate, ZoneList } from "@/helpers/events.types"
-import { useEffect, useState } from "react"
+import { ZoneList } from "@/helpers/events.types"
+import { useFilteredDates } from "./useFilteredDates"
+import { DateArray } from "@/types/DateArray.types"
+import { useNextAndPrevDay } from "./useNextAndPrevDay"
 
-type TimezoneInfo = {
-    [time: string]: {
-        countryCodes: [string[]];
-        gmt?: string;
-        date: string;
-    }
-  };
 
-type DateArray = [
-    string, {
-        countryCodes: [string[]];
-        gmt?: string | undefined;
-        date: string;
-    }
- ]
+
+ type Format = {
+    format: 12 | 24
+ }
 
 const data = `{
     "id": "64a25c08492a2b3680a10500",
@@ -73,7 +65,7 @@ const data = `{
         ],
         "origin": {
             "countryCode": "CO",
-            "date": "2023-07-13T05:38:42.271Z",
+            "date": "2023-07-13T05:18:42.271Z",
             "name": "America/Bogota"
         }
     },
@@ -86,7 +78,7 @@ const data = `{
 const mockData=JSON.parse(data)
 const currentDate = new Date(mockData.timeZone.origin.date)
 
-const ComboboxCountries = ({format}: {format: 12 | 24}) => {
+const ComboboxCountries = ({format}: Format) => {
     const valueList: ZoneList ={
         originDate: new Date(mockData.timeZone.origin.date),
         zoneList: mockData.timeZone.list,
@@ -94,59 +86,14 @@ const ComboboxCountries = ({format}: {format: 12 | 24}) => {
     }
     const dateList =sortDatesList(getDatesList(valueList))
 
-    const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
-    const [isNextDate, setIsNextDate] = useState<boolean>(false)
-    const [isPrevDate, setIsPrevDate] = useState<boolean>(false)
+    const filteredDates = useFilteredDates(dateList, format)
+    const {isNextDate, isPrevDate} = useNextAndPrevDay(filteredDates, currentDate)
    
     const currentDatePlusOne = new Date(currentDate.getTime())
     currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
     
     const currentDateMinusOne = new Date(currentDate.getTime())
     currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
-    useEffect(()=>{
-        const filterDates = (dateList: EventDate[]): DateArray[] =>{
-            let groupedDates: TimezoneInfo = {}
-    
-            dateList?.forEach((dateInfo) => {
-                const countryCode: string = dateInfo.countryCode
-                const time: string = dateInfo.i18n.time
-                const date = dateInfo.i18n.date
-                const gmt = dateInfo.acronym
-                const name = dateInfo.name
-    
-                if (groupedDates[time]){
-                    groupedDates[time].countryCodes.push([countryCode, name])
-                } else {
-                    groupedDates[time] = {
-                        countryCodes: [[countryCode, name]],
-                        gmt,
-                        date,
-                    }
-                }})
-            const groupedDatesArray = Object.entries(groupedDates)
-            return groupedDatesArray
-        } 
-        setFilteredDates(filterDates(dateList))  
-    }, [format])  
-
-    useEffect(()=>{
-        const thereIsNextOrPrevDate = (datesArray: DateArray[], currentDate: Date)=>{
-            
-            const validationNextDay = datesArray.some(([, groupedDate]) => {
-                const date= new Date(groupedDate.date)
-                const isNextDate = date.getDate() === currentDate.getDate()+1
-                return isNextDate
-            })
-            const validationPrevDay = datesArray.some(([, groupedDate]) => {
-                const date= new Date(groupedDate.date)
-                const isPrevDate = date.getDate() === currentDate.getDate()-1
-                return isPrevDate
-            })
-            setIsNextDate(validationNextDay)
-            setIsPrevDate(validationPrevDay)
-        }  
-        thereIsNextOrPrevDate(filteredDates, currentDate)
-    }, [filteredDates])
 
     
     const datesToRender =({datesArray, nextDate= false, prevDate=false}
