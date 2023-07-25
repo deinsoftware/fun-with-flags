@@ -1,24 +1,28 @@
 'use client'
 
+import { FlagZone } from '@/helpers/flags.types'
 import styles from './MoreCountries.module.css'
 
-const MoreCountries = ({ timeZone }) => {
+function getZoneName(zoneNames: string[]) {
+  const newZoneNames = [...zoneNames]?.shift() ?? ''
+  return newZoneNames?.split('/')?.pop()?.replaceAll('_', ' ') ?? newZoneNames
+}
+
+const MoreCountries: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
   return (
     <>
-      {timeZone?.map(({ initial, zoneNames, offset, capital }) => {
-        if (offset >= 0) {
-          offset = `+${offset}`
-        }
+      {timeZone?.map(({ initial, zoneNames, offset, capital }: FlagZone) => {
+        const gmt = offset >= 0 ? `+${offset}` : `${offset}`
 
-        if (capital) {
+        if (zoneNames?.length > 0) {
           return (
             <button
               key={initial}
               className={styles['mtz-item-country-container']}
             >
               <div className={styles['mtz-zone-name-container']}>
-                <span>{zoneNames[0].split('/').pop().replace(/_/g, ' ')}</span>
-                <span>{`⭐`}</span>
+                <span>{getZoneName(zoneNames)}</span>
+                {capital && <span>{`⭐`}</span>}
               </div>
               <div className={styles['mtz-additional-information']}>
                 <span className={styles['mtz-additional-information-initial']}>
@@ -26,26 +30,7 @@ const MoreCountries = ({ timeZone }) => {
                 </span>
                 <span
                   className={styles['mtz-additional-information-utc']}
-                >{`(UTC${offset})`}</span>
-              </div>
-            </button>
-          )
-        } else {
-          return (
-            <button
-              key={initial}
-              className={styles['mtz-item-country-container']}
-            >
-              <div className={styles['mtz-zone-name-container']}>
-                <span>{zoneNames[0].split('/').pop().replace(/_/g, ' ')}</span>
-              </div>
-              <div className={styles['mtz-additional-information']}>
-                <span className={styles['mtz-additional-information-initial']}>
-                  {initial}
-                </span>
-                <span
-                  className={styles['mtz-additional-information-utc']}
-                >{`(UTC${offset})`}</span>
+                >{`(UTC${gmt})`}</span>
               </div>
             </button>
           )

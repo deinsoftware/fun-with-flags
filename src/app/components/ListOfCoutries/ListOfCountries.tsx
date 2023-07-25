@@ -1,39 +1,48 @@
 'use client'
 
 import styles from './ListOfCountries.module.css'
-import { useFetch } from './useFetch'
+import useFetch from './useFetch'
+import { Locale } from '@/types/locale.types'
 
 import SelectTimeZoneOption from './SelectTimeZoneOption'
 import SelectTimeZone from './SelectTimeZone'
 import { useEffect, useState } from 'react'
+import { FlagCountry } from '@/helpers/flags.types'
+import { Countries } from '@/types/countries.types'
 
-const ListOfCountries = ({ onClose }) => {
+const ListOfCountries: React.FC<{
+  onClose: Function
+}> = ({ onClose }) => {
   // Fetch Data
-  const locale = Intl.NumberFormat().resolvedOptions().locale
-  const { data } = useFetch(
-    'http://localhost:3000/api/timezones/',
-    locale,
-    '2023-02-24',
-  )
+  const locale = Intl.NumberFormat().resolvedOptions().locale as Locale
 
+  const data = useFetch({
+    locale,
+    date: new Date('2023-02-24'),
+  })
   // Debounce ⬇⬇⬇
-  const [filteredCountries, setFilteredCountries] = useState(null)
+  const [filteredCountries, setFilteredCountries] = useState<
+    FlagCountry[] | null
+  >(null)
 
   useEffect(() => {
     setFilteredCountries(data)
   }, [data])
 
-  let filterTimeout
-  const doCountryFilter = (query) => {
+  let filterTimeout : ReturnType<typeof setTimeout>
+  const doCountryFilter = (query: string) => {
     clearTimeout(filterTimeout)
     if (!query) return setFilteredCountries(data)
 
     if (query.length <= 2) {
       filterTimeout = setTimeout(() => {
         setFilteredCountries(
-          data?.filter(({ countryCode }) =>
-            countryCode.toLowerCase().includes(query.toLowerCase()),
-          ),
+          data?.filter(
+            ({ countryCode }:{countryCode : Countries}) =>
+              countryCode
+                ?.toLowerCase()
+                ?.includes(query?.toLowerCase()),
+          ) ?? null,
         )
       }, 400)
     }
@@ -45,9 +54,9 @@ const ListOfCountries = ({ onClose }) => {
     if (query.length >= 3) {
       filterTimeout = setTimeout(() => {
         setFilteredCountries(
-          data?.filter(({ regionName }) =>
-            regionName.toLowerCase().includes(query.toLowerCase()),
-          ),
+          data?.filter(({ regionName }:{regionName?: string }) =>
+            regionName?.toLowerCase()?.includes(query?.toLowerCase()),
+          ) ?? null,
         )
       }, 400)
     }

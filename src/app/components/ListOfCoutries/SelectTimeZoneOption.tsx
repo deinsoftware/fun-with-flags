@@ -4,19 +4,15 @@ import { useState } from 'react'
 import Image from 'next/image'
 import ReactCountryFlag from 'react-country-flag'
 import MoreCountries from './MoreCountries'
+import { FlagCountry } from '@/helpers/flags.types'
 
 import styles from './SelectTimeZoneOption.module.css'
 
-const SelectTimeZoneOption = ({ id, countryCode, regionName, timeZone }) => {
+const SelectTimeZoneOption: React.FC< FlagCountry > = ({ id, countryCode, regionName, timeZone }) => {
   const [isOpen, setIsOpen] = useState(false)
-
-  const toggleIsOpen = (id) => {
-    setIsOpen((prev) => {
-      return {
-        ...prev,
-        [id]: !prev[id],
-      }
-    })
+  
+  const toggleIsOpen = () => {
+    setIsOpen((prev) => !prev)
   }
 
   return (
@@ -25,7 +21,7 @@ const SelectTimeZoneOption = ({ id, countryCode, regionName, timeZone }) => {
         className={styles['item-country-container']}
         key={id}
         type="button"
-        onClick={() => toggleIsOpen(id)}
+        onClick={() => toggleIsOpen()}
       >
         <div className={styles['flag-and-country-name']}>
           <ReactCountryFlag
@@ -43,14 +39,14 @@ const SelectTimeZoneOption = ({ id, countryCode, regionName, timeZone }) => {
           width={10}
           height={10}
           className={`${styles['more-countries-button']} ${
-            isOpen[id] ? styles['rotated'] : ''
+            isOpen ? styles['rotated'] : ''
           }`}
         />
       </button>
 
       <div
         className={`${styles['more-time-zones']} ${
-          isOpen[id] ? styles['is-open'] : ''
+          isOpen ? styles['is-open'] : ''
         } `}
       >
         <MoreCountries timeZone={timeZone} />

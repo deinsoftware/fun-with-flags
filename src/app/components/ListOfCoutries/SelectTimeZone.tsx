@@ -2,8 +2,9 @@
 
 import ReactCountryFlag from 'react-country-flag'
 import styles from './SelectTimeZone.module.css'
+import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone = ({ id, countryCode, regionName, timeZone }) => {
+const SelectTimeZone :React.FC< FlagCountry > = ({ id, countryCode, regionName, timeZone }) => {
   return (
     <>
       <button
