@@ -4,6 +4,7 @@ import Provider from './components/auth/Provider'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import TitleOnPage from './components/TitleOnPage'
+import { TimeZoneProvider } from './context/timeZoneContext'
 
 // const inter = Inter({ subsets: ['latin']})
 
@@ -26,6 +27,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <Provider>
+        <TimeZoneProvider>
         <body>
           <Header />
           <TitleOnPage />
@@ -34,6 +36,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
           <Footer />
         </body>
+      </TimeZoneProvider>
       </Provider>
     </html>
   )

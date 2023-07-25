@@ -8,6 +8,9 @@ import { useFilteredDates } from "./useFilteredDates"
 import { getDatesList, sortDatesList } from "@/helpers/events"
 import { Zone, ZoneList } from "@/helpers/events.types"
 import { DateArray } from "@/types/DateArray.types"
+import { Countries } from "@/types/countries.types"
+import { useContext } from "react"
+import { TimeZoneContext } from "@/app/context/timeZoneContext"
 
 interface Data {
     id: string;
@@ -19,7 +22,7 @@ interface Data {
     timeZone: {
       list: Zone[];
       origin: {
-        countryCode: string;
+        countryCode: Countries;
         date: string;
         name: string;
       };
@@ -33,7 +36,6 @@ interface Data {
 
  type Format = {
     format: 12 | 24
-    data?: Data
  }
 
 const data = `{
@@ -100,13 +102,15 @@ const data = `{
 const mockData:Data =JSON.parse(data)
 const currentDate = new Date(mockData.timeZone.origin.date)
 
-const ComboboxCountries = ({format, data=mockData}: Format) => {
-    const valueList: ZoneList ={
-        originDate: new Date(data.timeZone.origin.date),
-        zoneList: data.timeZone.list,
+const ComboboxCountries = ({format}: Format) => {
+    const {timeZones}= useContext(TimeZoneContext)
+    
+    const valueList: ZoneList | null = timeZones? {
+        originDate: new Date(timeZones.origin.date),
+        zoneList: timeZones.list,
         timeFormat: format,
-    }
-    const dateList =sortDatesList(getDatesList(valueList))
+    }: null
+    const dateList = valueList? sortDatesList(getDatesList(valueList)) : undefined
 
     const filteredDates = useFilteredDates(dateList, format)
     const {isNextDate, isPrevDate} = useGetNextAndPrevDay(filteredDates, currentDate)
@@ -118,7 +122,7 @@ const ComboboxCountries = ({format, data=mockData}: Format) => {
     currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
 
     
-    const datesToRender =({datesArray, nextDate= false, prevDate=false}
+    const DatesToRender =({datesArray, nextDate= false, prevDate=false}
         :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)
@@ -184,14 +188,14 @@ const ComboboxCountries = ({format, data=mockData}: Format) => {
             {isPrevDate && 
              <>
                 <p><strong>{`${currentDateMinusOne.toDateString()}\n`}</strong></p>
-                {datesToRender({datesArray: filteredDates, prevDate: true})}
+                <DatesToRender datesArray={filteredDates} prevDate={true} />
              </> 
             }
             
             {(typeof dateList !== 'undefined') ? 
             <>
                 <p><strong>{`${currentDate.toDateString()}\n`}</strong></p>
-                {datesToRender({datesArray: filteredDates})} 
+                <DatesToRender datesArray={filteredDates} />
             </> 
             : 'Add a timezone to start'}
 
@@ -199,7 +203,7 @@ const ComboboxCountries = ({format, data=mockData}: Format) => {
             {isNextDate && 
              <>
                 <p><strong>{`${currentDatePlusOne.toDateString()}\n`}</strong></p>
-                {datesToRender({datesArray: filteredDates, nextDate: true})}
+                <DatesToRender datesArray={filteredDates} nextDate={true}/>
              </> 
             }
             

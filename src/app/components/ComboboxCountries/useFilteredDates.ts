@@ -11,12 +11,19 @@ type TimezoneInfo = {
   }
 }
 
-export function useFilteredDates(dateList: EventDate[], format: 12 | 24) {
+export function useFilteredDates(
+  dateList: EventDate[] | undefined,
+  format: 12 | 24,
+) {
   const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
 
   useEffect(() => {
-    const filterDates = (dateList: EventDate[]): DateArray[] => {
+    const filterDates = (
+      dateList: EventDate[] | undefined,
+    ): DateArray[] | [] => {
       let groupedDates: TimezoneInfo = {}
+
+      if (dateList === undefined) return []
 
       dateList?.forEach((dateInfo) => {
         const countryCode: string = dateInfo.countryCode
