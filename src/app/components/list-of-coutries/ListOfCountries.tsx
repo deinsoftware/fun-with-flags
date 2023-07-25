@@ -2,17 +2,16 @@
 import React from 'react'
 import styles from './ListOfCountries.module.css'
 import ReactCountryFlag from 'react-country-flag'
-import { useFetch } from './useFetch'
+import { Locale } from '@/types/locale.types'
+import useFetch from './useFetch'
 
 const ListOfCountries = () => {
-  const locale = Intl.NumberFormat().resolvedOptions().locale
+  const locale = Intl.NumberFormat().resolvedOptions().locale as Locale
 
-  const { data } = useFetch(
-    'http://localhost:3000/api/timezones/',
+  const data = useFetch({
     locale,
-    '2023-02-24',
-  )
-  // console.log(locale)
+    date: new Date('2023-02-24'),
+  })
 
   return (
     <>

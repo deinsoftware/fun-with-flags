@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './page.module.css'
@@ -6,18 +7,9 @@ import styles from './page.module.css'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
-// Si se descomenta la siguiente parte
-// sale el siguiente error:
-// https://prnt.sc/ICz0NrFwWyBd <- Imagen
-// (https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive)
-
-// export const metadata = {
-//   title: 'Login',
-// }
-
 const LoginPage = () => {
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams?.get('callbackUrl') || '/'
+  const callbackUrl = searchParams?.get('callbackUrl') ?? '/'
 
   return (
     <>
@@ -35,7 +27,7 @@ const LoginPage = () => {
           >
             <Image
               className={styles['image-provider']}
-              src="/img/btnGoogle.png"
+              src="/img/auth/google.png"
               alt="Login with Google"
               width={32}
               height={32}
@@ -72,7 +64,7 @@ const LoginPage = () => {
 
         <div className="">
           <span className={styles['helper-text']}>
-            {`By continuing, you agree to FwF’s`}{' '}
+            {`By continuing, you agree to FwF's`}{' '}
             <Link href="#" className={styles['helper-text-link']}>
               Terms of Use.
             </Link>{' '}

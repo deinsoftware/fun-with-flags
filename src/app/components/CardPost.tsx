@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import styles from './CardPost.module.css'
 
-// TODO:
-// ! Por ahora funciona, pero hay un error con el typado de typescrit
-const CardPost = ({ srcImage, title, text, date }) => {
+const CardPost: React.FC<{
+  srcImage: string
+  title: string
+  text: string
+  date: string
+}> = ({ srcImage, title, text, date }) => {
   return (
     <>
       <article className={styles['card-container']}>

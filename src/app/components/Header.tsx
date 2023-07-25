@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './Header.module.css'
-import LoginButton from './LoginButton'
+import LoginButton from './auth/LoginButton'
 
 const Header = () => {
   return (

@@ -1,23 +1,26 @@
 import { NextResponse } from 'next/server'
 import { prisma, Prisma } from '@/libs/prisma'
+import { Providers } from '@prisma/client'
 
 const postHandler = async (request: Request) => {
   try {
     const { provider, user } = (await request.json()) || {}
-    if (!provider && !user) {
+    if (!user) {
       return NextResponse.json(
         { error: 'not valid body parameters' },
         { status: 400 },
       )
     }
 
-    const userByProvider = await prisma.users.findFirstOrThrow({
+    const condition: { user: string; name?: Providers } = { user: user }
+    if (provider) {
+      condition.name = provider
+    }
+
+    const userByCondition = await prisma.users.findFirstOrThrow({
       where: {
         providers: {
-          some: {
-            name: provider,
-            user: user,
-          },
+          some: condition,
         },
       },
       select: {
@@ -25,7 +28,7 @@ const postHandler = async (request: Request) => {
       },
     })
 
-    return NextResponse.json(userByProvider)
+    return NextResponse.json(userByCondition)
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === 'P2025') {
