@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/libs/prisma'
 
-import { Locale } from '@/shared/types/locale.types'
+import { Locale } from '@/types/locale.types'
 import { FlagCountry } from '@/helpers/flags.types'
 
 import { getRegionNames } from '@/helpers/dates'

@@ -72,7 +72,6 @@ describe('getDateInformation()', () => {
       originDate: new Date('2023-06-10T01:36:42.271Z'),
       zone: {
         countryCode: 'AU',
-        // @ts-expect-error
         name: 'Foo/Bar',
       },
       locale: 'en-US',

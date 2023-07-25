@@ -1,6 +1,6 @@
-import { Countries } from '@/shared/types/countries.types'
-import { Locale } from '@/shared/types/locale.types'
-import { TimeZones } from '@/shared/types/timeZones.types'
+import { Countries } from '@/types/countries.types'
+import { Locale } from '@/types/locale.types'
+import { TimeZones } from '@/types/timeZones.types'
 
 export type Zone = {
   countryCode: Countries
