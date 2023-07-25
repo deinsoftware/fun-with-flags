@@ -55,7 +55,6 @@ model TimeZones {
 
 enum Providers {
   google
-  facebook
 }
 
 enum Roles {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/libs/prisma'
 
-import { Locale } from '@/shared/types/locale.types'
+import { Locale } from '@/types/locale.types'
 import { FlagCountry } from '@/helpers/flags.types'
 
 import { getRegionNames } from '@/helpers/dates'
@@ -25,13 +25,15 @@ const handler = async (request: Request) => {
         countryCode: 'asc',
       },
     })) as FlagCountry[]
-    const timeZones = result.map((country) => {
-      const { id, countryCode, timeZone } = country
-      const regionName = getRegionNames(country.countryCode, locale as Locale)
-      const zoneList = calcOffset(timeZone, new Date(date))
-      zoneList.sort((a, z) => a.offset - z.offset)
-      return { id, countryCode, regionName, timeZone: zoneList }
-    })
+    const timeZones = result
+      .map((country) => {
+        const { id, countryCode, timeZone } = country
+        const regionName = getRegionNames(country.countryCode, locale as Locale)
+        const zoneList = calcOffset(timeZone, new Date(date))
+        zoneList.sort((a, z) => a.offset - z.offset)
+        return { id, countryCode, regionName, timeZone: zoneList }
+      })
+      .sort((a, z) => (a?.regionName ?? '').localeCompare(z?.regionName ?? ''))
 
     return NextResponse.json(timeZones)
   } catch (error) {

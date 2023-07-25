@@ -1,13 +1,9 @@
 export const metadata = {
-    title: 'Events',
-  }
+  title: 'Events',
+}
 
 const EventsPage = () => {
-    return (
-        <>
-            
-        </>
-    );
-};
+  return <></>
+}
 
-export default EventsPage;
+export default EventsPage

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma, Prisma } from '@/libs/prisma'
 
-import { TimeZones } from '@/shared/types/timeZones.types'
+import { TimeZones } from '@/types/timeZones.types'
 
 const handler = async (
   request: Request,
