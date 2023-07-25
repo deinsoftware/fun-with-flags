@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './ListOfCountries.module.css'
 import ReactCountryFlag from 'react-country-flag'
-import { Locale } from '@/shared/types/locale.types'
+import { Locale } from '@/types/locale.types'
 import useFetch from './useFetch'
 
 const ListOfCountries = () => {

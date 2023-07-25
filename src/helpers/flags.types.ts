@@ -1,5 +1,5 @@
-import { Countries } from '../shared/types/countries.types'
-import { TimeZones } from '../shared/types/timeZones.types'
+import { Countries } from '../types/types/countries.types'
+import { TimeZones } from '../types/timeZones.types'
 
 export type FlagZone = {
   capital: boolean

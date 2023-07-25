@@ -1,6 +1,6 @@
 import { FlagCountry } from '@/helpers/flags.types'
 import { getAllTimeZones } from '@/services/timezones'
-import { Locale } from '@/shared/types/locale.types'
+import { Locale } from '@/types/locale.types'
 import { useState, useEffect } from 'react'
 
 const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {

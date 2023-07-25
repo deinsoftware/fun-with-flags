@@ -1,5 +1,5 @@
 import { FlagCountry } from '@/helpers/flags.types'
-import { Locale } from '@/shared/types/locale.types'
+import { Locale } from '@/types/locale.types'
 
 const { NEXT_PUBLIC_API_URL } = process.env ?? ''
 
