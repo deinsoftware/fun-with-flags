@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import styles from './CardPost.module.css'
 
-// TODO: date is string or date?
-
 const CardPost: React.FC<{
   srcImage: string
   title: string
