@@ -10,7 +10,11 @@ import { AdapterUser } from 'next-auth/adapters'
 import GoogleProvider from 'next-auth/providers/google'
 import { Providers } from '@prisma/client'
 
-const { GOOGLE_CLIENT_ID = '', GOOGLE_CLIENT_SECRET = '' } = process?.env || {}
+const {
+  GOOGLE_CLIENT_ID = '',
+  GOOGLE_CLIENT_SECRET = '',
+  NEXTAUTH_SECRET = '',
+} = process?.env || {}
 
 const pages = {
   signIn: '/login',
@@ -76,4 +80,5 @@ export const authOptions: NextAuthOptions = {
   pages,
   providers,
   callbacks,
+  secret: NEXTAUTH_SECRET,
 }
