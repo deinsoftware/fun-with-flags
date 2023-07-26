@@ -3,10 +3,13 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import ReactCountryFlag from 'react-country-flag'
+
 import TimeZones from './TimeZones'
-import { FlagCountry } from '@/helpers/flags.types'
 
 import styles from './SelectTimeZoneOption.module.css'
+
+import { FlagCountry } from '@/helpers/flags.types'
+
 
 const SelectTimeZoneOption: React.FC<FlagCountry> = ({
   id,
@@ -23,29 +26,29 @@ const SelectTimeZoneOption: React.FC<FlagCountry> = ({
   return (
     <>
       <button
-        className={styles['item-country-container']}
         key={id}
+        className={styles['item-country-container']}
         type="button"
         onClick={() => toggleIsOpen()}
       >
         <div className={styles['flag-and-country-name']}>
           <ReactCountryFlag
-            countryCode={countryCode}
             svg
-            className={styles['flag-country']}
-            title={`Flag of ${regionName}`}
             alt={`Flag of ${regionName}`}
+            className={styles['flag-country']}
+            countryCode={countryCode}
+            title={`Flag of ${regionName}`}
           />
           <span className={styles['name-country']}>{regionName}</span>
         </div>
         <Image
-          src="/img/caretabajo.png"
           alt="More time zones"
-          width={10}
-          height={10}
           className={`${styles['more-countries-button']} ${
             isOpen ? styles['rotated'] : ''
           }`}
+          height={10}
+          src="/img/caretabajo.png"
+          width={10}
         />
       </button>
 

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import styles from './CardPost.module.css'
 
 const CardPost: React.FC<{
@@ -11,11 +12,11 @@ const CardPost: React.FC<{
     <>
       <article className={styles['card-container']}>
         <Image
+          alt="Post image"
           className={styles['image-card']}
+          height={60}
           src={srcImage}
           width={200}
-          height={60}
-          alt="Post image"
         />
         <div className={styles['container-information']}>
           <header>

@@ -1,7 +1,8 @@
 'use client'
 
-import { FlagZone } from '@/helpers/flags.types'
 import styles from './TimeZones.module.css'
+
+import { FlagZone } from '@/helpers/flags.types'
 
 function getZoneName(zoneNames: string[]) {
   const newZoneNames = [...zoneNames]?.shift() ?? ''

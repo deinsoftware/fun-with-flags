@@ -1,4 +1,3 @@
-import { createUser, getUserByProvider, getUserByUser } from '@/services/users'
 import {
   Account,
   User,
@@ -9,6 +8,8 @@ import {
 import { AdapterUser } from 'next-auth/adapters'
 import GoogleProvider from 'next-auth/providers/google'
 import { Providers } from '@prisma/client'
+
+import { createUser, getUserByProvider, getUserByUser } from '@/services/users'
 
 const {
   GOOGLE_CLIENT_ID = '',

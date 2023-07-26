@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+
 import { prisma, Prisma } from '@/libs/prisma'
 
 const putHandler = async (request: Request) => {

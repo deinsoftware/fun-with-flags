@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+
 import { prisma } from '@/libs/prisma'
 
 import { Locale } from '@/types/locale.types'

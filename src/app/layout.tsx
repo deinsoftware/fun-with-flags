@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
 // import { Inter } from 'next/font/google'
+import { TimeZoneProvider } from './context/timeZoneContext'
+
 import Provider from '@/app/components/organisms/auth/Provider'
 import Header from '@/app/components/organisms/ui/Header'
 import Footer from '@/app/components/organisms/ui/Footer'
 import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
-import { TimeZoneProvider } from './context/timeZoneContext'
 
 // const inter = Inter({ subsets: ['latin']})
 

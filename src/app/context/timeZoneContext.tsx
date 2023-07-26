@@ -1,7 +1,8 @@
 "use client"
+import { createContext, useMemo, useState } from "react";
+
 import { Zone } from "@/helpers/events.types";
 import { Countries } from "@/types/countries.types";
-import { createContext, useMemo, useState } from "react";
 
 type TimeZoneData = {
     list: Zone[];

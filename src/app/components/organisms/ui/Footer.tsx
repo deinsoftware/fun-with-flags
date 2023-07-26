@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+
 import styles from './Footer.module.css'
 
 const Footer = () => {
@@ -10,50 +11,50 @@ const Footer = () => {
 
       <footer className={styles.footer}>
         <div className={styles['btn-container']}>
-          <Link href="/" className="">
+          <Link className="" href="/">
             <div className="">
               <Image
+                alt="Home"
                 className=""
+                height={imageWidth}
                 src="/img/home.png"
                 width={imageWidth}
-                height={imageWidth}
-                alt="Home"
               />
             </div>
           </Link>
 
-          <Link href="events" className="">
+          <Link className="" href="events">
             <div className="">
               <Image
+                alt="Events"
                 className=""
+                height={imageWidth}
                 src="/img/events.png"
                 width={imageWidth}
-                height={imageWidth}
-                alt="Events"
               />
             </div>
           </Link>
 
-          <Link href="create-event" className="">
+          <Link className="" href="events/create">
             <div className="">
               <Image
+                alt="Create event"
                 className=""
+                height={imageWidth}
                 src="/img/createEvent.png"
                 width={imageWidth}
-                height={imageWidth}
-                alt="Create event"
               />
             </div>
           </Link>
 
-          <Link href="settings" className="">
+          <Link className="" href="settings">
             <div className="">
               <Image
+                alt="Settings"
                 className=""
+                height={imageWidth}
                 src="/img/menu.png"
                 width={imageWidth}
-                height={imageWidth}
-                alt="Settings"
               />
             </div>
           </Link>

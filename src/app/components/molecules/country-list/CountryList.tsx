@@ -1,65 +1,40 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import styles from './CountryList.module.css'
-import useFetch from './useFetch'
-import { Locale } from '@/types/locale.types'
 
 import SelectTimeZoneOption from '@/app/components/atoms/country-list/SelectTimeZoneOption'
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
-import { useEffect, useState } from 'react'
 import { FlagCountry } from '@/helpers/flags.types'
-import { Countries } from '@/types/countries.types'
 
 const CountryList: React.FC<{
+  flagList: FlagCountry[] | null
   onClose: Function
-}> = ({ onClose }) => {
-  // Fetch Data
-  const locale = Intl.NumberFormat().resolvedOptions().locale as Locale
-
-  const data = useFetch({
-    locale,
-    date: new Date('2023-02-24'),
-  })
-  // Debounce ⬇⬇⬇
-  const [filteredCountries, setFilteredCountries] = useState<
-    FlagCountry[] | null
-  >(null)
+}> = ({ flagList, onClose }) => {
+  const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
+  const [query, setQuery] = useState<string>('')
 
   useEffect(() => {
-    setFilteredCountries(data)
-  }, [data])
+    if (!query) return setCountryList(flagList)
 
-  let filterTimeout: ReturnType<typeof setTimeout>
-  const doCountryFilter = (query: string) => {
-    clearTimeout(filterTimeout)
-    if (!query) return setFilteredCountries(data)
+    const handler = setTimeout(() => {
+      const getCountriesByQuery = () => {
+        return flagList?.filter(({ countryCode, regionName }) => {
+          if (query.length === 2) {
+            return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
+          } else {
+            return regionName?.toLowerCase()?.includes(query?.toLowerCase())
+          }
+        })
+      }
 
-    if (query.length <= 2) {
-      filterTimeout = setTimeout(() => {
-        setFilteredCountries(
-          data?.filter(
-            ({ countryCode }: { countryCode: Countries }) =>
-              countryCode?.toLowerCase()?.includes(query?.toLowerCase()),
-          ) ?? null,
-        )
-      }, 400)
-    }
-    // Discutir esta condicional, de 3 a 2
-    // PA = Panamá
-    // Pero PA también podría ser Paraguay/PapuaGuínea
-    // se cambia el número de abajo por el >=2
-    // *Discutir cuál es el más acertado
-    if (query.length >= 3) {
-      filterTimeout = setTimeout(() => {
-        setFilteredCountries(
-          data?.filter(
-            ({ regionName }: { regionName?: string }) =>
-              regionName?.toLowerCase()?.includes(query?.toLowerCase()),
-          ) ?? null,
-        )
-      }, 400)
-    }
-  }
+      const countryFilter = getCountriesByQuery() ?? null
+      setCountryList(countryFilter)
+    }, 400)
+
+    return () => clearTimeout(handler)
+  }, [flagList, query])
 
   return (
     <>
@@ -67,21 +42,21 @@ const CountryList: React.FC<{
         <div className={styles['container-list-with-search']}>
           <div className={styles['search-bar-container']}>
             <input
-              type="text"
-              placeholder={`Search for time zones`}
               className={styles['search-bar']}
-              onChange={(event) => doCountryFilter(event.target.value)}
+              placeholder={`Search by country code or name`}
+              type="text"
+              onChange={(event) => setQuery(event.target.value)}
             />
             <button
-              type="button"
               className={styles['close-modal']}
+              type="button"
               onClick={() => onClose()}
             >
               ❌
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
-            {filteredCountries?.map((country) => {
+            {countryList?.map((country) => {
               if (country.timeZone.length > 1) {
                 return (
                   <SelectTimeZoneOption
