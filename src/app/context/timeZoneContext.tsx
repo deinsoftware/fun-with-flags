@@ -1,5 +1,7 @@
 "use client"
 import { Zone } from "@/helpers/events.types";
+import { getCountryCode } from "@/helpers/getCountryCode";
+import { getTimezone } from "@/helpers/getTimeZone";
 import { Countries } from "@/types/countries.types";
 import { createContext, useMemo, useState } from "react";
 
@@ -16,11 +18,24 @@ type OriginDate = {
     date: string;
     name: string;
 }
+const a = () => {
+    return  getCountryCode()
+}
+const originDefault: OriginDate = {
+    countryCode: 'CO',
+    date: new Date().toISOString(),
+    name: getTimezone()
+}
 export const TimeZoneContext = createContext<{
     timeZones: TimeZoneData | null;
     addTimeZone: (zone: Zone) => void;
+    deleteTimeZone: (zone: Zone) => void;
     setOriginDate: (originDate: OriginDate) => void;
-  }>({timeZones:null, addTimeZone: () => {}, setOriginDate: () => {}});
+  }>({
+    timeZones:null, 
+    addTimeZone: () => {},
+    deleteTimeZone: () => {}, 
+    setOriginDate: () => {}});
 
 const initialTimeZoneData: TimeZoneData | null = {
     list: [
@@ -70,21 +85,38 @@ const initialTimeZoneData: TimeZoneData | null = {
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const [timeZones, setTimeZones] = useState<TimeZoneData | null>(initialTimeZoneData)
     const addTimeZone = (zone: Zone) => {
+        
         setTimeZones((prev) => {
                 return {
                     ...prev,
                     list: [...(prev?.list ?? []), zone],
                     origin: {
                         ...(prev?.origin 
-                            ?? {
-                                countryCode: "CO",
-                                date: new Date().toISOString(),
-                                name: "America/Bogota"
-                            }),
+                            ?? originDefault),
                     }
                 }
             }      
         )        
+    }
+
+    const deleteTimeZone = (zone: Zone) => {
+        const index = timeZones?.list?.indexOf(zone)
+        if (index === -1 || index === undefined) {
+            return 'Element not found'
+        } else {
+            let newTimeZonesList = structuredClone(timeZones?.list)
+            newTimeZonesList?.splice(index, 1)
+            setTimeZones((prev) => {
+                return {
+                    ...prev,
+                    list: newTimeZonesList??[],
+                    origin: {
+                        ...(prev?.origin 
+                            ?? originDefault),
+                    }
+                }
+            })
+        }     
     }
 
     const setOriginDate=(originDate: OriginDate)=>{
@@ -99,6 +131,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const contextValue = useMemo(() => ({
          timeZones, 
          addTimeZone,
+         deleteTimeZone,
          setOriginDate
         }), [timeZones]);
 

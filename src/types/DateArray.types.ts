@@ -1,7 +1,9 @@
+import { Countries } from './countries.types'
+
 export type DateArray = [
   string,
   {
-    countryCodes: [string[]]
+    countryCodes: [Countries[]]
     gmt?: string
     date: string
   },
