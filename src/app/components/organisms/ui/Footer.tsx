@@ -23,7 +23,7 @@ const Footer = () => {
             </div>
           </Link>
 
-          <Link className="" href="events">
+          <Link className="" href="/events">
             <div className="">
               <Image
                 alt="Events"
@@ -35,7 +35,7 @@ const Footer = () => {
             </div>
           </Link>
 
-          <Link className="" href="events/create">
+          <Link className="" href="/events/create">
             <div className="">
               <Image
                 alt="Create event"
@@ -47,7 +47,7 @@ const Footer = () => {
             </div>
           </Link>
 
-          <Link className="" href="settings">
+          <Link className="" href="/settings">
             <div className="">
               <Image
                 alt="Settings"
