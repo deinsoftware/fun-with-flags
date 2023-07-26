@@ -7,7 +7,8 @@ import {
 } from 'next-auth'
 import { AdapterUser } from 'next-auth/adapters'
 import GoogleProvider from 'next-auth/providers/google'
-import { Providers } from '@prisma/client'
+
+import { Providers } from '@/libs/prisma'
 
 import { createUser, getUserByProvider, getUserByUser } from '@/services/users'
 
