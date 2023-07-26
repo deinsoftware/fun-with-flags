@@ -5,8 +5,13 @@ import { useState, useEffect } from 'react'
 
 const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
   const [data, setData] = useState<FlagCountry[] | null>(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+
+    if (loading) return
+    setLoading(true)
+
     getAllTimeZones({ locale, date })
       .then((data) => {
         if (data !== null) {
@@ -14,7 +19,7 @@ const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
         }
       })
       .catch((error) => console.error('error', error))
-  }, [locale, date])
+  }, [locale, date, loading])
 
   return data
 }
