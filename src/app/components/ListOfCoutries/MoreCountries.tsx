@@ -11,13 +11,13 @@ function getZoneName(zoneNames: string[]) {
 const MoreCountries: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
   return (
     <>
-      {timeZone?.map(({ initial, zoneNames, offset, capital }: FlagZone) => {
+      {timeZone?.map(({ initial, zoneNames, offset, capital }: FlagZone, index) => {
         const gmt = offset >= 0 ? `+${offset}` : `${offset}`
 
         if (zoneNames?.length > 0) {
           return (
             <button
-              key={initial}
+              key={self.crypto.randomUUID()}
               className={styles['mtz-item-country-container']}
             >
               <div className={styles['mtz-zone-name-container']}>
