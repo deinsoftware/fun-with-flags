@@ -5,16 +5,22 @@ import { createContext, useMemo, useState } from "react";
 
 type TimeZoneData = {
     list: Zone[];
-      origin: {
+    origin: {
         countryCode: Countries;
         date: string;
         name: string;
-      };
+    };
+}
+type OriginDate = {
+    countryCode: Countries;
+    date: string;
+    name: string;
 }
 export const TimeZoneContext = createContext<{
     timeZones: TimeZoneData | null;
-    setTimeZones: React.Dispatch<React.SetStateAction<TimeZoneData | null>>;
-  }>({timeZones:null, setTimeZones: () => {}});
+    addTimeZone: (zone: Zone) => void;
+    setOriginDate: (originDate: OriginDate) => void;
+  }>({timeZones:null, addTimeZone: () => {}, setOriginDate: () => {}});
 
 const initialTimeZoneData: TimeZoneData | null = {
     list: [
@@ -62,9 +68,39 @@ const initialTimeZoneData: TimeZoneData | null = {
     }
 };
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-
     const [timeZones, setTimeZones] = useState<TimeZoneData | null>(initialTimeZoneData)
-    const contextValue = useMemo(() => ({ timeZones, setTimeZones }), [timeZones]);
+    const addTimeZone = (zone: Zone) => {
+        setTimeZones((prev) => {
+                return {
+                    ...prev,
+                    list: [...(prev?.list ?? []), zone],
+                    origin: {
+                        ...(prev?.origin 
+                            ?? {
+                                countryCode: "CO",
+                                date: new Date().toISOString(),
+                                name: "America/Bogota"
+                            }),
+                    }
+                }
+            }      
+        )        
+    }
+
+    const setOriginDate=(originDate: OriginDate)=>{
+        setTimeZones((prev) =>{
+            return{
+                ...prev,
+                list: [...(prev?.list ?? [])],             
+                origin: originDate
+            }
+        })
+    }
+    const contextValue = useMemo(() => ({
+         timeZones, 
+         addTimeZone,
+         setOriginDate
+        }), [timeZones]);
 
     return (
         <TimeZoneContext.Provider value={contextValue}>

@@ -6,101 +6,15 @@ import { useGetNextAndPrevDay } from "./useGetNextAndPrevDay"
 import { useFilteredDates } from "./useFilteredDates"
 
 import { getDatesList, sortDatesList } from "@/helpers/events"
-import { Zone, ZoneList } from "@/helpers/events.types"
+import {  ZoneList } from "@/helpers/events.types"
 import { DateArray } from "@/types/DateArray.types"
-import { Countries } from "@/types/countries.types"
 import { useContext } from "react"
 import { TimeZoneContext } from "@/app/context/timeZoneContext"
 
-interface Data {
-    id: string;
-    description: string;
-    img: string;
-    lang: string;
-    name: string;
-    tags: string[];
-    timeZone: {
-      list: Zone[];
-      origin: {
-        countryCode: Countries;
-        date: string;
-        name: string;
-      };
-    };
-    createdAt: string;
-    updatedAt: string | null;
-    url: string;
-    userId: string;
-  }
-  
 
  type Format = {
     format: 12 | 24
  }
-
-const data = `{
-    "id": "64a25c08492a2b3680a10500",
-    "description": "",
-    "img": "https://dummyimage.com/800x300/000000/fff.png",
-    "lang": "es",
-    "name": "Evento Dummy",
-    "tags": [
-        "javascript",
-        "css"
-    ],
-    "timeZone": {
-        "list": [
-            {
-                "countryCode": "CO",
-                "name": "America/Bogota"
-            },
-            {
-                "countryCode": "JP",
-                "name": "Asia/Tokyo"
-            },
-            {
-                "countryCode": "ES",
-                "name": "Europe/Madrid"
-            },
-            {
-                "countryCode": "US",
-                "name": "America/Adak"
-            },
-            {
-                "countryCode": "CK",
-                "name": "Pacific/Rarotonga"
-            },
-            {
-                "countryCode": "CA",
-                "name": "America/Vancouver"
-            },
-            {
-                "countryCode": "US",
-                "name": "America/Los_Angeles"
-            },
-            {
-                "countryCode": "EC",
-                "name": "America/Guayaquil"
-            },
-            {
-                "countryCode": "CL",
-                "name": "America/Santiago"
-            }
-        ],
-        "origin": {
-            "countryCode": "CO",
-            "date": "2023-07-13T05:18:42.271Z",
-            "name": "America/Bogota"
-        }
-    },
-    "createdAt": "2023-07-03T15:26:33.000Z",
-    "updatedAt": null,
-    "url": "http://youtube.com/channel/event-video",
-    "userId": "64a62f9cfd16fa4f76403358"
-}`
-
-const mockData:Data =JSON.parse(data)
-const currentDate = new Date(mockData.timeZone.origin.date)
 
 const ComboboxCountries = ({format}: Format) => {
     const {timeZones}= useContext(TimeZoneContext)
@@ -111,6 +25,7 @@ const ComboboxCountries = ({format}: Format) => {
         timeFormat: format,
     }: null
     const dateList = valueList? sortDatesList(getDatesList(valueList)) : undefined
+    const currentDate = timeZones ? new Date(timeZones.origin.date) : new Date()
 
     const filteredDates = useFilteredDates(dateList, format)
     const {isNextDate, isPrevDate} = useGetNextAndPrevDay(filteredDates, currentDate)

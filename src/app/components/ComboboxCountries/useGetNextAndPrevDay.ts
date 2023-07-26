@@ -7,6 +7,7 @@ export const useGetNextAndPrevDay = (
 ) => {
   const [isNextDate, setIsNextDate] = useState<boolean>(false)
   const [isPrevDate, setIsPrevDate] = useState<boolean>(false)
+
   useEffect(() => {
     const thereIsNextOrPrevDate = (
       datesArray: DateArray[],
