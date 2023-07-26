@@ -8,21 +8,19 @@ import { createContext, useMemo, useState } from "react";
 type TimeZoneData = {
     list: Zone[];
     origin: {
-        countryCode: Countries;
+        countryCode: Countries | Promise<Countries>;
         date: string;
         name: string;
     };
 }
 type OriginDate = {
-    countryCode: Countries;
+    countryCode: Countries | Promise<Countries>;
     date: string;
     name: string;
 }
-const a = () => {
-    return  getCountryCode()
-}
+
 const originDefault: OriginDate = {
-    countryCode: 'CO',
+    countryCode: getCountryCode(),
     date: new Date().toISOString(),
     name: getTimezone()
 }
@@ -35,7 +33,8 @@ export const TimeZoneContext = createContext<{
     timeZones:null, 
     addTimeZone: () => {},
     deleteTimeZone: () => {}, 
-    setOriginDate: () => {}});
+    setOriginDate: () => {}
+});
 
 const initialTimeZoneData: TimeZoneData | null = {
     list: [
@@ -84,6 +83,7 @@ const initialTimeZoneData: TimeZoneData | null = {
 };
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const [timeZones, setTimeZones] = useState<TimeZoneData | null>(initialTimeZoneData)
+    
     const addTimeZone = (zone: Zone) => {
         
         setTimeZones((prev) => {

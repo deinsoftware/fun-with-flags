@@ -3,7 +3,7 @@ import { Countries } from './countries.types'
 export type DateArray = [
   string,
   {
-    countryCodes: [Countries[]]
+    countryCodes: [Countries, string][]
     gmt?: string
     date: string
   },
