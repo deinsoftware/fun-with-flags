@@ -1,16 +1,16 @@
 'use client'
 
-import styles from './ListOfCountries.module.css'
+import styles from './CountryList.module.css'
 import useFetch from './useFetch'
 import { Locale } from '@/types/locale.types'
 
-import SelectTimeZoneOption from './SelectTimeZoneOption'
-import SelectTimeZone from './SelectTimeZone'
+import SelectTimeZoneOption from '@/app/components/atoms/country-list/SelectTimeZoneOption'
+import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { useEffect, useState } from 'react'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 
-const ListOfCountries: React.FC<{
+const CountryList: React.FC<{
   onClose: Function
 }> = ({ onClose }) => {
   // Fetch Data
@@ -29,7 +29,7 @@ const ListOfCountries: React.FC<{
     setFilteredCountries(data)
   }, [data])
 
-  let filterTimeout : ReturnType<typeof setTimeout>
+  let filterTimeout: ReturnType<typeof setTimeout>
   const doCountryFilter = (query: string) => {
     clearTimeout(filterTimeout)
     if (!query) return setFilteredCountries(data)
@@ -38,10 +38,8 @@ const ListOfCountries: React.FC<{
       filterTimeout = setTimeout(() => {
         setFilteredCountries(
           data?.filter(
-            ({ countryCode }:{countryCode : Countries}) =>
-              countryCode
-                ?.toLowerCase()
-                ?.includes(query?.toLowerCase()),
+            ({ countryCode }: { countryCode: Countries }) =>
+              countryCode?.toLowerCase()?.includes(query?.toLowerCase()),
           ) ?? null,
         )
       }, 400)
@@ -54,8 +52,9 @@ const ListOfCountries: React.FC<{
     if (query.length >= 3) {
       filterTimeout = setTimeout(() => {
         setFilteredCountries(
-          data?.filter(({ regionName }:{regionName?: string }) =>
-            regionName?.toLowerCase()?.includes(query?.toLowerCase()),
+          data?.filter(
+            ({ regionName }: { regionName?: string }) =>
+              regionName?.toLowerCase()?.includes(query?.toLowerCase()),
           ) ?? null,
         )
       }, 400)
@@ -101,4 +100,4 @@ const ListOfCountries: React.FC<{
   )
 }
 
-export default ListOfCountries
+export default CountryList

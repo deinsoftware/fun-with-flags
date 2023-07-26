@@ -3,14 +3,19 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import ReactCountryFlag from 'react-country-flag'
-import MoreCountries from './MoreCountries'
+import TimeZones from './TimeZones'
 import { FlagCountry } from '@/helpers/flags.types'
 
 import styles from './SelectTimeZoneOption.module.css'
 
-const SelectTimeZoneOption: React.FC< FlagCountry > = ({ id, countryCode, regionName, timeZone }) => {
+const SelectTimeZoneOption: React.FC<FlagCountry> = ({
+  id,
+  countryCode,
+  regionName,
+  timeZone,
+}) => {
   const [isOpen, setIsOpen] = useState(false)
-  
+
   const toggleIsOpen = () => {
     setIsOpen((prev) => !prev)
   }
@@ -49,7 +54,7 @@ const SelectTimeZoneOption: React.FC< FlagCountry > = ({ id, countryCode, region
           isOpen ? styles['is-open'] : ''
         } `}
       >
-        <MoreCountries timeZone={timeZone} />
+        <TimeZones timeZone={timeZone} />
       </div>
     </>
   )

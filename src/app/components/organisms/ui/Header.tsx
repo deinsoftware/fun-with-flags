@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './Header.module.css'
-import LoginButton from './auth/LoginButton'
+import LoginButton from '@/app/components/atoms/auth/LoginButton'
 
 const Header = () => {
   return (
