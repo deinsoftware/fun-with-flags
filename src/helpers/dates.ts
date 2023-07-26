@@ -16,7 +16,9 @@ export const isValidTimeZone = (timeZone: TimeZones): boolean => {
 }
 
 export const getDate = (options: { timeZone: TimeZones }, originDate: Date) => {
-  return originDate.toISOString().split('T').shift()
+  return (
+    originDate.toISOString()?.split('T')?.shift() ?? originDate.toISOString()
+  )
 }
 
 export const getTime = (options: { timeZone: TimeZones }, originDate: Date) => {
