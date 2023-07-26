@@ -1,7 +1,7 @@
 import { UsersProviders } from '@prisma/client'
 import { Prisma } from '@/libs/prisma'
 
-const { NEXT_PUBLIC_API_URL } = process.env ?? ''
+const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 
 export const getUserByProvider = async ({
   user,

@@ -1,4 +1,3 @@
-@import url('./minireset.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 :root {
@@ -50,7 +49,7 @@
   --color-darkgray-800: #272727;
   --color-darkgray-900: #202020;
   --color-darkgray-950: #151515;
-  --color-whywhite-300: #FFF;
+  --color-whywhite-300: #FEFEFE;
   --color-whywhite-400: #FBFCFD;
   --color-whywhite-500: #F9FBFC;
   --color-whywhite-600: #F4F4F4;
@@ -71,7 +70,7 @@
   --color-darkpurple-800: #0A0518;
   --color-darkpurple-900: #080413;
   --color-darkpurple-950: #;
-  --color-white-000: #fff;
+  --color-white-000: #FFF;
   --color-black-000: #000;
   --color-btn-google: #4285F4;
   --color-btn-google-hover: #3d7de4;
@@ -81,4 +80,9 @@
 body {
   background-color: var(--color-neutral-500);
   font-family: var(--font-family-primary);
+
+  ::selection {
+    background: var(--color-purple-800);
+    color: var(--color-whywhite-500);
+  }
 }
