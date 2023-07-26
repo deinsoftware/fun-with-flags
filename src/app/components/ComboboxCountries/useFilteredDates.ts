@@ -47,7 +47,7 @@ export function useFilteredDates(
       return groupedDatesArray
     }
     setFilteredDates(filterDates(dateList))
-  }, [format])
+  }, [format, dateList])
 
   return filteredDates
 }

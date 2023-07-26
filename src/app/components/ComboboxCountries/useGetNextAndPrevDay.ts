@@ -7,6 +7,7 @@ export const useGetNextAndPrevDay = (
 ) => {
   const [isNextDate, setIsNextDate] = useState<boolean>(false)
   const [isPrevDate, setIsPrevDate] = useState<boolean>(false)
+  const [isToday, setIsToday] = useState<boolean>(false)
 
   useEffect(() => {
     const thereIsNextOrPrevDate = (
@@ -16,6 +17,7 @@ export const useGetNextAndPrevDay = (
       const validationNextDay = datesArray.some(([, groupedDate]) => {
         const date = new Date(groupedDate.date)
         const isNextDate = date.getDate() === currentDate.getDate() + 1
+        // console.log(isNextDate)
         return isNextDate
       })
       const validationPrevDay = datesArray.some(([, groupedDate]) => {
@@ -23,11 +25,17 @@ export const useGetNextAndPrevDay = (
         const isPrevDate = date.getDate() === currentDate.getDate() - 1
         return isPrevDate
       })
+      const validationToday = datesArray.some(([, groupedDate]) => {
+        const date = new Date(groupedDate.date)
+        const isToday = date.getDate() === currentDate.getDate()
+        return isToday
+      })
       setIsNextDate(validationNextDay)
       setIsPrevDate(validationPrevDay)
+      setIsToday(validationToday)
     }
     thereIsNextOrPrevDate(filteredDates, currentDate)
   }, [filteredDates, currentDate])
 
-  return { isNextDate, isPrevDate }
+  return { isNextDate, isPrevDate, isToday }
 }

@@ -100,9 +100,12 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     }
 
     const deleteTimeZone = (zone: Zone) => {
-        const index = timeZones?.list?.indexOf(zone)
+        const index = timeZones?.list?.findIndex((timeZone) =>{
+            return timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
+        })
+
         if (index === -1 || index === undefined) {
-            return 'Element not found'
+            throw new Error('Element not found') 
         } else {
             let newTimeZonesList = structuredClone(timeZones?.list)
             newTimeZonesList?.splice(index, 1)
