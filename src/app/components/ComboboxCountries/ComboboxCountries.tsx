@@ -2,7 +2,7 @@
 import ReactCountryFlag from "react-country-flag"
 import style from './ComboboxCountries.module.css'
 
-import { useGetNextAndPrevDay } from "./useGetNextAndPrevDay"
+import { useGetDay } from "./useGetDay"
 import { useFilteredDates } from "./useFilteredDates"
 
 import { getDatesList, sortDatesList } from "@/helpers/events"
@@ -34,8 +34,7 @@ const ComboboxCountries = ({format}: Format) => {
     }, [timeZones, format])
     
     const filteredDates = useFilteredDates(dateList, format)
-    const {isNextDate, isPrevDate, isToday} = useGetNextAndPrevDay(filteredDates, currentDate)
-    const {deleteTimeZone} = useContext(TimeZoneContext)
+    const {isNextDate, isPrevDate, isToday} = useGetDay(filteredDates, currentDate)
    
     const currentDatePlusOne = new Date(currentDate.getTime())
     currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
@@ -46,7 +45,7 @@ const ComboboxCountries = ({format}: Format) => {
     
     const DatesToRender =({datesArray, nextDate= false, prevDate=false}
         :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
-        
+        const {deleteTimeZone} = useContext(TimeZoneContext)
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)
             const isSameDate = date.getDate() === currentDate.getDate()

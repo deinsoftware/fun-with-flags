@@ -1,10 +1,7 @@
 import { DateArray } from '@/types/DateArray.types'
 import { useEffect, useState } from 'react'
 
-export const useGetNextAndPrevDay = (
-  filteredDates: DateArray[],
-  currentDate: Date,
-) => {
+export const useGetDay = (filteredDates: DateArray[], currentDate: Date) => {
   const [isNextDate, setIsNextDate] = useState<boolean>(false)
   const [isPrevDate, setIsPrevDate] = useState<boolean>(false)
   const [isToday, setIsToday] = useState<boolean>(false)
@@ -17,7 +14,6 @@ export const useGetNextAndPrevDay = (
       const validationNextDay = datesArray.some(([, groupedDate]) => {
         const date = new Date(groupedDate.date)
         const isNextDate = date.getDate() === currentDate.getDate() + 1
-        // console.log(isNextDate)
         return isNextDate
       })
       const validationPrevDay = datesArray.some(([, groupedDate]) => {
