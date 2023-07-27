@@ -6,9 +6,11 @@ const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 export const getAllTimeZones = async ({
   locale,
   date,
+  signal,
 }: {
   locale?: Locale
   date?: Date
+  signal?: AbortSignal
 }): Promise<FlagCountry[] | null> => {
   const payload = JSON.stringify({
     locale,
@@ -18,6 +20,7 @@ export const getAllTimeZones = async ({
   const params: RequestInit = {
     method: 'POST',
     body: payload,
+    signal,
   }
 
   const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/timezones`, params)

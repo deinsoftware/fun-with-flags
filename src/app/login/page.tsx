@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import styles from './page.module.css'
+
 
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
+
+import styles from './page.module.css'
 
 const LoginPage = () => {
   const searchParams = useSearchParams()
@@ -26,11 +28,11 @@ const LoginPage = () => {
             onClick={() => signIn('google', { callbackUrl })}
           >
             <Image
-              className={styles['image-provider']}
-              src="/img/auth/google.png"
               alt="Login with Google"
-              width={32}
+              className={styles['image-provider']}
               height={32}
+              src="/img/auth/google.png"
+              width={32}
             />
             {/* <svg
               width="24"
@@ -65,11 +67,11 @@ const LoginPage = () => {
         <div className="">
           <span className={styles['helper-text']}>
             {`By continuing, you agree to FwF's`}{' '}
-            <Link href="#" className={styles['helper-text-link']}>
+            <Link className={styles['helper-text-link']} href="#">
               Terms of Use.
             </Link>{' '}
             Read our{' '}
-            <Link href="#" className={styles['helper-text-link']}>
+            <Link className={styles['helper-text-link']} href="#">
               Privacy Policy.
             </Link>
           </span>

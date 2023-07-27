@@ -1,5 +1,6 @@
-import { DateArray } from '@/types/DateArray.types'
 import { useEffect, useState } from 'react'
+
+import { DateArray } from '@/types/DateArray.types'
 
 export const useGetDay = (filteredDates: DateArray[], currentDate: Date) => {
   const [isNextDate, setIsNextDate] = useState<boolean>(false)

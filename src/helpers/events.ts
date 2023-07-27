@@ -24,7 +24,7 @@ export const getDateInformation = ({
     throw new Error(`Incompatible Time Zone: ${zone.name}`)
   }
 
-  const date = getDate(options, originDate)
+  const date = getDate(originDate)
   const time = getTime(options, originDate)
   const acronym = getAcronym(options, originDate)
   const gmt = getGmt(options, originDate)

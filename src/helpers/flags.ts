@@ -1,6 +1,7 @@
+import { convertGmtToNumber, getGmt } from './dates'
+
 import { FlagZone } from '@/helpers/flags.types'
 
-import { convertGmtToNumber, getGmt } from './dates'
 
 export const calcOffset = (
   timeZone: FlagZone[],

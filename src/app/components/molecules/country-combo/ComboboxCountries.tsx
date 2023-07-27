@@ -1,5 +1,8 @@
 "use client"
 import ReactCountryFlag from "react-country-flag"
+
+import { useContext, useEffect, useState } from "react"
+
 import style from './ComboboxCountries.module.css'
 
 import { useGetDay } from "./useGetDay"
@@ -8,7 +11,6 @@ import { useFilteredDates } from "./useFilteredDates"
 import { getDatesList, sortDatesList } from "@/helpers/events"
 import {  EventDate, ZoneList } from "@/helpers/events.types"
 import { DateArray } from "@/types/DateArray.types"
-import { useContext, useEffect, useState } from "react"
 import { TimeZoneContext } from "@/app/context/timeZoneContext"
 import { Countries } from "@/types/countries.types"
 
@@ -69,16 +71,15 @@ const ComboboxCountries = ({format}: Format) => {
                             <div key={self.crypto.randomUUID()} className={style['flag']}>
                                 
                                 <ReactCountryFlag
-                                onClick={handleClick} 
-                                id={`${name}--${countryCode}`}
                                 alt={`Flag of ${countryCode}`}
-                                title={`Flag of ${countryCode}`}
                                 countryCode={countryCode}
-                                svg
+                                id={`${name}--${countryCode}`}
                                 style={{
                                     width: '1.6rem',
                                     height: '1.6rem',
                                 }}
+                                title={`Flag of ${countryCode}`}
+                                onClick={handleClick}
                                 />
                                 <ReactCountryFlag 
                                     countryCode={countryCode} 

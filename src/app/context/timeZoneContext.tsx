@@ -1,9 +1,10 @@
 "use client"
-import { Zone } from "@/helpers/events.types";
-import { getCountryCode } from "@/helpers/getCountryCode";
-import { getTimezone } from "@/helpers/getTimeZone";
-import { Countries } from "@/types/countries.types";
 import { createContext, useMemo, useState } from "react";
+
+import { Zone } from "@/helpers/events.types";
+import { getCountryCode } from "@/helpers/get-country-code";
+import { getTimezone } from "@/helpers/get-time-zone";
+import { Countries } from "@/types/countries.types";
 
 type TimeZoneData = {
     list: Zone[];

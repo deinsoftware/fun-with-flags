@@ -1,12 +1,26 @@
 'use client'
 
-import { useState } from 'react'
-import ComboboxCountries from './ComboboxCountries/ComboboxCountries'
-import styles from './CreateEventComponent.module.css'
-import ListOfCountries from './ListOfCoutries/ListOfCountries'
+import { useState, useMemo } from 'react'
 
-const CreateEventComponent = () => {
+import styles from './CreateEvent.module.css'
+
+import useFetch from './useFetch'
+
+import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
+import CountryList from '@/app/components/molecules/country-list/CountryList'
+import { Locale } from '@/types/locale.types'
+
+const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
+
+  const props = useMemo(
+    () => ({
+      locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
+      date: new Date('2023-07-26'),
+    }),
+    [],
+  )
+  const flagList = useFetch(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -18,29 +32,29 @@ const CreateEventComponent = () => {
         <form action="" className={styles.form}>
           <div>
             <input
-              type="text"
-              name=""
-              id=""
               className={styles['full-width']}
+              id=""
+              name=""
               placeholder="Event name"
+              type="text"
             />
           </div>
 
           <div className={styles['container-half-width']}>
             <div>
               <input
-                type="time"
-                name=""
-                id=""
                 className={styles['full-width']}
+                id=""
+                name=""
+                type="time"
               />
             </div>
             <div>
               <input
-                type="date"
-                name=""
-                id=""
                 className={styles['full-width']}
+                id=""
+                name=""
+                type="date"
               />
             </div>
           </div>
@@ -55,11 +69,11 @@ const CreateEventComponent = () => {
                 Time zone
               </button>
               {isOpenSelectTimeZone && (
-                <ListOfCountries onClose={handleClose} />
+                <CountryList flagList={flagList} onClose={handleClose} />
               )}
             </div>
             <div className={styles.halfWidth}>
-              <select name="" id="" className={styles['full-width']}>
+              <select className={styles['full-width']} id="" name="">
                 <option value="lg-1">First language</option>
                 <option value="lg-2">Second language</option>
               </select>
@@ -68,40 +82,40 @@ const CreateEventComponent = () => {
 
           <div>
             <input
-              type="url"
-              name=""
-              id=""
-              placeholder="Hyperlink"
               className={styles['full-width']}
+              id=""
+              name=""
+              placeholder="Hyperlink"
+              type="url"
             />
           </div>
           <div className={styles.prueba}>
             {/* // TODO: El div que envuelve los dos textarea, tiene como 2-3 más de altura | Help */}
             <textarea
-              name=""
-              id=""
-              placeholder="Description"
               className={styles['full-width']}
+              id=""
+              name=""
+              placeholder="Description"
             />
           </div>
           <div>
             {/* //! TODO: how to do an update image? */}
             <input
-              type="text"
-              name=""
-              id=""
-              placeholder="how to do an update image?"
               className={styles['full-width']}
+              id=""
+              name=""
+              placeholder="how to do an update image?"
+              type="text"
             />
           </div>
           <ComboboxCountries format={24} />
           <div>
             {/* // TODO: El div que envuelve los dos textarea, tiene como 2-3 más de altura | Help */}
             <textarea
-              name=""
-              id=""
-              placeholder="🚩 🚩 🚩 🚩 🚩 🚩 🚩 🚩"
               className={styles['full-width']}
+              id=""
+              name=""
+              placeholder="🚩 🚩 🚩 🚩 🚩 🚩 🚩 🚩"
             />
           </div>
         </form>
@@ -110,4 +124,4 @@ const CreateEventComponent = () => {
   )
 }
 
-export default CreateEventComponent
+export default CreateEvent
