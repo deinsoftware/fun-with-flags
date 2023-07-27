@@ -17,7 +17,7 @@ const Footer = () => {
                 alt="Home"
                 className=""
                 height={imageWidth}
-                src="/img/home.png"
+                src="/img/menu/home.png"
                 width={imageWidth}
               />
             </div>
@@ -29,7 +29,7 @@ const Footer = () => {
                 alt="Events"
                 className=""
                 height={imageWidth}
-                src="/img/events.png"
+                src="/img/menu/events.png"
                 width={imageWidth}
               />
             </div>
@@ -41,7 +41,7 @@ const Footer = () => {
                 alt="Create event"
                 className=""
                 height={imageWidth}
-                src="/img/createEvent.png"
+                src="/img/menu/create-event.png"
                 width={imageWidth}
               />
             </div>
@@ -53,7 +53,7 @@ const Footer = () => {
                 alt="Settings"
                 className=""
                 height={imageWidth}
-                src="/img/menu.png"
+                src="/img/menu/menu.png"
                 width={imageWidth}
               />
             </div>

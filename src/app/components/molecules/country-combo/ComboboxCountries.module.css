@@ -54,7 +54,7 @@
 
 
 .flag:hover {
-    background-image: url("/img/trash-can-regular.svg");
+    background-image: url("/img/ui/trash-can-regular.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 15px;
