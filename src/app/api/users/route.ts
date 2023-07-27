@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 
-import prisma, { Prisma, Providers } from '@/libs/prisma'
+import { Prisma, Providers } from '@prisma/client'
+
+import { prisma } from '@/libs/prisma'
 
 const postHandler = async (request: Request) => {
   try {

@@ -1,6 +1,4 @@
-import { UsersProviders } from '@/libs/prisma'
-
-import { Prisma } from '@/libs/prisma'
+import { Prisma, UsersProviders } from '@prisma/client'
 
 const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 
