@@ -10,7 +10,6 @@ import styles from './SelectTimeZoneOption.module.css'
 
 import { FlagCountry } from '@/helpers/flags.types'
 
-
 const SelectTimeZoneOption: React.FC<FlagCountry> = ({
   id,
   countryCode,
@@ -47,7 +46,7 @@ const SelectTimeZoneOption: React.FC<FlagCountry> = ({
             isOpen ? styles['rotated'] : ''
           }`}
           height={10}
-          src="/img/caretabajo.png"
+          src="/img/ui/dark/caret.png"
           width={10}
         />
       </button>
