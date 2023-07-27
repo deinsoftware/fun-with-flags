@@ -11,13 +11,9 @@ import { useGetInfoDates } from "./useGetInfoDates"
 import { DateArray } from "@/types/DateArray.types"
 import { Countries } from "@/types/countries.types"
 import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
+import { TimeFormat } from "@/helpers/events.types"
 
-
- type Format = {
-    format: 12 | 24
- }
-
-const ComboboxCountries = ({format}: Format) => {
+const ComboboxCountries = ({format}: TimeFormat) => {
     const {dateList, currentDate} = useGetInfoDates({format})
     
     const filteredDates = useFilteredDates(dateList, format)
