@@ -1,8 +1,6 @@
 "use client"
 import ReactCountryFlag from "react-country-flag"
 
-import { useContext } from "react"
-
 import style from './ComboboxCountries.module.css'
 
 import { useGetDay } from "./useGetDay"
@@ -11,8 +9,8 @@ import { useFilteredDates } from "./useFilteredDates"
 import { useGetInfoDates } from "./useGetInfoDates"
 
 import { DateArray } from "@/types/DateArray.types"
-import { TimeZoneContext } from "@/app/context/timeZoneContext"
 import { Countries } from "@/types/countries.types"
+import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
 
 
  type Format = {
@@ -34,7 +32,7 @@ const ComboboxCountries = ({format}: Format) => {
     
     const DatesToRender =({datesArray, nextDate= false, prevDate=false}
         :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
-        const {deleteTimeZone} = useContext(TimeZoneContext)
+        const {deleteTimeZone} = useTimeZoneContext()
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)
             const isSameDate = date.getDate() === currentDate.getDate()
