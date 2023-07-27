@@ -10,15 +10,15 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 
-const CreateEvent: React.FC<{ locale: Locale }> = ({ locale }) => {
+const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
 
   const props = useMemo(
     () => ({
-      locale,
+      locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
       date: new Date('2023-07-26'),
     }),
-    [locale],
+    [],
   )
   const flagList = useFetch(props)
 

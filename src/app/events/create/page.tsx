@@ -6,11 +6,9 @@ export const metadata = {
 }
 
 const CreateEventPage = () => {
-  const locale = Intl.NumberFormat().resolvedOptions().locale as Locale
-
   return (
     <>
-      <CreateEvent locale={locale} />
+      <CreateEvent />
     </>
   )
 }
