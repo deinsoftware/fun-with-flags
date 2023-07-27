@@ -1,6 +1,6 @@
 import styles from './page.module.css'
-import SearchBar from './components/SearchBar'
-import CardPost from './components/CardPost/CardPost'
+import SearchBar from './components/atoms/util/SearchBar'
+import CardPost from './components/organisms/card-post/CardPost'
 
 const posts = [
   {

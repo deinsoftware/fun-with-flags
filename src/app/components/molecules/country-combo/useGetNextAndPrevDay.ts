@@ -1,5 +1,6 @@
-import { DateArray } from '@/types/DateArray.types'
 import { useEffect, useState } from 'react'
+
+import { DateArray } from '@/types/DateArray.types'
 
 export const useGetNextAndPrevDay = (
   filteredDates: DateArray[],

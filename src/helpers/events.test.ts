@@ -19,7 +19,7 @@ describe('getDateInformation()', () => {
     const expected: EventDate = {
       countryCode: 'AU',
       name: 'Australia/Adelaide',
-      date: '6/10/2023',
+      date: '2023-06-10',
       time: '11:06:42',
       acronym: 'GMT+9:30',
       gmt: 'GMT+9:30',
@@ -50,7 +50,7 @@ describe('getDateInformation()', () => {
     const expected: EventDate = {
       countryCode: 'AU',
       name: 'Australia/Adelaide',
-      date: '6/10/2023',
+      date: '2023-06-10',
       time: '11:06:42',
       acronym: 'GMT+9:30',
       gmt: 'GMT+9:30',
@@ -108,7 +108,7 @@ describe('getDatesList()', () => {
       {
         countryCode: 'US',
         name: 'America/New_York',
-        date: '6/9/2023',
+        date: '2023-06-10',
         time: '21:36:42',
         acronym: 'EDT',
         gmt: 'GMT-4',
@@ -123,7 +123,7 @@ describe('getDatesList()', () => {
       {
         countryCode: 'ES',
         name: 'Europe/Madrid',
-        date: '6/10/2023',
+        date: '2023-06-10',
         time: '03:36:42',
         acronym: 'GMT+2',
         gmt: 'GMT+2',

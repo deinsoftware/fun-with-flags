@@ -1,9 +1,11 @@
 'use client'
 import Image from 'next/image'
-import styles from './LoginButton.module.css'
+
 
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { Session, DefaultSession } from 'next-auth'
+
+import styles from './LoginButton.module.css'
 
 const LoginButton = () => {
   const session = useSession()
@@ -25,11 +27,11 @@ const LoginButton = () => {
     <>
       <button className={styles['login-button']} onClick={() => signOut()}>
         <Image
+          alt={data?.user?.name ?? 'Login button'}
           className={styles['bg-icon']}
+          height={32}
           src={data?.user?.image ?? '/img/auth/login.png'}
           width={32}
-          height={32}
-          alt={data?.user?.name ?? 'Login button'}
         />
         <div className={styles['bg-icon']}>
           <span className={styles.text}>Sign Out</span>

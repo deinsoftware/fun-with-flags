@@ -1,6 +1,8 @@
 import Image from 'next/image'
+
 import styles from './Header.module.css'
-import LoginButton from './auth/LoginButton'
+
+import LoginButton from '@/app/components/atoms/auth/LoginButton'
 
 const Header = () => {
   return (
@@ -8,10 +10,10 @@ const Header = () => {
       <header className={styles.header}>
         <h1>Fun with flags</h1> {/* display: none?????? //! preguntar */}
         <Image
+          alt="Logo"
+          height={60}
           src="/img/placeholderlogo.png"
           width={200}
-          height={60}
-          alt="Logo"
         />
         <LoginButton />
       </header>
