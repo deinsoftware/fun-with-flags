@@ -71,6 +71,7 @@ const ComboboxCountries = ({format}: Format) => {
                             <div key={self.crypto.randomUUID()} className={style['flag']}>
                                 
                                 <ReactCountryFlag
+                                svg
                                 alt={`Flag of ${countryCode}`}
                                 countryCode={countryCode}
                                 id={`${name}--${countryCode}`}
