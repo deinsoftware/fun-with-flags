@@ -4,12 +4,13 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { getAllTimeZones } from '@/services/timezones'
 import { Locale } from '@/types/locale.types'
 
-import { controller, signal } from '@/libs/abort'
-
 const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
   const [data, setData] = useState<FlagCountry[] | null>(null)
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+
     getAllTimeZones({ locale, date, signal })
       .then((data) => {
         if (data !== null) {
