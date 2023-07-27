@@ -21,7 +21,7 @@ type OriginDate = {
 }
 
 const originDefault: OriginDate = {
-    countryCode: getCountryCode(),
+    countryCode: getCountryCode(getTimezone()),
     date: new Date().toISOString(),
     name: getTimezone()
 }

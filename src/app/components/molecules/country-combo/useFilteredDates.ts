@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { EventDate } from '@/helpers/events.types'
+import { EventDate, TimeFormat } from '@/helpers/events.types'
 import { DateArray } from '@/types/DateArray.types'
 import { Countries } from '@/types/countries.types'
 
@@ -14,7 +14,7 @@ type TimezoneInfo = {
 
 export function useFilteredDates(
   dateList: EventDate[] | undefined,
-  format: 12 | 24,
+  format: TimeFormat['format'],
 ) {
   const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
 
