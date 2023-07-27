@@ -7,18 +7,22 @@ export type Zone = {
   name: TimeZones
 }
 
+export type TimeFormat = {
+  format: 12 | 24
+}
+
 export type DateInformation = {
   originDate: Date
   zone: Zone
   locale?: Locale
-  timeFormat: 12 | 24
+  timeFormat: TimeFormat['format']
 }
 
 export type ZoneList = {
   originDate: Date
   zoneList: Zone[]
   locale?: Locale
-  timeFormat: 12 | 24
+  timeFormat: TimeFormat['format']
 }
 
 export type EventDate = {
