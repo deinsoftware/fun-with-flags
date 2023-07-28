@@ -2,7 +2,7 @@
 import { createContext, useMemo, useState } from "react";
 
 import { Zone } from "@/helpers/events.types";
-import { getCountryCode } from "@/helpers/get-country-code";
+import { getCountryCode } from "@/services/get-country-code";
 import { getTimezone } from "@/helpers/get-time-zone";
 import { Countries } from "@/types/countries.types";
 
