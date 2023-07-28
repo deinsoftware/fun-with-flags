@@ -71,9 +71,9 @@ const CountryList: React.FC<{
               <Image
                 alt="Close icon"
                 className={styles['close-modal-icon']}
-                height={22}
-                src="/img/ui/dark/close.svg"
-                width={22}
+                height={24}
+                src="/img/ui/cancel.svg"
+                width={24}
               />
             </button>
           </div>

@@ -40,20 +40,20 @@ const SelectTimeZone: React.FC<FlagCountry> = ({
           />
           <span className={styles['name-country']}>{regionName}</span>
         </div>
-        {(timeZone?.length > 1) && (
+        {timeZone?.length > 1 && (
           <Image
             alt="More time zones"
             className={`${styles['more-countries-button']} ${
               isOpen ? styles['rotated'] : ''
             }`}
             height={10}
-            src="/img/ui/dark/caret.png"
+            src="/img/ui/caret.svg"
             width={10}
           />
         )}
       </button>
 
-      {(timeZone?.length > 1) && (
+      {timeZone?.length > 1 && (
         <div
           className={`${styles['more-time-zones']} ${
             isOpen ? styles['is-open'] : ''

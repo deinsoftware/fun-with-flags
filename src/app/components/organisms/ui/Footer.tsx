@@ -12,48 +12,48 @@ const Footer = () => {
       <footer className={styles.footer}>
         <div className={styles['btn-container']}>
           <Link className="" href="/">
-            <div className="">
+          <div className={styles['container-icon']}>
               <Image
                 alt="Home"
-                className=""
+                className={styles['icon']}
                 height={imageWidth}
-                src="/img/menu/home.png"
+                src="/img/menu/home.svg"
                 width={imageWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/events">
-            <div className="">
+          <div className={styles['container-icon']}>
               <Image
                 alt="Events"
-                className=""
+                className={styles['icon']}
                 height={imageWidth}
-                src="/img/menu/events.png"
+                src="/img/menu/event.svg"
                 width={imageWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/events/create">
-            <div className="">
+          <div className={styles['container-icon']}>
               <Image
                 alt="Create event"
-                className=""
+                className={styles['icon']}
                 height={imageWidth}
-                src="/img/menu/create-event.png"
+                src="/img/menu/create-event.svg"
                 width={imageWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/settings">
-            <div className="">
+            <div className={styles['container-icon']}>
               <Image
                 alt="Settings"
-                className=""
+                className={styles['icon']}
                 height={imageWidth}
-                src="/img/menu/menu.png"
+                src="/img/menu/settings.svg"
                 width={imageWidth}
               />
             </div>
