@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react'
 
+import Image from 'next/image'
+
 import styles from './CountryList.module.css'
 
-import SelectTimeZoneOption from '@/app/components/atoms/country-list/SelectTimeZoneOption'
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 
@@ -52,21 +53,20 @@ const CountryList: React.FC<{
               type="button"
               onClick={() => onClose()}
             >
-              ❌
+              <Image
+                alt="Close icon"
+                className={styles['close-modal-icon']}
+                height={22}
+                src="/img/ui/dark/delete.svg"
+                width={22}
+              />
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
             {countryList?.map((country) => {
-              if (country.timeZone.length > 1) {
-                return (
-                  <SelectTimeZoneOption
-                    key={country.countryCode}
-                    {...country}
-                  />
-                )
-              } else {
-                return <SelectTimeZone key={country.countryCode} {...country} />
-              }
+              return (
+                <SelectTimeZone key={country.countryCode} {...country} />
+              )
             })}
           </div>
         </div>
