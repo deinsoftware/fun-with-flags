@@ -41,8 +41,8 @@
   },
   "swpm": "npm",
   "volta": {
-    "node": "18.16.0",
-    "npm": "9.5.1"
+    "node": "18.17.0",
+    "npm": "9.6.7"
   },
   "devDependencies": {
     "@testing-library/dom": "9.3.1",
