@@ -2,8 +2,6 @@
 import { createContext, useMemo, useState } from "react";
 
 import { Zone } from "@/helpers/events.types";
-import { getCountryCode } from "@/services/get-country-code";
-import { getTimezone } from "@/helpers/get-time-zone";
 import { Countries } from "@/types/countries.types";
 
 type TimeZoneData = {
@@ -12,7 +10,7 @@ type TimeZoneData = {
         countryCode: Countries | Promise<Countries>;
         date: string;
         name: string;
-    };
+    } | {};
 }
 type OriginDate = {
     countryCode: Countries | Promise<Countries>;
@@ -20,11 +18,6 @@ type OriginDate = {
     name: string;
 }
 
-const originDefault: OriginDate = {
-    countryCode: getCountryCode(getTimezone()),
-    date: new Date().toISOString(),
-    name: getTimezone()
-}
 export const TimeZoneContext = createContext<{
     timeZones: TimeZoneData | null;
     addTimeZone: (zone: Zone) => void;
@@ -92,8 +85,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
                     ...prev,
                     list: [...(prev?.list ?? []), zone],
                     origin: {
-                        ...(prev?.origin 
-                            ?? originDefault),
+                        ...prev?.origin
                     }
                 }
             }      
@@ -115,8 +107,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
                     ...prev,
                     list: newTimeZonesList??[],
                     origin: {
-                        ...(prev?.origin 
-                            ?? originDefault),
+                        ...prev?.origin
                     }
                 }
             })
