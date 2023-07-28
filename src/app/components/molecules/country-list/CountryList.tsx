@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -8,6 +8,7 @@ import styles from './CountryList.module.css'
 
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
+import { TimeZoneContext } from '@/app/context/timeZoneContext'
 
 const CountryList: React.FC<{
   flagList: FlagCountry[] | null
@@ -15,6 +16,7 @@ const CountryList: React.FC<{
 }> = ({ flagList, onClose }) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
+  const { addTimeZone } = useContext(TimeZoneContext)
 
   useEffect(() => {
     if (!query) return setCountryList(flagList)
@@ -37,9 +39,22 @@ const CountryList: React.FC<{
     return () => clearTimeout(handler)
   }, [flagList, query])
 
+
+
+  // const { addTimeZone } = useTimeZoneContext()
+  // addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
+
   return (
     <>
       <div className={styles['overlay']}>
+        <button
+          type="button"
+          onClick={() =>
+            addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
+          }
+        >
+          TEST
+        </button>
         <div className={styles['container-list-with-search']}>
           <div className={styles['search-bar-container']}>
             <input
@@ -57,16 +72,14 @@ const CountryList: React.FC<{
                 alt="Close icon"
                 className={styles['close-modal-icon']}
                 height={22}
-                src="/img/ui/dark/delete.svg"
+                src="/img/ui/dark/close.svg"
                 width={22}
               />
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
             {countryList?.map((country) => {
-              return (
-                <SelectTimeZone key={country.countryCode} {...country} />
-              )
+              return <SelectTimeZone key={country.countryCode} {...country} />
             })}
           </div>
         </div>
