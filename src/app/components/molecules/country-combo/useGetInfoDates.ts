@@ -10,19 +10,16 @@ export const useGetInfoDates = ({ format }: TimeFormat) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
   useEffect(() => {
     if (timeZones && 'date' in timeZones.origin) {
-      const valueList: ZoneList | null = timeZones
-        ? {
-            originDate: new Date(timeZones.origin.date),
-            zoneList: timeZones.list,
-            timeFormat: format,
-          }
-        : null
-      const dateList = valueList
-        ? sortDatesList(getDatesList(valueList))
-        : undefined
-      const currentDate = timeZones
-        ? new Date(timeZones.origin.date)
-        : new Date()
+      const valueList: ZoneList = {
+        originDate: new Date(timeZones.origin.date),
+        zoneList: timeZones.list,
+        timeFormat: format,
+      }
+
+      const dateList = sortDatesList(getDatesList(valueList))
+
+      const currentDate = new Date(timeZones.origin.date)
+
       setDateList(dateList)
       setCurrentDate(currentDate)
     }

@@ -34,10 +34,17 @@ export const getAllTimeZones = async ({
 
 export async function getCountryByZone(
   zone: string,
+  signal?: AbortSignal,
 ): Promise<Countries | null> {
   zone = zone.replaceAll('/', '%2F')
+  const params: RequestInit = {
+    signal,
+  }
   try {
-    const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/timezones/${zone}`)
+    const response = await fetch(
+      `${NEXT_PUBLIC_API_URL}/api/timezones/${zone}`,
+      params,
+    )
     if (!response.ok) {
       return null
     }
