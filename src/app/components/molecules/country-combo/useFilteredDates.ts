@@ -14,7 +14,7 @@ type TimezoneInfo = {
 
 export function useFilteredDates(
   dateList: EventDate[] | undefined,
-  format: TimeFormat['format'],
+  format: TimeFormat,
 ) {
   const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
 

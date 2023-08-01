@@ -79,8 +79,11 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const [timeZones, setTimeZones] = useState<TimeZoneData | null>(initialTimeZoneData)
     
     const addTimeZone = (zone: Zone) => {
-        
-        setTimeZones((prev) => {
+        const index = timeZones?.list?.findIndex((timeZone) =>{
+            return timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
+        })
+        if (index === -1 || index === undefined) {
+            setTimeZones((prev) => {
                 return {
                     ...prev,
                     list: [...(prev?.list ?? []), zone],
@@ -88,8 +91,9 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
                         ...prev?.origin
                     }
                 }
-            }      
-        )        
+            })
+        }
+        throw new Error('Time zone already exists')
     }
 
     const deleteTimeZone = (zone: Zone) => {
