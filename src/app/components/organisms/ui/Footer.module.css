@@ -21,11 +21,16 @@
     align-items: center;
     justify-content: space-evenly;
 
-    & img {
-        filter: invert(40%);
+    & .container-icon {
+        display: grid;
+        place-content: center;
 
-        &:active {
-            filter: invert(80%);
+        & .icon {
+            filter: invert(40%);
+
+            &:active {
+                filter: invert(80%);
+            }
         }
     }
 }

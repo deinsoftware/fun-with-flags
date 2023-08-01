@@ -40,6 +40,9 @@
         background-color: transparent;
         transform: rotate(-0.25turn);
         transition: transform 0.05s linear;
+
+        /* Conseguir mejor forma de colorear el caret / svg */
+        filter: contrast(0);
     }
 
     & .more-countries-button.rotated {

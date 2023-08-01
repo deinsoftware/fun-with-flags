@@ -13,7 +13,7 @@ import { Countries } from "@/types/countries.types"
 import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
 import { TimeFormat } from "@/helpers/events.types"
 
-const ComboboxCountries = ({format}: TimeFormat) => {
+const ComboboxCountries: React.FC<{format: TimeFormat}> = ({format}) => {
     const {dateList, currentDate} = useGetInfoDates({format})
     
     const filteredDates = useFilteredDates(dateList, format)
@@ -26,8 +26,8 @@ const ComboboxCountries = ({format}: TimeFormat) => {
     currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
 
     
-    const DatesToRender =({datesArray, nextDate= false, prevDate=false}
-        :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
+    const DatesToRender: React.FC<{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} > =({datesArray, nextDate= false, prevDate=false}
+        )=>{
         const {deleteTimeZone} = useTimeZoneContext()
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)

@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <h1>Fun with flags</h1> {/* display: none?????? //! preguntar */}
+        <h1>Fun with flags</h1>
         <Image alt="Logo" height={60} src="/img/logo.png" width={200} />
         <LoginButton />
       </header>
