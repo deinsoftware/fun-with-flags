@@ -7,21 +7,28 @@ import { Countries } from "@/types/countries.types";
 type TimeZoneData = {
     list: Zone[];
     origin: {
-        countryCode: Countries;
+        countryCode: Countries | Promise<Countries>;
         date: string;
         name: string;
-    };
+    } | {};
 }
 type OriginDate = {
-    countryCode: Countries;
+    countryCode: Countries | Promise<Countries>;
     date: string;
     name: string;
 }
+
 export const TimeZoneContext = createContext<{
     timeZones: TimeZoneData | null;
     addTimeZone: (zone: Zone) => void;
+    deleteTimeZone: (zone: Zone) => void;
     setOriginDate: (originDate: OriginDate) => void;
-  }>({timeZones:null, addTimeZone: () => {}, setOriginDate: () => {}});
+  }>({
+    timeZones:null, 
+    addTimeZone: () => {},
+    deleteTimeZone: () => {}, 
+    setOriginDate: () => {}
+});
 
 const initialTimeZoneData: TimeZoneData | null = {
     list: [
@@ -70,22 +77,45 @@ const initialTimeZoneData: TimeZoneData | null = {
 };
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const [timeZones, setTimeZones] = useState<TimeZoneData | null>(initialTimeZoneData)
+    
     const addTimeZone = (zone: Zone) => {
-        setTimeZones((prev) => {
+        const index = timeZones?.list?.findIndex((timeZone) =>{
+            return timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
+        })
+        if (index === -1 || index === undefined) {
+            setTimeZones((prev) => {
                 return {
                     ...prev,
                     list: [...(prev?.list ?? []), zone],
                     origin: {
-                        ...(prev?.origin 
-                            ?? {
-                                countryCode: "CO",
-                                date: new Date().toISOString(),
-                                name: "America/Bogota"
-                            }),
+                        ...prev?.origin
                     }
                 }
-            }      
-        )        
+            })
+        }
+        throw new Error('Time zone already exists')
+    }
+
+    const deleteTimeZone = (zone: Zone) => {
+        const index = timeZones?.list?.findIndex((timeZone) =>{
+            return timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
+        })
+
+        if (index === -1 || index === undefined) {
+            throw new Error('Element not found') 
+        } else {
+            let newTimeZonesList = structuredClone(timeZones?.list)
+            newTimeZonesList?.splice(index, 1)
+            setTimeZones((prev) => {
+                return {
+                    ...prev,
+                    list: newTimeZonesList??[],
+                    origin: {
+                        ...prev?.origin
+                    }
+                }
+            })
+        }     
     }
 
     const setOriginDate=(originDate: OriginDate)=>{
@@ -100,6 +130,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     const contextValue = useMemo(() => ({
          timeZones, 
          addTimeZone,
+         deleteTimeZone,
          setOriginDate
         }), [timeZones]);
 

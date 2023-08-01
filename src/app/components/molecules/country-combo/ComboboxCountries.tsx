@@ -1,36 +1,23 @@
 "use client"
 import ReactCountryFlag from "react-country-flag"
 
-import { useContext } from "react"
-
 import style from './ComboboxCountries.module.css'
 
-import { useGetNextAndPrevDay } from "./useGetNextAndPrevDay"
+import { useGetDay } from "./useGetDay"
 import { useFilteredDates } from "./useFilteredDates"
 
-import { getDatesList, sortDatesList } from "@/helpers/events"
-import {  ZoneList } from "@/helpers/events.types"
+import { useGetInfoDates } from "./useGetInfoDates"
+
 import { DateArray } from "@/types/DateArray.types"
-import { TimeZoneContext } from "@/app/context/timeZoneContext"
+import { Countries } from "@/types/countries.types"
+import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
+import { TimeFormat } from "@/helpers/events.types"
 
-
- type Format = {
-    format: 12 | 24
- }
-
-const ComboboxCountries = ({format}: Format) => {
-    const {timeZones}= useContext(TimeZoneContext)
+const ComboboxCountries: React.FC<{format: TimeFormat}> = ({format}) => {
+    const {dateList, currentDate} = useGetInfoDates({format})
     
-    const valueList: ZoneList | null = timeZones? {
-        originDate: new Date(timeZones.origin.date),
-        zoneList: timeZones.list,
-        timeFormat: format,
-    }: null
-    const dateList = valueList? sortDatesList(getDatesList(valueList)) : undefined
-    const currentDate = timeZones ? new Date(timeZones.origin.date) : new Date()
-
     const filteredDates = useFilteredDates(dateList, format)
-    const {isNextDate, isPrevDate} = useGetNextAndPrevDay(filteredDates, currentDate)
+    const {isNextDate, isPrevDate, isToday} = useGetDay(filteredDates, currentDate)
    
     const currentDatePlusOne = new Date(currentDate.getTime())
     currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
@@ -39,8 +26,9 @@ const ComboboxCountries = ({format}: Format) => {
     currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
 
     
-    const DatesToRender =({datesArray, nextDate= false, prevDate=false}
-        :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
+    const DatesToRender: React.FC<{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} > =({datesArray, nextDate= false, prevDate=false}
+        )=>{
+        const {deleteTimeZone} = useTimeZoneContext()
         const timeToRender = datesArray.map(([time, groupedDate]) => {
             const date= new Date(groupedDate.date)
             const isSameDate = date.getDate() === currentDate.getDate()
@@ -49,7 +37,9 @@ const ComboboxCountries = ({format}: Format) => {
 
             const handleClick = (event: React.MouseEvent<HTMLImageElement>)=>{
                 const target = event.target as HTMLImageElement
-                console.log(target.id)
+                const name= target.id.split('--')[0]
+                const countryCode= target.id.split('--')[1] as Countries
+                deleteTimeZone({countryCode, name})
             }
             const elementJSX = ()=>{
                 return (
@@ -62,10 +52,10 @@ const ComboboxCountries = ({format}: Format) => {
                             <div key={self.crypto.randomUUID()} className={style['flag']}>
                                 
                                 <ReactCountryFlag
-                                svg 
+                                svg
                                 alt={`Flag of ${countryCode}`}
                                 countryCode={countryCode}
-                                id={name}
+                                id={`${name}--${countryCode}`}
                                 style={{
                                     width: '1.6rem',
                                     height: '1.6rem',
@@ -98,7 +88,7 @@ const ComboboxCountries = ({format}: Format) => {
         
         return  timeToRender
     }
-
+    
     return (
         
         <div className={style['countries-container']}>
@@ -109,20 +99,21 @@ const ComboboxCountries = ({format}: Format) => {
              </> 
             }
             
-            {(typeof dateList !== 'undefined') ? 
+            {(typeof dateList !== 'undefined' && isToday) && 
             <>
                 <p><strong>{`${currentDate.toDateString()}\n`}</strong></p>
                 <DatesToRender datesArray={filteredDates} />
             </> 
-            : 'Add a timezone to start'}
+            }
 
-            
             {isNextDate && 
              <>
                 <p><strong>{`${currentDatePlusOne.toDateString()}\n`}</strong></p>
                 <DatesToRender datesArray={filteredDates} nextDate={true}/>
              </> 
             }
+
+            {!isNextDate && !isPrevDate && !isToday && 'Add a timezone to start'}
             
         </div>     
         
