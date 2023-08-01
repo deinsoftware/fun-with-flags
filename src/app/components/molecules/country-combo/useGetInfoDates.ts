@@ -4,7 +4,7 @@ import { getDatesList, sortDatesList } from '@/helpers/events'
 import { EventDate, TimeFormat, ZoneList } from '@/helpers/events.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
-export const useGetInfoDates = ({ format }: TimeFormat) => {
+export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
   const { timeZones } = useTimeZoneContext()
   const [dateList, setDateList] = useState<EventDate[] | undefined>([])
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
