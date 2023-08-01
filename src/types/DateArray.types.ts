@@ -6,5 +6,6 @@ export type DateArray = [
     countryCodes: [Countries, string][]
     gmt?: string
     date: string
+    day: 'next' | 'prev' | 'same' | 'undefined'
   },
 ]

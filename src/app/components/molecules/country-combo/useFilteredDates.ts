@@ -5,11 +5,7 @@ import { DateArray } from '@/types/DateArray.types'
 import { Countries } from '@/types/countries.types'
 
 type TimezoneInfo = {
-  [time: string]: {
-    countryCodes: [Countries, string][]
-    gmt?: string
-    date: string
-  }
+  [time: string]: DateArray[1]
 }
 
 export function useFilteredDates(
@@ -26,12 +22,23 @@ export function useFilteredDates(
 
       if (dateList === undefined) return []
 
-      dateList?.forEach((dateInfo) => {
+      dateList.forEach((dateInfo) => {
         const countryCode: Countries = dateInfo.countryCode
         const time: string = dateInfo.i18n.time
         const date = dateInfo.i18n.date
         const gmt = dateInfo.acronym
         const name = dateInfo.name
+        let order: TimezoneInfo['time']['day']
+
+        if (dateInfo.order?.next) {
+          order = 'next'
+        } else if (dateInfo.order?.prev) {
+          order = 'prev'
+        } else if (dateInfo.order?.same) {
+          order = 'same'
+        } else {
+          order = 'same'
+        }
 
         if (groupedDates[time]) {
           groupedDates[time].countryCodes.push([countryCode, name])
@@ -40,6 +47,7 @@ export function useFilteredDates(
             countryCodes: [[countryCode, name]],
             gmt,
             date,
+            day: order,
           }
         }
       })

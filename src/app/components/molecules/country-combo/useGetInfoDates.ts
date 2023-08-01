@@ -17,7 +17,6 @@ export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
       }
 
       const dateList = sortDatesList(getDatesList(valueList))
-
       const currentDate = new Date(timeZones.origin.date)
 
       setDateList(dateList)

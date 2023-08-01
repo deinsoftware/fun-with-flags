@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useMemo, useState } from 'react'
 
-import { Zone } from '@/helpers/events.types'
+import { TimeFormat, Zone } from '@/helpers/events.types'
 import { Countries } from '@/types/countries.types'
 
 type TimeZoneData = {
@@ -25,19 +25,21 @@ export const TimeZoneContext = createContext<{
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
   setOriginDate: (originDate: OriginDate) => void
+  format: TimeFormat
 }>({
   timeZones: null,
   addTimeZone: () => {},
   deleteTimeZone: () => {},
   setOriginDate: () => {},
+  format: 24,
 })
 
-const initialTimeZoneData: TimeZoneData | null = {
+const initialTimeZoneData: TimeZoneData = {
   list: [
-    // {
-    //     "countryCode": "CO",
-    //     "name": "America/Bogota"
-    // },
+    {
+        "countryCode": "CO",
+        "name": "America/Bogota"
+    },
     {
       countryCode: 'JP',
       name: 'Asia/Tokyo',
@@ -78,9 +80,11 @@ const initialTimeZoneData: TimeZoneData | null = {
   },
 }
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const [timeZones, setTimeZones] = useState<TimeZoneData | null>(
+  const [timeZones, setTimeZones] = useState<TimeZoneData >(
     initialTimeZoneData,
   )
+
+  const [format, setFormat] = useState<TimeFormat>(24)
 
   const addTimeZone = (zone: Zone) => {
     const index = timeZones?.list?.findIndex((timeZone) => {
@@ -141,8 +145,9 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
       addTimeZone,
       deleteTimeZone,
       setOriginDate,
+      format,
     }),
-    [timeZones],
+    [timeZones, format],
   )
 
   return (
