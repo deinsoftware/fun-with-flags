@@ -46,7 +46,13 @@ export const getTime = (options: { timeZone: TimeZones }, originDate: Date) => {
 export const getAcronym = (
   options: { timeZone: TimeZones },
   originDate: Date,
+  countryCode: Countries,
 ) => {
+  const { FWF_ACRONYM_COUNTRIES = '' } = process?.env || {}
+  if (FWF_ACRONYM_COUNTRIES && !FWF_ACRONYM_COUNTRIES.includes(countryCode)) {
+    return
+  }
+
   return Intl.DateTimeFormat('default', {
     ...options,
     timeZoneName: 'short',
