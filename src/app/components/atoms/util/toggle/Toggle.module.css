@@ -1,0 +1,29 @@
+.toggle {
+    background-color: var(--color-darkgray-800);
+    border: 1.5px solid var(--color-darkgray-500);
+    border-radius: 99px;
+    width: 50px;
+    height: 28px;
+    transition: background-color 0.3s ease border-color 0.2s ease;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+    position: relative;
+
+    & .thumb {
+        height: 20px;
+        width: 20px;
+        background-color: var(--color-darkgray-300);
+        border-radius: 99px;
+        transform: translateX(0);
+        transform: translateY(-50%);
+        transition: left 0.15s ease;
+        position: absolute;
+        left: 3px;
+        top: 50%;
+    }
+
+    &.toggled .thumb {
+        background-color: var(--color-purple-500);
+        left: calc(50px - 25px);
+    }
+}
