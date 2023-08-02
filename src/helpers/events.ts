@@ -27,7 +27,7 @@ export const getDateInformation = ({
 
   const date = getDate(options, originDate)
   const time = getTime(options, originDate)
-  const acronym = getAcronym(options, originDate)
+  const acronym = getAcronym(options, originDate, zone.countryCode)
   const gmt = getGmt(options, originDate)
   const offset = convertGmtToNumber(gmt ?? '')
 
@@ -47,7 +47,7 @@ export const getDateInformation = ({
     }),
   }
 
-  const order = getOrder( new Date(i18n.date), originDate)
+  const order = getOrder(new Date(i18n.date), originDate)
 
   const eventDate: EventDate = {
     ...zone,

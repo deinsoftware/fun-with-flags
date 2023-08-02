@@ -1,8 +1,16 @@
-import { it, expect, describe } from 'vitest'
+import { beforeAll, afterAll, it, expect, describe, vi } from 'vitest'
 
 import { DateInformation, EventDate, ZoneList } from './events.types'
 
 import { getDateInformation, getDatesList, sortDatesList } from './events'
+
+beforeAll(() => {
+  vi.stubEnv('FWF_ACRONYM_COUNTRIES', 'US|CA')
+})
+
+afterAll(() => {
+  vi.unstubAllEnvs()
+})
 
 describe('getDateInformation()', () => {
   it('should return the date information with 12 time format', () => {
@@ -21,7 +29,7 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: 'GMT+9:30',
+      acronym: undefined,
       gmt: 'GMT+9:30',
       offset: 9.5,
       i18n: {
@@ -53,7 +61,7 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: 'GMT+9:30',
+      acronym: undefined,
       gmt: 'GMT+9:30',
       offset: 9.5,
       i18n: {
@@ -128,7 +136,7 @@ describe('getDatesList()', () => {
         name: 'Europe/Madrid',
         date: '2023-06-10',
         time: '03:36:42',
-        acronym: 'GMT+2',
+        acronym: undefined,
         gmt: 'GMT+2',
         offset: 2,
         i18n: {
