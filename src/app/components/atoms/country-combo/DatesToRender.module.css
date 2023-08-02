@@ -3,19 +3,19 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: .5rem;
+    gap: 2px;
 
     .time-24 {
-        width: 43px;
+        width: 2.4rem;
         flex-shrink: 0;
     }
 
     .time-12 {
-        width: 77px;
+        width: 5rem;
     }
 
     .gmt {
-        width: 75px;
+        width: 4.7rem;
         flex-shrink: 0;
     }
 }
@@ -25,7 +25,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: .2rem;
+    gap: 3px;
 
     .flag {
         flex-shrink: 0;
