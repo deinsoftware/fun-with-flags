@@ -5,6 +5,7 @@ import {
   getAcronym,
   getDate,
   getGmt,
+  getOrder,
   getRegionNames,
   getTime,
   isValidTimeZone,
@@ -24,7 +25,7 @@ export const getDateInformation = ({
     throw new Error(`Incompatible Time Zone: ${zone.name}`)
   }
 
-  const date = getDate(originDate)
+  const date = getDate(options, originDate)
   const time = getTime(options, originDate)
   const acronym = getAcronym(options, originDate)
   const gmt = getGmt(options, originDate)
@@ -46,6 +47,8 @@ export const getDateInformation = ({
     }),
   }
 
+  const order = getOrder( new Date(i18n.date), originDate)
+
   const eventDate: EventDate = {
     ...zone,
     date,
@@ -54,6 +57,7 @@ export const getDateInformation = ({
     gmt,
     offset,
     i18n,
+    order,
   }
 
   return eventDate
