@@ -16,15 +16,13 @@ const ComboboxCountries = () => {
     
     const filteredDates = useFilteredDates(dateList, format)
     
-    return (
-        
-        <div className={style['countries-container']}>
-            
-            {dateList?.length===0 && 'Add a timezone to start'}
-            <DatesToRender datesArray={filteredDates}/>
-            
-        </div>     
-        
+    return (      
+        <div className={style['countries-container']}>   
+            {(!dateList || dateList?.length===0) 
+            ?'Add a timezone to start'
+            : <DatesToRender datesArray={filteredDates}/>
+            }   
+        </div>      
     )
 }
 
