@@ -1,11 +1,8 @@
-import { Countries } from './countries.types'
+import { EventDate } from '@/helpers/events.types'
 
-export type DateArray = [
+export type DatesFilteredArray = [
   string,
   {
-    countryCodes: [Countries, string][]
-    gmt?: string
-    date: string
-    day: 'next' | 'prev' | 'same' | 'undefined'
+    [gmt: string]: EventDate[]
   },
 ]

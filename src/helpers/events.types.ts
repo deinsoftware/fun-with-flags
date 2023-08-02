@@ -31,11 +31,6 @@ export type EventDate = {
   acronym?: string
   gmt?: string
   offset?: number
-  order: {
-    prev: boolean
-    same: boolean
-    next: boolean
-  }
   i18n: {
     region?: string
     timestamp: string
