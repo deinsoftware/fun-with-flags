@@ -49,7 +49,9 @@ export const getAcronym = (
   countryCode: Countries,
 ) => {
   const { FWF_ACRONYM_COUNTRIES = '' } = process?.env || {}
-  if (!FWF_ACRONYM_COUNTRIES.includes(countryCode)) return
+  if (FWF_ACRONYM_COUNTRIES && !FWF_ACRONYM_COUNTRIES.includes(countryCode)) {
+    return
+  }
 
   return Intl.DateTimeFormat('default', {
     ...options,

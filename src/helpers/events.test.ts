@@ -4,15 +4,15 @@ import { DateInformation, EventDate, ZoneList } from './events.types'
 
 import { getDateInformation, getDatesList, sortDatesList } from './events'
 
-beforeAll(() => {
-  vi.stubEnv('FWF_ACRONYM_COUNTRIES', 'US|CA')
-})
-
 afterAll(() => {
   vi.unstubAllEnvs()
 })
 
 describe('getDateInformation()', () => {
+  beforeEach(() => {
+    vi.stubEnv('FWF_ACRONYM_COUNTRIES', 'US|CA')
+  })
+
   it('should return the date information with 12 time format', () => {
     const value: DateInformation = {
       originDate: new Date('2023-06-10T01:36:42.271Z'),
