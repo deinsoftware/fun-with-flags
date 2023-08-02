@@ -1,6 +1,11 @@
-import { afterEach, it, expect, describe, vi } from 'vitest'
+import { it, expect, describe, vi } from 'vitest'
 
-import { isValidTimeZone, convertGmtToNumber, getRegionNames } from './dates'
+import {
+  isValidTimeZone,
+  convertGmtToNumber,
+  getRegionNames,
+  getOrder,
+} from './dates'
 
 describe('isValidTimeZone()', () => {
   it('should return true when using a correct time zone', () => {
@@ -67,5 +72,27 @@ describe('getRegionNames()', () => {
     const countryCode = 'US'
     const result = getRegionNames(countryCode, locale)
     expect(result).toBe('United States')
+  })
+})
+
+describe('getOrder()', () => {
+  const originDate = new Date('2023-07-13T05:18:42.271Z')
+
+  it('should return the prev order', () => {
+    const countryDate = new Date('2023-07-12')
+    const result = getOrder(originDate, countryDate)
+    expect(result).toBe('prev')
+  })
+
+  it('should return the same order', () => {
+    const countryDate = new Date('2023-07-13')
+    const result = getOrder(originDate, countryDate)
+    expect(result).toBe('same')
+  })
+
+  it('should return the next order', () => {
+    const countryDate = new Date('2023-07-14')
+    const result = getOrder(originDate, countryDate)
+    expect(result).toBe('next')
   })
 })

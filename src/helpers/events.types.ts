@@ -2,12 +2,14 @@ import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
 import { TimeZones } from '@/types/timeZones.types'
 
+export type TimeFormat = 12 | 24
+
+export type Order = 'prev' | 'same' | 'next'
+
 export type Zone = {
   countryCode: Countries
   name: TimeZones
 }
-
-export type TimeFormat = 12 | 24
 
 export type DateInformation = {
   originDate: Date
@@ -37,4 +39,5 @@ export type EventDate = {
     date: string
     time: string
   }
+  order: Order
 }

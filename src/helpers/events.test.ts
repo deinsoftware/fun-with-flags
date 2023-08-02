@@ -30,6 +30,7 @@ describe('getDateInformation()', () => {
         date: '6/10/2023',
         time: '11:06 AM',
       },
+      order: 'next',
     }
 
     const result = getDateInformation(value)
@@ -61,6 +62,7 @@ describe('getDateInformation()', () => {
         date: '6/10/2023',
         time: '11:06',
       },
+      order: 'next',
     }
 
     const result = getDateInformation(value)
@@ -108,7 +110,7 @@ describe('getDatesList()', () => {
       {
         countryCode: 'US',
         name: 'America/New_York',
-        date: '2023-06-10',
+        date: '2023-06-09',
         time: '21:36:42',
         acronym: 'EDT',
         gmt: 'GMT-4',
@@ -119,6 +121,7 @@ describe('getDatesList()', () => {
           date: '6/9/2023',
           time: '21:36',
         },
+        order: 'next',
       },
       {
         countryCode: 'ES',
@@ -134,6 +137,7 @@ describe('getDatesList()', () => {
           date: '6/10/2023',
           time: '03:36',
         },
+        order: 'next',
       },
     ]
 
@@ -158,6 +162,7 @@ describe('sortDatesList()', () => {
           date: '6/10/2023',
           time: '03:36:42',
         },
+        order: 'same',
       },
       {
         countryCode: 'US',
@@ -173,6 +178,7 @@ describe('sortDatesList()', () => {
           date: '6/9/2023',
           time: '21:36:42',
         },
+        order: 'same',
       },
     ]
 
@@ -191,6 +197,7 @@ describe('sortDatesList()', () => {
           date: '6/9/2023',
           time: '21:36:42',
         },
+        order: 'same',
       },
       {
         countryCode: 'ES',
@@ -206,6 +213,7 @@ describe('sortDatesList()', () => {
           date: '6/10/2023',
           time: '03:36:42',
         },
+        order: 'same',
       },
     ]
 
@@ -229,6 +237,7 @@ describe('sortDatesList()', () => {
           date: '6/10/2023',
           time: '03:36:42',
         },
+        order: 'same',
       },
       {
         countryCode: 'US',
@@ -244,6 +253,7 @@ describe('sortDatesList()', () => {
           date: '6/9/2023',
           time: '21:36:42',
         },
+        order: 'same',
       },
     ]
 
@@ -262,6 +272,7 @@ describe('sortDatesList()', () => {
           date: '6/9/2023',
           time: '21:36:42',
         },
+        order: 'same',
       },
       {
         countryCode: 'ES',
@@ -277,6 +288,7 @@ describe('sortDatesList()', () => {
           date: '6/10/2023',
           time: '03:36:42',
         },
+        order: 'same',
       },
     ]
 
