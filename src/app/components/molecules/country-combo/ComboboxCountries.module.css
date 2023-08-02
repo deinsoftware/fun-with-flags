@@ -3,7 +3,7 @@
     padding: 1rem;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
-    background-color: #66666625;
+    background-color: var(--color-darkgray-800);
     color: var(--color-whywhite-500);
     line-height: 1.8;
 
