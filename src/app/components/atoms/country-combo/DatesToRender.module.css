@@ -1,40 +1,21 @@
-.countries-container {
-    min-height: 80px;
-    padding: 1rem;
-    border: 1.5px solid var(--color-darkgray-500);
-    border-radius: 10px;
-    background-color: var(--color-darkgray-800);
-    color: var(--color-whywhite-500);
-    line-height: 1.8;
-
-    &::placeholder {
-        color: var(--color-gray-500);
-    }
-
-    &:focus {
-        border: 1px solid transparent;
-        outline: 1px solid var(--color-purple-500);
-    }
-}
-
 .countries {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: .5rem;
+    gap: 2px;
 
     .time-24 {
-        width: 43px;
+        width: 2.7rem;
         flex-shrink: 0;
     }
 
     .time-12 {
-        width: 67px;
+        width: 5rem;
     }
 
     .gmt {
-        width: 75px;
+        width: 4.7rem;
         flex-shrink: 0;
     }
 }
@@ -44,7 +25,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: .2rem;
+    gap: 3px;
 
     .flag {
         flex-shrink: 0;

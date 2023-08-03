@@ -1,86 +1,76 @@
 'use client'
 import { createContext, useMemo, useState } from 'react'
 
-import { Zone } from '@/helpers/events.types'
-import { Countries } from '@/types/countries.types'
-
-type TimeZoneData = {
-  list: Zone[]
-  origin:
-    | {
-        countryCode: Countries | Promise<Countries>
-        date: string
-        name: string
-      }
-    | {}
-}
-type OriginDate = {
-  countryCode: Countries | Promise<Countries>
-  date: string
-  name: string
-}
+import { TimeFormat, Zone } from '@/helpers/events.types'
+import { getTimezone } from '@/helpers/get-time-zone'
+import { getCountryByZone } from '@/services/timezones'
+import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData | null
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
   setOriginDate: (originDate: OriginDate) => void
+  format: TimeFormat
 }>({
   timeZones: null,
   addTimeZone: () => {},
   deleteTimeZone: () => {},
   setOriginDate: () => {},
+  format: 24,
 })
 
-const initialTimeZoneData: TimeZoneData | null = {
+const initialTimeZoneData: TimeZoneData = {
   list: [
-    // {
-    //     "countryCode": "CO",
-    //     "name": "America/Bogota"
-    // },
     {
-      countryCode: 'JP',
-      name: 'Asia/Tokyo',
-    },
-    {
-      countryCode: 'ES',
-      name: 'Europe/Madrid',
-    },
-    {
-      countryCode: 'US',
-      name: 'America/Adak',
-    },
-    {
-      countryCode: 'CK',
-      name: 'Pacific/Rarotonga',
-    },
-    {
-      countryCode: 'CA',
-      name: 'America/Vancouver',
-    },
-    {
-      countryCode: 'US',
-      name: 'America/Los_Angeles',
-    },
-    {
-      countryCode: 'EC',
-      name: 'America/Guayaquil',
-    },
-    {
-      countryCode: 'CL',
-      name: 'America/Santiago',
-    },
+      "countryCode": "CO",
+      "name": "America/Bogota"
+  },
+  {
+    countryCode: 'JP',
+    name: 'Asia/Tokyo',
+  },
+  {
+    countryCode: 'ES',
+    name: 'Europe/Madrid',
+  },
+  {
+    countryCode: 'US',
+    name: 'America/Adak',
+  },
+  {
+    countryCode: 'CK',
+    name: 'Pacific/Rarotonga',
+  },
+  {
+    countryCode: 'CA',
+    name: 'America/Vancouver',
+  },
+  {
+    countryCode: 'US',
+    name: 'America/Los_Angeles',
+  },
+  {
+    countryCode: 'EC',
+    name: 'America/Guayaquil',
+  },
+  {
+    countryCode: 'CL',
+    name: 'America/Santiago',
+  },
   ],
   origin: {
-    countryCode: 'CO',
-    date: '2023-07-13T05:18:42.271Z',
-    name: 'America/Bogota',
+    countryCode: getCountryByZone(getTimezone()),
+    date: new Date().toISOString(),
+    name: getTimezone(),
   },
 }
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const [timeZones, setTimeZones] = useState<TimeZoneData | null>(
+  const [timeZones, setTimeZones] = useState<TimeZoneData | null >(
     initialTimeZoneData,
   )
+
+  const [format, setFormat] = useState<TimeFormat>(24)
 
   const addTimeZone = (zone: Zone) => {
     const index = timeZones?.list?.findIndex((timeZone) => {
@@ -141,8 +131,9 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
       addTimeZone,
       deleteTimeZone,
       setOriginDate,
+      format,
     }),
-    [timeZones],
+    [timeZones, format],
   )
 
   return (

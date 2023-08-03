@@ -7,7 +7,7 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
   const { timeZones } = useTimeZoneContext()
   const [dateList, setDateList] = useState<EventDate[] | undefined>([])
-  const [currentDate, setCurrentDate] = useState<Date>(new Date())
+
   useEffect(() => {
     if (timeZones && 'date' in timeZones.origin) {
       const valueList: ZoneList = {
@@ -18,15 +18,11 @@ export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
 
       const dateList = sortDatesList(getDatesList(valueList))
 
-      const currentDate = new Date(timeZones.origin.date)
-
       setDateList(dateList)
-      setCurrentDate(currentDate)
     }
   }, [timeZones, format])
 
   return {
     dateList,
-    currentDate,
   }
 }
