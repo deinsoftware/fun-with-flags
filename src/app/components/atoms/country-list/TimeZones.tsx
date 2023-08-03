@@ -9,11 +9,11 @@ function getZoneName(zoneNames: string[]) {
   return newZoneNames?.split('/')?.pop()?.replaceAll('_', ' ') ?? newZoneNames
 }
 
-const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({
-  timeZone,
-  countryCode,
-  addTimeZone,
-}) => {
+const TimeZones: React.FC<
+  {
+    timeZone: FlagZone[]
+  } & { addTimeZone: Function } & { countryCode: string }
+> = ({ timeZone, countryCode, addTimeZone }) => {
   return (
     <>
       {timeZone?.map(

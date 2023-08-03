@@ -10,7 +10,7 @@ import styles from './SelectTimeZone.module.css'
 
 import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
+const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode } & { addTimeZone: Function }> = ({
   id,
   countryCode,
   regionName,
