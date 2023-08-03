@@ -4,8 +4,6 @@ import { TimeZones } from '@/types/timeZones.types'
 
 export type TimeFormat = 12 | 24
 
-export type Order = 'prev' | 'same' | 'next'
-
 export type Zone = {
   countryCode: Countries
   name: TimeZones
@@ -39,5 +37,4 @@ export type EventDate = {
     date: string
     time: string
   }
-  order: Order
 }

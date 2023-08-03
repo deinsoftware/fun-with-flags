@@ -5,7 +5,6 @@ import {
   getAcronym,
   getDate,
   getGmt,
-  getOrder,
   getRegionNames,
   getTime,
   isValidTimeZone,
@@ -47,8 +46,6 @@ export const getDateInformation = ({
     }),
   }
 
-  const order = getOrder(new Date(i18n.date), originDate)
-
   const eventDate: EventDate = {
     ...zone,
     date,
@@ -57,7 +54,6 @@ export const getDateInformation = ({
     gmt,
     offset,
     i18n,
-    order,
   }
 
   return eventDate

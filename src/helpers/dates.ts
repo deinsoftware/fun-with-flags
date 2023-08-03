@@ -1,5 +1,3 @@
-import { Order } from './events.types'
-
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
 import { TimeZones } from '@/types/timeZones.types'
@@ -89,14 +87,4 @@ export const convertGmtToNumber = (gmtTime: string) => {
 export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
-}
-
-export const getOrder = (originDate: Date, countryDate: Date): Order => {
-  const timePortion = originDate.getTime() % (3600 * 1000 * 24)
-  const baseDate = new Date(originDate.valueOf() - timePortion.valueOf())
-
-  const compare = countryDate.valueOf() - baseDate.valueOf()
-  if (compare < 0) return 'prev'
-  if (compare > 0) return 'next'
-  return 'same'
 }

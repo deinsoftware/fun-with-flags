@@ -2,25 +2,9 @@
 import { createContext, useMemo, useState } from 'react'
 
 import { TimeFormat, Zone } from '@/helpers/events.types'
-import { Countries } from '@/types/countries.types'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
-
-type TimeZoneData = {
-  list: Zone[]
-  origin:
-    | {
-        countryCode: Countries | Promise<Countries>
-        date: string
-        name: string
-      }
-    | {}
-}
-type OriginDate = {
-  countryCode: Countries | Promise<Countries>
-  date: string
-  name: string
-}
+import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData | null

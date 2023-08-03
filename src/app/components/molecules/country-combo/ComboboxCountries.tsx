@@ -13,7 +13,6 @@ import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
 const ComboboxCountries = () => {
     const {format} = useTimeZoneContext()
     const {dateList} = useGetInfoDates({format})
-    
     const filteredDates = useFilteredDates(dateList, format)
     
     return (      

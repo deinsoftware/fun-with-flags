@@ -1,18 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { EventDate, TimeFormat } from '@/helpers/events.types'
-
-type DatesFiltered = {
-  [date: string]: {
-    [gmt: string]: EventDate[]
-  }
-}
-type DatesFilteredArray = [
-  string,
-  {
-    [gmt: string]: EventDate[]
-  },
-]
+import { DatesFiltered, DatesFilteredArray } from '@/types/flags.types'
 
 export function useFilteredDates(
   dateList: EventDate[] | undefined,

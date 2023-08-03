@@ -6,3 +6,9 @@ export type DatesFilteredArray = [
     [gmt: string]: EventDate[]
   },
 ]
+
+export type DatesFiltered = {
+  [date: string]: {
+    [gmt: string]: EventDate[]
+  }
+}
