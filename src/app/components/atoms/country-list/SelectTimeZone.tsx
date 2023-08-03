@@ -15,6 +15,7 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
   countryCode,
   regionName,
   timeZone,
+  addTimeZone,
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,7 +34,16 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
         key={id}
         className={styles['item-country-container']}
         type="button"
-        onClick={() => toggleIsOpen()}
+        onClick={() => {
+          toggleIsOpen()
+          {
+            timeZone?.length < 2 &&
+              addTimeZone({
+                countryCode: countryCode,
+                name: timeZone[0].zoneNames[0],
+              })
+          }
+        }}
       >
         <div className={styles['flag-and-country-name']}>
           <ReactCountryFlag
