@@ -105,7 +105,7 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries format={24} />
+          <ComboboxCountries/>
         </form>
       </div>
     </>
