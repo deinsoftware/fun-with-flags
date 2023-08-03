@@ -48,10 +48,10 @@ export const getAcronym = (
   originDate: Date,
   countryCode: Countries,
 ) => {
-  const { NEXT_PUBLIC_ACRONYM_COUNTRIES = '' } = process?.env || {}
+  const acronymList = process?.env?.NEXT_PUBLIC_ACRONYM_COUNTRIES ?? ''
   if (
-    NEXT_PUBLIC_ACRONYM_COUNTRIES &&
-    !NEXT_PUBLIC_ACRONYM_COUNTRIES.includes(countryCode)
+    acronymList &&
+    !acronymList.includes(countryCode)
   ) {
     return
   }
