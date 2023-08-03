@@ -35,7 +35,7 @@ const CreateEvent: React.FC = () => {
             <input
               className={styles['full-width']}
               id=""
-              name=""
+              name="eventName"
               placeholder="Event name"
               type="text"
             />
@@ -46,7 +46,7 @@ const CreateEvent: React.FC = () => {
               <input
                 className={styles['full-width']}
                 id=""
-                name=""
+                name="time"
                 type="time"
               />
             </div>
@@ -54,7 +54,7 @@ const CreateEvent: React.FC = () => {
               <input
                 className={styles['full-width']}
                 id=""
-                name=""
+                name="date"
                 type="date"
               />
             </div>

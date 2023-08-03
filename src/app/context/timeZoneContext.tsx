@@ -1,5 +1,7 @@
 'use client'
-import { createContext, useMemo, useState } from 'react'
+import { createContext, useMemo, } from 'react'
+
+import { useTimeZoneContext } from './useTimesContext'
 
 import { TimeFormat, Zone } from '@/helpers/events.types'
 import { getTimezone } from '@/helpers/get-time-zone'
@@ -66,14 +68,19 @@ export const TimeZoneContext = createContext<{
   format: 24,
 })
 
+const getInitialTimeZone = (): TimeZoneData => {
+  const json = localStorage.getItem('timeZones')
+  const timeZones = json!==null ? JSON.parse(json) : initialTimeZoneData
+  return timeZones
+}
+const getInitialFormat = (): TimeFormat => {
+  const formatString = localStorage.getItem('formatTime')
+  const format = formatString==='12' ? 12: 24
+  return format
+}
 
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const [timeZones, setTimeZones] = useState<TimeZoneData>(
-    initialTimeZoneData,
-  )
-
-  const [format, setFormat] = useState<TimeFormat>(24)
-
+  const {timeZones, setTimeZones,format, setFormat} = useTimeZoneContext(initialTimeZoneData, 24)
   const addTimeZone = (zone: Zone) => {
     const index = timeZones?.list?.findIndex((timeZone) => {
       return (
