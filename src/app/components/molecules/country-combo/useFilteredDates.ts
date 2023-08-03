@@ -31,11 +31,11 @@ export function useFilteredDates(
         if (!flags.hasOwnProperty(country.date)) {
           flags[country.date] = {}
         }
-        if (country.gmt) {
-          if (!flags[country.date].hasOwnProperty(country.gmt)) {
-            flags[country.date][country.gmt] = []
+        if (country.acronym) {
+          if (!flags[country.date].hasOwnProperty(country.acronym)) {
+            flags[country.date][country.acronym] = []
           }
-          flags[country.date][country.gmt].push(country)
+          flags[country.date][country.acronym].push(country)
         }
       })
 

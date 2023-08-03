@@ -48,8 +48,8 @@ export const getAcronym = (
   originDate: Date,
   countryCode: Countries,
 ) => {
-  const { FWF_ACRONYM_COUNTRIES = '' } = process?.env || {}
-  if (FWF_ACRONYM_COUNTRIES && !FWF_ACRONYM_COUNTRIES.includes(countryCode)) {
+  const acronymList = process?.env?.NEXT_PUBLIC_ACRONYM_COUNTRIES ?? ''
+  if (acronymList && !acronymList.includes(countryCode)) {
     return
   }
 
