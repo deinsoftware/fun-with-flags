@@ -108,7 +108,7 @@ const CreateEvent: React.FC = () => {
               type="text"
             />
           </div>
-          <ComboboxCountries format={24} />
+          <ComboboxCountries />
           <div>
             {/* // TODO: El div que envuelve los dos textarea, tiene como 2-3 más de altura | Help */}
             <textarea

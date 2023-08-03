@@ -1,12 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+
+import Image from 'next/image'
+
+import TimeZones from '../../atoms/country-list/TimeZones'
 
 import styles from './CountryList.module.css'
 
-import SelectTimeZoneOption from '@/app/components/atoms/country-list/SelectTimeZoneOption'
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
+
+import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CountryList: React.FC<{
   flagList: FlagCountry[] | null
@@ -14,6 +19,7 @@ const CountryList: React.FC<{
 }> = ({ flagList, onClose }) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
+  const { timeZones, addTimeZone } = useTimeZoneContext()
 
   useEffect(() => {
     if (!query) return setCountryList(flagList)
@@ -36,9 +42,23 @@ const CountryList: React.FC<{
     return () => clearTimeout(handler)
   }, [flagList, query])
 
+  // !! !! !! !! !! !! !!
+  // console.log(timeZones)
+
+  // const { addTimeZone } = useTimeZoneContext()
+  // addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
+
   return (
     <>
       <div className={styles['overlay']}>
+        <button
+          type="button"
+          onClick={() =>
+            addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
+          }
+        >
+          TEST
+        </button>
         <div className={styles['container-list-with-search']}>
           <div className={styles['search-bar-container']}>
             <input
@@ -52,21 +72,22 @@ const CountryList: React.FC<{
               type="button"
               onClick={() => onClose()}
             >
-              ❌
+              <Image
+                alt="Close icon"
+                className={styles['close-modal-icon']}
+                height={24}
+                src="/img/ui/cancel.svg"
+                width={24}
+              />
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
             {countryList?.map((country) => {
-              if (country.timeZone.length > 1) {
-                return (
-                  <SelectTimeZoneOption
-                    key={country.countryCode}
-                    {...country}
-                  />
-                )
-              } else {
-                return <SelectTimeZone key={country.countryCode} {...country} />
-              }
+              return (
+                <SelectTimeZone key={country.countryCode} {...country}>
+                  <TimeZones timeZone={country.timeZone} />
+                </SelectTimeZone>
+              )
             })}
           </div>
         </div>

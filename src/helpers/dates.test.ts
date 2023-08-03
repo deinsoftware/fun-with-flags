@@ -1,4 +1,4 @@
-import { afterEach, it, expect, describe, vi } from 'vitest'
+import { it, expect, describe, vi } from 'vitest'
 
 import { isValidTimeZone, convertGmtToNumber, getRegionNames } from './dates'
 

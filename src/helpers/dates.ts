@@ -15,9 +15,22 @@ export const isValidTimeZone = (timeZone: TimeZones): boolean => {
   }
 }
 
-export const getDate = (originDate: Date) => {
-  return (
-    originDate.toISOString()?.split('T')?.shift() ?? originDate.toISOString()
+export const getDate = (options: { timeZone: TimeZones }, originDate: Date) => {
+  const date = Intl.DateTimeFormat('default', {
+    ...options,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+    ?.formatToParts(originDate)
+    ?.reverse()
+
+  // swap day and month
+  ;[date[2], date[4]] = [date[4], date[2]]
+
+  return date.reduce(
+    (string, part) => string + (part.type === 'literal' ? '-' : part.value),
+    '',
   )
 }
 
@@ -31,7 +44,13 @@ export const getTime = (options: { timeZone: TimeZones }, originDate: Date) => {
 export const getAcronym = (
   options: { timeZone: TimeZones },
   originDate: Date,
+  countryCode: Countries,
 ) => {
+  const acronymList = process?.env?.NEXT_PUBLIC_ACRONYM_COUNTRIES ?? ''
+  if (acronymList && !acronymList.includes(countryCode)) {
+    return
+  }
+
   return Intl.DateTimeFormat('default', {
     ...options,
     timeZoneName: 'short',

@@ -1,10 +1,18 @@
-import { it, expect, describe } from 'vitest'
+import { afterAll, beforeEach, it, expect, describe, vi } from 'vitest'
 
 import { DateInformation, EventDate, ZoneList } from './events.types'
 
 import { getDateInformation, getDatesList, sortDatesList } from './events'
 
+afterAll(() => {
+  vi.unstubAllEnvs()
+})
+
 describe('getDateInformation()', () => {
+  beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_ACRONYM_COUNTRIES', 'US|CA')
+  })
+
   it('should return the date information with 12 time format', () => {
     const value: DateInformation = {
       originDate: new Date('2023-06-10T01:36:42.271Z'),
@@ -108,7 +116,7 @@ describe('getDatesList()', () => {
       {
         countryCode: 'US',
         name: 'America/New_York',
-        date: '2023-06-10',
+        date: '2023-06-09',
         time: '21:36:42',
         acronym: 'EDT',
         gmt: 'GMT-4',
