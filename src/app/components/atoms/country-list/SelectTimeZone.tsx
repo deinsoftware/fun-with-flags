@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import ReactCountryFlag from 'react-country-flag'
 import { ReactNode } from 'react'
+
+import { ChevronDown } from 'lucide-react'
 
 import styles from './SelectTimeZone.module.css'
 
@@ -21,6 +22,10 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
   const toggleIsOpen = () => {
     setIsOpen((prev) => !prev)
   }
+
+  const sizeIcon = 24
+  const colorIcon = '#454545'
+  const strokeWidthIcon = 2
 
   return (
     <>
@@ -41,14 +46,14 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
           <span className={styles['name-country']}>{regionName}</span>
         </div>
         {timeZone?.length > 1 && (
-          <Image
-            alt="More time zones"
+          <ChevronDown
+            absoluteStrokeWidth={false}
             className={`${styles['more-countries-button']} ${
               isOpen ? styles['rotated'] : ''
             }`}
-            height={10}
-            src="/img/ui/caret.svg"
-            width={10}
+            color={colorIcon}
+            size={sizeIcon}
+            strokeWidth={strokeWidthIcon}
           />
         )}
       </button>

@@ -1,8 +1,8 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import Image from 'next/image'
+import { XCircle } from 'lucide-react'
 
 import TimeZones from '../../atoms/country-list/TimeZones'
 
@@ -48,6 +48,10 @@ const CountryList: React.FC<{
   // const { addTimeZone } = useTimeZoneContext()
   // addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
 
+  const sizeIcon = 24
+  const colorIcon = '#454545'
+  const strokeWidthIcon = 2
+
   return (
     <>
       <div className={styles['overlay']}>
@@ -72,12 +76,11 @@ const CountryList: React.FC<{
               type="button"
               onClick={() => onClose()}
             >
-              <Image
-                alt="Close icon"
-                className={styles['close-modal-icon']}
-                height={24}
-                src="/img/ui/cancel.svg"
-                width={24}
+              <XCircle
+                absoluteStrokeWidth={false}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </button>
           </div>
