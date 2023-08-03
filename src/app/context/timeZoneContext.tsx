@@ -6,20 +6,6 @@ import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
 
-export const TimeZoneContext = createContext<{
-  timeZones: TimeZoneData | null
-  addTimeZone: (zone: Zone) => void
-  deleteTimeZone: (zone: Zone) => void
-  setOriginDate: (originDate: OriginDate) => void
-  format: TimeFormat
-}>({
-  timeZones: null,
-  addTimeZone: () => {},
-  deleteTimeZone: () => {},
-  setOriginDate: () => {},
-  format: 24,
-})
-
 const initialTimeZoneData: TimeZoneData = {
   list: [
     {
@@ -65,8 +51,24 @@ const initialTimeZoneData: TimeZoneData = {
     name: getTimezone(),
   },
 }
+
+export const TimeZoneContext = createContext<{
+  timeZones: TimeZoneData
+  addTimeZone: (zone: Zone) => void
+  deleteTimeZone: (zone: Zone) => void
+  setOriginDate: (originDate: OriginDate) => void
+  format: TimeFormat
+}>({
+  timeZones: initialTimeZoneData,
+  addTimeZone: () => {},
+  deleteTimeZone: () => {},
+  setOriginDate: () => {},
+  format: 24,
+})
+
+
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const [timeZones, setTimeZones] = useState<TimeZoneData | null >(
+  const [timeZones, setTimeZones] = useState<TimeZoneData>(
     initialTimeZoneData,
   )
 

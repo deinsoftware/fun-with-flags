@@ -9,16 +9,17 @@ import useFetch from './useFetch'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
+import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-
+  const {timeZones} = useTimeZoneContext()
   const props = useMemo(
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
-      date: new Date('2023-07-26'),
+      date: new Date(timeZones.origin.date),
     }),
-    [],
+    [timeZones.origin.date],
   )
   const flagList = useFetch(props)
 
