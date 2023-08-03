@@ -16,38 +16,42 @@ const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({
 }) => {
   return (
     <>
-      {timeZone?.map(({ initial, zoneNames, offset, capital }: FlagZone) => {
-        const gmt = offset >= 0 ? `+${offset}` : `${offset}`
+      {timeZone?.map(
+        ({ initial, zoneNames, offset, capital }: FlagZone, index) => {
+          const gmt = offset >= 0 ? `+${offset}` : `${offset}`
 
-        if (zoneNames?.length > 0) {
-          return (
-            <button
-              key={self.crypto.randomUUID()}
-              className={styles['mtz-item-country-container']}
-              type="button"
-              onClick={() => {
-                addTimeZone({
-                  countryCode: countryCode,
-                  name: timeZone[0].zoneNames[0],
-                })
-              }}
-            >
-              <div className={styles['mtz-zone-name-container']}>
-                <span>{getZoneName(zoneNames)}</span>
-                {capital && <span>{`⭐`}</span>}
-              </div>
-              <div className={styles['mtz-additional-information']}>
-                <span className={styles['mtz-additional-information-initial']}>
-                  {initial}
-                </span>
-                <span
-                  className={styles['mtz-additional-information-utc']}
-                >{`(UTC${gmt})`}</span>
-              </div>
-            </button>
-          )
-        }
-      })}
+          if (zoneNames?.length > 0) {
+            return (
+              <button
+                key={self.crypto.randomUUID()}
+                className={styles['mtz-item-country-container']}
+                type="button"
+                onClick={() => {
+                  addTimeZone({
+                    countryCode: countryCode,
+                    name: timeZone[index].zoneNames[0],
+                  })
+                }}
+              >
+                <div className={styles['mtz-zone-name-container']}>
+                  <span>{getZoneName(zoneNames)}</span>
+                  {capital && <span>{`⭐`}</span>}
+                </div>
+                <div className={styles['mtz-additional-information']}>
+                  <span
+                    className={styles['mtz-additional-information-initial']}
+                  >
+                    {initial}
+                  </span>
+                  <span
+                    className={styles['mtz-additional-information-utc']}
+                  >{`(UTC${gmt})`}</span>
+                </div>
+              </button>
+            )
+          }
+        },
+      )}
     </>
   )
 }
