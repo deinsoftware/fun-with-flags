@@ -1,4 +1,4 @@
-import { beforeAll, afterAll, it, expect, describe, vi } from 'vitest'
+import { afterAll, it, expect, describe, vi } from 'vitest'
 
 import { DateInformation, EventDate, ZoneList } from './events.types'
 
@@ -10,7 +10,7 @@ afterAll(() => {
 
 describe('getDateInformation()', () => {
   beforeEach(() => {
-    vi.stubEnv('FWF_ACRONYM_COUNTRIES', 'US|CA')
+    vi.stubEnv('NEXT_PUBLIC_ACRONYM_COUNTRIES', 'US|CA')
   })
 
   it('should return the date information with 12 time format', () => {
