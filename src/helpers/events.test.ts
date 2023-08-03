@@ -29,7 +29,7 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: undefined,
+      acronym: 'GMT+9:30',
       gmt: 'GMT+9:30',
       offset: 9.5,
       i18n: {
@@ -60,7 +60,7 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: undefined,
+      acronym: 'GMT+9:30',
       gmt: 'GMT+9:30',
       offset: 9.5,
       i18n: {
@@ -133,7 +133,7 @@ describe('getDatesList()', () => {
         name: 'Europe/Madrid',
         date: '2023-06-10',
         time: '03:36:42',
-        acronym: undefined,
+        acronym: 'GMT+2',
         gmt: 'GMT+2',
         offset: 2,
         i18n: {
