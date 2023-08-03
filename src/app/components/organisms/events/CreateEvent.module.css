@@ -31,8 +31,8 @@
 
         & .container-time-and-date,
         .container-time-zone-and-language {
-            width: 100%;
             display: flex;
+            width: 100%;
             gap: 8px;
 
             & .container-with-toggle,
@@ -50,6 +50,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+
                 /* TODO: Buscar el espaciado (gap) en Figma */
 
                 & .time {
@@ -70,7 +71,6 @@
         & input,
         select,
         textarea {
-
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
             background-color: var(--color-darkgray-800);
