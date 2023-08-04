@@ -1,24 +1,12 @@
 'use client'
-import { createContext, useMemo, useState } from 'react'
+import { createContext, useMemo, } from 'react'
+
+import { useGetTimes } from './useGetTimes'
 
 import { TimeFormat, Zone } from '@/helpers/events.types'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
-
-export const TimeZoneContext = createContext<{
-  timeZones: TimeZoneData | null
-  addTimeZone: (zone: Zone) => void
-  deleteTimeZone: (zone: Zone) => void
-  setOriginDate: (originDate: OriginDate) => void
-  format: TimeFormat
-}>({
-  timeZones: null,
-  addTimeZone: () => {},
-  deleteTimeZone: () => {},
-  setOriginDate: () => {},
-  format: 24,
-})
 
 const initialTimeZoneData: TimeZoneData = {
   list: [
@@ -65,30 +53,41 @@ const initialTimeZoneData: TimeZoneData = {
     name: getTimezone(),
   },
 }
+
+export const TimeZoneContext = createContext<{
+  timeZones: TimeZoneData
+  addTimeZone: (zone: Zone) => void
+  deleteTimeZone: (zone: Zone) => void
+  setOriginDate: (originDate: OriginDate) => void
+  format: TimeFormat
+}>({
+  timeZones: initialTimeZoneData,
+  addTimeZone: () => {},
+  deleteTimeZone: () => {},
+  setOriginDate: () => {},
+  format: 24,
+})
+
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const [timeZones, setTimeZones] = useState<TimeZoneData | null >(
-    initialTimeZoneData,
-  )
-
-  const [format, setFormat] = useState<TimeFormat>(24)
-
+  const {timeZones, setTimeZones,format, setFormat} = useGetTimes(initialTimeZoneData, 24)
   const addTimeZone = (zone: Zone) => {
     const index = timeZones?.list?.findIndex((timeZone) => {
       return (
         timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
       )
     })
-    if (index >= 0) throw new Error('Time zone already exists')
-
+    if (index>=0) throw new Error('Time zone already exists')
+    
     setTimeZones((prev) => {
-      return {
-        ...prev,
-        list: [...(prev?.list ?? []), zone],
-        origin: {
-          ...prev?.origin,
-        },
-      }
+        return {
+          ...prev,
+          list: [...(prev?.list ?? []), zone],
+          origin: {
+            ...prev?.origin,
+          },
+        }
     })
+    
   }
 
   const deleteTimeZone = (zone: Zone) => {
@@ -132,7 +131,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
       setOriginDate,
       format,
     }),
-    [timeZones, format],
+    [timeZones, format, deleteTimeZone, addTimeZone ],
   )
 
   return (

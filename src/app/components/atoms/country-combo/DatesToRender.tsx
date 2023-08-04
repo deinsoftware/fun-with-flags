@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import ReactCountryFlag from "react-country-flag"
 
@@ -10,11 +10,20 @@ import { DatesFilteredArray } from "@/types/flags.types"
 import { Countries } from "@/types/countries.types"
 
 
-export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[]}> =
-({datesArray})=>{
+export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[], children: Function}> =
+({datesArray, children})=>{
     const {deleteTimeZone, format} = useTimeZoneContext()
     const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
 
+    const ref = useRef<HTMLDivElement>(null)   
+    
+    useEffect(()=>{
+        children(ref)
+        return ()=>{
+            children(null)
+        }
+    }, [timeToRender, ref, children])
+           
     useEffect(()=>{
         const result = datesArray.map(([date, groupedCountries]) => {
             
@@ -64,15 +73,20 @@ export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[]}> =
             
             
             return (
-                < div key={self.crypto.randomUUID()}> 
-                    <p><strong>{date}</strong></p>     
+                < div key={self.crypto.randomUUID()} ref={ref}  > 
+                    <p><strong>{date}</strong></p> 
+                    {`\n`}    
                     {timeInfo}
                 </div>
             )
         }) 
         setTimeToRender(result) 
-    },[datesArray])
+    },[datesArray, deleteTimeZone, format])
     
     
-    return  timeToRender
+   return(
+       
+           timeToRender
+   )  
+    
 }
