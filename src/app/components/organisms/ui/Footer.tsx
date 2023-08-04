@@ -4,11 +4,9 @@ import { Home, CalendarDays, CalendarPlus, Settings } from 'lucide-react'
 
 import styles from './Footer.module.css'
 
-const Footer = () => {
-  const sizeIcon = 24
-  const colorIcon = '#454545'
-  const strokeWidthIcon = 2
+import { lucidIcons } from '@/variables/iconConfig'
 
+const Footer = () => {
   return (
     <>
       <div className={styles['footer-pusher']} />
@@ -20,9 +18,9 @@ const Footer = () => {
               <Home
                 absoluteStrokeWidth={false}
                 className={styles['icon']}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
@@ -32,9 +30,9 @@ const Footer = () => {
               <CalendarDays
                 absoluteStrokeWidth={false}
                 className={styles['icon']}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
@@ -44,9 +42,9 @@ const Footer = () => {
               <CalendarPlus
                 absoluteStrokeWidth={false}
                 className={styles['icon']}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
@@ -56,9 +54,9 @@ const Footer = () => {
               <Settings
                 absoluteStrokeWidth={false}
                 className={styles['icon']}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
