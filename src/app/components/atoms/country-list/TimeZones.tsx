@@ -9,11 +9,15 @@ function getZoneName(zoneNames: string[]) {
   return newZoneNames?.split('/')?.pop()?.replaceAll('_', ' ') ?? newZoneNames
 }
 
-const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
+const TimeZones: React.FC<
+  {
+    timeZone: FlagZone[]
+  } & { addTimeZone: Function } & { countryCode: string }
+> = ({ timeZone, countryCode, addTimeZone }) => {
   return (
     <>
       {timeZone?.map(
-        ({ initial, zoneNames, offset, capital }: FlagZone) => {
+        ({ initial, zoneNames, offset, capital }: FlagZone, index) => {
           const gmt = offset >= 0 ? `+${offset}` : `${offset}`
 
           if (zoneNames?.length > 0) {
@@ -22,6 +26,12 @@ const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
                 key={self.crypto.randomUUID()}
                 className={styles['mtz-item-country-container']}
                 type="button"
+                onClick={() => {
+                  addTimeZone({
+                    countryCode: countryCode,
+                    name: timeZone[index].zoneNames[0],
+                  })
+                }}
               >
                 <div className={styles['mtz-zone-name-container']}>
                   <span>{getZoneName(zoneNames)}</span>

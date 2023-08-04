@@ -1,60 +1,64 @@
 import Link from 'next/link'
-import Image from 'next/image'
+
+import { Home, CalendarDays, CalendarPlus, Settings } from 'lucide-react'
 
 import styles from './Footer.module.css'
 
 const Footer = () => {
-  const imageWidth = 25
+  const sizeIcon = 24
+  const colorIcon = '#454545'
+  const strokeWidthIcon = 2
+
   return (
     <>
       <div className={styles['footer-pusher']} />
 
-      <footer className={styles.footer}>
-        <div className={styles['btn-container']}>
+      <footer className={styles['footer']}>
+        <div className={styles['container-icons']}>
           <Link className="" href="/">
-          <div className={styles['container-icon']}>
-              <Image
-                alt="Home"
+            <div className={styles['container-icon']}>
+              <Home
+                absoluteStrokeWidth={false}
                 className={styles['icon']}
-                height={imageWidth}
-                src="/img/menu/home.svg"
-                width={imageWidth}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </div>
           </Link>
 
           <Link className="" href="/events">
-          <div className={styles['container-icon']}>
-              <Image
-                alt="Events"
+            <div className={styles['container-icon']}>
+              <CalendarDays
+                absoluteStrokeWidth={false}
                 className={styles['icon']}
-                height={imageWidth}
-                src="/img/menu/event.svg"
-                width={imageWidth}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </div>
           </Link>
 
           <Link className="" href="/events/create">
-          <div className={styles['container-icon']}>
-              <Image
-                alt="Create event"
+            <div className={styles['container-icon']}>
+              <CalendarPlus
+                absoluteStrokeWidth={false}
                 className={styles['icon']}
-                height={imageWidth}
-                src="/img/menu/create-event.svg"
-                width={imageWidth}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </div>
           </Link>
 
           <Link className="" href="/settings">
             <div className={styles['container-icon']}>
-              <Image
-                alt="Settings"
+              <Settings
+                absoluteStrokeWidth={false}
                 className={styles['icon']}
-                height={imageWidth}
-                src="/img/menu/settings.svg"
-                width={imageWidth}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </div>
           </Link>

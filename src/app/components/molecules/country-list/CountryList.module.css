@@ -66,11 +66,6 @@
                 &:active {
                     border: 1.5px solid var(--color-purple-500)
                 }
-
-                & .close-modal-icon {
-                    /* Conseguir mejor forma de colorear la X que cierra el menú de paises / svg */
-                    filter: contrast(0);
-                }
             }
         }
 
