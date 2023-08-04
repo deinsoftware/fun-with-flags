@@ -1,5 +1,7 @@
 'use client'
 
+import CookieConsent from 'react-cookie-consent'
+
 import { useState, useMemo } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
@@ -105,9 +107,28 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries/>
+          <ComboboxCountries />
         </form>
       </div>
+      <CookieConsent
+        buttonStyle={{ color: '#F9FBFC', background: '#7E56DA', fontSize: '13px' }} // botón de aceptar
+        buttonText="Let's go"
+        // declineButtonText="<string>"
+        // cookieName="myAwesomeCookieName2"
+        // expires={150}
+        hideOnDecline={false}
+        location="bottom"
+        // acceptOnOverlayClick // tecnicamente ilegal
+        style={{ background: '#1C1C1C' }}
+        onDecline={() => {
+          alert('Ni modo, no puedes crear el evento entonces...')
+        }}
+        overlay 
+        enableDeclineButton // habilitar el botón de declinar
+        // flipButtons // cambiar de lugar los botones
+      >
+        This website uses cookies to enhance the user experience.{' '}
+      </CookieConsent>
     </>
   )
 }
