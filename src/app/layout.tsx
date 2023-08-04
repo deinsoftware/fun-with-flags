@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
 // import { Inter } from 'next/font/google'
-import { TimeZoneProvider } from './context/timeZoneContext'
 
 import Provider from '@/app/components/organisms/auth/Provider'
 import Header from '@/app/components/organisms/ui/Header'
@@ -29,7 +28,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <Provider>
-        <TimeZoneProvider>
+        
           <body>
             <Header />
             <TitleOnPage />
@@ -38,7 +37,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
             <Footer />
           </body>
-        </TimeZoneProvider>
+        
       </Provider>
     </html>
   )

@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
 import styles from './CreateEvent.module.css'
 
 import useFetch from './useFetch'
+
+import { useGetFormData } from './useGetFormData'
 
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
@@ -15,16 +17,9 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const [state, setState] = useState({
-      eventName: '',
-      time: '',
-      date: '',
-      language: '',
-      eventLink: '',
-      eventDescription: '',
-      image: '',
-  })
   const {timeZones} = useTimeZoneContext()
+  const {formData, setFormData} = useGetFormData()
+    
   const props = useMemo(
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
@@ -38,6 +33,29 @@ const CreateEvent: React.FC = () => {
     setIsOpenSelectTimeZone(false)
   }
 
+  const handleChangeForm = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
+    const { name, value } = event.target
+    setFormData({
+              ...formData,
+              [name]: value
+            })
+  
+  }
+  const handleChangeTextContent = useCallback((ref: RefObject<HTMLDivElement>) => {
+    if (ref?.current?.textContent) {
+        const textContent = ref.current.textContent;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            combo: textContent,
+        }));
+    } else {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            combo: '',
+        }));
+    }
+  }, [setFormData]);
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -49,17 +67,30 @@ const CreateEvent: React.FC = () => {
               name="eventName"
               placeholder="Event name"
               type="text"
+              value={formData.eventName}
+              onChange={handleChangeForm}
             />
           </div>
-
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-with-toggle']}>
-              <input className={styles['time']} id="" name="time" type="time" />
+              <input 
+              className={styles['time']} 
+              id="" 
+              name="time" 
+              type="time" 
+              value={formData.time}
+              onChange={handleChangeForm} />
               <Toggle />
             </div>
 
             <div className={styles['container-with-toggle']}>
-              <input className={styles['date']} id="" name="date" type="date" />
+              <input 
+              className={styles['date']} 
+              id="" 
+              name="date" 
+              type="date" 
+              value={formData.date}
+              onChange={handleChangeForm}/>
               <Toggle />
             </div>
           </div>
@@ -79,13 +110,19 @@ const CreateEvent: React.FC = () => {
             </div>
 
             <div className={styles['container-language']}>
-              <select className={styles['language']} id="" name="language">
+              <select 
+              className={styles['language']} 
+              id="" 
+              name="language" 
+              value={formData.language}
+              onChange={handleChangeForm}
+              >
+                <option disabled value="">Select a language</option>
                 <option value="lg-1">First language</option>
                 <option value="lg-2">Second language</option>
               </select>
             </div>
           </div>
-
           <div className={styles['container-hyperlink']}>
             <input
               className={styles['hyperlink']}
@@ -93,6 +130,8 @@ const CreateEvent: React.FC = () => {
               name="eventLink"
               placeholder="Hyperlink"
               type="url"
+              value={formData.eventLink}
+              onChange={handleChangeForm}
             />
           </div>
 
@@ -102,6 +141,8 @@ const CreateEvent: React.FC = () => {
               id=""
               name="eventDescription"
               placeholder="Description"
+              value={formData.eventDescription}
+              onChange={handleChangeForm}
             />
           </div>
 
@@ -112,10 +153,12 @@ const CreateEvent: React.FC = () => {
               name="image"
               placeholder="how to do an update image?"
               type="text"
+              value={formData.image}
+              onChange={handleChangeForm}
             />
           </div>
 
-          <ComboboxCountries/>
+          <ComboboxCountries>{handleChangeTextContent}</ComboboxCountries>
         </form>
       </div>
     </>

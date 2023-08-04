@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { TimeFormat } from '@/helpers/events.types'
 import { TimeZoneData } from '@/types/context.types'
 
-export const useTimeZoneContext = (
+export const useGetTimes = (
   initialTimeZoneData: TimeZoneData,
   timeFormat: TimeFormat,
 ) => {
@@ -13,7 +13,7 @@ export const useTimeZoneContext = (
   useEffect(() => {
     const getInitialTimeZone = () => {
       const json = localStorage.getItem('timeZones')
-      if (json !== null) {
+      if (json) {
         const timeZones = JSON.parse(json)
         setTimeZones(timeZones)
       }
