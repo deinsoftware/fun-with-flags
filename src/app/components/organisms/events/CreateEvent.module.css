@@ -51,14 +51,25 @@
                 flex-direction: column;
                 gap: 8px;
 
-                /* TODO: Buscar el espaciado (gap) en Figma */
-
-                & .time {
+                & .time,
+                .date {
+                    position: relative;
                     width: 100%;
+
+                    &.disabled {
+                        cursor: not-allowed;
+                    }
                 }
 
-                & .date {
-                    width: 100%;
+                & .container-toggle {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    & .text-toggle {
+                        color: var(--color-gray-500);
+                        font-size: var(--font-size-small);
+                    }
                 }
             }
         }

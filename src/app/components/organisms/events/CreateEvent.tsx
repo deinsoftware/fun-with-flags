@@ -30,6 +30,17 @@ const CreateEvent: React.FC = () => {
     setIsOpenSelectTimeZone(false)
   }
 
+  const [timeDisabled, setTimeDisabled] = useState(false)
+  const [dateDisabled, setDateDisabled] = useState(false)
+
+  const handleTimeToggle = (disabled: boolean) => {
+    setTimeDisabled(disabled)
+  }
+
+  const handleDateToggle = (disabled: boolean) => {
+    setDateDisabled(disabled)
+  }
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -46,13 +57,35 @@ const CreateEvent: React.FC = () => {
 
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-with-toggle']}>
-              <input className={styles['time']} id="" name="" type="time" />
-              <Toggle />
+              <input
+                className={`${styles['time']} ${
+                  timeDisabled ? styles['disabled'] : ''
+                }`}
+                disabled={timeDisabled}
+                id=""
+                name=""
+                type="time"
+              />
+              <div className={styles['container-toggle']}>
+                <Toggle onToggle={handleTimeToggle} />
+                <span className={styles['text-toggle']}>24h</span>
+              </div>
             </div>
 
             <div className={styles['container-with-toggle']}>
-              <input className={styles['date']} id="" name="" type="date" />
-              <Toggle />
+              <input
+                className={`${styles['date']} ${
+                  dateDisabled ? styles['disabled'] : ''
+                }`}
+                disabled={dateDisabled}
+                id=""
+                name=""
+                type="date"
+              />
+              <div className={styles['container-toggle']}>
+                <Toggle onToggle={handleDateToggle} />
+                <span className={styles['text-toggle']}>Use data</span>
+              </div>
             </div>
           </div>
 
@@ -111,23 +144,27 @@ const CreateEvent: React.FC = () => {
         </form>
       </div>
       <CookieConsent
-        buttonStyle={{ color: '#F9FBFC', background: '#7E56DA', fontSize: '13px' }} // botón de aceptar
+        overlay
+        buttonStyle={{
+          color: '#F9FBFC',
+          background: '#7E56DA',
+          fontSize: '13px',
+        }} // botón de aceptar
         buttonText="Let's go"
         // declineButtonText="<string>"
         // cookieName="myAwesomeCookieName2"
         // expires={150}
         hideOnDecline={false}
-        location="bottom"
-        // acceptOnOverlayClick // tecnicamente ilegal
-        style={{ background: '#1C1C1C' }}
         onDecline={() => {
           alert('Ni modo, no puedes crear el evento entonces...')
         }}
-        overlay 
+        location="bottom"
+        // acceptOnOverlayClick // tecnicamente ilegal
+        style={{ background: '#1C1C1C' }}
         enableDeclineButton // habilitar el botón de declinar
         // flipButtons // cambiar de lugar los botones
       >
-        This website uses cookies to enhance the user experience.{' '}
+        This website uses cookies to enhance the user experience.
       </CookieConsent>
     </>
   )
