@@ -1,8 +1,8 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import Image from 'next/image'
+import { XCircle } from 'lucide-react'
 
 import TimeZones from '../../atoms/country-list/TimeZones'
 
@@ -42,23 +42,13 @@ const CountryList: React.FC<{
     return () => clearTimeout(handler)
   }, [flagList, query])
 
-  // !! !! !! !! !! !! !!
-  // console.log(timeZones)
-
-  // const { addTimeZone } = useTimeZoneContext()
-  // addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
+  const sizeIcon = 24
+  const colorIcon = '#454545'
+  const strokeWidthIcon = 2
 
   return (
     <>
       <div className={styles['overlay']}>
-        <button
-          type="button"
-          onClick={() =>
-            addTimeZone({ countryCode: 'CO', name: 'America/Bogota' })
-          }
-        >
-          TEST
-        </button>
         <div className={styles['container-list-with-search']}>
           <div className={styles['search-bar-container']}>
             <input
@@ -72,20 +62,27 @@ const CountryList: React.FC<{
               type="button"
               onClick={() => onClose()}
             >
-              <Image
-                alt="Close icon"
-                className={styles['close-modal-icon']}
-                height={24}
-                src="/img/ui/cancel.svg"
-                width={24}
+              <XCircle
+                absoluteStrokeWidth={false}
+                color={colorIcon}
+                size={sizeIcon}
+                strokeWidth={strokeWidthIcon}
               />
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
             {countryList?.map((country) => {
               return (
-                <SelectTimeZone key={country.countryCode} {...country}>
-                  <TimeZones timeZone={country.timeZone} />
+                <SelectTimeZone
+                  key={country.countryCode}
+                  {...country}
+                  addTimeZone={addTimeZone}
+                >
+                  <TimeZones
+                    addTimeZone={addTimeZone}
+                    countryCode={country.countryCode}
+                    timeZone={country.timeZone}
+                  />
                 </SelectTimeZone>
               )
             })}

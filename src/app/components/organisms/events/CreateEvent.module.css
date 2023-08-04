@@ -2,58 +2,88 @@
     width: 100%;
     height: auto;
     padding: 12px 40px;
-}
 
-.form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 16px;
-
-    & .full-width {
+    .form {
+        display: flex;
         width: 100%;
-    }
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 16px;
 
-    & textarea {
-        height: 80px;
-        resize: none;
-    }
+        & .container-event-name,
+        .container-hyperlink,
+        .container-upload-image,
+        .container-description {
+            width: 100%;
 
-    & input,
-    select {
-        height: 40px;
-    }
+            & .event-name,
+            .hyperlink,
+            .upload-image,
+            .description {
+                width: 100%;
+            }
 
-    & input,
-    select,
-    textarea {
-        /* Este color no tiene variable todavía */
-        border: 1.5px solid var(--color-darkgray-500);
-        border-radius: 10px;
-        background-color: #66666625;
-        color: var(--color-whywhite-500);
-
-        &::placeholder {
-            color: var(--color-gray-500);
+            & .description {
+                height: 80px;
+                resize: none;
+            }
         }
 
-        &:focus {
-            border: 1px solid transparent;
-            outline: 1px solid var(--color-purple-500);
+        & .container-time-and-date,
+        .container-time-zone-and-language {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+
+            & .container-with-toggle,
+            .container-time-zone,
+            .container-language {
+                width: 100%;
+
+                & .language,
+                .time-zone {
+                    width: 100%;
+                }
+            }
+
+            & .container-with-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                /* TODO: Buscar el espaciado (gap) en Figma */
+
+                & .time {
+                    width: 100%;
+                }
+
+                & .date {
+                    width: 100%;
+                }
+            }
+        }
+
+        & input,
+        select {
+            height: 40px;
+        }
+
+        & input,
+        select,
+        textarea {
+            border: 1.5px solid var(--color-darkgray-500);
+            border-radius: 10px;
+            background-color: var(--color-darkgray-800);
+            color: var(--color-whywhite-500);
+
+            &::placeholder {
+                color: var(--color-gray-500);
+            }
+
+            &:focus {
+                border: 1px solid transparent;
+                outline: 1px solid var(--color-purple-500);
+            }
         }
     }
-}
-
-.container-half-width {
-    display: flex;
-    gap: 8px;
-
-    &>div {
-        width: 100%;
-    }
-}
-
-.prueba {
-    /* help */
 }

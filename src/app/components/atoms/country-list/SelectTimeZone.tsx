@@ -1,19 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import ReactCountryFlag from 'react-country-flag'
 import { ReactNode } from 'react'
+
+import { ChevronDown } from 'lucide-react'
 
 import styles from './SelectTimeZone.module.css'
 
 import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
+const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode } & { addTimeZone: Function }> = ({
   id,
   countryCode,
   regionName,
   timeZone,
+  addTimeZone,
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,13 +24,26 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
     setIsOpen((prev) => !prev)
   }
 
+  const sizeIcon = 24
+  const colorIcon = '#454545'
+  const strokeWidthIcon = 2
+
   return (
     <>
       <button
         key={id}
         className={styles['item-country-container']}
         type="button"
-        onClick={() => toggleIsOpen()}
+        onClick={() => {
+          toggleIsOpen()
+          {
+            timeZone?.length < 2 &&
+              addTimeZone({
+                countryCode: countryCode,
+                name: timeZone[0].zoneNames[0],
+              })
+          }
+        }}
       >
         <div className={styles['flag-and-country-name']}>
           <ReactCountryFlag
@@ -41,14 +56,14 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode }> = ({
           <span className={styles['name-country']}>{regionName}</span>
         </div>
         {timeZone?.length > 1 && (
-          <Image
-            alt="More time zones"
+          <ChevronDown
+            absoluteStrokeWidth={false}
             className={`${styles['more-countries-button']} ${
               isOpen ? styles['rotated'] : ''
             }`}
-            height={10}
-            src="/img/ui/caret.svg"
-            width={10}
+            color={colorIcon}
+            size={sizeIcon}
+            strokeWidth={strokeWidthIcon}
           />
         )}
       </button>
