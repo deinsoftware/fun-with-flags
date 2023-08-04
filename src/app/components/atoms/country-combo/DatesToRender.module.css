@@ -28,6 +28,7 @@
     gap: 3px;
 
     .flag {
+        display: flex;
         flex-shrink: 0;
     }
 }
@@ -38,7 +39,7 @@
     background-image: url("/img/ui/trash-can-regular.svg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 15px;
+    background-size: 16px;
     cursor: pointer;
 
 
