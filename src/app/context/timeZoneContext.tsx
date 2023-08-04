@@ -68,17 +68,6 @@ export const TimeZoneContext = createContext<{
   format: 24,
 })
 
-const getInitialTimeZone = (): TimeZoneData => {
-  const json = localStorage.getItem('timeZones')
-  const timeZones = json!==null ? JSON.parse(json) : initialTimeZoneData
-  return timeZones
-}
-const getInitialFormat = (): TimeFormat => {
-  const formatString = localStorage.getItem('formatTime')
-  const format = formatString==='12' ? 12: 24
-  return format
-}
-
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
   const {timeZones, setTimeZones,format, setFormat} = useTimeZoneContext(initialTimeZoneData, 24)
   const addTimeZone = (zone: Zone) => {
@@ -87,8 +76,9 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
         timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
       )
     })
-    if (index === -1 || index === undefined) {
-      setTimeZones((prev) => {
+    if (index>=0) throw new Error('Time zone already exists')
+    
+    setTimeZones((prev) => {
         return {
           ...prev,
           list: [...(prev?.list ?? []), zone],
@@ -96,9 +86,8 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
             ...prev?.origin,
           },
         }
-      })
-    }
-    throw new Error('Time zone already exists')
+    })
+    
   }
 
   const deleteTimeZone = (zone: Zone) => {

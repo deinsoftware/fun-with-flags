@@ -13,6 +13,15 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
+  const [state, setState] = useState({
+      eventName: '',
+      time: '',
+      date: '',
+      language: '',
+      eventLink: '',
+      eventDescription: '',
+      image: '',
+  })
   const {timeZones} = useTimeZoneContext()
   const props = useMemo(
     () => ({
@@ -74,7 +83,7 @@ const CreateEvent: React.FC = () => {
               )}
             </div>
             <div className={styles.halfWidth}>
-              <select className={styles['full-width']} id="" name="">
+              <select className={styles['full-width']} id="" name="language">
                 <option value="lg-1">First language</option>
                 <option value="lg-2">Second language</option>
               </select>
@@ -85,7 +94,7 @@ const CreateEvent: React.FC = () => {
             <input
               className={styles['full-width']}
               id=""
-              name=""
+              name="eventLink"
               placeholder="Hyperlink"
               type="url"
             />
@@ -95,7 +104,7 @@ const CreateEvent: React.FC = () => {
             <textarea
               className={styles['full-width']}
               id=""
-              name=""
+              name="eventDescription"
               placeholder="Description"
             />
           </div>
@@ -104,7 +113,7 @@ const CreateEvent: React.FC = () => {
             <input
               className={styles['full-width']}
               id=""
-              name=""
+              name="image"
               placeholder="how to do an update image?"
               type="text"
             />
