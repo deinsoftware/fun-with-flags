@@ -65,7 +65,8 @@ export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[]}> =
             
             return (
                 < div key={self.crypto.randomUUID()}> 
-                    <p><strong>{date}</strong></p>     
+                    <p><strong>{date}</strong></p> 
+                    {`\n`}    
                     {timeInfo}
                 </div>
             )
