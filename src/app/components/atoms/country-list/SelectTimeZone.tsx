@@ -8,7 +8,7 @@ import { ChevronDown } from 'lucide-react'
 
 import styles from './SelectTimeZone.module.css'
 
-import { lucidIcons } from '@/variables/iconConfig'
+import { lucidIcons } from '@/libs/iconConfig'
 
 import { FlagCountry } from '@/helpers/flags.types'
 

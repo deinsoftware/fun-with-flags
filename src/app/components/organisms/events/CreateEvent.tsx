@@ -198,7 +198,7 @@ const CreateEvent: React.FC = () => {
         </form>
       </div>
       <CookieConsent
-        overlay
+        // overlay
         buttonStyle={{
           color: '#F9FBFC',
           background: '#7E56DA',
@@ -212,7 +212,7 @@ const CreateEvent: React.FC = () => {
         onDecline={() => {
           alert('Ni modo, no puedes crear el evento entonces...')
         }}
-        location="bottom"
+        location="top"
         // acceptOnOverlayClick // tecnicamente ilegal
         style={{ background: '#1C1C1C' }}
         enableDeclineButton // habilitar el botón de declinar

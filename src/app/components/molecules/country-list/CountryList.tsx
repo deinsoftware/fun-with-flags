@@ -8,7 +8,7 @@ import TimeZones from '../../atoms/country-list/TimeZones'
 
 import styles from './CountryList.module.css'
 
-import { lucidIcons } from '@/variables/iconConfig'
+import { lucidIcons } from '@/libs/iconConfig'
 
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
