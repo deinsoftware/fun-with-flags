@@ -35,22 +35,23 @@ const CreateEvent: React.FC = () => {
 
   const handleChangeForm = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
     const { name, value } = event.target
-    setFormData({
-              ...formData,
+    setFormData((prev) =>(
+            {
+              ...prev,
               [name]: value
-            })
+            }))
   
   }
   const handleChangeTextContent = useCallback((ref: RefObject<HTMLDivElement>) => {
     if (ref?.current?.textContent) {
         const textContent = ref.current.textContent;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
+        setFormData((prev) => ({
+            ...prev,
             combo: textContent,
         }));
     } else {
-        setFormData((prevFormData) => ({
-            ...prevFormData,
+        setFormData((prev) => ({
+            ...prev,
             combo: '',
         }));
     }
@@ -158,7 +159,7 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries>{handleChangeTextContent}</ComboboxCountries>
+          <ComboboxCountries getTextContent={handleChangeTextContent}/>
         </form>
       </div>
     </>

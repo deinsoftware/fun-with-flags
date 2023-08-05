@@ -12,7 +12,7 @@ export const useGetTimes = (
 
   useEffect(() => {
     const getInitialTimeZone = () => {
-      const json = localStorage.getItem('timeZones')
+      const json = localStorage.getItem('time-zones')
       if (json) {
         const timeZones = JSON.parse(json)
         setTimeZones(timeZones)
@@ -22,7 +22,7 @@ export const useGetTimes = (
   }, [])
   useEffect(() => {
     const getInitialFormat = () => {
-      const formatString = localStorage.getItem('formatTime')
+      const formatString = localStorage.getItem('format-time')
       const format = formatString === '12' ? 12 : 24
       setFormat(format)
     }
@@ -30,10 +30,10 @@ export const useGetTimes = (
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('timeZones', JSON.stringify(timeZones))
+    localStorage.setItem('time-zones', JSON.stringify(timeZones))
   }, [timeZones])
   useEffect(() => {
-    localStorage.setItem('formatTime', format.toString())
+    localStorage.setItem('format-time', format.toString())
   }, [format])
 
   return {
