@@ -20,7 +20,7 @@ const initialTimeZoneData: TimeZoneData = {
 }
 
 export const TimeZoneContext = createContext<{
-  timeZones: {}
+  timeZones: TimeZoneData
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
   setOriginDate: (originDate: OriginDate) => void
