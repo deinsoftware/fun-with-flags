@@ -1,3 +1,16 @@
+# Fun with Flags
+
+[![codeql](https://github.com/deinsoftware/fun-with-flags/actions/workflows/codeql.yml/badge.svg)](https://github.com/deinsoftware/fun-with-flags/actions/workflows/codeql.yml)
+[![dependency-review](https://github.com/deinsoftware/fun-with-flags/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/deinsoftware/fun-with-flags/actions/workflows/dependency-review.yml)
+[![sonar-reliability](https://sonarcloud.io/api/project_badges/measure?project=dein%3Afwf&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=dein%3Afwf)
+[![sonar-security](https://sonarcloud.io/api/project_badges/measure?project=dein%3Afwf&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=dein%3Afwf)
+[![sonar-maintainability](https://sonarcloud.io/api/project_badges/measure?project=dein%3Afwf&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=dein%3Afwf)
+[![license](https://img.shields.io/github/license/deinsoftware/colorify)](LICENSE.md)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?color=yellow)](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)
+![prettier](https://img.shields.io/badge/formatter-prettier-ff69b4.svg?style=flat)
+![esLint](https://img.shields.io/badge/linter-eslint-7C7CE9.svg?style=flat)
+[![vscode](https://img.shields.io/badge/open_in-vscode-007ACC?style=flat&logo=visualstudiocode&logoColor=007ACC&link=https://https://github.dev/deinsoftware/fun-with-flags)](https://github.dev/deinsoftware/fun-with-flags)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
