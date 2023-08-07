@@ -76,7 +76,6 @@
             & .container-date {
                 @media (min-width: 730px) {
                     flex-direction: row;
-                    /* background-color: red; */
                 }
 
                 & .container-toggle {

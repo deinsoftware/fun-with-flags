@@ -7,8 +7,7 @@ import {
   useMemo,
   ChangeEvent,
   RefObject,
-  useCallback,
-  useEffect,
+  useCallback
 } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
@@ -42,16 +41,7 @@ const CreateEvent: React.FC = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  // const [timeDisabled, setTimeDisabled] = useState(false)
-  // const handleTimeToggle = (disabled: boolean) => {
-  //   setTimeDisabled(disabled)
-  // }
-
   const [dateDisabled, setDateDisabled] = useState(false)
-  // const [currentDate, setCurrentDate] = useState(new Date())
-  // useEffect(() => {
-  //   setCurrentDate(new Date())
-  // }, [])
 
   const handleDateToggle = (disabled: boolean) => {
     setDateDisabled(disabled)
@@ -105,21 +95,13 @@ const CreateEvent: React.FC = () => {
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-with-toggle']}>
               <input
-                className={`${styles['time']}
-                ${/* ${timeDisabled ? styles['disabled'] : ''} */ ''}
-                `}
-                // disabled={timeDisabled}
+                className={`${styles['time']}`}
                 id=""
                 name="time"
                 type="time"
                 value={formData.time}
                 onChange={handleChangeForm}
               />
-
-              {/* <div className={styles['container-toggle']}>
-                <Toggle onToggle={handleTimeToggle} />
-                <span className={styles['text-toggle']}>24h</span>
-              </div> */}
             </div>
 
             <div
@@ -134,9 +116,7 @@ const CreateEvent: React.FC = () => {
                 name="date"
                 type="date"
                 value={formData.date}
-                // value={currentDate.toISOString().slice(0, 10)}
-                // onChange={(e) => setCurrentDate(e.target.value)}
-                onChange={handleChangeForm} // este es de Maikcol
+                onChange={handleChangeForm}
               />
 
               <div className={styles['container-toggle']}>
