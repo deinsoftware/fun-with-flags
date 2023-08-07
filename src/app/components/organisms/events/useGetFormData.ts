@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 
 export const useGetFormData = () => {
+  const currentTime = new Date().toTimeString().slice(0, 5)
+  const currentDate = new Date().toISOString().slice(0, 10)
+
   const [formData, setFormData] = useState({
     eventName: '',
-    time: '',
-    date: '',
+    time: currentTime,
+    date: currentDate,
     language: '',
     eventLink: '',
     eventDescription: '',

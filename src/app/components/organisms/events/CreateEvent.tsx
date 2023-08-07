@@ -2,7 +2,14 @@
 
 import CookieConsent from 'react-cookie-consent'
 
-import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
+import {
+  useState,
+  useMemo,
+  ChangeEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+} from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
@@ -35,16 +42,21 @@ const CreateEvent: React.FC = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  const [timeDisabled, setTimeDisabled] = useState(false)
-  const [dateDisabled, setDateDisabled] = useState(false)
+  // const [timeDisabled, setTimeDisabled] = useState(false)
+  // const handleTimeToggle = (disabled: boolean) => {
+  //   setTimeDisabled(disabled)
+  // }
 
-  const handleTimeToggle = (disabled: boolean) => {
-    setTimeDisabled(disabled)
-  }
+  const [dateDisabled, setDateDisabled] = useState(false)
+  // const [currentDate, setCurrentDate] = useState(new Date())
+  // useEffect(() => {
+  //   setCurrentDate(new Date())
+  // }, [])
 
   const handleDateToggle = (disabled: boolean) => {
     setDateDisabled(disabled)
   }
+
   const handleChangeForm = (
     event: ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -89,13 +101,14 @@ const CreateEvent: React.FC = () => {
               onChange={handleChangeForm}
             />
           </div>
+
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-with-toggle']}>
               <input
-                className={`${styles['time']} ${
-                  timeDisabled ? styles['disabled'] : ''
-                }`}
-                disabled={timeDisabled}
+                className={`${styles['time']}
+                ${/* ${timeDisabled ? styles['disabled'] : ''} */ ''}
+                `}
+                // disabled={timeDisabled}
                 id=""
                 name="time"
                 type="time"
@@ -103,13 +116,15 @@ const CreateEvent: React.FC = () => {
                 onChange={handleChangeForm}
               />
 
-              <div className={styles['container-toggle']}>
+              {/* <div className={styles['container-toggle']}>
                 <Toggle onToggle={handleTimeToggle} />
                 <span className={styles['text-toggle']}>24h</span>
-              </div>
+              </div> */}
             </div>
 
-            <div className={styles['container-with-toggle']}>
+            <div
+              className={`${styles['container-with-toggle']} ${styles['container-date']}`}
+            >
               <input
                 className={`${styles['date']} ${
                   dateDisabled ? styles['disabled'] : ''
@@ -119,7 +134,9 @@ const CreateEvent: React.FC = () => {
                 name="date"
                 type="date"
                 value={formData.date}
-                onChange={handleChangeForm}
+                // value={currentDate.toISOString().slice(0, 10)}
+                // onChange={(e) => setCurrentDate(e.target.value)}
+                onChange={handleChangeForm} // este es de Maikcol
               />
 
               <div className={styles['container-toggle']}>
@@ -159,6 +176,7 @@ const CreateEvent: React.FC = () => {
               </select>
             </div>
           </div>
+
           <div className={styles['container-hyperlink']}>
             <input
               className={styles['hyperlink']}
@@ -197,26 +215,25 @@ const CreateEvent: React.FC = () => {
           <ComboboxCountries>{handleChangeTextContent}</ComboboxCountries>
         </form>
       </div>
+
       <CookieConsent
-        // overlay
         buttonStyle={{
           color: '#F9FBFC',
           background: '#7E56DA',
           fontSize: '13px',
-        }} // botón de aceptar
-        buttonText="Let's go"
-        // declineButtonText="<string>"
-        // cookieName="myAwesomeCookieName2"
-        // expires={150}
-        hideOnDecline={false}
+        }} // estilos del botón de aceptar
+        buttonText="Let's go" // Texto del botón de aceptar
+        cookieName="cookie-consent" // Nombre de la cookie
+        location="top" // Ubicación - top, bottom
+        style={{ background: '#1C1C1C' }}
         onDecline={() => {
           alert('Ni modo, no puedes crear el evento entonces...')
         }}
-        location="top"
-        // acceptOnOverlayClick // tecnicamente ilegal
-        style={{ background: '#1C1C1C' }}
-        enableDeclineButton // habilitar el botón de declinar
-        // flipButtons // cambiar de lugar los botones
+        declineButtonText="I decline" // Texto del botón de declinar
+        // expires={150} //
+        hideOnDecline={false}
+        enableDeclineButton // Habilitar el botón de declinar
+        // flipButtons // Cambiar de lugar los botones
       >
         This website uses cookies to enhance the user experience.
       </CookieConsent>
