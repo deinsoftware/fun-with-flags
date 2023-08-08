@@ -195,15 +195,21 @@ const CreateEvent: React.FC = () => {
           color: '#F9FBFC',
           background: '#7E56DA',
           fontSize: '13px',
+          fontWeight: 'bold',
         }} // estilos del botón de aceptar
         enableDeclineButton // Habilitar el botón de declinar
         buttonText="Let's go" // Texto del botón de aceptar
         cookieName="cookie-consent" // Nombre de la cookie
+        declineButtonStyle={{
+          fontWeight: 'bold',
+          color: '#FFFFFF',
+          background: '#FF0000',
+        }}
         declineButtonText="I decline" // Texto del botón de declinar
         expires={20} // Los días que dura para expirar la cookie
         hideOnDecline={false} // Ocultar al declinar
         location="top" // Ubicación - top, bottom
-        style={{ background: '#1C1C1C' }}
+        style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
         onDecline={() => {
           alert('Ni modo, no puedes crear el evento entonces...')
         }}
