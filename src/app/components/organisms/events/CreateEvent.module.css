@@ -44,6 +44,11 @@
                 .time-zone {
                     width: 100%;
                 }
+
+                & .time-zone {
+                    cursor: pointer;
+                    height: 100%;
+                }
             }
 
             & .container-with-toggle {
@@ -58,6 +63,7 @@
 
                     &.disabled {
                         cursor: not-allowed;
+                        color: transparent;
                     }
                 }
 
@@ -91,7 +97,8 @@
 
         & input,
         select,
-        textarea {
+        textarea,
+        .time-zone {
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
             background-color: var(--color-darkgray-800);

@@ -2,13 +2,7 @@
 
 import CookieConsent from 'react-cookie-consent'
 
-import {
-  useState,
-  useMemo,
-  ChangeEvent,
-  RefObject,
-  useCallback
-} from 'react'
+import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
@@ -202,18 +196,17 @@ const CreateEvent: React.FC = () => {
           background: '#7E56DA',
           fontSize: '13px',
         }} // estilos del botón de aceptar
+        enableDeclineButton // Habilitar el botón de declinar
         buttonText="Let's go" // Texto del botón de aceptar
         cookieName="cookie-consent" // Nombre de la cookie
+        declineButtonText="I decline" // Texto del botón de declinar
+        expires={20} // Los días que dura para expirar la cookie
+        hideOnDecline={false} // Ocultar al declinar
         location="top" // Ubicación - top, bottom
         style={{ background: '#1C1C1C' }}
         onDecline={() => {
           alert('Ni modo, no puedes crear el evento entonces...')
         }}
-        declineButtonText="I decline" // Texto del botón de declinar
-        // expires={150} //
-        hideOnDecline={false}
-        enableDeclineButton // Habilitar el botón de declinar
-        // flipButtons // Cambiar de lugar los botones
       >
         This website uses cookies to enhance the user experience.
       </CookieConsent>
