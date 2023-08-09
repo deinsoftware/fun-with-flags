@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
-import { prisma, Prisma } from '@/libs/prisma'
+
+import { Prisma } from '@prisma/client'
+
+import { prisma } from '@/libs/prisma'
 
 import { TimeZones } from '@/types/timeZones.types'
 

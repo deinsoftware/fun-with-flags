@@ -26,8 +26,8 @@ export const getDateInformation = ({
 
   const date = getDate(options, originDate)
   const time = getTime(options, originDate)
-  const acronym = getAcronym(options, originDate)
   const gmt = getGmt(options, originDate)
+  const acronym = getAcronym(options, originDate, zone.countryCode) ?? gmt
   const offset = convertGmtToNumber(gmt ?? '')
 
   const i18n = {

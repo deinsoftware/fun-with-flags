@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
-import { prisma, Prisma } from '@/libs/prisma'
-import { Providers } from '@prisma/client'
+
+import { Prisma, Providers } from '@prisma/client'
+
+import { prisma } from '@/libs/prisma'
 
 const postHandler = async (request: Request) => {
   try {
@@ -149,7 +151,7 @@ const delHandler = async (request: Request) => {
     }
 
     console.error({ 'API Events Error': error })
-    return NextResponse.json({ error: 'failed to delete' }, { status: 501 })
+    return NextResponse.json({ error: 'failed to delete' }, { status: 500 })
   }
 }
 

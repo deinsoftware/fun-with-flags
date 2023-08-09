@@ -1,10 +1,12 @@
 import '../styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
 // import { Inter } from 'next/font/google'
-import Provider from './components/auth/Provider'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import TitleOnPage from './components/TitleOnPage'
+import { TimeZoneProvider } from './context/timeZoneContext'
+
+import Provider from '@/app/components/organisms/auth/Provider'
+import Header from '@/app/components/organisms/ui/Header'
+import Footer from '@/app/components/organisms/ui/Footer'
+import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
 
 // const inter = Inter({ subsets: ['latin']})
 
@@ -27,14 +29,16 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <Provider>
-        <body>
-          <Header />
-          <TitleOnPage />
+        <TimeZoneProvider>
+          <body>
+            <Header />
+            <TitleOnPage />
 
-          {children}
+            {children}
 
-          <Footer />
-        </body>
+            <Footer />
+          </body>
+        </TimeZoneProvider>
       </Provider>
     </html>
   )
