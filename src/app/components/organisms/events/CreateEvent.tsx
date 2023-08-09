@@ -4,6 +4,8 @@ import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
+import { SelectCountry } from '../../molecules/select-country/SelectCountry'
+
 import styles from './CreateEvent.module.css'
 
 import useFetch from './useFetch'
@@ -61,6 +63,7 @@ const CreateEvent: React.FC = () => {
     <>
       <div className={styles['container-form']}>
         <form action="" className={styles['form']}>
+        <SelectCountry flagList={flagList} />
           <div className={styles['container-event-name']}>
             <input
               className={styles['event-name']}

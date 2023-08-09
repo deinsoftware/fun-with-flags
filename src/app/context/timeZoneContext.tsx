@@ -4,8 +4,6 @@ import { createContext, useMemo, } from 'react'
 import { useGetTimes } from './useGetTimes'
 
 import { TimeFormat, Zone } from '@/helpers/events.types'
-import { getTimezone } from '@/helpers/get-time-zone'
-import { getCountryByZone } from '@/services/timezones'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 const initialTimeZoneData: TimeZoneData = {
@@ -13,9 +11,10 @@ const initialTimeZoneData: TimeZoneData = {
     
   ],
   origin: {
-    countryCode: getCountryByZone(getTimezone()),
-    date: new Date().toISOString(),
-    name: getTimezone(),
+    countryCode: '',
+    date: '',
+    name: '',
+    offset: 0
   },
 }
 
@@ -23,7 +22,7 @@ export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
-  setOriginDate: (originDate: OriginDate) => void
+  setOriginDate: (zone?: Zone, originDate?: string) => void
   format: TimeFormat
 }>({
   timeZones: initialTimeZoneData,
@@ -79,12 +78,20 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const setOriginDate = (originDate: OriginDate) => {
+  const setOriginDate = (zone?: Zone, originDate?: string, offset?: number) => {
+    if(!zone && !originDate && !offset) return
     setTimeZones((prev) => {
+      const origin: OriginDate = {
+        ...prev.origin,
+        ...(originDate && { date: originDate }),
+        ...(zone && {...zone}),
+        ...(offset && {offset})
+      }
+      
       return {
         ...prev,
         list: [...(prev?.list ?? [])],
-        origin: originDate,
+        origin: origin,
       }
     })
   }
