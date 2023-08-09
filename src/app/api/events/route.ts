@@ -114,7 +114,7 @@ const putHandler = async (request: Request) => {
     }
 
     console.error({ 'API Events Error': error })
-    return NextResponse.json({ error: 'failed to create' }, { status: 501 })
+    return NextResponse.json({ error: 'failed to create' }, { status: 500 })
   }
 }
 
@@ -139,7 +139,7 @@ const patchHandler = async (request: Request) => {
     }
 
     console.error({ 'API Events Error': error })
-    return NextResponse.json({ error: 'failed to create' }, { status: 501 })
+    return NextResponse.json({ error: 'failed to update' }, { status: 500 })
   }
 }
 
@@ -168,7 +168,7 @@ const delHandler = async (request: Request) => {
     }
 
     console.error({ 'API Events Error': error })
-    return NextResponse.json({ error: 'failed to delete' }, { status: 501 })
+    return NextResponse.json({ error: 'failed to delete' }, { status: 500 })
   }
 }
 
