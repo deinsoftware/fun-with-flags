@@ -8,6 +8,8 @@ import TimeZones from '../../atoms/country-list/TimeZones'
 
 import styles from './CountryList.module.css'
 
+import { lucidIcons } from '@/libs/iconConfig'
+
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 
@@ -42,10 +44,6 @@ const CountryList: React.FC<{
     return () => clearTimeout(handler)
   }, [flagList, query])
 
-  const sizeIcon = 24
-  const colorIcon = '#454545'
-  const strokeWidthIcon = 2
-
   return (
     <>
       <div className={styles['overlay']}>
@@ -64,9 +62,9 @@ const CountryList: React.FC<{
             >
               <XCircle
                 absoluteStrokeWidth={false}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </button>
           </div>

@@ -1,5 +1,7 @@
 'use client'
 
+import CookieConsent from 'react-cookie-consent'
+
 import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
@@ -19,9 +21,9 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const {timeZones} = useTimeZoneContext()
-  const {formData, setFormData} = useGetFormData()
-    
+  const { timeZones } = useTimeZoneContext()
+  const { formData, setFormData } = useGetFormData()
+
   const props = useMemo(
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
@@ -35,7 +37,17 @@ const CreateEvent: React.FC = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  const handleChangeForm = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
+  const [dateDisabled, setDateDisabled] = useState(false)
+
+  const handleDateToggle = (disabled: boolean) => {
+    setDateDisabled(disabled)
+  }
+
+  const handleChangeForm = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = event.target
     setFormData((prev) =>(
             {
@@ -75,27 +87,38 @@ const CreateEvent: React.FC = () => {
               onChange={handleChangeForm}
             />
           </div>
+
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-with-toggle']}>
-              <input 
-              className={styles['time']} 
-              id="" 
-              name="time" 
-              type="time" 
-              value={formData.time}
-              onChange={handleChangeForm} />
-              <Toggle />
+              <input
+                className={`${styles['time']}`}
+                id=""
+                name="time"
+                type="time"
+                value={formData.time}
+                onChange={handleChangeForm}
+              />
             </div>
 
-            <div className={styles['container-with-toggle']}>
-              <input 
-              className={styles['date']} 
-              id="" 
-              name="date" 
-              type="date" 
-              value={formData.date}
-              onChange={handleChangeForm}/>
-              <Toggle />
+            <div
+              className={`${styles['container-with-toggle']} ${styles['container-date']}`}
+            >
+              <input
+                className={`${styles['date']} ${
+                  dateDisabled ? styles['disabled'] : ''
+                }`}
+                disabled={dateDisabled}
+                id=""
+                name="date"
+                type="date"
+                value={formData.date}
+                onChange={handleChangeForm}
+              />
+
+              <div className={styles['container-toggle']}>
+                <Toggle onToggle={handleDateToggle} />
+                <span className={styles['text-toggle']}>Use data</span>
+              </div>
             </div>
           </div>
 
@@ -114,19 +137,22 @@ const CreateEvent: React.FC = () => {
             </div>
 
             <div className={styles['container-language']}>
-              <select 
-              className={styles['language']} 
-              id="" 
-              name="language" 
-              value={formData.language}
-              onChange={handleChangeForm}
+              <select
+                className={styles['language']}
+                id=""
+                name="language"
+                value={formData.language}
+                onChange={handleChangeForm}
               >
-                <option disabled value="">Select a language</option>
+                <option disabled value="">
+                  Select a language
+                </option>
                 <option value="lg-1">First language</option>
                 <option value="lg-2">Second language</option>
               </select>
             </div>
           </div>
+
           <div className={styles['container-hyperlink']}>
             <input
               className={styles['hyperlink']}
@@ -165,6 +191,33 @@ const CreateEvent: React.FC = () => {
           <ComboboxCountries getTextContent={handleChangeTextContent}/>
         </form>
       </div>
+
+      <CookieConsent
+        buttonStyle={{
+          color: '#F9FBFC',
+          background: '#7E56DA',
+          fontSize: '13px',
+          fontWeight: 'bold',
+        }} // estilos del botón de aceptar
+        enableDeclineButton // Habilitar el botón de declinar
+        buttonText="Let's go" // Texto del botón de aceptar
+        cookieName="cookie-consent" // Nombre de la cookie
+        declineButtonStyle={{
+          fontWeight: 'bold',
+          color: '#FFFFFF',
+          background: '#FF0000',
+        }}
+        declineButtonText="I decline" // Texto del botón de declinar
+        expires={20} // Los días que dura para expirar la cookie
+        hideOnDecline={false} // Ocultar al declinar
+        location="top" // Ubicación - top, bottom
+        style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
+        onDecline={() => {
+          alert('Ni modo, no puedes crear el evento entonces...')
+        }}
+      >
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
     </>
   )
 }

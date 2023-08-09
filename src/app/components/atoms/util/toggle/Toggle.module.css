@@ -16,7 +16,7 @@
         width: 20px;
         height: 20px;
         border-radius: 99px;
-        background-color: var(--color-darkgray-300);
+        background-color: var(--color-purple-500);
         transform: translateX(0);
         transform: translateY(-50%);
         transition: left 0.15s ease;
@@ -24,6 +24,6 @@
 
     &.toggled .thumb {
         left: calc(50px - 25px);
-        background-color: var(--color-purple-500);
+        background-color: var(--color-darkgray-300);
     }
 }

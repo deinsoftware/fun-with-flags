@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useMemo, } from 'react'
+import { createContext, useMemo } from 'react'
 
 import { useGetTimes } from './useGetTimes'
 
@@ -33,23 +33,26 @@ export const TimeZoneContext = createContext<{
 })
 
 export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
-  const {timeZones, setTimeZones,format, setFormat} = useGetTimes(initialTimeZoneData, 24)
+  const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
+    initialTimeZoneData,
+    24,
+  )
   const addTimeZone = (zone: Zone) => {
     const index = timeZones?.list?.findIndex((timeZone) => {
       return (
         timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
       )
     })
-    if (index>=0) throw new Error('Time zone already exists')
-    
+    if (index >= 0) throw new Error('Time zone already exists')
+
     setTimeZones((prev) => {
-        return {
-          ...prev,
-          list: [...(prev?.list ?? []), zone],
-          origin: {
-            ...prev?.origin,
-          },
-        }
+      return {
+        ...prev,
+        list: [...(prev?.list ?? []), zone],
+        origin: {
+          ...prev?.origin,
+        },
+      }
     })
     
   }
@@ -103,7 +106,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
       setOriginDate,
       format,
     }),
-    [timeZones, format ]
+    [timeZones, format],
   )
 
   return (
