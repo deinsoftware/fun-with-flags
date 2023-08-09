@@ -10,7 +10,7 @@ import { useGetInfoDates } from "./useGetInfoDates"
 
 import { useTimeZoneContext } from "@/app/context/useTimeZoneContext"
 
-const ComboboxCountries: React.FC<{children: Function}> = ({children}) => {
+const ComboboxCountries: React.FC<{getTextContent: Function}> = ({getTextContent}) => {
     const {format} = useTimeZoneContext()
     const {dateList} = useGetInfoDates({format})
     const filteredDates = useFilteredDates(dateList, format)
@@ -19,9 +19,7 @@ const ComboboxCountries: React.FC<{children: Function}> = ({children}) => {
         <div className={style['countries-container']}>   
             {(!dateList || dateList?.length===0) 
             ?'Add a timezone to start'
-            : <DatesToRender datesArray={filteredDates}>
-                {children}
-            </DatesToRender>
+            : <DatesToRender datesArray={filteredDates} getTextContent={getTextContent}/>
             }   
         </div>      
     )

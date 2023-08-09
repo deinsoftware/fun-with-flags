@@ -10,42 +10,7 @@ import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 const initialTimeZoneData: TimeZoneData = {
   list: [
-    {
-      "countryCode": "CO",
-      "name": "America/Bogota"
-  },
-  {
-    countryCode: 'JP',
-    name: 'Asia/Tokyo',
-  },
-  {
-    countryCode: 'ES',
-    name: 'Europe/Madrid',
-  },
-  {
-    countryCode: 'US',
-    name: 'America/Adak',
-  },
-  {
-    countryCode: 'CK',
-    name: 'Pacific/Rarotonga',
-  },
-  {
-    countryCode: 'CA',
-    name: 'America/Vancouver',
-  },
-  {
-    countryCode: 'US',
-    name: 'America/Los_Angeles',
-  },
-  {
-    countryCode: 'EC',
-    name: 'America/Guayaquil',
-  },
-  {
-    countryCode: 'CL',
-    name: 'America/Santiago',
-  },
+    
   ],
   origin: {
     countryCode: getCountryByZone(getTimezone()),
@@ -131,7 +96,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
       setOriginDate,
       format,
     }),
-    [timeZones, format, deleteTimeZone, addTimeZone ],
+    [timeZones, format ]
   )
 
   return (

@@ -151,7 +151,7 @@ const delHandler = async (request: Request) => {
     }
 
     console.error({ 'API Events Error': error })
-    return NextResponse.json({ error: 'failed to delete' }, { status: 501 })
+    return NextResponse.json({ error: 'failed to delete' }, { status: 500 })
   }
 }
 

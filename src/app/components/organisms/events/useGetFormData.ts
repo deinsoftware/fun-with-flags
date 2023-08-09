@@ -58,7 +58,7 @@ export const useGetFormData = () => {
 
   useEffect(() => {
     const getInitialFormData = () => {
-      const localFormData = localStorage.getItem('formData')
+      const localFormData = localStorage.getItem('form-data')
       if (localFormData) {
         const formData = JSON.parse(localFormData)
         setFormData(formData)
@@ -69,7 +69,7 @@ export const useGetFormData = () => {
 
   useEffect(() => {
     const saveFormData = () => {
-      localStorage.setItem('formData', JSON.stringify(formData))
+      localStorage.setItem('form-data', JSON.stringify(formData))
     }
     saveFormData()
   }, [formData])

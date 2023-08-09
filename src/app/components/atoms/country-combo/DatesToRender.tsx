@@ -10,19 +10,19 @@ import { DatesFilteredArray } from "@/types/flags.types"
 import { Countries } from "@/types/countries.types"
 
 
-export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[], children: Function}> =
-({datesArray, children})=>{
+export const DatesToRender: React.FC<{datesArray: DatesFilteredArray[], getTextContent: Function}> =
+({datesArray, getTextContent})=>{
     const {deleteTimeZone, format} = useTimeZoneContext()
     const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
 
     const ref = useRef<HTMLDivElement>(null)   
     
     useEffect(()=>{
-        children(ref)
+        getTextContent(ref)
         return ()=>{
-            children(null)
+            getTextContent(null)
         }
-    }, [timeToRender, ref, children])
+    }, [timeToRender, ref, getTextContent])
            
     useEffect(()=>{
         const result = datesArray.map(([date, groupedCountries]) => {
