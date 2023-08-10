@@ -7,14 +7,12 @@ import { TimeFormat, Zone } from '@/helpers/events.types'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 const initialTimeZoneData: TimeZoneData = {
-  list: [
-    
-  ],
+  list: [],
   origin: {
     countryCode: '',
-    date: '',
     name: '',
-    offset: 0
+    date: '',
+    gmt: '',
   },
 }
 
@@ -22,7 +20,7 @@ export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
-  setOriginDate: (zone?: Zone, originDate?: string) => void
+  setOriginDate: (zone?: Zone, originDate?: string, gmt?: string) => void
   format: TimeFormat
 }>({
   timeZones: initialTimeZoneData,
@@ -54,7 +52,6 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
         },
       }
     })
-    
   }
 
   const deleteTimeZone = (zone: Zone) => {
@@ -81,16 +78,16 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const setOriginDate = (zone?: Zone, originDate?: string, offset?: number) => {
-    if(!zone && !originDate && !offset) return
+  const setOriginDate = (zone?: Zone, originDate?: string, gmt?: string) => {
+    if (!zone && !originDate && !gmt) return
     setTimeZones((prev) => {
       const origin: OriginDate = {
         ...prev.origin,
         ...(originDate && { date: originDate }),
-        ...(zone && {...zone}),
-        ...(offset && {offset})
+        ...(zone && { ...zone }),
+        ...(gmt && { gmt }),
       }
-      
+
       return {
         ...prev,
         list: [...(prev?.list ?? [])],

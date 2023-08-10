@@ -6,7 +6,7 @@ export type OriginDate = {
   countryCode: Countries | ''
   date: string
   name: string
-  offset: number
+  gmt: string
 }
 export type TimeZoneData = {
   list: Zone[]

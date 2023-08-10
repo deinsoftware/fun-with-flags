@@ -2,7 +2,14 @@
 
 import CookieConsent from 'react-cookie-consent'
 
-import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
+import {
+  useState,
+  useMemo,
+  ChangeEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+} from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
@@ -21,8 +28,30 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones } = useTimeZoneContext()
+  const { timeZones, setOriginDate } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
+
+  useEffect(() => {
+    const regex = /^[-Z]/
+    const gmtVerification = regex.test(formData.gmt)
+    const gmt = formData.gmt
+    const gmtTime = gmtVerification ? gmt : `-${gmt}`
+
+    const timezone = formData.timezone
+    const countryCode = formData.country
+    const time = formData.time
+    const date = formData.date
+    const fullDate = `${date}T${time}${gmtTime}`
+    const originDate = new Date(fullDate).toISOString()
+
+    setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+  }, [
+    formData.timezone,
+    formData.country,
+    formData.date,
+    formData.time,
+    formData.gmt,
+  ])
 
   const props = useMemo(
     () => ({
@@ -49,33 +78,34 @@ const CreateEvent: React.FC = () => {
     >,
   ) => {
     const { name, value } = event.target
-    setFormData((prev) =>(
-            {
-              ...prev,
-              [name]: value
-            }))
-  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
-  const handleChangeTextContent = useCallback((ref: RefObject<HTMLDivElement>) => {
-    if (ref?.current?.textContent) {
-        const textContent = ref.current.textContent;
+  const handleChangeTextContent = useCallback(
+    (ref: RefObject<HTMLDivElement>) => {
+      if (ref?.current?.textContent) {
+        const textContent = ref.current.textContent
         setFormData((prev) => ({
-            ...prev,
-            combo: textContent,
-        }));
-    } else {
+          ...prev,
+          combo: textContent,
+        }))
+      } else {
         setFormData((prev) => ({
-            ...prev,
-            combo: '',
-        }));
-    }
-  }, [setFormData]);
+          ...prev,
+          combo: '',
+        }))
+      }
+    },
+    [setFormData],
+  )
 
   return (
     <>
       <div className={styles['container-form']}>
         <form action="" className={styles['form']}>
-        <SelectCountry flagList={flagList} />
+          <SelectCountry countryCode={formData.country} flagList={flagList} />
           <div className={styles['container-event-name']}>
             <input
               className={styles['event-name']}
@@ -188,7 +218,7 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries getTextContent={handleChangeTextContent}/>
+          <ComboboxCountries getTextContent={handleChangeTextContent} />
         </form>
       </div>
 

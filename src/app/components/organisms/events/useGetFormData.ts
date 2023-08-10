@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { TimeZoneContext } from '@/app/context/timeZoneContext'
+import { FormData } from './CreateEvent.types'
+
+import { getDate, getGmt } from '@/helpers/dates'
+import { getTimezone } from '@/helpers/get-time-zone'
+import { getCountryByZone } from '@/services/timezones'
 
 export const useGetFormData = () => {
-  const { timeZones } = useContext(TimeZoneContext)
-
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     eventName: '',
     time: '',
     date: '',
@@ -14,14 +16,37 @@ export const useGetFormData = () => {
     eventDescription: '',
     image: '',
     combo: '',
+    country: 'CO',
+    timezone: '',
+    gmt: '',
   })
-
   useEffect(() => {
+    const setInitialFormData = async () => {
+      const currentDate = new Date()
+      const timezone = getTimezone()
+
+      const initValue = {
+        time: `${currentDate.getHours()}:${currentDate.getMinutes()}`,
+        date: getDate({ timeZone: timezone }, currentDate),
+        country: (await getCountryByZone(timezone)) ?? 'CO',
+        timezone: timezone,
+        gmt:
+          getGmt({ timeZone: timezone }, currentDate)?.replace('GMT', '') ??
+          'Z',
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        ...initValue,
+      }))
+    }
     const getInitialFormData = () => {
       const localFormData = localStorage.getItem('form-data')
       if (localFormData) {
         const formData = JSON.parse(localFormData)
         setFormData(formData)
+      } else {
+        setInitialFormData()
       }
     }
     getInitialFormData()
@@ -33,46 +58,6 @@ export const useGetFormData = () => {
     }
     saveFormData()
   }, [formData])
-
-  useEffect(() => {
-    const originDate = timeZones.origin.date
-    const defaultDate = new Date(originDate)
-
-    const getCurrentDate = () => {
-      const year = defaultDate.getFullYear()
-      const month = defaultDate.getMonth() + 1
-      const day = defaultDate.getDate()
-
-      let monthString, dayString
-
-      if (month < 10) {
-        monthString = `0${month}`
-      }
-      if (day < 10) {
-        dayString = `0${day}`
-      }
-
-      return `${year}-${monthString}-${dayString}`
-    }
-
-    const getCurrentTime = () => {
-      const hours = defaultDate.getHours()
-      const minutes = defaultDate.getMinutes()
-
-      if (minutes < 10) return `${hours}:0${minutes}`
-
-      return `${hours}:${minutes}`
-    }
-
-    const currentDate = getCurrentDate()
-    const currentTime = getCurrentTime()
-
-    setFormData((prev) => ({
-      ...prev,
-      date: currentDate,
-      time: currentTime,
-    }))
-  }, [timeZones.origin.date])
 
   return {
     formData,
