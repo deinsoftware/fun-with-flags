@@ -30,7 +30,8 @@
         }
 
         & .container-time-and-date,
-        .container-time-zone-and-language {
+        .container-time-zone-and-language,
+        .container-to-position-relative {
             display: flex;
             width: 100%;
             gap: 8px;
@@ -61,9 +62,20 @@
                     position: relative;
                     width: 100%;
 
+                    /* * Hiding default icons in browsers * */
+                    &::-webkit-calendar-picker-indicator {
+                        position: relative;
+                        opacity: 0;
+                        width: 60px;
+                    }
+
                     &.disabled {
                         cursor: not-allowed;
-                        color: transparent;
+                        color: var(--color-darkgray-500);
+
+                        &::before {
+                            background-image: none;
+                        }
                     }
                 }
 
@@ -79,9 +91,46 @@
                 }
             }
 
+            & .container-time,
+            .container-date {
+                position: relative;
+
+                &::after {
+                    content: '';
+                    background-size: cover;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    top: 10px;
+                    right: 12px;
+                    pointer-events: none;
+                }
+            }
+
+            & .container-time::after {
+                background-image: url(./time.svg);
+            }
+
+            & .container-date::after {
+                background-image: url(./date.svg);
+            }
+
+
             & .container-date {
                 @media (min-width: 730px) {
                     flex-direction: row;
+                }
+
+                &::after {
+                    @media (min-width: 730px) {
+                        /* 120px = min-height container-toggle */
+                        /* 8px = gap between input and toggle-container */
+                        /* 12px = space to center it */
+                        right: calc(120px + 8px + 12px);
+                    }
                 }
 
                 & .container-toggle {

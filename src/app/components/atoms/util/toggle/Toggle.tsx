@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 import styles from './Toggle.module.css'
 
-// ¿Es esto correcto?
 interface ToggleProps {
   onToggle: (toggled: boolean) => void
 }

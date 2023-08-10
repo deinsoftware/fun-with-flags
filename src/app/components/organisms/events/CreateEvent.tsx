@@ -47,27 +47,28 @@ const CreateEvent: React.FC = () => {
     >,
   ) => {
     const { name, value } = event.target
-    setFormData((prev) =>(
-            {
-              ...prev,
-              [name]: value
-            }))
-  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
-  const handleChangeTextContent = useCallback((ref: RefObject<HTMLDivElement>) => {
-    if (ref?.current?.textContent) {
-        const textContent = ref.current.textContent;
+  const handleChangeTextContent = useCallback(
+    (ref: RefObject<HTMLDivElement>) => {
+      if (ref?.current?.textContent) {
+        const textContent = ref.current.textContent
         setFormData((prev) => ({
-            ...prev,
-            combo: textContent,
-        }));
-    } else {
+          ...prev,
+          combo: textContent,
+        }))
+      } else {
         setFormData((prev) => ({
-            ...prev,
-            combo: '',
-        }));
-    }
-  }, [setFormData]);
+          ...prev,
+          combo: '',
+        }))
+      }
+    },
+    [setFormData],
+  )
 
   return (
     <>
@@ -86,35 +87,41 @@ const CreateEvent: React.FC = () => {
           </div>
 
           <div className={styles['container-time-and-date']}>
-            <div className={styles['container-with-toggle']}>
-              <input
-                className={`${styles['time']}`}
-                id=""
-                name="time"
-                type="time"
-                value={formData.time}
-                onChange={handleChangeForm}
-              />
+            <div className={styles['container-to-position-relative']}>
+              <div
+                className={`${styles['container-with-toggle']} ${styles['container-time']}`}
+              >
+                <input
+                  className={`${styles['time']}`}
+                  id=""
+                  name="time"
+                  type="time"
+                  value={formData.time}
+                  onChange={handleChangeForm}
+                />
+              </div>
             </div>
 
-            <div
-              className={`${styles['container-with-toggle']} ${styles['container-date']}`}
-            >
-              <input
-                className={`${styles['date']} ${
-                  dateDisabled ? styles['disabled'] : ''
-                }`}
-                disabled={dateDisabled}
-                id=""
-                name="date"
-                type="date"
-                value={formData.date}
-                onChange={handleChangeForm}
-              />
+            <div className={styles['container-to-position-relative']}>
+              <div
+                className={`${styles['container-with-toggle']} ${styles['container-date']}`}
+              >
+                <input
+                  className={`${styles['date']} ${
+                    dateDisabled ? styles['disabled'] : ''
+                  }`}
+                  disabled={dateDisabled}
+                  id=""
+                  name="date"
+                  type="date"
+                  value={formData.date}
+                  onChange={handleChangeForm}
+                />
 
-              <div className={styles['container-toggle']}>
-                <Toggle onToggle={handleDateToggle} />
-                <span className={styles['text-toggle']}>Use data</span>
+                <div className={styles['container-toggle']}>
+                  <Toggle onToggle={handleDateToggle} />
+                  <span className={styles['text-toggle']}>Use data</span>
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +192,7 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries getTextContent={handleChangeTextContent}/>
+          <ComboboxCountries getTextContent={handleChangeTextContent} />
         </form>
       </div>
 
