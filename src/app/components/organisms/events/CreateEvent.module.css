@@ -46,8 +46,8 @@
                 }
 
                 & .time-zone {
-                    cursor: pointer;
                     height: 100%;
+                    cursor: pointer;
                 }
             }
 
@@ -58,12 +58,11 @@
 
                 & .time,
                 .date {
-                    position: relative;
                     width: 100%;
 
                     &.disabled {
-                        cursor: not-allowed;
                         color: transparent;
+                        cursor: not-allowed;
                     }
                 }
 
@@ -80,7 +79,7 @@
             }
 
             & .container-date {
-                @media (min-width: 730px) {
+                @media (width >= 730px) {
                     flex-direction: row;
                 }
 

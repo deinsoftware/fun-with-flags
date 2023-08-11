@@ -1,7 +1,8 @@
 .toggle {
-    position: relative;
+    display: grid;
     width: 50px;
     height: 28px;
+    align-items: center;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 99px;
     background-color: var(--color-darkgray-800);
@@ -10,20 +11,17 @@
     transition: background-color 0.3s ease border-color 0.2s ease;
 
     & .thumb {
-        position: absolute;
-        top: 50%;
-        left: 3px;
         width: 20px;
         height: 20px;
         border-radius: 99px;
         background-color: var(--color-purple-500);
-        transform: translateX(0);
-        transform: translateY(-50%);
-        transition: left 0.15s ease;
+        justify-self: flex-start;
+        transition: all 0.15s ease;
     }
 
     &.toggled .thumb {
-        left: calc(50px - 25px);
         background-color: var(--color-darkgray-300);
+        justify-self: flex-end;
+        
     }
 }
