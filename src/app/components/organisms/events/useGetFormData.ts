@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { FormData } from './CreateEvent.types'
 
-import { extractTime, getDate, getGmt } from '@/helpers/dates'
+import { extractTime, getLocaleDate, getLocaleGmt } from '@/helpers/dates'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
@@ -30,11 +30,11 @@ export const useGetFormData = () => {
 
       const initValue = {
         time: extractTime(currentDate),
-        date: getDate({ timeZone: timezone }, currentDate),
+        date: getLocaleDate({ timeZone: timezone }, currentDate),
         country: countryCode,
         timezone: timezone,
         gmt:
-          getGmt(
+          getLocaleGmt(
             { timeZone: timezone, timeZoneName: 'longOffset' },
             currentDate,
           )?.replace('GMT', '') ?? 'Z',

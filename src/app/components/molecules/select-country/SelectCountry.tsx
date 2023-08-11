@@ -11,7 +11,7 @@ import styles from './SelectCountry.module.css'
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { TimeZones } from '@/types/timeZones.types'
-import { getGmt } from '@/helpers/dates'
+import { getLocaleGmt } from '@/helpers/dates'
 
 export const SelectCountry: React.FC<{
   flagList: FlagCountry[] | null
@@ -34,7 +34,7 @@ export const SelectCountry: React.FC<{
   }) => {
     const currentDate = new Date(date)
     const gmt =
-      getGmt(
+      getLocaleGmt(
         { timeZone: name, timeZoneName: 'longOffset' },
         currentDate,
       )?.replace('GMT', '') ?? 'Z'

@@ -2,11 +2,11 @@ import { DateInformation, Zone, ZoneList, EventDate } from './events.types'
 
 import {
   convertGmtToNumber,
-  getAcronym,
-  getDate,
-  getGmt,
+  getLocaleAcronym,
+  getLocaleDate,
+  getLocaleGmt,
   getRegionNames,
-  getTime,
+  getLocaleTime,
   isValidTimeZone,
 } from './dates'
 
@@ -24,10 +24,10 @@ export const getDateInformation = ({
     throw new Error(`Incompatible Time Zone: ${zone.name}`)
   }
 
-  const date = getDate(options, originDate)
-  const time = getTime(options, originDate)
-  const gmt = getGmt(options, originDate)
-  const acronym = getAcronym(options, originDate, zone.countryCode) ?? gmt
+  const date = getLocaleDate(options, originDate)
+  const time = getLocaleTime(options, originDate)
+  const gmt = getLocaleGmt(options, originDate)
+  const acronym = getLocaleAcronym(options, originDate, zone.countryCode) ?? gmt
   const offset = convertGmtToNumber(gmt ?? '')
 
   const i18n = {

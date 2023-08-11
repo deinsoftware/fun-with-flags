@@ -36,7 +36,10 @@ export const joinISODate = (date: string, time: string, gmt: string = 'Z') => {
   return new Date(isoDate).toISOString()
 }
 
-export const getDate = (options: { timeZone: TimeZones }, originDate: Date) => {
+export const getLocaleDate = (
+  options: { timeZone: TimeZones },
+  originDate: Date,
+) => {
   const date = Intl.DateTimeFormat('default', {
     ...options,
     year: 'numeric',
@@ -57,14 +60,17 @@ export const getDate = (options: { timeZone: TimeZones }, originDate: Date) => {
   )
 }
 
-export const getTime = (options: { timeZone: TimeZones }, originDate: Date) => {
+export const getLocaleTime = (
+  options: { timeZone: TimeZones },
+  originDate: Date,
+) => {
   return originDate.toLocaleTimeString('en-CA', {
     ...options,
     hour12: false,
   })
 }
 
-export const getAcronym = (
+export const getLocaleAcronym = (
   options: { timeZone: TimeZones },
   originDate: Date,
   countryCode: Countries,
@@ -82,7 +88,7 @@ export const getAcronym = (
     ?.find(({ type }) => type == 'timeZoneName')?.value
 }
 
-export const getGmt = (
+export const getLocaleGmt = (
   options: {
     timeZone: TimeZones
     timeZoneName?:
