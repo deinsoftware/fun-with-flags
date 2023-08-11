@@ -29,6 +29,30 @@
             }
         }
 
+        & input,
+        select {
+            height: 40px;
+        }
+
+        & input,
+        select,
+        textarea,
+        .time-zone {
+            border: 1.5px solid var(--color-darkgray-500);
+            border-radius: 10px;
+            background-color: var(--color-darkgray-800);
+            color: var(--color-whywhite-500);
+
+            &::placeholder {
+                color: var(--color-gray-500);
+            }
+
+            &:focus {
+                border: 1px solid transparent;
+                outline: 1px solid var(--color-purple-500);
+            }
+        }
+
         & .container-time-and-date,
         .container-time-zone-and-language {
             display: flex;
@@ -44,6 +68,11 @@
                 .time-zone {
                     width: 100%;
                 }
+
+                & .time-zone {
+                    height: 100%;
+                    cursor: pointer;
+                }
             }
 
             & .container-with-toggle {
@@ -51,39 +80,38 @@
                 flex-direction: column;
                 gap: 8px;
 
-                /* TODO: Buscar el espaciado (gap) en Figma */
-
-                & .time {
+                & .time,
+                .date {
                     width: 100%;
+
+                    &.disabled {
+                        color: transparent;
+                        cursor: not-allowed;
+                    }
                 }
 
-                & .date {
-                    width: 100%;
+                & .container-toggle {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    & .text-toggle {
+                        color: var(--color-gray-500);
+                        font-size: var(--font-size-small);
+                    }
+                }
+            }
+
+            & .container-date {
+                @media (width >= 730px) {
+                    flex-direction: row;
+                }
+
+                & .container-toggle {
+                    min-width: 120px;
                 }
             }
         }
-
-        & input,
-        select {
-            height: 40px;
-        }
-
-        & input,
-        select,
-        textarea {
-            border: 1.5px solid var(--color-darkgray-500);
-            border-radius: 10px;
-            background-color: var(--color-darkgray-800);
-            color: var(--color-whywhite-500);
-
-            &::placeholder {
-                color: var(--color-gray-500);
-            }
-
-            &:focus {
-                border: 1px solid transparent;
-                outline: 1px solid var(--color-purple-500);
-            }
-        }
+        
     }
 }

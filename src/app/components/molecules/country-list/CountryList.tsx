@@ -8,18 +8,18 @@ import TimeZones from '../../atoms/country-list/TimeZones'
 
 import styles from './CountryList.module.css'
 
+import { lucidIcons } from '@/libs/iconConfig'
+
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
-
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CountryList: React.FC<{
   flagList: FlagCountry[] | null
   onClose: Function
-}> = ({ flagList, onClose }) => {
+  handleSelect: Function
+}> = ({ flagList, onClose, handleSelect }) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
-  const { timeZones, addTimeZone } = useTimeZoneContext()
 
   useEffect(() => {
     if (!query) return setCountryList(flagList)
@@ -42,10 +42,6 @@ const CountryList: React.FC<{
     return () => clearTimeout(handler)
   }, [flagList, query])
 
-  const sizeIcon = 24
-  const colorIcon = '#454545'
-  const strokeWidthIcon = 2
-
   return (
     <>
       <div className={styles['overlay']}>
@@ -64,9 +60,9 @@ const CountryList: React.FC<{
             >
               <XCircle
                 absoluteStrokeWidth={false}
-                color={colorIcon}
-                size={sizeIcon}
-                strokeWidth={strokeWidthIcon}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </button>
           </div>
@@ -76,11 +72,11 @@ const CountryList: React.FC<{
                 <SelectTimeZone
                   key={country.countryCode}
                   {...country}
-                  addTimeZone={addTimeZone}
+                  handleSelect={handleSelect}
                 >
                   <TimeZones
-                    addTimeZone={addTimeZone}
                     countryCode={country.countryCode}
+                    handleSelect={handleSelect}
                     timeZone={country.timeZone}
                   />
                 </SelectTimeZone>

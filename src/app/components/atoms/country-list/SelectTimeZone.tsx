@@ -8,25 +8,18 @@ import { ChevronDown } from 'lucide-react'
 
 import styles from './SelectTimeZone.module.css'
 
+import { lucidIcons } from '@/libs/iconConfig'
+
 import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode } & { addTimeZone: Function }> = ({
-  id,
-  countryCode,
-  regionName,
-  timeZone,
-  addTimeZone,
-  children,
-}) => {
+const SelectTimeZone: React.FC<
+  FlagCountry & { children: ReactNode } & { handleSelect: Function }
+> = ({ id, countryCode, regionName, timeZone, handleSelect, children }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = () => {
     setIsOpen((prev) => !prev)
   }
-
-  const sizeIcon = 24
-  const colorIcon = '#454545'
-  const strokeWidthIcon = 2
 
   return (
     <>
@@ -38,7 +31,7 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode } & { addTime
           toggleIsOpen()
           {
             timeZone?.length < 2 &&
-              addTimeZone({
+              handleSelect({
                 countryCode: countryCode,
                 name: timeZone[0].zoneNames[0],
               })
@@ -61,9 +54,9 @@ const SelectTimeZone: React.FC<FlagCountry & { children: ReactNode } & { addTime
             className={`${styles['more-countries-button']} ${
               isOpen ? styles['rotated'] : ''
             }`}
-            color={colorIcon}
-            size={sizeIcon}
-            strokeWidth={strokeWidthIcon}
+            color={lucidIcons.color.dark}
+            size={lucidIcons.size}
+            strokeWidth={lucidIcons.strokeWidth}
           />
         )}
       </button>
