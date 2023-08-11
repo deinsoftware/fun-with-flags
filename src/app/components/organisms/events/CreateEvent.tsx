@@ -2,9 +2,18 @@
 
 import CookieConsent from 'react-cookie-consent'
 
-import { useState, useMemo, ChangeEvent, RefObject, useCallback } from 'react'
+import {
+  useState,
+  useMemo,
+  ChangeEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+} from 'react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
+
+import { SelectCountry } from '../../molecules/select-country/SelectCountry'
 
 import styles from './CreateEvent.module.css'
 
@@ -16,11 +25,31 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { joinISODate } from '@/helpers/dates'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones } = useTimeZoneContext()
+  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
+
+  useEffect(() => {
+    const gmt = formData.gmt
+    const timezone = formData.timezone
+    const countryCode = formData.country
+    const time = formData.time
+    const date = formData.date
+
+    if (time && date && gmt && timezone && countryCode) {
+      const originDate = joinISODate(date, time, gmt)
+      setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+    }
+  }, [
+    formData.timezone,
+    formData.country,
+    formData.date,
+    formData.time,
+    formData.gmt,
+  ])
 
   const props = useMemo(
     () => ({
@@ -74,6 +103,12 @@ const CreateEvent: React.FC = () => {
     <>
       <div className={styles['container-form']}>
         <form action="" className={styles['form']}>
+          <SelectCountry
+            countryCode={formData.country}
+            date={formData.date}
+            flagList={flagList}
+            setFormData={setFormData}
+          />
           <div className={styles['container-event-name']}>
             <input
               className={styles['event-name']}
@@ -136,7 +171,11 @@ const CreateEvent: React.FC = () => {
                 Time zone
               </button>
               {isOpenSelectTimeZone && (
-                <CountryList flagList={flagList} onClose={handleClose} />
+                <CountryList
+                  flagList={flagList}
+                  handleSelect={addTimeZone}
+                  onClose={handleClose}
+                />
               )}
             </div>
 

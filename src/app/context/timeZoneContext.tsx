@@ -4,18 +4,14 @@ import { createContext, useMemo } from 'react'
 import { useGetTimes } from './useGetTimes'
 
 import { TimeFormat, Zone } from '@/helpers/events.types'
-import { getTimezone } from '@/helpers/get-time-zone'
-import { getCountryByZone } from '@/services/timezones'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 const initialTimeZoneData: TimeZoneData = {
-  list: [
-    
-  ],
+  list: [],
   origin: {
-    countryCode: getCountryByZone(getTimezone()),
-    date: new Date().toISOString(),
-    name: getTimezone(),
+    countryCode: '',
+    name: '',
+    date: '',
   },
 }
 
@@ -23,7 +19,7 @@ export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
-  setOriginDate: (originDate: OriginDate) => void
+  setOriginDate: (zone?: Zone, originDate?: string, gmt?: string) => void
   format: TimeFormat
 }>({
   timeZones: initialTimeZoneData,
@@ -44,7 +40,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
         timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
       )
     })
-    if (index >= 0) throw new Error('Time zone already exists')
+    if (index >= 0) return
 
     setTimeZones((prev) => {
       return {
@@ -55,7 +51,6 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
         },
       }
     })
-    
   }
 
   const deleteTimeZone = (zone: Zone) => {
@@ -66,7 +61,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (index === -1 || index === undefined) {
-      throw new Error('Element not found')
+      return
     } else {
       let newTimeZonesList = structuredClone(timeZones?.list)
       newTimeZonesList?.splice(index, 1)
@@ -82,12 +77,20 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const setOriginDate = (originDate: OriginDate) => {
+  const setOriginDate = (zone?: Zone, originDate?: string, gmt?: string) => {
+    if (!zone && !originDate && !gmt) return
     setTimeZones((prev) => {
+      const origin: OriginDate = {
+        ...prev.origin,
+        ...(originDate && { date: originDate }),
+        ...(zone && { ...zone }),
+        ...(gmt && { gmt }),
+      }
+
       return {
         ...prev,
         list: [...(prev?.list ?? [])],
-        origin: originDate,
+        origin: origin,
       }
     })
   }

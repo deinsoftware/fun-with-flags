@@ -1,11 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { TimeZoneContext } from '@/app/context/timeZoneContext'
+import { FormData } from './CreateEvent.types'
+
+import { extractTime, getLocaleDate, getLocaleGmt } from '@/helpers/dates'
+import { getTimezone } from '@/helpers/get-time-zone'
+import { getCountryByZone } from '@/services/timezones'
+import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 export const useGetFormData = () => {
-  const { timeZones } = useContext(TimeZoneContext)
-
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     eventName: '',
     time: '',
     date: '',
@@ -14,14 +17,47 @@ export const useGetFormData = () => {
     eventDescription: '',
     image: '',
     combo: '',
+    country: 'CO',
+    timezone: 'America/Bogota',
+    gmt: '',
   })
-
+  const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
+    const setInitialFormData = async () => {
+      const currentDate = new Date()
+      const timezone = getTimezone()
+      const countryCode = (await getCountryByZone(timezone)) ?? 'CO'
+
+      const initValue = {
+        time: extractTime(currentDate),
+        date: getLocaleDate({ timeZone: timezone }, currentDate),
+        country: countryCode,
+        timezone: timezone,
+        gmt:
+          getLocaleGmt(
+            { timeZone: timezone, timeZoneName: 'longOffset' },
+            currentDate,
+          )?.replace('GMT', '') ?? 'Z',
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        ...initValue,
+      }))
+
+      const initialCountryCombo = {
+        countryCode,
+        name: timezone,
+      }
+      addTimeZone(initialCountryCombo)
+    }
     const getInitialFormData = () => {
       const localFormData = localStorage.getItem('form-data')
       if (localFormData) {
         const formData = JSON.parse(localFormData)
         setFormData(formData)
+      } else {
+        setInitialFormData()
       }
     }
     getInitialFormData()
@@ -33,46 +69,6 @@ export const useGetFormData = () => {
     }
     saveFormData()
   }, [formData])
-
-  useEffect(() => {
-    const originDate = timeZones.origin.date
-    const defaultDate = new Date(originDate)
-
-    const getCurrentDate = () => {
-      const year = defaultDate.getFullYear()
-      const month = defaultDate.getMonth() + 1
-      const day = defaultDate.getDate()
-
-      let monthString, dayString
-
-      if (month < 10) {
-        monthString = `0${month}`
-      }
-      if (day < 10) {
-        dayString = `0${day}`
-      }
-
-      return `${year}-${monthString}-${dayString}`
-    }
-
-    const getCurrentTime = () => {
-      const hours = defaultDate.getHours()
-      const minutes = defaultDate.getMinutes()
-
-      if (minutes < 10) return `${hours}:0${minutes}`
-
-      return `${hours}:${minutes}`
-    }
-
-    const currentDate = getCurrentDate()
-    const currentTime = getCurrentTime()
-
-    setFormData((prev) => ({
-      ...prev,
-      date: currentDate,
-      time: currentTime,
-    }))
-  }, [timeZones.origin.date])
 
   return {
     formData,

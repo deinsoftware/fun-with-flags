@@ -1,11 +1,10 @@
-import { convertGmtToNumber, getGmt } from './dates'
+import { convertGmtToNumber, getLocaleGmt } from './dates'
 
 import { FlagZone } from '@/helpers/flags.types'
 
-
 export const calcOffset = (
   timeZone: FlagZone[],
-  originDate: Date = new Date()
+  originDate: Date = new Date(),
 ) => {
   return timeZone.map((zone: FlagZone) => {
     if (zone.dst) {
@@ -13,7 +12,7 @@ export const calcOffset = (
         timeZone: zone.zoneNames[0],
       }
 
-      const gmt = getGmt(options, originDate)
+      const gmt = getLocaleGmt(options, originDate)
       const offset = convertGmtToNumber(gmt ?? '')
 
       if (offset) {
