@@ -195,7 +195,6 @@
                     width: 100%;
 
                     &.disabled {
-                        color: transparent;
                         cursor: not-allowed;
                     }
                 }
@@ -213,7 +212,7 @@
             }
 
             & .container-date {
-                @media (width >= 730px) {
+                @media (width >=730px) {
                     flex-direction: row;
                 }
 
@@ -222,6 +221,6 @@
                 }
             }
         }
-        
+
     }
 }
