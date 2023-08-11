@@ -9,7 +9,7 @@ export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
   const [dateList, setDateList] = useState<EventDate[] | undefined>([])
 
   useEffect(() => {
-    if (timeZones && 'date' in timeZones.origin) {
+    if (timeZones.origin.date) {
       const valueList: ZoneList = {
         originDate: new Date(timeZones.origin.date),
         zoneList: timeZones.list,

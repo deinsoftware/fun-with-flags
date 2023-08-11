@@ -41,7 +41,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
         timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
       )
     })
-    if (index >= 0) throw new Error('Time zone already exists')
+    if (index >= 0) return
 
     setTimeZones((prev) => {
       return {
@@ -62,7 +62,7 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (index === -1 || index === undefined) {
-      throw new Error('Element not found')
+      return
     } else {
       let newTimeZonesList = structuredClone(timeZones?.list)
       newTimeZonesList?.splice(index, 1)

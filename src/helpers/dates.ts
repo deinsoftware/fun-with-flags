@@ -59,10 +59,22 @@ export const getAcronym = (
     ?.find(({ type }) => type == 'timeZoneName')?.value
 }
 
-export const getGmt = (options: { timeZone: TimeZones }, originDate: Date) => {
+export const getGmt = (
+  options: {
+    timeZone: TimeZones
+    timeZoneName?:
+      | 'short'
+      | 'long'
+      | 'shortOffset'
+      | 'longOffset'
+      | 'shortGeneric'
+      | 'longGeneric'
+  },
+  originDate: Date,
+) => {
   return Intl.DateTimeFormat('default', {
-    ...options,
     timeZoneName: 'shortOffset',
+    ...options,
   })
     ?.formatToParts(originDate)
     ?.find(({ type }) => type == 'timeZoneName')?.value

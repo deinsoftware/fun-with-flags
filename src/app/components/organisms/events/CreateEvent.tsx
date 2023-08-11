@@ -28,7 +28,7 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones, setOriginDate } = useTimeZoneContext()
+  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
 
   useEffect(() => {
@@ -41,10 +41,13 @@ const CreateEvent: React.FC = () => {
     const countryCode = formData.country
     const time = formData.time
     const date = formData.date
-    const fullDate = `${date}T${time}${gmtTime}`
-    const originDate = new Date(fullDate).toISOString()
 
-    setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+    if (time && date && gmt && timezone && countryCode) {
+      const fullDate = `${date}T${time}${gmtTime}`
+      console.log(fullDate)
+      const originDate = new Date(fullDate).toISOString()
+      setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+    }
   }, [
     formData.timezone,
     formData.country,

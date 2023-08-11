@@ -5,6 +5,7 @@ import { FormData } from './CreateEvent.types'
 import { getDate, getGmt } from '@/helpers/dates'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
+import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
 export const useGetFormData = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -20,25 +21,35 @@ export const useGetFormData = () => {
     timezone: '',
     gmt: '',
   })
+  const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
     const setInitialFormData = async () => {
       const currentDate = new Date()
       const timezone = getTimezone()
+      const countryCode = (await getCountryByZone(timezone)) ?? 'CO'
 
       const initValue = {
         time: `${currentDate.getHours()}:${currentDate.getMinutes()}`,
         date: getDate({ timeZone: timezone }, currentDate),
-        country: (await getCountryByZone(timezone)) ?? 'CO',
+        country: countryCode,
         timezone: timezone,
         gmt:
-          getGmt({ timeZone: timezone }, currentDate)?.replace('GMT', '') ??
-          'Z',
+          getGmt(
+            { timeZone: timezone, timeZoneName: 'longOffset' },
+            currentDate,
+          )?.replace('GMT', '') ?? 'Z',
       }
 
       setFormData((prev) => ({
         ...prev,
         ...initValue,
       }))
+
+      const initialCountryCombo = {
+        countryCode,
+        name: timezone,
+      }
+      addTimeZone(initialCountryCombo)
     }
     const getInitialFormData = () => {
       const localFormData = localStorage.getItem('form-data')
