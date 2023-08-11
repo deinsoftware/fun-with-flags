@@ -16,6 +16,7 @@
         border-radius: 99px;
         background-color: var(--color-purple-500);
         justify-self: flex-start;
+
         /* transition: justify-self 0.5s ease; <- Esto no funciona */
     }
 
