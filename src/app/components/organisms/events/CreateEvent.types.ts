@@ -1,4 +1,5 @@
 import { Countries } from '@/types/countries.types'
+import { TimeZones } from '@/types/timeZones.types'
 
 export type FormData = {
   eventName: string
@@ -10,6 +11,6 @@ export type FormData = {
   image: string
   combo: string
   country: Countries
-  timezone: string
+  timezone: TimeZones
   gmt: string
 }

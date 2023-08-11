@@ -4,26 +4,49 @@ import { useState } from 'react'
 
 import CountryList from '../country-list/CountryList'
 
+import { FormData } from '../../organisms/events/CreateEvent.types'
+
 import styles from './SelectCountry.module.css'
 
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
+import { TimeZones } from '@/types/timeZones.types'
+import { getGmt } from '@/helpers/dates'
 
 export const SelectCountry: React.FC<{
   flagList: FlagCountry[] | null
   countryCode: Countries
-}> = ({ flagList, countryCode }) => {
+  date: FormData['date']
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>
+}> = ({ flagList, countryCode, date, setFormData }) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
-  const { setOriginDate } = useTimeZoneContext()
 
   const handleClose = () => {
     setVisibleSelectMenu(false)
   }
 
-  // const handleClick= (event)=>{
-  //   setOriginDate()
-  // }
+  const handleSelect = ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: TimeZones
+  }) => {
+    const currentDate = new Date(date)
+    const gmt =
+      getGmt(
+        { timeZone: name, timeZoneName: 'longOffset' },
+        currentDate,
+      )?.replace('GMT', '') ?? 'Z'
+
+    setFormData((prev) => ({
+      ...prev,
+      country: countryCode,
+      timezone: name,
+      gmt,
+    }))
+    handleClose()
+  }
 
   return (
     <div className={styles['select-country-container']}>
@@ -50,7 +73,11 @@ export const SelectCountry: React.FC<{
       </div>
 
       {visibleSelectMenu && (
-        <CountryList flagList={flagList} onClose={handleClose} />
+        <CountryList
+          flagList={flagList}
+          handleSelect={handleSelect}
+          onClose={handleClose}
+        />
       )}
     </div>
   )

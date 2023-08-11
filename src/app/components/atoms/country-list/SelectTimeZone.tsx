@@ -13,8 +13,8 @@ import { lucidIcons } from '@/libs/iconConfig'
 import { FlagCountry } from '@/helpers/flags.types'
 
 const SelectTimeZone: React.FC<
-  FlagCountry & { children: ReactNode } & { addTimeZone: Function }
-> = ({ id, countryCode, regionName, timeZone, addTimeZone, children }) => {
+  FlagCountry & { children: ReactNode } & { handleSelect: Function }
+> = ({ id, countryCode, regionName, timeZone, handleSelect, children }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = () => {
@@ -31,7 +31,7 @@ const SelectTimeZone: React.FC<
           toggleIsOpen()
           {
             timeZone?.length < 2 &&
-              addTimeZone({
+              handleSelect({
                 countryCode: countryCode,
                 name: timeZone[0].zoneNames[0],
               })

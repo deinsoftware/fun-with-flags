@@ -25,6 +25,7 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { joinISODate } from '@/helpers/dates'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -32,20 +33,14 @@ const CreateEvent: React.FC = () => {
   const { formData, setFormData } = useGetFormData()
 
   useEffect(() => {
-    const regex = /^[-Z]/
-    const gmtVerification = regex.test(formData.gmt)
     const gmt = formData.gmt
-    const gmtTime = gmtVerification ? gmt : `-${gmt}`
-
     const timezone = formData.timezone
     const countryCode = formData.country
     const time = formData.time
     const date = formData.date
 
     if (time && date && gmt && timezone && countryCode) {
-      const fullDate = `${date}T${time}${gmtTime}`
-      console.log(fullDate)
-      const originDate = new Date(fullDate).toISOString()
+      const originDate = joinISODate(date, time, gmt)
       setOriginDate({ countryCode, name: timezone }, originDate, gmt)
     }
   }, [
@@ -108,7 +103,12 @@ const CreateEvent: React.FC = () => {
     <>
       <div className={styles['container-form']}>
         <form action="" className={styles['form']}>
-          <SelectCountry countryCode={formData.country} flagList={flagList} />
+          <SelectCountry
+            countryCode={formData.country}
+            date={formData.date}
+            flagList={flagList}
+            setFormData={setFormData}
+          />
           <div className={styles['container-event-name']}>
             <input
               className={styles['event-name']}
@@ -165,7 +165,11 @@ const CreateEvent: React.FC = () => {
                 Time zone
               </button>
               {isOpenSelectTimeZone && (
-                <CountryList flagList={flagList} onClose={handleClose} />
+                <CountryList
+                  flagList={flagList}
+                  handleSelect={addTimeZone}
+                  onClose={handleClose}
+                />
               )}
             </div>
 

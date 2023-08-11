@@ -12,7 +12,6 @@ const initialTimeZoneData: TimeZoneData = {
     countryCode: '',
     name: '',
     date: '',
-    gmt: '',
   },
 }
 

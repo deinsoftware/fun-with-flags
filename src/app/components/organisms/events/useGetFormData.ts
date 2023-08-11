@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { FormData } from './CreateEvent.types'
 
-import { getDate, getGmt } from '@/helpers/dates'
+import { extractTime, getDate, getGmt } from '@/helpers/dates'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
@@ -18,7 +18,7 @@ export const useGetFormData = () => {
     image: '',
     combo: '',
     country: 'CO',
-    timezone: '',
+    timezone: 'America/Bogota',
     gmt: '',
   })
   const { addTimeZone } = useTimeZoneContext()
@@ -29,7 +29,7 @@ export const useGetFormData = () => {
       const countryCode = (await getCountryByZone(timezone)) ?? 'CO'
 
       const initValue = {
-        time: `${currentDate.getHours()}:${currentDate.getMinutes()}`,
+        time: extractTime(currentDate),
         date: getDate({ timeZone: timezone }, currentDate),
         country: countryCode,
         timezone: timezone,

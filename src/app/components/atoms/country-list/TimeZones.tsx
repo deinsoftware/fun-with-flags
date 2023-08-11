@@ -12,8 +12,8 @@ function getZoneName(zoneNames: string[]) {
 const TimeZones: React.FC<
   {
     timeZone: FlagZone[]
-  } & { addTimeZone: Function } & { countryCode: string }
-> = ({ timeZone, countryCode, addTimeZone }) => {
+  } & { handleSelect: Function } & { countryCode: string }
+> = ({ timeZone, countryCode, handleSelect }) => {
   return (
     <>
       {timeZone?.map(
@@ -27,7 +27,7 @@ const TimeZones: React.FC<
                 className={styles['mtz-item-country-container']}
                 type="button"
                 onClick={() => {
-                  addTimeZone({
+                  handleSelect({
                     countryCode: countryCode,
                     name: timeZone[index].zoneNames[0],
                   })
