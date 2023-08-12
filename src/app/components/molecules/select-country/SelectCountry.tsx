@@ -13,12 +13,17 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { TimeZones } from '@/types/timeZones.types'
 import { getLocaleGmt } from '@/helpers/dates'
 
-export const SelectCountry: React.FC<{
+export const SelectCountry = ({
+  flagList,
+  countryCode,
+  date,
+  setFormData,
+}: {
   flagList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
-}> = ({ flagList, countryCode, date, setFormData }) => {
+}) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
 
   const handleClose = () => {

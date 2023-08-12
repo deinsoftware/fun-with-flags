@@ -28,16 +28,14 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <Provider>
-        
-          <body>
-            <Header />
-            <TitleOnPage />
+        <body>
+          <Header />
+          {/* <TitleOnPage> Title </TitleOnPage> */}
 
-            {children}
+          {children}
 
-            <Footer />
-          </body>
-        
+          <Footer />
+        </body>
       </Provider>
     </html>
   )

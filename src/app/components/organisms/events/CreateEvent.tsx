@@ -11,9 +11,15 @@ import {
   useEffect,
 } from 'react'
 
+import { useSession } from 'next-auth/react'
+
 import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
+
+import { Button } from '../../atoms/ui/button/Button'
+
+import TitleOnPage from '../../atoms/ui/TitleOnPage'
 
 import styles from './CreateEvent.module.css'
 
@@ -26,12 +32,23 @@ import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { joinISODate } from '@/helpers/dates'
+import { createEvent } from '@/services/event'
+import { EventBody } from '@/types/event.types'
 
-const CreateEvent: React.FC = () => {
+const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
+  const { data: session } = useSession()
+  const [signal, setSignal] = useState<AbortSignal>()
 
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => controller.abort()
+  }, [])
   useEffect(() => {
     const gmt = formData.gmt
     const timezone = formData.timezone
@@ -41,7 +58,7 @@ const CreateEvent: React.FC = () => {
 
     if (time && date && gmt && timezone && countryCode) {
       const originDate = joinISODate(date, time, gmt)
-      setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+      setOriginDate({ countryCode, name: timezone }, originDate)
     }
   }, [
     formData.timezone,
@@ -99,9 +116,28 @@ const CreateEvent: React.FC = () => {
     [setFormData],
   )
 
+  const handleCreateEvent = async () => {
+    if (session?.user?.name) {
+      const body: EventBody = {
+        description: formData.eventDescription,
+        eventName: formData.eventName,
+        timeZone: timeZones,
+        url: formData.eventLink,
+        userName: session.user.name,
+        // tags?: string[],
+        lang: formData.language,
+      }
+      const response = await createEvent(body, signal)
+      console.log(response)
+      alert('Event created')
+    } else {
+      alert('You must be logged in to create an event')
+    }
+  }
   return (
     <>
       <div className={styles['container-form']}>
+        <TitleOnPage>Create Event</TitleOnPage>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}
@@ -181,7 +217,7 @@ const CreateEvent: React.FC = () => {
                 value={formData.language}
                 onChange={handleChangeForm}
               >
-                <option disabled value="">
+                <option disabled hidden value="">
                   Select a language
                 </option>
                 <option value="lg-1">First language</option>
@@ -202,16 +238,14 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <div className={styles['container-description']}>
-            <textarea
-              className={styles['description']}
-              id=""
-              name="eventDescription"
-              placeholder="Description"
-              value={formData.eventDescription}
-              onChange={handleChangeForm}
-            />
-          </div>
+          <textarea
+            className={styles['description']}
+            id=""
+            name="eventDescription"
+            placeholder="Description"
+            value={formData.eventDescription}
+            onChange={handleChangeForm}
+          />
 
           <div className={styles['container-upload-image']}>
             <input
@@ -226,6 +260,12 @@ const CreateEvent: React.FC = () => {
           </div>
 
           <ComboboxCountries getTextContent={handleChangeTextContent} />
+          <div className={styles['container-button']}>
+            <Button disabled={!session} handleClick={handleCreateEvent}>
+              Create
+            </Button>
+            <Button handleClick={() => {}}>Share</Button>
+          </div>
         </form>
       </div>
 

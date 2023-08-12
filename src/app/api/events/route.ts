@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server'
 
 import { Prisma } from '@prisma/client'
 
+import { getServerSession } from 'next-auth'
+
 import { prisma } from '@/libs/prisma'
+import { authOptions } from '@/libs/auth'
 
 const eventsSelect: Prisma.EventsSelect = {
   id: true,
@@ -87,6 +90,10 @@ const postHandler = async (request: Request) => {
 }
 
 const putHandler = async (request: Request) => {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
+  }
   try {
     const { userName, ...rest } = (await request.json()) || {}
     const data: Prisma.EventsCreateInput = {
@@ -119,6 +126,10 @@ const putHandler = async (request: Request) => {
 }
 
 const patchHandler = async (request: Request) => {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
+  }
   try {
     const { id, ...rest } = (await request.json()) || {}
     const data: Prisma.EventsUpdateInput = {
@@ -144,6 +155,10 @@ const patchHandler = async (request: Request) => {
 }
 
 const delHandler = async (request: Request) => {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
+  }
   try {
     const { id } = (await request.json()) || {}
     if (!id) {

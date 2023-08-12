@@ -75,6 +75,7 @@
   --color-btn-google: #4285F4;
   --color-btn-google-hover: #3d7de4;
   --color-btn-google-active: #3367d6;
+  --padding: 20px 12px;
 }
 
 body {
@@ -85,4 +86,11 @@ body {
     background: var(--color-purple-800);
     color: var(--color-whywhite-500);
   }
+}
+
+@media screen and (width > 768px) {
+  :root {
+    --padding: 20px 40px;
+  }
+  
 }
