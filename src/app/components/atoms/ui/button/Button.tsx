@@ -10,6 +10,7 @@ export const Button = ({
   handleClick,
   avatar,
   disabled,
+  color,
   children,
 }: {
   handleClick: Function
@@ -18,12 +19,14 @@ export const Button = ({
     img?: string | null
   }
   disabled?: boolean
+  color?: `--${string}-${string}-${string}`
   children: React.JSX.Element | string
 }) => {
   return (
     <button
       className={styles['button']}
       disabled={disabled}
+      style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
       onClick={(event) => {
         event.preventDefault()
         handleClick(event)
