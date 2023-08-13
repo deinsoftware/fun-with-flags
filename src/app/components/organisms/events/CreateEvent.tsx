@@ -128,12 +128,13 @@ const CreateEvent = () => {
         lang: formData.language,
       }
       const response = await createEvent(body, signal)
-      if (response.error) {
+      if (typeof response !== 'string') {
         alert(response.message)
         return
       }
-      alert('Event created')
+      alert(response)
     } else {
+      alert('You must be logged in to create an event')
       return
     }
   }

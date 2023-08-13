@@ -5,7 +5,7 @@ const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 export async function createEvent(
   { description, eventName, timeZone, url, userName, tags, lang }: EventBody,
   signal?: AbortSignal,
-): Promise<any> {
+) {
   const headers = new Headers()
   headers.append('Content-Type', 'application/json')
 
