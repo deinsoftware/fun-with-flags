@@ -15,6 +15,8 @@ import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
 
+import SelectTime from '../../molecules/select-time/SelectTime'
+
 import styles from './CreateEvent.module.css'
 
 import useFetch from './useFetch'
@@ -58,7 +60,7 @@ const CreateEvent: React.FC = () => {
     }),
     [timeZones.origin.date],
   )
-  const flagList = useFetch(props)
+  const { data: flagList, loading, error } = useFetch(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -134,6 +136,8 @@ const CreateEvent: React.FC = () => {
                   value={formData.time}
                   onChange={handleChangeForm}
                 />
+
+                <SelectTime />
               </div>
             </div>
 
@@ -174,6 +178,7 @@ const CreateEvent: React.FC = () => {
                 <CountryList
                   flagList={flagList}
                   handleSelect={addTimeZone}
+                  loading={loading}
                   onClose={handleClose}
                 />
               )}
