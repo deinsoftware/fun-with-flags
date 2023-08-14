@@ -1,0 +1,25 @@
+.select-time {
+    position: relative;
+    height: 40px;
+    border: 1.5px solid var(--color-darkgray-500);
+    border-radius: 10px;
+    background-color: var(--color-darkgray-800);
+    color: var(--color-whywhite-500);
+    cursor: pointer;
+
+    &:focus {
+        border: 1px solid transparent;
+        outline: 1px solid var(--color-purple-500);
+    }
+}
+
+& .container-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    & .text-toggle {
+        color: var(--color-gray-500);
+        font-size: var(--font-size-small);
+    }
+}
