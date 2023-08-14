@@ -1,0 +1,4 @@
+.container-loader {
+    display: grid;
+    place-content: center;
+}
