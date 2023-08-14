@@ -6,6 +6,8 @@ import { XCircle } from 'lucide-react'
 
 import TimeZones from '../../atoms/country-list/TimeZones'
 
+import Loading from '../../atoms/util/loading/Loading'
+
 import styles from './CountryList.module.css'
 
 import { lucidIcons } from '@/libs/iconConfig'
@@ -17,7 +19,7 @@ const CountryList: React.FC<{
   flagList: FlagCountry[] | null
   onClose: Function
   handleSelect: Function
-}> = ({ flagList, onClose, handleSelect }) => {
+}> = ({ flagList, onClose, handleSelect, loading }) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
 
@@ -67,6 +69,7 @@ const CountryList: React.FC<{
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
+            {!loading && <Loading />}
             {countryList?.map((country) => {
               return (
                 <SelectTimeZone
