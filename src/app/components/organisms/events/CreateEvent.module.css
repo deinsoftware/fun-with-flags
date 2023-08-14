@@ -119,12 +119,12 @@
 
 
             & .container-date {
-                @media (width >= 730px) {
+                @media (width >=730px) {
                     flex-direction: row;
                 }
 
                 &::after {
-                    @media (width >= 730px) {
+                    @media (width >=730px) {
                         /* 120px = min-height container-toggle */
                         /* 8px = gap between input and toggle-container */
                         /* 12px = space to center it */
@@ -138,14 +138,23 @@
             }
         }
 
-        & input,
-        select {
+
+        & .event-name,
+        .time,
+        .date,
+        .hyperlink,
+        .upload-image,
+        .language {
             height: 40px;
         }
 
-        & input,
-        select,
-        textarea,
+        & .event-name,
+        .time,
+        .date,
+        .hyperlink,
+        .upload-image,
+        .language,
+        .description,
         .time-zone {
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
@@ -160,6 +169,7 @@
                 border: 1px solid transparent;
                 outline: 1px solid var(--color-purple-500);
             }
+
         }
 
         & .container-time-and-date,
