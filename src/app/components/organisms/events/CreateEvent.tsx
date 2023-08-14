@@ -27,7 +27,7 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { joinISODate } from '@/helpers/dates'
+import { extractDate, joinISODate } from '@/helpers/dates'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -100,6 +100,16 @@ const CreateEvent: React.FC = () => {
     },
     [setFormData],
   )
+
+  // Set current Date on disabled DateInput
+  useEffect(() => {
+    if (dateDisabled) {
+      setFormData({
+        ...formData,
+        date: extractDate(new Date()),
+      })
+    }
+  }, [dateDisabled])
 
   return (
     <>
