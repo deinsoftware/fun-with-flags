@@ -1,18 +1,14 @@
-'use client'
-
 import { ChevronUp, ChevronDown } from 'lucide-react'
 
 import { useEffect, useState } from 'react'
 
-import styles from './TimePicker12H.module.css'
+import styles from './TimePicker.module.css'
 
-// import { formatTime } from "./TimePickerUtils";
+import { lucidIconsTimePicker } from '@/libs/iconConfig'
 
-const TimePicker12H = () => {
-  const iconSize = 22
-  const iconColor = '#FEFEFE'
+const TimePicker = ({is12H}) => {
 
-  const [hours, setHours] = useState(0)
+  const [hours, setHours] = useState(1)
   const [minutes, setMinutes] = useState(0)
 
   const [time, setTime] = useState('')
@@ -22,6 +18,7 @@ const TimePicker12H = () => {
     let formattedHours = hours
     let formattedMinutes = minutes
 
+    // usar padStart (?)
     if (hours < 10) {
       formattedHours = `0${hours}`
     }
@@ -174,24 +171,29 @@ const TimePicker12H = () => {
               type="button"
               onClick={handleIncrementHours}
             >
-              <ChevronUp color={iconColor} size={iconSize} />
+              <ChevronUp
+                color={lucidIconsTimePicker.color.dark}
+                size={lucidIconsTimePicker.size}
+              />
             </button>
             <input
               className={styles['input-hours']}
+              max={23}
+              min={1}
               type="number"
               value={hours}
               onChange={handleHoursChange}
               onWheel={onHoursWheel}
-              min={1}
-              // max={isPM ? 12 : 24}
-              max={12}
             />
             <button
               className={styles['decrease-hours-button']}
               type="button"
               onClick={handleDecreaseHours}
             >
-              <ChevronDown color={iconColor} size={iconSize} />
+              <ChevronDown
+                color={lucidIconsTimePicker.color.dark}
+                size={lucidIconsTimePicker.size}
+              />
             </button>
           </div>
           <div className={styles['container-minutes']}>
@@ -200,7 +202,10 @@ const TimePicker12H = () => {
               type="button"
               onClick={handleIncrementMinutes}
             >
-              <ChevronUp color={iconColor} size={iconSize} />
+              <ChevronUp
+                color={lucidIconsTimePicker.color.dark}
+                size={lucidIconsTimePicker.size}
+              />
             </button>
             <input
               className={styles['input-minutes']}
@@ -216,26 +221,27 @@ const TimePicker12H = () => {
               type="button"
               onClick={handleDecreaseMinutes}
             >
-              <ChevronDown color={iconColor} size={iconSize} />
+              <ChevronDown
+                color={lucidIconsTimePicker.color.dark}
+                size={lucidIconsTimePicker.size}
+              />
             </button>
           </div>
         </div>
-        <div className={styles['container-am-pm']}>
-          <button className={styles['am']} type="button">
-            AM
-          </button>
-          <button className={styles['pm']} type="button">
-            PM
-          </button>
-        </div>
-        <div className={styles['container-ok']}>
-          <button className={styles['ok']} type="button">
-            OK
-          </button>
-        </div>
+        {/* 12H Format */}
+        {is12H && (
+          <div className={styles['container-am-pm']}>
+            <button className={styles['am']} type="button">
+              AM
+            </button>
+            <button className={styles['pm']} type="button">
+              PM
+            </button>
+          </div>
+        )}
       </div>
     </>
   )
 }
 
-export default TimePicker12H
+export default TimePicker
