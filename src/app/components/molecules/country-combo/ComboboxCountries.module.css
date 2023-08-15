@@ -1,14 +1,13 @@
 .countries-container {
     display: grid;
     min-height: 80px;
-    align-items: center;
     padding: 1rem;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
     background-color: var(--color-darkgray-800);
     color: var(--color-whywhite-500);
-    gap: 1rem;
     grid-template-columns: 1fr auto;
+    grid-template-rows: 0 auto;
     line-height: 1.8;
 
     &::placeholder {
