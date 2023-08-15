@@ -1,7 +1,8 @@
 .select-country-container {
     display: grid;
-    width: 7rem;
+    width: 8rem;
     height: 40px;
+    padding: 1rem;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
     background-color: var(--color-darkgray-800);

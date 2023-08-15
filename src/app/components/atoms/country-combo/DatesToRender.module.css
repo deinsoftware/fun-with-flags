@@ -1,3 +1,9 @@
+.container {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    
+}
+
 .countries {
     display: flex;
     flex-wrap: wrap;

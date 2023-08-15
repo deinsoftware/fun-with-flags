@@ -1,5 +1,7 @@
 'use client'
 
+import toast from 'react-hot-toast'
+
 import CookieConsent from 'react-cookie-consent'
 
 import {
@@ -11,9 +13,15 @@ import {
   useEffect,
 } from 'react'
 
+import { useSession } from 'next-auth/react'
+
 import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
+
+import { Button } from '../../atoms/ui/button/Button'
+
+import TitleOnPage from '../../atoms/ui/TitleOnPage'
 
 import styles from './CreateEvent.module.css'
 
@@ -26,12 +34,24 @@ import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { joinISODate } from '@/helpers/dates'
+import { createEvent } from '@/services/event'
+import { EventBody } from '@/types/event.types'
+import { ToastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
-const CreateEvent: React.FC = () => {
+const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
+  const { data: session } = useSession()
+  const [signal, setSignal] = useState<AbortSignal>()
 
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => controller.abort()
+  }, [])
   useEffect(() => {
     const gmt = formData.gmt
     const timezone = formData.timezone
@@ -41,7 +61,7 @@ const CreateEvent: React.FC = () => {
 
     if (time && date && gmt && timezone && countryCode) {
       const originDate = joinISODate(date, time, gmt)
-      setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+      setOriginDate({ countryCode, name: timezone }, originDate)
     }
   }, [
     formData.timezone,
@@ -99,9 +119,38 @@ const CreateEvent: React.FC = () => {
     [setFormData],
   )
 
+  const handleCreateEvent = async () => {
+    if (session?.user?.name) {
+      const body: EventBody = {
+        description: formData.eventDescription,
+        eventName: formData.eventName,
+        timeZone: timeZones,
+        url: formData.eventLink,
+        userName: session.user.name,
+        // tags?: string[],
+        lang: formData.language,
+      }
+      const response = await createEvent(body, signal)
+      if (typeof response !== 'string') {
+        toast.error(response.message, {
+          style: toastStyle,
+        })
+        return
+      }
+      toast.success(response, {
+        style: toastStyle,
+        iconTheme: ToastIconTheme,
+      })
+    } else {
+      toast.error('You must be logged in to create an event', {
+        style: toastStyle,
+      })
+    }
+  }
   return (
     <>
       <div className={styles['container-form']}>
+        <TitleOnPage>Create Event</TitleOnPage>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}
@@ -156,23 +205,6 @@ const CreateEvent: React.FC = () => {
           </div>
 
           <div className={styles['container-time-zone-and-language']}>
-            <div className={styles['container-time-zone']}>
-              <button
-                className={styles['time-zone']}
-                type="button"
-                onClick={() => setIsOpenSelectTimeZone(true)}
-              >
-                Time zone
-              </button>
-              {isOpenSelectTimeZone && (
-                <CountryList
-                  flagList={flagList}
-                  handleSelect={addTimeZone}
-                  onClose={handleClose}
-                />
-              )}
-            </div>
-
             <div className={styles['container-language']}>
               <select
                 className={styles['language']}
@@ -181,7 +213,7 @@ const CreateEvent: React.FC = () => {
                 value={formData.language}
                 onChange={handleChangeForm}
               >
-                <option disabled value="">
+                <option disabled hidden value="default">
                   Select a language
                 </option>
                 <option value="lg-1">First language</option>
@@ -202,16 +234,14 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <div className={styles['container-description']}>
-            <textarea
-              className={styles['description']}
-              id=""
-              name="eventDescription"
-              placeholder="Description"
-              value={formData.eventDescription}
-              onChange={handleChangeForm}
-            />
-          </div>
+          <textarea
+            className={styles['description']}
+            id=""
+            name="eventDescription"
+            placeholder="Description"
+            value={formData.eventDescription}
+            onChange={handleChangeForm}
+          />
 
           <div className={styles['container-upload-image']}>
             <input
@@ -225,10 +255,27 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries getTextContent={handleChangeTextContent} />
+          <ComboboxCountries
+            getTextContent={handleChangeTextContent}
+            handleAddCountry={setIsOpenSelectTimeZone}
+          />
+
+          <div className={styles['container-button']}>
+            <Button disabled={!session} handleClick={handleCreateEvent}>
+              Create
+            </Button>
+            <Button handleClick={() => {}}>Share</Button>
+          </div>
         </form>
       </div>
-
+      {isOpenSelectTimeZone && (
+        <CountryList
+          flagList={flagList}
+          handleSelect={addTimeZone}
+          onClose={handleClose}
+        />
+      )}
+      <div id="country-list-modal" />
       <CookieConsent
         buttonStyle={{
           color: '#F9FBFC',
@@ -250,7 +297,9 @@ const CreateEvent: React.FC = () => {
         location="top" // Ubicación - top, bottom
         style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
         onDecline={() => {
-          alert('Ni modo, no puedes crear el evento entonces...')
+          toast('Remember that this website needs cookies to create an event', {
+            style: toastStyle,
+          })
         }}
       >
         This website uses cookies to enhance the user experience.

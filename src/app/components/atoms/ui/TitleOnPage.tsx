@@ -1,9 +1,9 @@
 import styles from './TitleOnPage.module.css'
 
-const TitleOnPage = () => {
+const TitleOnPage = ({ children }: { children: string }) => {
   return (
     <>
-      <h1 className={styles['title']}>Title</h1>
+      <h1 className={styles['title']}>{children}</h1>
     </>
   )
 }
