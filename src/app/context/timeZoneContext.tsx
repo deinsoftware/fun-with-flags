@@ -32,7 +32,7 @@ export const TimeZoneContext = createContext<{
 export function TimeZoneProvider({
   children,
 }: {
-  children: React.JSX.Element
+  children: React.ReactNode
 }) {
   const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
     initialTimeZoneData,

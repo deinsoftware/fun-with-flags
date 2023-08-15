@@ -20,7 +20,7 @@ export const Button = ({
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
-  children: React.JSX.Element | string
+  children: React.ReactNode
 }) => {
   return (
     <button
