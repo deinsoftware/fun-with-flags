@@ -156,7 +156,7 @@ const TimePicker = ({ is12H }) => {
   }
 
   // this is not a console.log 🐱‍👤
-  console.log(`${time} | PM = ${isPm}`)
+  console.log(`${time} | PM = ${isPm} | AM = ${!isPm}`)
 
   return (
     <>

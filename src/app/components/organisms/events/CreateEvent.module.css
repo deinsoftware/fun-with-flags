@@ -53,14 +53,12 @@
             }
 
             & .container-with-toggle {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
 
-                position: relative;
-
                 & .time {
-
                     /* * Removing default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         display: none;
@@ -68,13 +66,13 @@
                 }
 
                 & .select-time {
-                    border: none;
-                    cursor: pointer;
-                    background-color: transparent;
-                    width: 60px;
-                    height: 40px;
                     position: absolute;
                     right: 0;
+                    width: 60px;
+                    height: 40px;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
                 }
 
                 & .date {
