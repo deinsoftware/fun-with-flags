@@ -1,5 +1,7 @@
 'use client'
 
+import toast from 'react-hot-toast'
+
 import CookieConsent from 'react-cookie-consent'
 
 import {
@@ -34,6 +36,7 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { joinISODate } from '@/helpers/dates'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
+import { ToastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -129,13 +132,19 @@ const CreateEvent = () => {
       }
       const response = await createEvent(body, signal)
       if (typeof response !== 'string') {
-        alert(response.message)
+        toast.error(response.message, {
+          style: toastStyle,
+        })
         return
       }
-      alert(response)
+      toast.success(response, {
+        style: toastStyle,
+        iconTheme: ToastIconTheme,
+      })
     } else {
-      alert('You must be logged in to create an event')
-      return
+      toast.error('You must be logged in to create an event', {
+        style: toastStyle,
+      })
     }
   }
   return (
@@ -288,7 +297,9 @@ const CreateEvent = () => {
         location="top" // Ubicación - top, bottom
         style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
         onDecline={() => {
-          alert('Ni modo, no puedes crear el evento entonces...')
+          toast('Remember that this website needs cookies to create an event', {
+            style: toastStyle,
+          })
         }}
       >
         This website uses cookies to enhance the user experience.
