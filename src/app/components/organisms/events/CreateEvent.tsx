@@ -196,23 +196,6 @@ const CreateEvent = () => {
           </div>
 
           <div className={styles['container-time-zone-and-language']}>
-            <div className={styles['container-time-zone']}>
-              <button
-                className={styles['time-zone']}
-                type="button"
-                onClick={() => setIsOpenSelectTimeZone(true)}
-              >
-                Time zone
-              </button>
-              {isOpenSelectTimeZone && (
-                <CountryList
-                  flagList={flagList}
-                  handleSelect={addTimeZone}
-                  onClose={handleClose}
-                />
-              )}
-            </div>
-
             <div className={styles['container-language']}>
               <select
                 className={styles['language']}
@@ -263,7 +246,11 @@ const CreateEvent = () => {
             />
           </div>
 
-          <ComboboxCountries getTextContent={handleChangeTextContent} />
+          <ComboboxCountries
+            getTextContent={handleChangeTextContent}
+            handleAddCountry={setIsOpenSelectTimeZone}
+          />
+
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
@@ -272,7 +259,14 @@ const CreateEvent = () => {
           </div>
         </form>
       </div>
-
+      {isOpenSelectTimeZone && (
+        <CountryList
+          flagList={flagList}
+          handleSelect={addTimeZone}
+          onClose={handleClose}
+        />
+      )}
+      <div id="country-list-modal" />
       <CookieConsent
         buttonStyle={{
           color: '#F9FBFC',

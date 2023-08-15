@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 
 import { XCircle } from 'lucide-react'
 
+import { createPortal } from 'react-dom'
+
 import TimeZones from '../../atoms/country-list/TimeZones'
 
 import styles from './CountryList.module.css'
@@ -44,47 +46,50 @@ const CountryList: React.FC<{
 
   return (
     <>
-      <div className={styles['overlay']}>
-        <div className={styles['container-list-with-search']}>
-          <div className={styles['search-bar-container']}>
-            <input
-              className={styles['search-bar']}
-              placeholder={`Search by country code or name`}
-              type="text"
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            <button
-              className={styles['close-modal']}
-              type="button"
-              onClick={() => onClose()}
-            >
-              <XCircle
-                absoluteStrokeWidth={false}
-                color={lucidIcons.color.dark}
-                size={lucidIcons.size}
-                strokeWidth={lucidIcons.strokeWidth}
+      {createPortal(
+        <div className={styles['overlay']}>
+          <div className={styles['container-list-with-search']}>
+            <div className={styles['search-bar-container']}>
+              <input
+                className={styles['search-bar']}
+                placeholder={`Search by country code or name`}
+                type="text"
+                onChange={(event) => setQuery(event.target.value)}
               />
-            </button>
-          </div>
-          <div className={styles['container-list-of-countries']}>
-            {countryList?.map((country) => {
-              return (
-                <SelectTimeZone
-                  key={country.countryCode}
-                  {...country}
-                  handleSelect={handleSelect}
-                >
-                  <TimeZones
-                    countryCode={country.countryCode}
+              <button
+                className={styles['close-modal']}
+                type="button"
+                onClick={() => onClose()}
+              >
+                <XCircle
+                  absoluteStrokeWidth={false}
+                  color={lucidIcons.color.dark}
+                  size={lucidIcons.size}
+                  strokeWidth={lucidIcons.strokeWidth}
+                />
+              </button>
+            </div>
+            <div className={styles['container-list-of-countries']}>
+              {countryList?.map((country) => {
+                return (
+                  <SelectTimeZone
+                    key={country.countryCode}
+                    {...country}
                     handleSelect={handleSelect}
-                    timeZone={country.timeZone}
-                  />
-                </SelectTimeZone>
-              )
-            })}
+                  >
+                    <TimeZones
+                      countryCode={country.countryCode}
+                      handleSelect={handleSelect}
+                      timeZone={country.timeZone}
+                    />
+                  </SelectTimeZone>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </div>
+        </div>,
+        document.getElementById('country-list-modal') as HTMLDivElement,
+      )}
     </>
   )
 }
