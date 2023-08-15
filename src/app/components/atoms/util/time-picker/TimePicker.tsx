@@ -7,20 +7,33 @@ import styles from './TimePicker.module.css'
 import { lucidIconsTimePicker } from '@/libs/iconConfig'
 
 const TimePicker = ({ is12H }) => {
-  const [hours, setHours] = useState(1)
+  const [hours, setHours] = useState(is12H ? 1 : 0)
   const [minutes, setMinutes] = useState(0)
 
   const [time, setTime] = useState('')
 
+  const [isPm, setIsPm] = useState(false)
+
   // Set HOURS values, changed by events
   const handleHoursChange = (newHours) => {
-    newHours = Math.min(12, Math.max(1, newHours))
+    if (is12H) {
+      newHours = Math.min(12, Math.max(1, newHours))
+    }
+    newHours = Math.min(23, Math.max(0, newHours))
+
     setHours(newHours)
   }
   // EVENT - Scroll mouse function
   const onHoursWheel = (event) => {
     let newHours = hours
-    if (event.deltaY < 0) {
+    if (is12H) {
+      if (event.deltaY < 0) {
+        newHours++ // Scroll up
+      } else {
+        newHours-- // Scroll down
+      }
+    }
+    if (event.deltaY <= 0) {
       newHours++ // Scroll up
     } else {
       newHours-- // Scroll down
@@ -57,7 +70,10 @@ const TimePicker = ({ is12H }) => {
   // Increment/Decrement Hours/Minutes by buttons
   const incrementHours = () => {
     setHours((prev) => {
-      if (prev < 12) {
+      if (!is12H && prev < 12) {
+        return prev + 1
+      }
+      if (is12H && prev < 12) {
         return prev + 1
       }
       return prev
@@ -65,6 +81,11 @@ const TimePicker = ({ is12H }) => {
   }
   const decreaseHours = () => {
     setHours((prev) => {
+      if (!is12H) {
+        if (prev >= 1) {
+          return prev - 1
+        }
+      }
       if (prev > 1) {
         return prev - 1
       }
@@ -109,18 +130,32 @@ const TimePicker = ({ is12H }) => {
   }
 
   // Set required timeFormat HH:mm
-  const setRequiredTimeFormat = (hours, minutes) => {
-    const formattedHours = hours.toString().padStart(2, '0')
+  const setRequiredTimeFormat = (hours, minutes, is12H) => {
     const formattedMinutes = minutes.toString().padStart(2, '0')
-
+    let formattedHours
+    if (is12H && isPm) {
+      formattedHours = (hours + 12).toString().padStart(2, '0')
+      if (hours === 12) {
+        formattedHours = '12'
+      }
+    } else {
+      formattedHours = hours.toString().padStart(2, '0')
+    }
     setTime(`${formattedHours}:${formattedMinutes}`)
   }
   useEffect(() => {
-    setRequiredTimeFormat(hours, minutes)
+    setRequiredTimeFormat(is12H, hours, minutes)
   }, [hours, minutes])
 
+  const setTruePm = () => {
+    setIsPm(true)
+  }
+  const setFalsePm = () => {
+    setIsPm(false)
+  }
+
   // this is not a console.log 🐱‍👤
-  console.log(time)
+  console.log(`${time} | PM = ${isPm}`)
 
   return (
     <>
@@ -140,7 +175,7 @@ const TimePicker = ({ is12H }) => {
             <input
               className={styles['input-hours']}
               max={23}
-              min={1}
+              min={0}
               type="number"
               value={hours}
               onChange={onHoursChange}
@@ -192,10 +227,10 @@ const TimePicker = ({ is12H }) => {
         {/* 12H Format */}
         {is12H && (
           <div className={styles['container-am-pm']}>
-            <button className={styles['am']} type="button">
+            <button className={styles['am']} type="button" onClick={setFalsePm}>
               AM
             </button>
-            <button className={styles['pm']} type="button">
+            <button className={styles['pm']} type="button" onClick={setTruePm}>
               PM
             </button>
           </div>
