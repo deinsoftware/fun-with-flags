@@ -11,11 +11,15 @@ import {
   useEffect,
 } from 'react'
 
+import { Clock3 } from 'lucide-react'
+
 import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
 
 import SelectTime from '../../molecules/select-time/SelectTime'
+
+import TimePicker from '../../atoms/util/time-picker/TimePicker'
 
 import styles from './CreateEvent.module.css'
 
@@ -27,7 +31,8 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { extractDate, joinISODate } from '@/helpers/dates'
+import { getLocaleDate, joinISODate } from '@/helpers/dates'
+import { lucidIcons } from '@/libs/iconConfig'
 
 const CreateEvent: React.FC = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -68,8 +73,8 @@ const CreateEvent: React.FC = () => {
 
   const [dateDisabled, setDateDisabled] = useState(false)
 
-  const handleDateToggle = (disabled: boolean) => {
-    setDateDisabled(disabled)
+  const handleDateToggle = () => {
+    setDateDisabled((prev) => !prev)
   }
 
   const handleChangeForm = (
@@ -104,12 +109,20 @@ const CreateEvent: React.FC = () => {
   // Set current Date on disabled DateInput
   useEffect(() => {
     if (dateDisabled) {
-      setFormData({
-        ...formData,
-        date: extractDate(new Date()),
-      })
+      const currentDate = getLocaleDate(
+        { timeZone: formData.timezone },
+        new Date(),
+      )
+      console.table({ currentDate })
+      setFormData((prev) => ({
+        ...prev,
+        date: currentDate,
+      }))
     }
   }, [dateDisabled])
+
+  const [showTimePicker, setShowTimePicker] = useState(false)
+  const [is12H, setIs12H] = useState(false)
 
   return (
     <>
@@ -147,7 +160,23 @@ const CreateEvent: React.FC = () => {
                   onChange={handleChangeForm}
                 />
 
-                <SelectTime />
+                <button
+                  className={styles['select-time']}
+                  type="button"
+                  onClick={() => setShowTimePicker(!showTimePicker)}
+                >
+                  <Clock3
+                    color={lucidIcons.color.main}
+                    size={lucidIcons.size}
+                  />
+                </button>
+
+                {showTimePicker && <TimePicker is12H={is12H} />}
+
+                <div className={styles['container-toggle']}>
+                  <Toggle onToggle={setIs12H} />
+                  <span className={styles['text-toggle']}>24H</span>
+                </div>
               </div>
             </div>
 

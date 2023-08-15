@@ -57,12 +57,31 @@
                 flex-direction: column;
                 gap: 8px;
 
-                & .time,
-                .date {
+                position: relative;
+
+                & .time {
+
+                    /* * Removing default icon in browsers * */
+                    &::-webkit-calendar-picker-indicator {
+                        display: none;
+                    }
+                }
+
+                & .select-time {
+                    border: none;
+                    cursor: pointer;
+                    background-color: transparent;
+                    width: 60px;
+                    height: 40px;
+                    position: absolute;
+                    right: 0;
+                }
+
+                & .date {
                     position: relative;
                     width: 100%;
 
-                    /* * Hiding default icons in browsers * */
+                    /* * Hiding default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         width: 60px;
                         opacity: 0;
@@ -90,8 +109,7 @@
                 }
             }
 
-            & .container-time,
-            .container-date {
+            & .container-date {
                 position: relative;
 
                 &::after {
@@ -107,10 +125,6 @@
                     content: '';
                     pointer-events: none;
                 }
-            }
-
-            & .container-time::after {
-                background-image: url("./time.svg");
             }
 
             & .container-date::after {
