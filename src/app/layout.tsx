@@ -30,10 +30,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Provider>
         <body>
           <Header />
-          {/* <TitleOnPage> Title </TitleOnPage> */}
-
           {children}
-
           <Footer />
         </body>
       </Provider>

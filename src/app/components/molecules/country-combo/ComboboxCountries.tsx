@@ -29,6 +29,9 @@ const ComboboxCountries = ({
           getTextContent={getTextContent}
         />
       )}
+      <div className={style['add-button']}>
+        <button onClick={(event) => event.preventDefault()}>Add</button>
+      </div>
     </div>
   )
 }

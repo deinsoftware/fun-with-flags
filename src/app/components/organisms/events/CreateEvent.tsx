@@ -221,7 +221,7 @@ const CreateEvent = () => {
                 value={formData.language}
                 onChange={handleChangeForm}
               >
-                <option disabled hidden value="">
+                <option disabled hidden value="default">
                   Select a language
                 </option>
                 <option value="lg-1">First language</option>

@@ -74,7 +74,11 @@ export const DatesToRender = ({
       })
 
       return (
-        <div key={self.crypto.randomUUID()} ref={ref}>
+        <div
+          key={self.crypto.randomUUID()}
+          ref={ref}
+          className={style['container']}
+        >
           <p>
             <strong>{date}</strong>
           </p>
