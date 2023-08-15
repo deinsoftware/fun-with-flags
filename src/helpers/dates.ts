@@ -32,8 +32,13 @@ export const extractTime = (date: Date) => {
 }
 
 export const joinISODate = (date: string, time: string, gmt: string = 'Z') => {
-  const isoDate = `${date}T${time}${gmt}`
-  return new Date(isoDate).toISOString()
+  try {
+    const isoDate = `${date}T${time}${gmt}`
+    return new Date(isoDate).toISOString()
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message)
+    return ''
+  }
 }
 
 export const getLocaleDate = (
