@@ -6,36 +6,55 @@ import styles from './TimePicker.module.css'
 
 import { lucidIconsTimePicker } from '@/libs/iconConfig'
 
-const TimePicker = ({is12H}) => {
-
+const TimePicker = ({ is12H }) => {
   const [hours, setHours] = useState(1)
   const [minutes, setMinutes] = useState(0)
 
   const [time, setTime] = useState('')
 
-  //! FormatTime HH:mm !//
-  const formatTime = (hours, minutes) => {
-    let formattedHours = hours
-    let formattedMinutes = minutes
-
-    // usar padStart (?)
-    if (hours < 10) {
-      formattedHours = `0${hours}`
+  // Set HOURS values, changed by events
+  const handleHoursChange = (newHours) => {
+    newHours = Math.min(12, Math.max(1, newHours))
+    setHours(newHours)
+  }
+  // EVENT - Scroll mouse function
+  const onHoursWheel = (event) => {
+    let newHours = hours
+    if (event.deltaY < 0) {
+      newHours++ // Scroll up
+    } else {
+      newHours-- // Scroll down
     }
-    if (minutes < 10) {
-      formattedMinutes = `0${minutes}`
-    }
-
-    setTime(`${formattedHours}:${formattedMinutes}`)
+    handleHoursChange(newHours)
+  }
+  // EVENT - Keyboard function
+  const onHoursChange = (event) => {
+    let newHours = parseInt(event.target.value)
+    handleHoursChange(newHours)
   }
 
-  useEffect(() => {
-    formatTime(hours, minutes)
-  }, [hours, minutes])
+  // Set MINUTES values, changed by events
+  const handleMinutesChange = (newMinutes) => {
+    newMinutes = Math.min(59, Math.max(0, newMinutes))
+    setMinutes(newMinutes)
+  }
+  // EVENT - Scroll mouse function
+  const onMinutesWheel = (event) => {
+    let newMinutes = minutes
+    if (event.deltaY < 0) {
+      newMinutes++ // Scroll up
+    } else {
+      newMinutes-- // Scroll down
+    }
+    handleMinutesChange(newMinutes)
+  }
+  // EVENT - Keyboard function
+  const onMinutesChange = (event) => {
+    let newMinutes = parseInt(event.target.value)
+    handleMinutesChange(newMinutes)
+  }
 
-  console.log(time)
-
-  //! Functions for the hours ⬇⬇⬇ !//
+  // Increment/Decrement Hours/Minutes by buttons
   const incrementHours = () => {
     setHours((prev) => {
       if (prev < 12) {
@@ -52,36 +71,6 @@ const TimePicker = ({is12H}) => {
       return prev
     })
   }
-
-  // Scroll mouse function
-  const onHoursWheel = (e) => {
-    let newHours = hours
-
-    if (e.deltaY < 0) {
-      // Scroll up
-      newHours++
-    } else {
-      // Scroll down
-      newHours--
-    }
-
-    // Validación de límites
-    newHours = Math.min(12, Math.max(1, newHours))
-
-    setHours(newHours)
-  }
-
-  // Keyboard function
-  const onHoursChange = (e) => {
-    let newHours = parseInt(e.target.value)
-
-    newHours = Math.min(12, Math.max(1, newHours))
-
-    setHours(newHours)
-  }
-  //! Functions for the hours ⬆⬆⬆ !//
-
-  //! Functions for the minutes ⬇⬇⬇ !//
   const incrementMinutes = () => {
     setMinutes((prev) => {
       if (prev < 59) {
@@ -99,67 +88,39 @@ const TimePicker = ({is12H}) => {
     })
   }
 
-  // Scroll mouse function
-  const onMinutesWheel = (e) => {
-    let newMinutes = minutes
-
-    if (e.deltaY < 0) {
-      // Scroll up
-      newMinutes++
-    } else {
-      // Scroll down
-      newMinutes--
-    }
-
-    // Validación de límites
-    newMinutes = Math.min(59, Math.max(0, newMinutes))
-
-    setMinutes(newMinutes)
-  }
-
-  // Keyboard function
-  const onMinutesChange = (e) => {
-    let newMinutes = parseInt(e.target.value)
-
-    newMinutes = Math.min(59, Math.max(0, newMinutes))
-
-    setMinutes(newMinutes)
-  }
-  //! Functions for the minutes ⬆⬆⬆ !//
-
-  //! Poner el valor de los inputs sumado por los botones, en el estado time ⬇⬇⬇ !//
+  // Set HOURS values, changed by buttons
   const handleIncrementHours = () => {
     incrementHours() // Llamada a la función original
     setTime(hours + ':' + minutes) // Actualizar time
   }
-
   const handleDecreaseHours = () => {
     decreaseHours() // Llamada a la función original
-    setTime(hours + ':' + minutes) // actualizar time
+    setTime(hours + ':' + minutes) // Actualizar time
   }
 
+  // Set MIBUTES values, changed by buttons
   const handleIncrementMinutes = () => {
-    incrementMinutes() // llamada a la función original
-    setTime(hours + ':' + minutes) // actualizar time
+    incrementMinutes() // Llamada a la función original
+    setTime(hours + ':' + minutes) // Actualizar time
   }
-
   const handleDecreaseMinutes = () => {
-    decreaseMinutes() // llamada a la función original
-    setTime(hours + ':' + minutes) // actualizar time
-  }
-  //! Poner el valor de los inputs sumado por los botones, en el estado time ⬆⬆⬆ !//
-
-  //! Poner el valor de los inputs sumado por los eventos, en el estado time ⬇⬇⬇ !//
-  const handleHoursChange = (e) => {
-    onHoursChange(e)
-    setTime(hours + ':' + minutes)
+    decreaseMinutes() // Llamada a la función original
+    setTime(hours + ':' + minutes) // Actualizar time
   }
 
-  const handleMinutesChange = (e) => {
-    onMinutesChange(e)
-    setTime(hours + ':' + minutes)
+  // Set required timeFormat HH:mm
+  const setRequiredTimeFormat = (hours, minutes) => {
+    const formattedHours = hours.toString().padStart(2, '0')
+    const formattedMinutes = minutes.toString().padStart(2, '0')
+
+    setTime(`${formattedHours}:${formattedMinutes}`)
   }
-  //! Poner el valor de los inputs sumado por los eventos, en el estado time ⬆⬆⬆ !//
+  useEffect(() => {
+    setRequiredTimeFormat(hours, minutes)
+  }, [hours, minutes])
+
+  // this is not a console.log 🐱‍👤
+  console.log(time)
 
   return (
     <>
@@ -182,7 +143,7 @@ const TimePicker = ({is12H}) => {
               min={1}
               type="number"
               value={hours}
-              onChange={handleHoursChange}
+              onChange={onHoursChange}
               onWheel={onHoursWheel}
             />
             <button
@@ -213,7 +174,7 @@ const TimePicker = ({is12H}) => {
               min={0}
               type="number"
               value={minutes}
-              onChange={handleMinutesChange}
+              onChange={onMinutesChange}
               onWheel={onMinutesWheel}
             />
             <button
