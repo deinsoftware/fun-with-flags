@@ -23,11 +23,23 @@
     align-items: center;
 }
 
+.colon-separator {
+    width: 5px;
+    align-self: center;
+    color: var(--color-whywhite-500);
+    font-weight: var(--font-weight-bold);
+}
+
 .input-hours,
 .input-minutes {
     width: 100%;
     height: 40px;
     border: none;
+
+    /* Mimimimi, hiding arrows in Firefox 🤡 */
+    appearance: none;
+    -moz-appearance: textfield;
+
     background-color: transparent;
     color: var(--color-whywhite-500);
     font-size: 24px;
@@ -49,14 +61,6 @@
     -webkit-appearance: none;
 }
 
-/* Mimimimi, hiding arrows in Firefox 🤡 */
-/* Si estas propiedades se ponen en los selectores anteriores, no funcionan */
-.input-hours,
-.input-minutes {
-    appearance: none;
-    -moz-appearance: textfield;
-}
-
 .increment-hours-button,
 .decrease-hours-button,
 .increment-minutes-button,
@@ -68,16 +72,12 @@
 
 .container-am-pm {
     display: flex;
+    flex-direction: column;
     gap: 4px;
 }
 
-.container-ok {
-    display: flex;
-}
-
 .am,
-.pm,
-.ok {
+.pm {
     border: none;
     background-color: transparent;
     color: var(--color-gray-700);
@@ -85,13 +85,6 @@
     font-weight: var(--font-weight-bold);
 }
 
-.ok {
-    color: var(--color-whywhite-500);
-}
-.container-am-pm {
-    display: flex;
-    flex-direction: column;
-}
 .am.active,
 .pm.active {
     color: var(--color-whywhite-500);

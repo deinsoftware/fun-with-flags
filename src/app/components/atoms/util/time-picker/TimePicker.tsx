@@ -70,7 +70,7 @@ const TimePicker = ({ is12H }) => {
   // Increment/Decrement Hours/Minutes by buttons
   const incrementHours = () => {
     setHours((prev) => {
-      if (!is12H && prev < 12) {
+      if (!is12H && prev < 23) {
         return prev + 1
       }
       if (is12H && prev < 12) {
@@ -143,9 +143,10 @@ const TimePicker = ({ is12H }) => {
     }
     setTime(`${formattedHours}:${formattedMinutes}`)
   }
+
   useEffect(() => {
-    setRequiredTimeFormat(is12H, hours, minutes)
-  }, [hours, minutes])
+    setRequiredTimeFormat(hours, minutes, is12H)
+  }, [hours, minutes, isPm])
 
   const setTruePm = () => {
     setIsPm(true)
@@ -192,6 +193,7 @@ const TimePicker = ({ is12H }) => {
               />
             </button>
           </div>
+          <span className={styles['colon-separator']}>:</span>
           <div className={styles['container-minutes']}>
             <button
               className={styles['increment-minutes-button']}
@@ -227,10 +229,18 @@ const TimePicker = ({ is12H }) => {
         {/* 12H Format */}
         {is12H && (
           <div className={styles['container-am-pm']}>
-            <button className={styles['am']} type="button" onClick={setFalsePm}>
+            <button
+              className={`${styles['am']} ${!isPm ? styles['active'] : ''}  `}
+              type="button"
+              onClick={setFalsePm}
+            >
               AM
             </button>
-            <button className={styles['pm']} type="button" onClick={setTruePm}>
+            <button
+              className={`${styles['pm']} ${isPm ? styles['active'] : ''}`}
+              type="button"
+              onClick={setTruePm}
+            >
               PM
             </button>
           </div>
