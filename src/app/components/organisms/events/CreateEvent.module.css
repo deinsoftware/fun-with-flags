@@ -96,8 +96,8 @@
                     width: 100%;
 
                     &.disabled {
-                        color: transparent;
-                        cursor: not-allowed;
+                        opacity: 0.5;
+                        pointer-events: none;
                     }
                 }
 

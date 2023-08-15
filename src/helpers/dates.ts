@@ -45,19 +45,23 @@ export const getLocaleDate = (
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-  })
-    ?.formatToParts(originDate)
-    ?.reverse()
+  })?.formatToParts(originDate)
 
-  const DAY_INDEX = 2
-  const MONTH_INDEX = 4
-  // swap day and month
-  ;[date[DAY_INDEX], date[MONTH_INDEX]] = [date[MONTH_INDEX], date[DAY_INDEX]]
-
-  return date.reduce(
-    (string, part) => string + (part.type === 'literal' ? '-' : part.value),
-    '',
+  const dateObject = date.reduce(
+    (acc, element) => {
+      if (element.type === 'day') acc.day = element.value
+      if (element.type === 'month') acc.month = element.value
+      if (element.type === 'year') acc.year = element.value
+      return acc
+    },
+    {
+      day: '',
+      month: '',
+      year: '',
+    },
   )
+
+  return `${dateObject.year}-${dateObject.month}-${dateObject.day}`
 }
 
 export const getLocaleTime = (
