@@ -42,7 +42,7 @@ const TimePicker = ({ is12H }) => {
   }
   // EVENT - Keyboard function
   const onHoursChange = (event) => {
-    let newHours = parseInt(event.target.value)
+    let newHours = parseInt(event.target.value || 0)
     handleHoursChange(newHours)
   }
 
@@ -63,7 +63,7 @@ const TimePicker = ({ is12H }) => {
   }
   // EVENT - Keyboard function
   const onMinutesChange = (event) => {
-    let newMinutes = parseInt(event.target.value)
+    let newMinutes = parseInt(event.target.value || 0)
     handleMinutesChange(newMinutes)
   }
 
@@ -119,7 +119,7 @@ const TimePicker = ({ is12H }) => {
     setTime(hours + ':' + minutes) // Actualizar time
   }
 
-  // Set MIBUTES values, changed by buttons
+  // Set MINUTES values, changed by buttons
   const handleIncrementMinutes = () => {
     incrementMinutes() // Llamada a la función original
     setTime(hours + ':' + minutes) // Actualizar time

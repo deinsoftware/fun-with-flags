@@ -17,8 +17,6 @@ import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
 
-import SelectTime from '../../molecules/select-time/SelectTime'
-
 import TimePicker from '../../atoms/util/time-picker/TimePicker'
 
 import styles from './CreateEvent.module.css'
