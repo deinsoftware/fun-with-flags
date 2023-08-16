@@ -17,10 +17,13 @@ import { FlagCountry } from '@/helpers/flags.types'
 
 import LoadingPage from '@/app/loading'
 
-const WraperWithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
-  ssr: false,
-  loading: LoadingPage,
-})
+const WraperWithLoading = dynamic(
+  () => import('../../atoms/util/wrapper/Wrapper'),
+  {
+    ssr: false,
+    loading: LoadingPage,
+  },
+)
 
 const CountryList: React.FC<{
   flagList: FlagCountry[] | null
