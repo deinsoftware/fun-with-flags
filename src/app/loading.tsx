@@ -1,11 +1,15 @@
 import Image from 'next/image'
 
-import styles from './Loading.module.css'
-
-const Loading = () => {
+const LoadingPage = () => {
   return (
     <>
-      <section className={styles['container-loader']}>
+      <section
+        style={{
+          display: 'grid',
+          placeContent: 'center',
+          height: '100%',
+        }}
+      >
         <Image
           alt="Loading"
           height={100}
@@ -17,4 +21,4 @@ const Loading = () => {
   )
 }
 
-export default Loading
+export default LoadingPage

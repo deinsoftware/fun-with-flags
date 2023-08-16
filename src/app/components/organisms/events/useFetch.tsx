@@ -8,14 +8,11 @@ const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
   const [data, setData] = useState<FlagCountry[] | null>(null)
   const [error, setError] = useState(false)
 
-  const [loading, setLoading] = useState(false)
-
   useEffect(() => {
     const controller = new AbortController()
     const signal = controller.signal
 
     setError(false)
-    setLoading(true)
 
     getAllTimeZones({ locale, date, signal })
       .then((data) => {
@@ -30,12 +27,10 @@ const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
         setError(true)
       })
 
-      .finally(() => setLoading(false))
-
     return () => controller.abort()
   }, [locale, date])
 
-  return { data, loading, error }
+  return { data, error }
 }
 
 export default useFetch

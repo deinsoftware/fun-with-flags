@@ -63,7 +63,7 @@ const CreateEvent: React.FC = () => {
     }),
     [timeZones.origin.date],
   )
-  const { data: flagList, loading, error } = useFetch(props)
+  const { data: flagList, error } = useFetch(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -215,7 +215,6 @@ const CreateEvent: React.FC = () => {
                 <CountryList
                   flagList={flagList}
                   handleSelect={addTimeZone}
-                  loading={loading}
                   onClose={handleClose}
                 />
               )}
