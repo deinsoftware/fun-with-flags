@@ -37,14 +37,11 @@
     border: none;
 
     /* Mimimimi, hiding arrows in Firefox 🤡 */
-    appearance: none;
-    -moz-appearance: textfield;
-
+    appearance: textfield;
     background-color: transparent;
     color: var(--color-whywhite-500);
     font-size: 24px;
     text-align: center;
-
 }
 
 .input-hours:focus,
@@ -58,7 +55,7 @@
 .input-minutes::-webkit-inner-spin-button,
 .input-minutes::-webkit-outer-spin-button {
     margin: 0;
-    -webkit-appearance: none;
+    appearance: none;
 }
 
 .increment-hours-button,
