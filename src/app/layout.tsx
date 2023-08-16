@@ -25,7 +25,9 @@ export const metadata = {
   ],
 }
 
-const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+type Props = { children: React.ReactNode }
+
+const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en">
       <Provider>

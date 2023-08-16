@@ -4,7 +4,9 @@ import { getDatesList, sortDatesList } from '@/helpers/events'
 import { EventDate, TimeFormat, ZoneList } from '@/helpers/events.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 
-export const useGetInfoDates = ({ format }: { format: TimeFormat }) => {
+type Props = { format: TimeFormat }
+
+export const useGetInfoDates = ({ format }: Props) => {
   const { timeZones } = useTimeZoneContext()
   const [dateList, setDateList] = useState<EventDate[] | undefined>([])
 

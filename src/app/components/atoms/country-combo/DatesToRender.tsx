@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, RefObject } from 'react'
 
 import ReactCountryFlag from 'react-country-flag'
 
@@ -9,13 +9,12 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 
-export const DatesToRender = ({
-  datesArray,
-  getTextContent,
-}: {
+type Props = {
   datesArray: DatesFilteredArray[]
-  getTextContent: Function
-}) => {
+  getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
+}
+
+export const DatesToRender = ({ datesArray, getTextContent }: Props) => {
   const { deleteTimeZone, format } = useTimeZoneContext()
   const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
 

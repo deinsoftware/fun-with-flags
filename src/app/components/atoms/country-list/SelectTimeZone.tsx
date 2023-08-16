@@ -11,9 +11,28 @@ import { lucidIcons } from '@/libs/iconConfig'
 
 import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone: React.FC<
-  FlagCountry & { children: React.ReactNode } & { handleSelect: Function }
-> = ({ id, countryCode, regionName, timeZone, handleSelect, children }) => {
+import { Timezones } from '@/types/timezones.types'
+import { Countries } from '@/types/countries.types'
+
+type Props = FlagCountry & {
+  children: React.ReactNode
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const SelectTimeZone = ({
+  id,
+  countryCode,
+  regionName,
+  timeZone,
+  handleSelect,
+  children,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = () => {

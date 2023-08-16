@@ -15,11 +15,22 @@ import { lucidIcons } from '@/libs/iconConfig'
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 
-const CountryList: React.FC<{
+import { Countries } from '@/types/countries.types'
+import { Timezones } from '@/types/timezones.types'
+
+type Props = {
   flagList: FlagCountry[] | null
-  onClose: Function
-  handleSelect: Function
-}> = ({ flagList, onClose, handleSelect }) => {
+  onClose: () => void
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
 

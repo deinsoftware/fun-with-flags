@@ -102,7 +102,7 @@ const CreateEvent = () => {
     }))
   }
   const handleChangeTextContent = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
+    (ref: RefObject<HTMLDivElement> | null) => {
       if (ref?.current?.textContent) {
         const textContent = ref.current.textContent
         setFormData((prev) => ({

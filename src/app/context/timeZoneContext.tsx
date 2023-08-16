@@ -29,11 +29,11 @@ export const TimeZoneContext = createContext<{
   format: 24,
 })
 
-export function TimeZoneProvider({
-  children,
-}: {
+type Props = {
   children: React.ReactNode
-}) {
+}
+
+export function TimeZoneProvider({ children }: Props) {
   const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
     initialTimeZoneData,
     24,

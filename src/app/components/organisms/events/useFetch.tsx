@@ -4,7 +4,9 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { getAllTimeZones } from '@/services/timezones'
 import { Locale } from '@/types/locale.types'
 
-const useFetch = ({ locale, date }: { locale?: Locale; date?: Date }) => {
+type Props = { locale?: Locale; date?: Date }
+
+const useFetch = ({ locale, date }: Props) => {
   const [data, setData] = useState<FlagCountry[] | null>(null)
 
   useEffect(() => {
