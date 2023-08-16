@@ -19,8 +19,9 @@ const TimePicker = ({ is12H }) => {
     if (is12H) {
       newHours = Math.min(12, Math.max(1, newHours))
     }
-    newHours = Math.min(23, Math.max(0, newHours))
-
+    if (!is12H) {
+      newHours = Math.min(23, Math.max(0, newHours))
+    }
     setHours(newHours)
   }
   // EVENT - Scroll mouse function
@@ -137,6 +138,11 @@ const TimePicker = ({ is12H }) => {
       formattedHours = (hours + 12).toString().padStart(2, '0')
       if (hours === 12) {
         formattedHours = '12'
+      }
+    } else if (is12H && !isPm) {
+      formattedHours = hours.toString().padStart(2, '0')
+      if (hours === 12) {
+        formattedHours = '00'
       }
     } else {
       formattedHours = hours.toString().padStart(2, '0')
