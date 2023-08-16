@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-import { XCircle } from 'lucide-react'
-
 import { createPortal } from 'react-dom'
+
+import { XCircle } from 'lucide-react'
 
 import TimeZones from '../../atoms/country-list/TimeZones'
 
@@ -14,9 +14,10 @@ import { lucidIcons } from '@/libs/iconConfig'
 
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
-
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
+
+import useDebounce from '@/app/hooks/useDebounce'
 
 type Props = {
   flagList: FlagCountry[] | null
@@ -34,26 +35,27 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
 
+  const getCountriesByQuery = () => {
+    return (
+      flagList?.filter(({ countryCode, regionName }) => {
+        if (query.length === 2) {
+          return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
+        } else {
+          return regionName?.toLowerCase()?.includes(query?.toLowerCase())
+        }
+      }) ?? null
+    )
+  }
+
+  useDebounce({
+    fn: () => setCountryList(getCountriesByQuery()),
+    time: 500,
+    deps: query,
+  })
+
   useEffect(() => {
     if (!query) return setCountryList(flagList)
-
-    const handler = setTimeout(() => {
-      const getCountriesByQuery = () => {
-        return flagList?.filter(({ countryCode, regionName }) => {
-          if (query.length === 2) {
-            return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
-          } else {
-            return regionName?.toLowerCase()?.includes(query?.toLowerCase())
-          }
-        })
-      }
-
-      const countryFilter = getCountriesByQuery() ?? null
-      setCountryList(countryFilter)
-    }, 400)
-
-    return () => clearTimeout(handler)
-  }, [flagList, query])
+  }, [query, flagList])
 
   return (
     <>
