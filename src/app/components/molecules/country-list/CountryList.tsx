@@ -17,7 +17,7 @@ import { FlagCountry } from '@/helpers/flags.types'
 
 import LoadingPage from '@/app/loading'
 
-const WraperWithLoading = dynamic(
+const WrapperWithLoading = dynamic(
   () => import('../../atoms/util/wrapper/Wrapper'),
   {
     ssr: false,
@@ -79,7 +79,7 @@ const CountryList: React.FC<{
             </button>
           </div>
           <div className={styles['container-list-of-countries']}>
-            <WraperWithLoading>
+            <WrapperWithLoading>
               {countryList?.map((country) => {
                 return (
                   <SelectTimeZone
@@ -95,7 +95,7 @@ const CountryList: React.FC<{
                   </SelectTimeZone>
                 )
               })}
-            </WraperWithLoading>
+            </WrapperWithLoading>
           </div>
         </div>
       </div>
