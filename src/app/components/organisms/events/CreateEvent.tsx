@@ -36,7 +36,7 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { getLocaleDate, joinISODate } from '@/helpers/dates'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
-import { ToastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -143,7 +143,7 @@ const CreateEvent = () => {
       }
       toast.success(response, {
         style: toastStyle,
-        iconTheme: ToastIconTheme,
+        iconTheme: toastIconTheme,
       })
     } else {
       toast.error('You must be logged in to create an event', {
