@@ -78,8 +78,8 @@ const CountryList: React.FC<{
               />
             </button>
           </div>
-          <WraperWithLoading>
-            <div className={styles['container-list-of-countries']}>
+          <div className={styles['container-list-of-countries']}>
+            <WraperWithLoading>
               {countryList?.map((country) => {
                 return (
                   <SelectTimeZone
@@ -95,8 +95,8 @@ const CountryList: React.FC<{
                   </SelectTimeZone>
                 )
               })}
-            </div>
-          </WraperWithLoading>
+            </WraperWithLoading>
+          </div>
         </div>
       </div>
     </>
