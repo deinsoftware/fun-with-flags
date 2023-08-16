@@ -13,7 +13,7 @@ import { useFilteredDates } from './useFilteredDates'
 import { useGetInfoDates } from './useGetInfoDates'
 
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { lucidIcons } from '@/libs/iconConfig'
+import { lucidIcons } from '@/libs/icon-config'
 
 type Props = {
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
