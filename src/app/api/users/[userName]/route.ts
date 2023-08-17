@@ -2,10 +2,9 @@ import { NextResponse } from 'next/server'
 
 import { prisma } from '@/libs/prisma'
 
-const handler = async (
-  request: Request,
-  { params }: { params: { userName: string } },
-) => {
+type Props = { params: { userName: string } }
+
+const handler = async (request: Request, { params }: Props) => {
   try {
     const { userName } = params || ''
     if (!userName) {

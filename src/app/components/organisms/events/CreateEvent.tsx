@@ -2,8 +2,6 @@
 
 import toast from 'react-hot-toast'
 
-import CookieConsent from 'react-cookie-consent'
-
 import {
   useState,
   useMemo,
@@ -29,8 +27,9 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
-import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
+import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
+
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { joinISODate } from '@/helpers/dates'
@@ -102,7 +101,7 @@ const CreateEvent = () => {
     }))
   }
   const handleChangeTextContent = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
+    (ref: RefObject<HTMLDivElement> | null) => {
       if (ref?.current?.textContent) {
         const textContent = ref.current.textContent
         setFormData((prev) => ({
@@ -276,34 +275,6 @@ const CreateEvent = () => {
         />
       )}
       <div id="country-list-modal" />
-      <CookieConsent
-        buttonStyle={{
-          color: '#F9FBFC',
-          background: '#7E56DA',
-          fontSize: '13px',
-          fontWeight: 'bold',
-        }} // estilos del botón de aceptar
-        enableDeclineButton // Habilitar el botón de declinar
-        buttonText="Let's go" // Texto del botón de aceptar
-        cookieName="cookie-consent" // Nombre de la cookie
-        declineButtonStyle={{
-          fontWeight: 'bold',
-          color: '#FFFFFF',
-          background: '#FF0000',
-        }}
-        declineButtonText="I decline" // Texto del botón de declinar
-        expires={20} // Los días que dura para expirar la cookie
-        hideOnDecline={false} // Ocultar al declinar
-        location="top" // Ubicación - top, bottom
-        style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
-        onDecline={() => {
-          toast('Remember that this website needs cookies to create an event', {
-            style: toastStyle,
-          })
-        }}
-      >
-        This website uses cookies to enhance the user experience.
-      </CookieConsent>
     </>
   )
 }

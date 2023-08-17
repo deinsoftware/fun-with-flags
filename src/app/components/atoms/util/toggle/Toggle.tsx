@@ -4,12 +4,11 @@ import { useState } from 'react'
 
 import styles from './Toggle.module.css'
 
-// ¿Es esto correcto?
-interface ToggleProps {
+type Props = {
   onToggle: (toggled: boolean) => void
 }
 
-const Toggle = ({ onToggle }: ToggleProps) => {
+const Toggle = ({ onToggle }: Props) => {
   const [toggled, setToggled] = useState(false)
 
   const handleClick = () => {

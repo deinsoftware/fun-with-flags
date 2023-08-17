@@ -4,15 +4,17 @@ import { Locale } from '@/types/locale.types'
 
 const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 
+type Props = {
+  locale?: Locale
+  date?: Date
+  signal?: AbortSignal
+}
+
 export const getAllTimeZones = async ({
   locale,
   date,
   signal,
-}: {
-  locale?: Locale
-  date?: Date
-  signal?: AbortSignal
-}): Promise<FlagCountry[] | null> => {
+}: Props): Promise<FlagCountry[] | null> => {
   const payload = JSON.stringify({
     locale,
     date,

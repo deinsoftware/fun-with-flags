@@ -4,16 +4,28 @@ import styles from './TimeZones.module.css'
 
 import { FlagZone } from '@/helpers/flags.types'
 
+import { Timezones } from '@/types/timezones.types'
+import { Countries } from '@/types/countries.types'
+
 function getZoneName(zoneNames: string[]) {
   const newZoneNames = [...zoneNames]?.shift() ?? ''
   return newZoneNames?.split('/')?.pop()?.replaceAll('_', ' ') ?? newZoneNames
 }
 
-const TimeZones: React.FC<
-  {
-    timeZone: FlagZone[]
-  } & { handleSelect: Function } & { countryCode: string }
-> = ({ timeZone, countryCode, handleSelect }) => {
+type Props = {
+  timeZone: FlagZone[]
+} & {
+  countryCode: string
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const TimeZones = ({ timeZone, countryCode, handleSelect }: Props) => {
   return (
     <>
       {timeZone?.map(
@@ -28,7 +40,7 @@ const TimeZones: React.FC<
                 type="button"
                 onClick={() => {
                   handleSelect({
-                    countryCode: countryCode,
+                    countryCode: countryCode as Countries,
                     name: timeZone[index].zoneNames[0],
                   })
                 }}
