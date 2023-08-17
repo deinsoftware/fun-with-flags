@@ -7,6 +7,7 @@ import {
   extractDate,
   extractTime,
   joinISODate,
+  getLocaleDayPeriod,
 } from './dates'
 
 beforeEach(() => {
@@ -100,6 +101,32 @@ describe('joinISODate()', () => {
     expect(result).toThrowError()
   })
 })
+
+describe('getLocaleDayPeriod', () => {
+  it('should return "AM" and "PM" for the en-US locale', () => {
+    const locale = 'en-US';
+    const result = getLocaleDayPeriod(locale);
+
+    expect(result.am).toBe('AM');
+    expect(result.pm).toBe('PM');
+  });
+
+  it('should return "上午" and "下午" for the zh-Hant locale', () => {
+    const locale = 'zh-Hant';
+    const result = getLocaleDayPeriod(locale);
+
+    expect(result.am).toBe('上午');
+    expect(result.pm).toBe('下午');
+  });
+
+  it('should return the default values for an invalid locale', () => {
+    const locale = 'invalid-locale';
+    const result = getLocaleDayPeriod(locale);
+
+    expect(result.am).toBe('AM');
+    expect(result.pm).toBe('PM');
+  });
+});
 
 describe('convertGmtToNumber()', () => {
   it('should return an integer on GMT with exact time', () => {

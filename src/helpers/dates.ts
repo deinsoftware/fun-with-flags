@@ -73,6 +73,20 @@ export const getLocaleTime = (
   })
 }
 
+export const getLocaleDayPeriod = (locale: string) => {
+  const getDatePartValue = (date: number, defaultValue: string) => {
+    return Intl.DateTimeFormat(locale, { hour: "numeric" })
+      .formatToParts(date)
+      .find((part) => part.type === 'dayPeriod')
+      ?.value ?? defaultValue;
+  };
+
+  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM');
+  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM');
+
+  return { am, pm };
+};
+
 export const getLocaleAcronym = (
   options: { timeZone: Timezones },
   originDate: Date,

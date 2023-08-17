@@ -1,4 +1,4 @@
-import React from 'react'
+import {useRef, useEffect} from 'react'
 
 type Props<T> = {
   fn: () => void
@@ -7,9 +7,9 @@ type Props<T> = {
 }
 
 export default function useDebounce<T>({ fn, time, deps }: Props<T>) {
-  const initialized = React.useRef<boolean>()
+  const initialized = useRef<boolean>()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!initialized.current) {
       initialized.current = true
       return
