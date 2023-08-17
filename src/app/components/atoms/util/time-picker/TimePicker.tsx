@@ -6,7 +6,11 @@ import styles from './TimePicker.module.css'
 
 import { lucidIconsTimePicker } from '@/libs/icon-config'
 
-const TimePicker = ({ is12H }) => {
+type Props = {
+  is12H: boolean
+}
+
+const TimePicker = ({ is12H }: Props) => {
   const [hours, setHours] = useState(is12H ? 1 : 0)
   const [minutes, setMinutes] = useState(0)
 
@@ -15,7 +19,7 @@ const TimePicker = ({ is12H }) => {
   const [isPm, setIsPm] = useState(false)
 
   // Set HOURS values, changed by events
-  const handleHoursChange = (newHours) => {
+  const handleHoursChange = (newHours: number, is12H: boolean) => {
     if (is12H) {
       newHours = Math.min(12, Math.max(1, newHours))
     }
@@ -25,7 +29,7 @@ const TimePicker = ({ is12H }) => {
     setHours(newHours)
   }
   // EVENT - Scroll mouse function
-  const onHoursWheel = (event) => {
+  const onHoursWheel = (event: React.WheelEvent, is12H: boolean) => {
     let newHours = hours
     if (is12H) {
       if (event.deltaY < 0) {
@@ -39,21 +43,24 @@ const TimePicker = ({ is12H }) => {
     } else {
       newHours-- // Scroll down
     }
-    handleHoursChange(newHours)
+    handleHoursChange(newHours, is12H)
   }
   // EVENT - Keyboard function
-  const onHoursChange = (event) => {
-    let newHours = parseInt(event.target.value || 0)
-    handleHoursChange(newHours)
+  const onHoursChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    is12H: boolean,
+  ) => {
+    let newHours = parseInt(event.target.value || '0')
+    handleHoursChange(newHours, is12H)
   }
 
   // Set MINUTES values, changed by events
-  const handleMinutesChange = (newMinutes) => {
+  const handleMinutesChange = (newMinutes: number) => {
     newMinutes = Math.min(59, Math.max(0, newMinutes))
     setMinutes(newMinutes)
   }
   // EVENT - Scroll mouse function
-  const onMinutesWheel = (event) => {
+  const onMinutesWheel = (event: React.WheelEvent) => {
     let newMinutes = minutes
     if (event.deltaY < 0) {
       newMinutes++ // Scroll up
@@ -63,8 +70,8 @@ const TimePicker = ({ is12H }) => {
     handleMinutesChange(newMinutes)
   }
   // EVENT - Keyboard function
-  const onMinutesChange = (event) => {
-    let newMinutes = parseInt(event.target.value || 0)
+  const onMinutesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let newMinutes = parseInt(event.target.value || '0')
     handleMinutesChange(newMinutes)
   }
 
@@ -131,8 +138,13 @@ const TimePicker = ({ is12H }) => {
   }
 
   // Set required timeFormat HH:mm
-  const setRequiredTimeFormat = (hours, minutes, is12H) => {
+  const setRequiredTimeFormat = (
+    hours: number,
+    minutes: number,
+    is12H: boolean,
+  ) => {
     const formattedMinutes = minutes.toString().padStart(2, '0')
+
     let formattedHours
     if (is12H && isPm) {
       formattedHours = (hours + 12).toString().padStart(2, '0')
@@ -147,6 +159,7 @@ const TimePicker = ({ is12H }) => {
     } else {
       formattedHours = hours.toString().padStart(2, '0')
     }
+
     setTime(`${formattedHours}:${formattedMinutes}`)
   }
 
@@ -160,9 +173,6 @@ const TimePicker = ({ is12H }) => {
   const setFalsePm = () => {
     setIsPm(false)
   }
-
-  // this is not a console.log 🐱‍👤
-  console.log(`${time} | PM = ${isPm} | AM = ${!isPm}`)
 
   return (
     <>
@@ -185,8 +195,8 @@ const TimePicker = ({ is12H }) => {
               min={0}
               type="number"
               value={hours}
-              onChange={onHoursChange}
-              onWheel={onHoursWheel}
+              onChange={(event) => onHoursChange(event, is12H)}
+              onWheel={(event) => onHoursWheel(event, is12H)}
             />
             <button
               className={styles['decrease-hours-button']}

@@ -1,6 +1,8 @@
 // This WrapperComponent is used in 'use client' components to make a loading effect
-
-const Wrapper = ({ children }) => {
+type Props = {
+  children: React.ReactNode
+}
+const Wrapper = ({ children }: Props) => {
   return (
     <>
       <div>{children}</div>
