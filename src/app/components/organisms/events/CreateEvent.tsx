@@ -190,27 +190,27 @@ const CreateEvent = () => {
               <div
                 className={`${styles['container-with-toggle']} ${styles['container-time']}`}
               >
-                <input
-                  className={`${styles['time']}`}
-                  id=""
-                  name="time"
-                  type="time"
-                  value={formData.time}
-                  onChange={handleChangeForm}
-                />
-
-                <button
-                  className={styles['select-time']}
-                  type="button"
-                  onClick={() => setShowTimePicker(!showTimePicker)}
-                >
-                  <Clock3
-                    color={lucidIcons.color.main}
-                    size={lucidIcons.size}
+                <div className={styles['input-button']}>
+                  <input
+                    className={`${styles['time']}`}
+                    id=""
+                    name="time"
+                    type="time"
+                    value={formData.time}
+                    onChange={handleChangeForm}
                   />
-                </button>
-
-                {showTimePicker && <TimePicker is12H={is12H} />}
+                  <button
+                    className={styles['select-time']}
+                    type="button"
+                    onClick={() => setShowTimePicker(!showTimePicker)}
+                  >
+                    <Clock3
+                      color={lucidIcons.color.main}
+                      size={lucidIcons.size}
+                    />
+                  </button>
+                  {showTimePicker && <TimePicker is12H={is12H} />}
+                </div>
 
                 <div className={styles['container-toggle']}>
                   <Toggle onToggle={setIs12H} />
@@ -245,24 +245,6 @@ const CreateEvent = () => {
             </div>
           </div>
 
-          <div className={styles['container-time-zone-and-language']}>
-            <div className={styles['container-language']}>
-              <select
-                className={styles['language']}
-                id=""
-                name="language"
-                value={formData.language}
-                onChange={handleChangeForm}
-              >
-                <option disabled hidden value="default">
-                  Select a language
-                </option>
-                <option value="lg-1">First language</option>
-                <option value="lg-2">Second language</option>
-              </select>
-            </div>
-          </div>
-
           <div className={styles['container-hyperlink']}>
             <input
               className={styles['hyperlink']}
@@ -283,18 +265,6 @@ const CreateEvent = () => {
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
-
-          <div className={styles['container-upload-image']}>
-            <input
-              className={styles['upload-image']}
-              id=""
-              name="image"
-              placeholder="how to do an update image?"
-              type="text"
-              value={formData.image}
-              onChange={handleChangeForm}
-            />
-          </div>
 
           <ComboboxCountries
             getTextContent={handleChangeTextContent}

@@ -17,8 +17,11 @@
 
         & input[type="text"],
         input[type="url"],
+        input[type="date"],
+        input[type="time"],
         textarea {
             padding: 1rem;
+            font-family: var(--font-family-primary);
         }
 
         & .description {
@@ -78,10 +81,11 @@
 
                 & .select-time {
                     position: absolute;
-                    right: 0;
-                    width: 60px;
+                    right: 0px;
+                    width: 50px;
                     height: 40px;
                     border: none;
+                    padding: 0;
                     background-color: transparent;
                     cursor: pointer;
                 }
@@ -245,13 +249,10 @@
                 }
             }
 
-            & .container-date {
+            & .container-date,
+            .container-time {
                 @media (width >=730px) {
                     flex-direction: row;
-                }
-
-                & .container-toggle {
-                    min-width: 120px;
                 }
             }
         }
@@ -262,4 +263,11 @@
             gap: 1rem;
         }
     }
+}
+
+.input-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
 }
