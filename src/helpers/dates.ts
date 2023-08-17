@@ -40,24 +40,27 @@ export const getLocaleDate = (
   options: { timeZone: Timezones },
   originDate: Date,
 ) => {
-  const date = Intl.DateTimeFormat('default', {
+  const dateParts = Intl.DateTimeFormat('default', {
     ...options,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   })
     ?.formatToParts(originDate)
-    ?.reverse()
+    .filter((part) => part.type !== 'literal')
 
-  const DAY_INDEX = 2
-  const MONTH_INDEX = 4
-  // swap day and month
-  ;[date[DAY_INDEX], date[MONTH_INDEX]] = [date[MONTH_INDEX], date[DAY_INDEX]]
-
-  return date.reduce(
-    (string, part) => string + (part.type === 'literal' ? '-' : part.value),
-    '',
+  const { year, month, day } = dateParts.reduce(
+    (acc: Record<string, string>, { type, value }) => {
+      acc[type] = value
+      return acc
+    },
+    {
+      year: '',
+      month: '',
+      day: '',
+    },
   )
+  return `${year}-${month}-${day}`
 }
 
 export const getLocaleTime = (

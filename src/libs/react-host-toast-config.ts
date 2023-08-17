@@ -5,7 +5,7 @@ export const toastStyle = {
   color: '#F9FBFC',
 }
 
-export const ToastIconTheme = {
+export const toastIconTheme = {
   primary: '#7E56DA',
   secondary: '#F9FBFC',
 }

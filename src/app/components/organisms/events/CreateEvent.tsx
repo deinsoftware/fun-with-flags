@@ -32,10 +32,10 @@ import ComboboxCountries from '@/app/components/molecules/country-combo/Combobox
 
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { joinISODate } from '@/helpers/dates'
+import { getLocaleDate, joinISODate } from '@/helpers/dates'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
-import { ToastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -87,6 +87,10 @@ const CreateEvent = () => {
 
   const handleDateToggle = (disabled: boolean) => {
     setDateDisabled(disabled)
+    setFormData((prev) => ({
+      ...prev,
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
+    }))
   }
 
   const handleChangeForm = (
@@ -138,7 +142,7 @@ const CreateEvent = () => {
       }
       toast.success(response, {
         style: toastStyle,
-        iconTheme: ToastIconTheme,
+        iconTheme: toastIconTheme,
       })
     } else {
       toast.error('You must be logged in to create an event', {
