@@ -6,22 +6,25 @@ const sizeAvatar = {
   height: 32,
   width: 32,
 }
-export const Button = ({
-  handleClick,
-  avatar,
-  disabled,
-  color,
-  children,
-}: {
-  handleClick: Function
+
+type Props = {
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
   avatar?: {
     alt: string
     img?: string | null
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
-  children: React.JSX.Element | string
-}) => {
+  children: React.ReactNode
+}
+
+export const Button = ({
+  handleClick,
+  avatar,
+  disabled,
+  color,
+  children,
+}: Props) => {
   return (
     <button
       className={styles['button']}

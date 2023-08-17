@@ -1,8 +1,8 @@
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
 
-export const isValidTimeZone = (timeZone: TimeZones): boolean => {
+export const isValidTimeZone = (timeZone: Timezones): boolean => {
   try {
     const current = Intl.DateTimeFormat().resolvedOptions().timeZone
 
@@ -37,7 +37,7 @@ export const joinISODate = (date: string, time: string, gmt: string = 'Z') => {
 }
 
 export const getLocaleDate = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
 ) => {
   const dateParts = Intl.DateTimeFormat('default', {
@@ -64,7 +64,7 @@ export const getLocaleDate = (
 }
 
 export const getLocaleTime = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
 ) => {
   return originDate.toLocaleTimeString('en-CA', {
@@ -74,7 +74,7 @@ export const getLocaleTime = (
 }
 
 export const getLocaleAcronym = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
   countryCode: Countries,
 ) => {
@@ -93,7 +93,7 @@ export const getLocaleAcronym = (
 
 export const getLocaleGmt = (
   options: {
-    timeZone: TimeZones
+    timeZone: Timezones
     timeZoneName?:
       | 'short'
       | 'long'

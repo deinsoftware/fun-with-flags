@@ -1,12 +1,12 @@
 import { Countries } from '@/types/countries.types'
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
 
 export type FlagZone = {
   capital: boolean
   initial: string
   offset: number
   dst: boolean
-  zoneNames: TimeZones[]
+  zoneNames: Timezones[]
 }
 
 export type FlagCountry = {

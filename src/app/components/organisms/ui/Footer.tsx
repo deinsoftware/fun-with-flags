@@ -4,7 +4,7 @@ import { Home, CalendarDays, CalendarPlus, Settings } from 'lucide-react'
 
 import styles from './Footer.module.css'
 
-import { lucidIcons } from '@/libs/iconConfig'
+import { lucidIcons } from '@/libs/icon-config'
 
 const Footer = () => {
   return (

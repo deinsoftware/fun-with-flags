@@ -1,12 +1,10 @@
-export const shareEventsTwitter = ({
-  url,
-  text,
-  hashtags,
-}: {
+type Props = {
   url: string
   text: string
   hashtags?: string[]
-}) => {
+}
+
+export const shareEventsTwitter = ({ url, text, hashtags }: Props) => {
   const twitterBaseURL = 'https://twitter.com/intent/tweet'
   const twitterCharacterLimit = 280
 
