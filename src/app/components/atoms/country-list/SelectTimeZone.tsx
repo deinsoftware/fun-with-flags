@@ -2,19 +2,37 @@
 
 import { useState } from 'react'
 import ReactCountryFlag from 'react-country-flag'
-import { ReactNode } from 'react'
 
 import { ChevronDown } from 'lucide-react'
 
 import styles from './SelectTimeZone.module.css'
 
-import { lucidIcons } from '@/libs/iconConfig'
+import { lucidIcons } from '@/libs/icon-config'
 
 import { FlagCountry } from '@/helpers/flags.types'
 
-const SelectTimeZone: React.FC<
-  FlagCountry & { children: ReactNode } & { handleSelect: Function }
-> = ({ id, countryCode, regionName, timeZone, handleSelect, children }) => {
+import { Timezones } from '@/types/timezones.types'
+import { Countries } from '@/types/countries.types'
+
+type Props = FlagCountry & {
+  children: React.ReactNode
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const SelectTimeZone = ({
+  id,
+  countryCode,
+  regionName,
+  timeZone,
+  handleSelect,
+  children,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = () => {

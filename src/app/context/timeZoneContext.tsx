@@ -29,7 +29,11 @@ export const TimeZoneContext = createContext<{
   format: 24,
 })
 
-export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
+type Props = {
+  children: React.ReactNode
+}
+
+export function TimeZoneProvider({ children }: Props) {
   const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
     initialTimeZoneData,
     24,
@@ -77,14 +81,13 @@ export function TimeZoneProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const setOriginDate = (zone?: Zone, originDate?: string, gmt?: string) => {
-    if (!zone && !originDate && !gmt) return
+  const setOriginDate = (zone?: Zone, originDate?: string) => {
+    if (!zone && !originDate) return
     setTimeZones((prev) => {
       const origin: OriginDate = {
         ...prev.origin,
         ...(originDate && { date: originDate }),
         ...(zone && { ...zone }),
-        ...(gmt && { gmt }),
       }
 
       return {

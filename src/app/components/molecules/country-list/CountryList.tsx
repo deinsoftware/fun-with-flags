@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
+import { createPortal } from 'react-dom'
+
 import { XCircle } from 'lucide-react'
 
 import dynamic from 'next/dynamic'
@@ -10,10 +12,12 @@ import styles from './CountryList.module.css'
 
 import TimeZones from '@/app/components/atoms/country-list/TimeZones'
 
-import { lucidIcons } from '@/libs/iconConfig'
+import { lucidIcons } from '@/libs/icon-config'
 
 import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
+import { Countries } from '@/types/countries.types'
+import { Timezones } from '@/types/timezones.types'
 
 import LoadingPage from '@/app/loading'
 
@@ -25,38 +29,50 @@ const WrapperWithLoading = dynamic(
   },
 )
 
-const CountryList: React.FC<{
+import useDebounce from '@/app/hooks/useDebounce'
+
+type Props = {
   flagList: FlagCountry[] | null
-  onClose: Function
-  handleSelect: Function
-}> = ({ flagList, onClose, handleSelect }) => {
+  onClose: () => void
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
 
+  const getCountriesByQuery = () => {
+    return (
+      flagList?.filter(({ countryCode, regionName }) => {
+        if (query.length === 2) {
+          return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
+        } else {
+          return regionName?.toLowerCase()?.includes(query?.toLowerCase())
+        }
+      }) ?? null
+    )
+  }
+
+  useDebounce({
+    fn: () => setCountryList(getCountriesByQuery()),
+    time: 400,
+    deps: query,
+  })
+
   useEffect(() => {
     if (!query) return setCountryList(flagList)
-
-    const handler = setTimeout(() => {
-      const getCountriesByQuery = () => {
-        return flagList?.filter(({ countryCode, regionName }) => {
-          if (query.length === 2) {
-            return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
-          } else {
-            return regionName?.toLowerCase()?.includes(query?.toLowerCase())
-          }
-        })
-      }
-
-      const countryFilter = getCountriesByQuery() ?? null
-      setCountryList(countryFilter)
-    }, 400)
-
-    return () => clearTimeout(handler)
-  }, [flagList, query])
+  }, [query, flagList])
 
   return (
     <>
-      <div className={styles['overlay']}>
+      {createPortal(
+        <div className={styles['overlay']}>
         <div className={styles['container-list-with-search']}>
           <div className={styles['search-bar-container']}>
             <input
@@ -98,7 +114,9 @@ const CountryList: React.FC<{
             </WrapperWithLoading>
           </div>
         </div>
-      </div>
+      </div>,
+        document.getElementById('country-list-modal') as HTMLDivElement,
+      )}
     </>
   )
 }

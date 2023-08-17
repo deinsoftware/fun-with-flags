@@ -1,14 +1,30 @@
 .container-form {
+    display: flex;
     width: 100%;
     height: auto;
-    padding: 12px 40px;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--padding);
+    gap: 1rem;
 
     .form {
         display: flex;
         width: 100%;
+        max-width: 700px;
         flex-direction: column;
         margin: 0 auto;
         gap: 16px;
+
+        & input[type="text"],
+        input[type="url"],
+        textarea {
+            padding: 1rem;
+        }
+
+        & .description {
+            height: 80px;
+            resize: none;
+        }
 
         & .container-event-name,
         .container-hyperlink,
@@ -21,11 +37,6 @@
             .upload-image,
             .description {
                 width: 100%;
-            }
-
-            & .description {
-                height: 80px;
-                resize: none;
             }
         }
 
@@ -86,8 +97,8 @@
                     }
 
                     &.disabled {
-                        color: var(--color-darkgray-500);
-                        cursor: not-allowed;
+                        opacity: 0.5;
+                        pointer-events: none;
 
                         &::before {
                             background-image: none;
@@ -217,6 +228,8 @@
 
                     &.disabled {
                         cursor: not-allowed;
+                        opacity: 0.5;
+                        pointer-events: none;
                     }
                 }
 
@@ -243,5 +256,10 @@
             }
         }
 
+        & .container-button {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
     }
 }

@@ -10,15 +10,22 @@ import styles from './SelectCountry.module.css'
 
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
 import { getLocaleGmt } from '@/helpers/dates'
 
-export const SelectCountry: React.FC<{
+type Props = {
   flagList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
-}> = ({ flagList, countryCode, date, setFormData }) => {
+}
+
+export const SelectCountry = ({
+  flagList,
+  countryCode,
+  date,
+  setFormData,
+}: Props) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
 
   const handleClose = () => {
@@ -30,7 +37,7 @@ export const SelectCountry: React.FC<{
     name,
   }: {
     countryCode: Countries
-    name: TimeZones
+    name: Timezones
   }) => {
     const currentDate = new Date(date)
     const gmt =

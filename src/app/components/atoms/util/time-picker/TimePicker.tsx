@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import styles from './TimePicker.module.css'
 
-import { lucidIconsTimePicker } from '@/libs/iconConfig'
+import { lucidIconsTimePicker } from '@/libs/icon-config'
 
 const TimePicker = ({ is12H }) => {
   const [hours, setHours] = useState(is12H ? 1 : 0)

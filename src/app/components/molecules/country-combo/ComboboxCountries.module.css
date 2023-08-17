@@ -1,10 +1,13 @@
 .countries-container {
+    display: grid;
     min-height: 80px;
     padding: 1rem;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
     background-color: var(--color-darkgray-800);
     color: var(--color-whywhite-500);
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 0 auto;
     line-height: 1.8;
 
     &::placeholder {
@@ -17,51 +20,25 @@
     }
 }
 
-.countries {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5rem;
-
-    .time-24 {
-        width: 43px;
-        flex-shrink: 0;
-    }
-
-    .time-12 {
-        width: 67px;
-    }
-
-    .gmt {
-        width: 75px;
-        flex-shrink: 0;
-    }
+.add-button-container {
+    align-self: baseline;
+    grid-column: 2;
+    grid-row: 1;
 }
 
-.flags-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .2rem;
-
-    .flag {
-        flex-shrink: 0;
-    }
-}
-
-
-
-.flag:hover {
-    background-image: url("/img/ui/trash-can-regular.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 15px;
+.add-button {
+    display: grid;
+    padding: 0;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
+    place-content: center;
+}
 
+.add-button:hover svg {
+    stroke: var(--color-purple-500);
+}
 
-    & img {
-        opacity: 0.1;
-    }
+.add-button:active {
+    transform: scale(0.95);
 }

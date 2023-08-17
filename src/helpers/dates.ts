@@ -1,8 +1,8 @@
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
 
-export const isValidTimeZone = (timeZone: TimeZones): boolean => {
+export const isValidTimeZone = (timeZone: Timezones): boolean => {
   try {
     const current = Intl.DateTimeFormat().resolvedOptions().timeZone
 
@@ -13,6 +13,11 @@ export const isValidTimeZone = (timeZone: TimeZones): boolean => {
   } catch (error: unknown) {
     return false
   }
+}
+
+export const addDateYears = (date: Date, years: number) => {
+  date.setFullYear(date.getFullYear() + years)
+  return date
 }
 
 export const extractDate = (date: Date) => {
@@ -42,31 +47,34 @@ export const joinISODate = (date: string, time: string, gmt: string = 'Z') => {
 }
 
 export const getLocaleDate = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
 ) => {
-  const date = Intl.DateTimeFormat('default', {
+  const dateParts = Intl.DateTimeFormat('default', {
     ...options,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   })
     ?.formatToParts(originDate)
-    ?.reverse()
+    .filter((part) => part.type !== 'literal')
 
-  const DAY_INDEX = 2
-  const MONTH_INDEX = 4
-  // swap day and month
-  ;[date[DAY_INDEX], date[MONTH_INDEX]] = [date[MONTH_INDEX], date[DAY_INDEX]]
-
-  return date.reduce(
-    (string, part) => string + (part.type === 'literal' ? '-' : part.value),
-    '',
+  const { year, month, day } = dateParts.reduce(
+    (acc: Record<string, string>, { type, value }) => {
+      acc[type] = value
+      return acc
+    },
+    {
+      year: '',
+      month: '',
+      day: '',
+    },
   )
+  return `${year}-${month}-${day}`
 }
 
 export const getLocaleTime = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
 ) => {
   return originDate.toLocaleTimeString('en-CA', {
@@ -76,7 +84,7 @@ export const getLocaleTime = (
 }
 
 export const getLocaleAcronym = (
-  options: { timeZone: TimeZones },
+  options: { timeZone: Timezones },
   originDate: Date,
   countryCode: Countries,
 ) => {
@@ -95,7 +103,7 @@ export const getLocaleAcronym = (
 
 export const getLocaleGmt = (
   options: {
-    timeZone: TimeZones
+    timeZone: Timezones
     timeZoneName?:
       | 'short'
       | 'long'

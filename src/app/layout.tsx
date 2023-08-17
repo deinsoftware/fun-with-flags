@@ -2,10 +2,12 @@ import '../styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
 // import { Inter } from 'next/font/google'
 
+import { Toaster } from 'react-hot-toast'
+
 import Provider from '@/app/components/organisms/auth/Provider'
 import Header from '@/app/components/organisms/ui/Header'
 import Footer from '@/app/components/organisms/ui/Footer'
-import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
+import CookiePolicy from '@/app/components/molecules/gdpr/CookiePolicy'
 
 // const inter = Inter({ subsets: ['latin']})
 
@@ -24,20 +26,19 @@ export const metadata = {
   ],
 }
 
-const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+type Props = { children: React.ReactNode }
+
+const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en">
       <Provider>
-        
-          <body>
-            <Header />
-            <TitleOnPage />
-
-            {children}
-
-            <Footer />
-          </body>
-        
+        <body>
+          <Toaster position="top-center" reverseOrder={false} />
+          <Header />
+          {children}
+          <Footer />
+          <CookiePolicy />
+        </body>
       </Provider>
     </html>
   )

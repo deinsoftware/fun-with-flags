@@ -1,6 +1,6 @@
 'use client'
 
-import CookieConsent from 'react-cookie-consent'
+import toast from 'react-hot-toast'
 
 import {
   useState,
@@ -12,12 +12,16 @@ import {
 } from 'react'
 
 import { Clock3 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 
 import Toggle from '../../atoms/util/toggle/Toggle'
 
 import { SelectCountry } from '../../molecules/select-country/SelectCountry'
 
 import TimePicker from '../../atoms/util/time-picker/TimePicker'
+import { Button } from '../../atoms/ui/button/Button'
+
+import TitleOnPage from '../../atoms/ui/TitleOnPage'
 
 import styles from './CreateEvent.module.css'
 
@@ -25,18 +29,37 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
-import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
+import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
+
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { getLocaleDate, joinISODate } from '@/helpers/dates'
-import { lucidIcons } from '@/libs/iconConfig'
+import {
+  addDateYears,
+  extractDate,
+  getLocaleDate,
+  joinISODate,
+} from '@/helpers/dates'
+import { lucidIcons } from '@/libs/icon-config'
 
-const CreateEvent: React.FC = () => {
+import { createEvent } from '@/services/event'
+import { EventBody } from '@/types/event.types'
+import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+
+const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
+  const { data: session } = useSession()
+  const [signal, setSignal] = useState<AbortSignal>()
 
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => controller.abort()
+  }, [])
   useEffect(() => {
     const gmt = formData.gmt
     const timezone = formData.timezone
@@ -46,7 +69,7 @@ const CreateEvent: React.FC = () => {
 
     if (time && date && gmt && timezone && countryCode) {
       const originDate = joinISODate(date, time, gmt)
-      setOriginDate({ countryCode, name: timezone }, originDate, gmt)
+      setOriginDate({ countryCode, name: timezone }, originDate)
     }
   }, [
     formData.timezone,
@@ -71,8 +94,12 @@ const CreateEvent: React.FC = () => {
 
   const [dateDisabled, setDateDisabled] = useState(false)
 
-  const handleDateToggle = () => {
-    setDateDisabled((prev) => !prev)
+  const handleDateToggle = (disabled: boolean) => {
+    setDateDisabled(disabled)
+    setFormData((prev) => ({
+      ...prev,
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
+    }))
   }
 
   const handleChangeForm = (
@@ -87,7 +114,7 @@ const CreateEvent: React.FC = () => {
     }))
   }
   const handleChangeTextContent = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
+    (ref: RefObject<HTMLDivElement> | null) => {
       if (ref?.current?.textContent) {
         const textContent = ref.current.textContent
         setFormData((prev) => ({
@@ -104,27 +131,41 @@ const CreateEvent: React.FC = () => {
     [setFormData],
   )
 
-  // Set current Date on disabled DateInput
-  useEffect(() => {
-    if (dateDisabled) {
-      const currentDate = getLocaleDate(
-        { timeZone: formData.timezone },
-        new Date(),
-      )
-      console.table({ currentDate })
-      setFormData((prev) => ({
-        ...prev,
-        date: currentDate,
-      }))
-    }
-  }, [dateDisabled])
-
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [is12H, setIs12H] = useState(false)
 
+  const handleCreateEvent = async () => {
+    if (session?.user?.name) {
+      const body: EventBody = {
+        description: formData.eventDescription,
+        eventName: formData.eventName,
+        timeZone: timeZones,
+        url: formData.eventLink,
+        userName: session.user.name,
+        // tags?: string[],
+        lang: formData.language,
+      }
+      const response = await createEvent(body, signal)
+      if (typeof response !== 'string') {
+        toast.error(response.message, {
+          style: toastStyle,
+        })
+        return
+      }
+      toast.success(response, {
+        style: toastStyle,
+        iconTheme: toastIconTheme,
+      })
+    } else {
+      toast.error('You must be logged in to create an event', {
+        style: toastStyle,
+      })
+    }
+  }
   return (
     <>
       <div className={styles['container-form']}>
+        <TitleOnPage>Create Event</TitleOnPage>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}
@@ -188,6 +229,8 @@ const CreateEvent: React.FC = () => {
                   }`}
                   disabled={dateDisabled}
                   id=""
+                  max={extractDate(addDateYears(new Date(), 100))}
+                  min={extractDate(new Date())}
                   name="date"
                   type="date"
                   value={formData.date}
@@ -203,23 +246,6 @@ const CreateEvent: React.FC = () => {
           </div>
 
           <div className={styles['container-time-zone-and-language']}>
-            <div className={styles['container-time-zone']}>
-              <button
-                className={styles['time-zone']}
-                type="button"
-                onClick={() => setIsOpenSelectTimeZone(true)}
-              >
-                Time zone
-              </button>
-              {isOpenSelectTimeZone && (
-                <CountryList
-                  flagList={flagList}
-                  handleSelect={addTimeZone}
-                  onClose={handleClose}
-                />
-              )}
-            </div>
-
             <div className={styles['container-language']}>
               <select
                 className={styles['language']}
@@ -228,7 +254,7 @@ const CreateEvent: React.FC = () => {
                 value={formData.language}
                 onChange={handleChangeForm}
               >
-                <option disabled value="">
+                <option disabled hidden value="default">
                   Select a language
                 </option>
                 <option value="lg-1">First language</option>
@@ -249,16 +275,14 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <div className={styles['container-description']}>
-            <textarea
-              className={styles['description']}
-              id=""
-              name="eventDescription"
-              placeholder="Description"
-              value={formData.eventDescription}
-              onChange={handleChangeForm}
-            />
-          </div>
+          <textarea
+            className={styles['description']}
+            id=""
+            name="eventDescription"
+            placeholder="Description"
+            value={formData.eventDescription}
+            onChange={handleChangeForm}
+          />
 
           <div className={styles['container-upload-image']}>
             <input
@@ -272,36 +296,27 @@ const CreateEvent: React.FC = () => {
             />
           </div>
 
-          <ComboboxCountries getTextContent={handleChangeTextContent} />
+          <ComboboxCountries
+            getTextContent={handleChangeTextContent}
+            handleAddCountry={setIsOpenSelectTimeZone}
+          />
+
+          <div className={styles['container-button']}>
+            <Button disabled={!session} handleClick={handleCreateEvent}>
+              Create
+            </Button>
+            <Button handleClick={() => {}}>Share</Button>
+          </div>
         </form>
       </div>
-
-      <CookieConsent
-        buttonStyle={{
-          color: '#F9FBFC',
-          background: '#7E56DA',
-          fontSize: '13px',
-          fontWeight: 'bold',
-        }} // estilos del botón de aceptar
-        enableDeclineButton // Habilitar el botón de declinar
-        buttonText="Let's go" // Texto del botón de aceptar
-        cookieName="cookie-consent" // Nombre de la cookie
-        declineButtonStyle={{
-          fontWeight: 'bold',
-          color: '#FFFFFF',
-          background: '#FF0000',
-        }}
-        declineButtonText="I decline" // Texto del botón de declinar
-        expires={20} // Los días que dura para expirar la cookie
-        hideOnDecline={false} // Ocultar al declinar
-        location="top" // Ubicación - top, bottom
-        style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
-        onDecline={() => {
-          alert('Ni modo, no puedes crear el evento entonces...')
-        }}
-      >
-        This website uses cookies to enhance the user experience.
-      </CookieConsent>
+      {isOpenSelectTimeZone && (
+        <CountryList
+          flagList={flagList}
+          handleSelect={addTimeZone}
+          onClose={handleClose}
+        />
+      )}
+      <div id="country-list-modal" />
     </>
   )
 }
