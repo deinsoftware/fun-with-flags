@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import Provider from '@/app/components/organisms/auth/Provider'
 import Header from '@/app/components/organisms/ui/Header'
 import Footer from '@/app/components/organisms/ui/Footer'
+import CookiePolicy from '@/app/components/molecules/gdpr/CookiePolicy'
 
 // const inter = Inter({ subsets: ['latin']})
 
@@ -36,6 +37,7 @@ const RootLayout = ({ children }: Props) => {
           <Header />
           {children}
           <Footer />
+          <CookiePolicy />
         </body>
       </Provider>
     </html>
