@@ -10,16 +10,16 @@ type Minutes = (typeof listMinutes)[number]
 
 type Year = `${'1' | '2'}${SingleNumber}${SingleNumber}${SingleNumber}`
 
-const arrayMonths = Array.from(Array(24).keys(), (num) =>
+const arrayMonths = Array.from(Array(13).keys(), (num) =>
   num.toString().padStart(2, '0'),
 )
-const listMonths = [...arrayMonths] as const
+const listMonths = [...arrayMonths.splice(1)] as const
 type Month = (typeof listMonths)[number]
 
-const arrayDays = Array.from(Array(31).keys(), (num) =>
+const arrayDays = Array.from(Array(32).keys(), (num) =>
   num.toString().padStart(2, '0'),
 )
-const listDays = [...arrayDays] as const
+const listDays = [...arrayDays.splice(1)] as const
 type Day = (typeof listDays)[number]
 
 export type DatePattern = `${Year}-${Month}-${Day}` //YYYY-MM-DD

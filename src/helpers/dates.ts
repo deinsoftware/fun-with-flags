@@ -6,11 +6,11 @@ import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
 import { Timezones } from '@/types/timezones.types'
 
-const arrayHours = Array.from(Array(11).keys(), (num) =>
+const arrayHours = Array.from(Array(12).keys(), (num) =>
   num.toString().padStart(2, '0'),
 )
 
-export const arrayHours12 = ['12', ...arrayHours, '12', ...arrayHours]
+export const arrayHours12 = ['12', ...arrayHours.splice(1), '12', ...arrayHours.splice(1)]
 
 export const arrayHours24 = Array.from(Array(24).keys(), (num) =>
   num.toString().padStart(2, '0'),
