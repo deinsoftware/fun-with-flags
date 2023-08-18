@@ -12,6 +12,7 @@ import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
 import { getLocaleGmt } from '@/helpers/dates'
+import { GmTPattern } from '@/types/dates.types'
 
 type Props = {
   flagList: FlagCountry[] | null
@@ -39,12 +40,12 @@ export const SelectCountry = ({
     countryCode: Countries
     name: Timezones
   }) => {
-    const currentDate = new Date(date)
+    const currentDate = new Date(date as string)
     const gmt =
-      getLocaleGmt(
+      (getLocaleGmt(
         { timeZone: name, timeZoneName: 'longOffset' },
         currentDate,
-      )?.replace('GMT', '') ?? 'Z'
+      )?.replace('GMT', '') ?? 'Z' ) as GmTPattern
 
     setFormData((prev) => ({
       ...prev,
