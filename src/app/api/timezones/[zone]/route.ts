@@ -4,12 +4,11 @@ import { Prisma } from '@prisma/client'
 
 import { prisma } from '@/libs/prisma'
 
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
 
-const handler = async (
-  request: Request,
-  { params }: { params: { zone: TimeZones } },
-) => {
+type Props = { params: { zone: Timezones } }
+
+const handler = async (request: Request, { params }: Props) => {
   try {
     const { zone } = params || ''
     if (!zone) {

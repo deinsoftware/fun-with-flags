@@ -4,8 +4,17 @@ import { useState } from 'react'
 
 import styles from './Toggle.module.css'
 
-const Toggle = () => {
+type Props = {
+  onToggle: (toggled: boolean) => void
+}
+
+const Toggle = ({ onToggle }: Props) => {
   const [toggled, setToggled] = useState(false)
+
+  const handleClick = () => {
+    setToggled(!toggled)
+    onToggle(!toggled)
+  }
 
   return (
     <>
@@ -14,7 +23,7 @@ const Toggle = () => {
           toggled ? `${styles['toggled']}` : ''
         }`}
         type="button"
-        onClick={() => setToggled(!toggled)}
+        onClick={handleClick}
       >
         <div className={styles['thumb']} />
       </button>
