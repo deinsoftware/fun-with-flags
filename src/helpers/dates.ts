@@ -1,10 +1,10 @@
 import { TimeFormat } from './events.types'
 
-import { DatePattern, GmTPattern, TimePattern } from '@/types/dates.types'
+import { DatePattern, GmtPattern, TimePattern } from '@/types/dates.types'
 
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
-import { Timezones } from '@/types/timezones.types'
+import { TimezoneNames, Timezones } from '@/types/timezones.types'
 
 const arrayHours = Array.from(Array(11).keys(), (num) =>
   (num + 1).toString().padStart(2, '0'),
@@ -44,13 +44,13 @@ export const extractTime = (date: Date): TimePattern => {
   const hour = String(date.getHours()).padStart(2, '0')
   const minute = String(date.getMinutes()).padStart(2, '0')
 
-  return `${hour}:${minute}`
+  return `${hour}:${minute}` as TimePattern
 }
 
 export const joinISODate = (
   date: DatePattern,
   time: TimePattern,
-  gmt: GmTPattern = 'Z',
+  gmt: GmtPattern = 'Z',
 ) => {
   const isoDate = `${date}T${time}:00${gmt}`
   return new Date(isoDate).toISOString()
@@ -59,7 +59,7 @@ export const joinISODate = (
 export const getLocaleDate = (
   options: { timeZone: Timezones },
   originDate: Date,
-) => {
+): DatePattern => {
   const dateParts = Intl.DateTimeFormat('default', {
     ...options,
     year: 'numeric',
@@ -80,7 +80,7 @@ export const getLocaleDate = (
       day: '',
     },
   )
-  return `${year}-${month}-${day}`
+  return `${year}-${month}-${day}` as DatePattern
 }
 
 export const getLocaleTime = (
@@ -122,7 +122,7 @@ export const formatLocaleTime = (
   const options: Props = {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: format == 12 ?? true,
+    hour12: format == 12,
   }
 
   const [hours, minutes] = time.split(':')
@@ -157,35 +157,27 @@ export const getLocaleAcronym = (
 export const getLocaleGmt = (
   options: {
     timeZone: Timezones
-    timeZoneName?:
-      | 'short'
-      | 'long'
-      | 'shortOffset'
-      | 'longOffset'
-      | 'shortGeneric'
-      | 'longGeneric'
+    timeZoneName: TimezoneNames
   },
   originDate: Date,
-) => {
-  return Intl.DateTimeFormat('default', {
-    timeZoneName: 'shortOffset',
+): GmtPattern => {
+  return (Intl.DateTimeFormat('default', {
     ...options,
   })
     ?.formatToParts(originDate)
-    ?.find(({ type }) => type == 'timeZoneName')?.value
+    ?.find(({ type }) => type == 'timeZoneName')
+    ?.value?.replace('GMT', '') ?? 'Z') as GmtPattern
 }
 
-export const convertGmtToNumber = (gmtTime: string) => {
-  if (!gmtTime) return
+export const convertGmtToNumber = (gmtTime: GmtPattern) => {
+  if (gmtTime === 'Z') return 0
 
-  const time = gmtTime.replace('GMT', '')
-
-  if (!time.includes(':')) {
-    return parseInt(time, 10)
+  if (!gmtTime.includes(':')) {
+    return parseInt(gmtTime, 10)
   }
 
   return (
-    time.split(':').reduce(function (seconds, time) {
+    gmtTime.split(':').reduce(function (seconds, time) {
       return +time + seconds * 60
     }, 0) / 60
   )
