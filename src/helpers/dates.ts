@@ -1,6 +1,23 @@
+import { TimeFormat } from './events.types'
+
+import { DatePattern, GmTPattern, TimePattern } from '@/types/dates.types'
+
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
 import { Timezones } from '@/types/timezones.types'
+
+const arrayHours = Array.from(Array(11).keys(), (num) =>
+  (num + 1).toString().padStart(2, '0'),
+)
+export const arrayHours12 = ['12', ...arrayHours, '12', ...arrayHours]
+
+export const arrayHours24 = Array.from(Array(24).keys(), (num) =>
+  num.toString().padStart(2, '0'),
+)
+
+export const arrayMinutes = Array.from(Array(60).keys(), (num) =>
+  num.toString().padStart(2, '0'),
+)
 
 export const isValidTimeZone = (timeZone: Timezones): boolean => {
   try {
@@ -20,30 +37,28 @@ export const addDateYears = (date: Date, years: number) => {
   return date
 }
 
-export const extractDate = (date: Date) => {
-  let year = date.getFullYear()
+export const extractDate = (date: Date): DatePattern => {
+  let year = String(date.getFullYear())
   let month = String(date.getMonth() + 1).padStart(2, '0')
   let day = String(date.getDate()).padStart(2, '0')
 
-  return `${year}-${month}-${day}`
+  return `${year}-${month}-${day}` as DatePattern
 }
 
-export const extractTime = (date: Date) => {
+export const extractTime = (date: Date): TimePattern => {
   const hour = String(date.getHours()).padStart(2, '0')
   const minute = String(date.getMinutes()).padStart(2, '0')
-  const second = String(date.getSeconds()).padStart(2, '0')
 
-  return `${hour}:${minute}:${second}`
+  return `${hour}:${minute}`
 }
 
-export const joinISODate = (date: string, time: string, gmt: string = 'Z') => {
-  try {
-    const isoDate = `${date}T${time}${gmt}`
-    return new Date(isoDate).toISOString()
-  } catch (error) {
-    if (error instanceof Error) console.error(error.message)
-    return ''
-  }
+export const joinISODate = (
+  date: DatePattern,
+  time: TimePattern,
+  gmt: GmTPattern = 'Z',
+) => {
+  const isoDate = `${date}T${time}:00${gmt}`
+  return new Date(isoDate).toISOString()
 }
 
 export const getLocaleDate = (
@@ -81,6 +96,49 @@ export const getLocaleTime = (
     ...options,
     hour12: false,
   })
+}
+
+export const getLocaleDayPeriod = (locale?: string) => {
+  const getDatePartValue = (date: number, defaultValue: string) => {
+    return (
+      Intl.DateTimeFormat(locale, { hour: 'numeric' })
+        .formatToParts(date)
+        .find((part) => part.type === 'dayPeriod')?.value ?? defaultValue
+    )
+  }
+
+  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM')
+  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM')
+
+  return { am, pm }
+}
+
+export const formatLocaleTime = (
+  time: TimePattern,
+  format: TimeFormat,
+  locale?: string,
+) => {
+  type Props = {
+    hour?: 'numeric' | '2-digit'
+    minute?: 'numeric' | '2-digit'
+    hour12: boolean
+  }
+
+  const options: Props = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: format == 12 ?? true,
+  }
+
+  const [hours, minutes] = time.split(':')
+
+  const date = new Date()
+  date.setHours(Number(hours))
+  date.setMinutes(Number(minutes))
+  date.setSeconds(0)
+  date.setMilliseconds(0)
+
+  return Intl.DateTimeFormat(locale, options).format(date)
 }
 
 export const getLocaleAcronym = (
@@ -141,20 +199,4 @@ export const convertGmtToNumber = (gmtTime: string) => {
 export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
-}
-
-export const getLocaleDayPeriod = (locale: string) => {
-  console.log(locale)
-  const getDatePartValue = (date: number, defaultValue: string) => {
-    return (
-      Intl.DateTimeFormat(locale, { hour: 'numeric' })
-        .formatToParts(date)
-        .find((part) => part.type === 'dayPeriod')?.value ?? defaultValue
-    )
-  }
-
-  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM')
-  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM')
-
-  return { am, pm }
 }

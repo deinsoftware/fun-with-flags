@@ -7,6 +7,8 @@ import {
   extractDate,
   extractTime,
   joinISODate,
+  getLocaleDayPeriod,
+  formatLocaleTime,
 } from './dates'
 
 beforeEach(() => {
@@ -64,40 +66,97 @@ describe('extractTime()', () => {
     const date = new Date('2022-01-01T12:34:56')
     vi.setSystemTime(date)
     const result = extractTime(date)
-    expect(result).toBe('12:34:56')
+    expect(result).toBe('12:34')
   })
 
   it('should pad single-digit hour, minute, and second with leading 0', () => {
     const date = new Date('2022-01-01T01:02:03')
     vi.setSystemTime(date)
     const result = extractTime(date)
-    expect(result).toBe('01:02:03')
+    expect(result).toBe('01:02')
   })
 })
 
 describe('joinISODate()', () => {
   it('should return a valid ISO string when all parameters are provided', () => {
-    const result = joinISODate('2022-01-01', '12:00:00', '+03:00')
+    const result = joinISODate('2022-01-01', '12:00', '+03:00')
     expect(result).toEqual('2022-01-01T09:00:00.000Z')
   })
 
   it('should return a valid ISO string when only date and time are provided', () => {
-    const result = joinISODate('2022-01-01', '12:00:00')
+    const result = joinISODate('2022-01-01', '12:00')
     expect(result).toEqual('2022-01-01T12:00:00.000Z')
   })
+})
 
-  it('should return an exception when creating the date fails', () => {
-    const result = () => {
-      joinISODate('2022-01-01', '')
-    }
-    expect(result).toThrowError()
+describe('getLocaleDayPeriod()', () => {
+  it('should return "AM" and "PM" for the en-US locale', () => {
+    const locale = 'en-US'
+    const result = getLocaleDayPeriod(locale)
+
+    expect(result.am).toBe('AM')
+    expect(result.pm).toBe('PM')
   })
 
-  it('should return an exception when gmt is not valid', () => {
-    const result = () => {
-      joinISODate('2022-01-01', '12:00:00', '5:00')
-    }
-    expect(result).toThrowError()
+  it('should return "上午" and "下午" for the zh-Hant locale', () => {
+    const locale = 'zh-Hant'
+    const result = getLocaleDayPeriod(locale)
+
+    expect(result.am).toBe('上午')
+    expect(result.pm).toBe('下午')
+  })
+
+  it('should return the default values for an invalid locale', () => {
+    const locale = 'invalid-locale'
+    const result = getLocaleDayPeriod(locale)
+
+    expect(result.am).toBe('AM')
+    expect(result.pm).toBe('PM')
+  })
+})
+
+describe('formatLocaleTime()', () => {
+  it('should return formatted time in 12-hour format by default', () => {
+    const time = '12:00'
+    const format = 12
+    const locale = 'en-US'
+
+    const result = formatLocaleTime(time, format, locale)
+
+    // assert that the result matches the expected format
+    expect(result).toBe('12:00 PM')
+  })
+
+  it('should return formatted time in 24-hour format when specified', () => {
+    const time = '12:00'
+    const format = 24
+    const locale = 'en-US'
+
+    const result = formatLocaleTime(time, format, locale)
+
+    // assert that the result matches the expected format
+    expect(result).toBe('12:00')
+  })
+
+  it('should return formatted time in specified locale', () => {
+    const time = '12:00'
+    const format = 12
+    const locale = 'zh-Hant'
+
+    const result = formatLocaleTime(time, format, locale)
+
+    // assert that the result matches the expected format
+    expect(result).toBe('下午12:00')
+  })
+
+  it('should return formatted time in default locale when locale is not specified', () => {
+    const date = '12:00'
+    const format = 12
+
+    const result = formatLocaleTime(date, format)
+
+    // assert that the result matches the expected format
+    expect(result).toBe('12:00 PM')
   })
 })
 

@@ -6,12 +6,13 @@ import { extractTime, getLocaleDate, getLocaleGmt } from '@/helpers/dates'
 import { getTimezone } from '@/helpers/get-time-zone'
 import { getCountryByZone } from '@/services/timezones'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { DatePattern, GmTPattern, TimePattern } from '@/types/dates.types'
 
 export const useGetFormData = () => {
   const [formData, setFormData] = useState<FormData>({
     eventName: '',
-    time: '',
-    date: '',
+    time: undefined,
+    date: undefined,
     language: '',
     eventLink: '',
     eventDescription: '',
@@ -19,7 +20,7 @@ export const useGetFormData = () => {
     combo: '',
     country: 'CO',
     timezone: 'America/Bogota',
-    gmt: '',
+    gmt: 'Z',
   })
   const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
@@ -29,15 +30,14 @@ export const useGetFormData = () => {
       const countryCode = (await getCountryByZone(timezone)) ?? 'CO'
 
       const initValue = {
-        time: extractTime(currentDate),
-        date: getLocaleDate({ timeZone: timezone }, currentDate),
+        time: extractTime(currentDate) as TimePattern,
+        date: getLocaleDate({ timeZone: timezone }, currentDate) as DatePattern,
         country: countryCode,
         timezone: timezone,
-        gmt:
-          getLocaleGmt(
-            { timeZone: timezone, timeZoneName: 'longOffset' },
-            currentDate,
-          )?.replace('GMT', '') ?? 'Z',
+        gmt: (getLocaleGmt(
+          { timeZone: timezone, timeZoneName: 'longOffset' },
+          currentDate,
+        )?.replace('GMT', '') ?? 'Z') as GmTPattern,
       }
 
       setFormData((prev) => ({
