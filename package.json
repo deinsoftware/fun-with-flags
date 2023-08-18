@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@testing-library/dom": "9.3.1",
-    "@testing-library/jest-dom": "6.0.1",
+    "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "@vitest/coverage-v8": "0.34.2",
@@ -58,7 +58,7 @@
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-jest-dom": "5.0.2",
-    "eslint-plugin-testing-library": "6.0.0",
+    "eslint-plugin-testing-library": "5.11.1",
     "htmlhint": "1.1.4",
     "husky": "8.0.3",
     "jsdom": "22.1.0",
