@@ -15,15 +15,6 @@
         margin: 0 auto;
         gap: 16px;
 
-        & input[type="text"],
-        input[type="url"],
-        input[type="date"],
-        input[type="time"],
-        textarea {
-            padding: 1rem;
-            font-family: var(--font-family-primary);
-        }
-
         & .description {
             height: 80px;
             resize: none;
@@ -31,48 +22,31 @@
 
         & .container-event-name,
         .container-hyperlink,
-        .container-upload-image,
         .container-description {
             width: 100%;
 
             & .event-name,
             .hyperlink,
-            .upload-image,
             .description {
                 width: 100%;
             }
         }
 
         & .container-time-and-date,
-        .container-time-zone-and-language,
         .container-to-position-relative {
             display: flex;
             width: 100%;
             gap: 8px;
 
-            & .container-with-toggle,
-            .container-time-zone,
-            .container-language {
-                width: 100%;
-
-                & .language,
-                .time-zone {
-                    width: 100%;
-                }
-
-                & .time-zone {
-                    height: 100%;
-                    cursor: pointer;
-                }
-            }
-
             & .container-with-toggle {
+                width: 100%;
                 position: relative;
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
 
                 & .time {
+
                     /* * Removing default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         display: none;
@@ -103,10 +77,6 @@
                     &.disabled {
                         opacity: 0.5;
                         pointer-events: none;
-
-                        &::before {
-                            background-image: none;
-                        }
                     }
                 }
 
@@ -169,9 +139,7 @@
         & .event-name,
         .time,
         .date,
-        .hyperlink,
-        .upload-image,
-        .language {
+        .hyperlink {
             height: 40px;
         }
 
@@ -179,14 +147,14 @@
         .time,
         .date,
         .hyperlink,
-        .upload-image,
-        .language,
-        .description,
-        .time-zone {
+        .description {
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
             background-color: var(--color-darkgray-800);
             color: var(--color-whywhite-500);
+
+            padding: 1rem;
+            font-family: var(--font-family-primary);
 
             &::placeholder {
                 color: var(--color-gray-500);
@@ -199,32 +167,22 @@
 
         }
 
-        & .container-time-and-date,
-        .container-time-zone-and-language {
+        & .container-time-and-date {
             display: flex;
             width: 100%;
             gap: 8px;
-
-            & .container-with-toggle,
-            .container-time-zone,
-            .container-language {
-                width: 100%;
-
-                & .language,
-                .time-zone {
-                    width: 100%;
-                }
-
-                & .time-zone {
-                    height: 100%;
-                    cursor: pointer;
-                }
-            }
 
             & .container-with-toggle {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+
+                & .input-button {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                }
 
                 & .time,
                 .date {
@@ -263,11 +221,4 @@
             gap: 1rem;
         }
     }
-}
-
-.input-button {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
 }
