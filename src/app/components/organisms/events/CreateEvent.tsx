@@ -32,6 +32,8 @@ import { useGetFormData } from './useGetFormData'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
+import { getLocaleDayPeriod } from '@/helpers/dates'
+
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import {
@@ -132,7 +134,6 @@ const CreateEvent = () => {
   )
 
   const [showTimePicker, setShowTimePicker] = useState(false)
-  const [is12H, setIs12H] = useState(false)
 
   const handleCreateEvent = async () => {
     if (session?.user?.name) {
@@ -162,6 +163,15 @@ const CreateEvent = () => {
       })
     }
   }
+
+  const [format12, setFormat12] = useState(true)
+
+  const handleClick = (time: string) => {
+    console.log({ time })
+  }
+
+  const dayPeriod = getLocaleDayPeriod('en-US')
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -209,11 +219,22 @@ const CreateEvent = () => {
                       size={lucidIcons.size}
                     />
                   </button>
-                  {showTimePicker && <TimePicker is12H={is12H} />}
+                  {showTimePicker && (
+                    <TimePicker
+                      dayPeriod={dayPeriod}
+                      format={format12 ? 12 : 24}
+                      time="23:15"
+                      onClick={handleClick}
+                    />
+                  )}
                 </div>
 
                 <div className={styles['container-toggle']}>
-                  <Toggle onToggle={setIs12H} />
+                  <Toggle
+                    onToggle={() => {
+                      setFormat12((prev) => !prev)
+                    }}
+                  />
                   <span className={styles['text-toggle']}>24H</span>
                 </div>
               </div>

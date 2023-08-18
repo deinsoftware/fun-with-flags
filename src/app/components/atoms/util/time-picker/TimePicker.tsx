@@ -6,172 +6,148 @@ import styles from './TimePicker.module.css'
 
 import { lucidIconsTimePicker } from '@/libs/icon-config'
 
+const arrayMinutes = Array.from(Array(60).keys(), (num) =>
+  num.toString().padStart(2, '0'),
+)
+const arrayHours24 = Array.from(Array(24).keys(), (num) =>
+  num.toString().padStart(2, '0'),
+)
+
+const arrayHours12 = [
+  '12',
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+  '11',
+  '12',
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+  '11',
+]
+
 type Props = {
-  is12H: boolean
+  time: string //HH:MM
+  format: 12 | 24 //type TimeFormat
+  onClick: (time: string) => void
+  dayPeriod?: {
+    am: string
+    pm: string
+  }
 }
 
-const TimePicker = ({ is12H }: Props) => {
-  const [hours, setHours] = useState(is12H ? 1 : 0)
-  const [minutes, setMinutes] = useState(0)
+// const TimePicker = ({ is12H }: Props) => {
+const TimePicker = ({
+  time,
+  format,
+  onClick,
+  dayPeriod = {
+    am: 'AM',
+    pm: 'PM',
+  },
+}: Props) => {
+  const [arrayHours, setArrayHours] = useState(
+    format === 12 ? arrayHours12 : arrayHours24,
+  )
 
-  const [time, setTime] = useState('')
+  //todo: load time
+  const [hh, mm] = time.split(':')
 
-  const [isPm, setIsPm] = useState(false)
+  const [hours, setHours] = useState(parseInt(hh, 10) ?? 0)
+  const [minutes, setMinutes] = useState(parseInt(mm, 10) ?? 0)
 
-  // Set HOURS values, changed by events
-  const handleHoursChange = (newHours: number, is12H: boolean) => {
-    if (is12H) {
-      newHours = Math.min(12, Math.max(1, newHours))
-    }
-    if (!is12H) {
-      newHours = Math.min(23, Math.max(0, newHours))
-    }
-    setHours(newHours)
-  }
-  // EVENT - Scroll mouse function
-  const onHoursWheel = (event: React.WheelEvent, is12H: boolean) => {
-    let newHours = hours
-    if (is12H) {
-      if (event.deltaY < 0) {
-        newHours++ // Scroll up
-      } else {
-        newHours-- // Scroll down
-      }
-    }
-    if (event.deltaY <= 0) {
-      newHours++ // Scroll up
-    } else {
-      newHours-- // Scroll down
-    }
-    handleHoursChange(newHours, is12H)
-  }
-  // EVENT - Keyboard function
-  const onHoursChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    is12H: boolean,
-  ) => {
-    let newHours = parseInt(event.target.value || '0')
-    handleHoursChange(newHours, is12H)
+  const [meridianPosition, setMeridianPosition] = useState(dayPeriod.am)
+
+  useEffect(() => {
+    const meridian = hours > 11 ? dayPeriod.pm : dayPeriod.am
+
+    setMeridianPosition(meridian)
+  }, [hours, dayPeriod])
+
+  useEffect(() => {
+    const hoursArray = format === 12 ? arrayHours12 : arrayHours24
+    setArrayHours(hoursArray)
+  }, [format])
+
+  const handlePlus = (array, setFunction) => {
+    setFunction((index) => {
+      return index + 1 < array.length ? index + 1 : 0
+    })
   }
 
-  // Set MINUTES values, changed by events
-  const handleMinutesChange = (newMinutes: number) => {
-    newMinutes = Math.min(59, Math.max(0, newMinutes))
-    setMinutes(newMinutes)
+  const handleMinus = (array, setFunction) => {
+    setFunction((index) => {
+      return index - 1 >= 0 ? index - 1 : array.length - 1
+    })
   }
-  // EVENT - Scroll mouse function
-  const onMinutesWheel = (event: React.WheelEvent) => {
-    let newMinutes = minutes
+
+  const handleMeridian = (meridian: string) => {
+    const operation = meridian === dayPeriod.am ? -12 : +12
+    setHours((index) => index + operation)
+  }
+
+  const handleWheel = (event, array, setFunction) => {
     if (event.deltaY < 0) {
-      newMinutes++ // Scroll up
+      // Scroll up
+      handleMinus(array, setFunction)
     } else {
-      newMinutes-- // Scroll down
+      // Scroll down
+      handlePlus(array, setFunction)
     }
-    handleMinutesChange(newMinutes)
-  }
-  // EVENT - Keyboard function
-  const onMinutesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newMinutes = parseInt(event.target.value || '0')
-    handleMinutesChange(newMinutes)
   }
 
-  // Increment/Decrement Hours/Minutes by buttons
-  const incrementHours = () => {
-    setHours((prev) => {
-      if (!is12H && prev < 23) {
-        return prev + 1
-      }
-      if (is12H && prev < 12) {
-        return prev + 1
-      }
-      return prev
-    })
-  }
-  const decreaseHours = () => {
-    setHours((prev) => {
-      if (!is12H) {
-        if (prev >= 1) {
-          return prev - 1
-        }
-      }
-      if (prev > 1) {
-        return prev - 1
-      }
-      return prev
-    })
-  }
-  const incrementMinutes = () => {
-    setMinutes((prev) => {
-      if (prev < 59) {
-        return prev + 1
-      }
-      return prev
-    })
-  }
-  const decreaseMinutes = () => {
-    setMinutes((prev) => {
-      if (prev > 0) {
-        return prev - 1
-      }
-      return prev
-    })
-  }
-
-  // Set HOURS values, changed by buttons
-  const handleIncrementHours = () => {
-    incrementHours() // Llamada a la función original
-    setTime(hours + ':' + minutes) // Actualizar time
-  }
-  const handleDecreaseHours = () => {
-    decreaseHours() // Llamada a la función original
-    setTime(hours + ':' + minutes) // Actualizar time
-  }
-
-  // Set MINUTES values, changed by buttons
-  const handleIncrementMinutes = () => {
-    incrementMinutes() // Llamada a la función original
-    setTime(hours + ':' + minutes) // Actualizar time
-  }
-  const handleDecreaseMinutes = () => {
-    decreaseMinutes() // Llamada a la función original
-    setTime(hours + ':' + minutes) // Actualizar time
-  }
-
-  // Set required timeFormat HH:mm
-  const setRequiredTimeFormat = (
-    hours: number,
-    minutes: number,
-    is12H: boolean,
-  ) => {
-    const formattedMinutes = minutes.toString().padStart(2, '0')
-
-    let formattedHours
-    if (is12H && isPm) {
-      formattedHours = (hours + 12).toString().padStart(2, '0')
-      if (hours === 12) {
-        formattedHours = '12'
-      }
-    } else if (is12H && !isPm) {
-      formattedHours = hours.toString().padStart(2, '0')
-      if (hours === 12) {
-        formattedHours = '00'
-      }
-    } else {
-      formattedHours = hours.toString().padStart(2, '0')
+  const handleKeyPress = (event, array, setFunction) => {
+    if (event.key === 'ArrowUp') {
+      handleMinus(array, setFunction)
+    } else if (event.key === 'ArrowDown') {
+      handlePlus(array, setFunction)
     }
-
-    setTime(`${formattedHours}:${formattedMinutes}`)
   }
 
   useEffect(() => {
-    setRequiredTimeFormat(hours, minutes, is12H)
-  }, [hours, minutes, isPm])
+    onClick(`${hours.toString().padStart(2, '0')}:${arrayMinutes[minutes]}`)
+  }, [hours, minutes])
 
-  const setTruePm = () => {
-    setIsPm(true)
+  const handleChange = (event, array, setFunction) => {
+    const value = event.target.valueAsNumber
+
+    const minValue = parseInt(array.at(0), 10)
+    const maxValue = parseInt(array.at(-1), 10)
+
+    if (value <= maxValue && value >= minValue) {
+      setFunction(value)
+    }
   }
-  const setFalsePm = () => {
-    setIsPm(false)
+  const handleChangeHours = (event, array, setFunction) => {
+    const value = event.target.valueAsNumber
+
+    // console.log(value, parseInt(value, 10));
+    if (format === 12) {
+      if (value <= 12 && value >= 1) {
+        const index = array.indexOf(value.toString().padStart(2, '0'))
+        // console.log({ index });
+        if (index >= 0) {
+          const operation = meridianPosition === dayPeriod.am ? 0 : +12
+          setHours(() => index + operation)
+        }
+      }
+    } else {
+      handleChange(event, array, setFunction)
+    }
   }
 
   return (
@@ -182,7 +158,7 @@ const TimePicker = ({ is12H }: Props) => {
             <button
               className={styles['increment-hours-button']}
               type="button"
-              onClick={handleIncrementHours}
+              onClick={() => handleMinus(arrayHours, setHours)}
             >
               <ChevronUp
                 color={lucidIconsTimePicker.color.dark}
@@ -190,18 +166,24 @@ const TimePicker = ({ is12H }: Props) => {
               />
             </button>
             <input
+              readOnly
               className={styles['input-hours']}
-              max={23}
-              min={0}
+              max={format === 12 ? 12 : 23}
+              min={format === 12 ? 1 : 0}
+              step="1"
+              style={{ width: '100%', textAlign: 'center' }}
               type="number"
-              value={hours}
-              onChange={(event) => onHoursChange(event, is12H)}
-              onWheel={(event) => onHoursWheel(event, is12H)}
+              value={arrayHours[hours]}
+              onChange={(event) =>
+                handleChangeHours(event, arrayHours, setHours)
+              }
+              onKeyDown={(event) => handleKeyPress(event, arrayHours, setHours)}
+              onWheel={(event) => handleWheel(event, arrayHours, setHours)}
             />
             <button
               className={styles['decrease-hours-button']}
               type="button"
-              onClick={handleDecreaseHours}
+              onClick={() => handlePlus(arrayHours, setHours)}
             >
               <ChevronDown
                 color={lucidIconsTimePicker.color.dark}
@@ -214,7 +196,7 @@ const TimePicker = ({ is12H }: Props) => {
             <button
               className={styles['increment-minutes-button']}
               type="button"
-              onClick={handleIncrementMinutes}
+              onClick={() => handleMinus(arrayMinutes, setMinutes)}
             >
               <ChevronUp
                 color={lucidIconsTimePicker.color.dark}
@@ -222,18 +204,26 @@ const TimePicker = ({ is12H }: Props) => {
               />
             </button>
             <input
+              readOnly
               className={styles['input-minutes']}
-              max={59}
-              min={0}
+              max="59"
+              min="0"
+              step="1"
+              style={{ width: '100%', textAlign: 'center' }}
               type="number"
-              value={minutes}
-              onChange={onMinutesChange}
-              onWheel={onMinutesWheel}
+              value={arrayMinutes[minutes]}
+              onChange={(event) =>
+                handleChange(event, arrayMinutes, setMinutes)
+              }
+              onKeyDown={(event) =>
+                handleKeyPress(event, arrayMinutes, setMinutes)
+              }
+              onWheel={(event) => handleWheel(event, arrayMinutes, setMinutes)}
             />
             <button
               className={styles['decrease-hours-button']}
               type="button"
-              onClick={handleDecreaseMinutes}
+              onClick={() => handlePlus(arrayMinutes, setMinutes)}
             >
               <ChevronDown
                 color={lucidIconsTimePicker.color.dark}
@@ -243,19 +233,25 @@ const TimePicker = ({ is12H }: Props) => {
           </div>
         </div>
         {/* 12H Format */}
-        {is12H && (
+        {format === 12 && (
           <div className={styles['container-am-pm']}>
             <button
-              className={`${styles['am']} ${!isPm ? styles['active'] : ''}  `}
+              className={`${styles['am']} ${
+                meridianPosition === dayPeriod.am ? styles['active'] : ''
+              }  `}
+              disabled={meridianPosition === dayPeriod.am}
               type="button"
-              onClick={setFalsePm}
+              onClick={() => handleMeridian(dayPeriod.am)}
             >
               AM
             </button>
             <button
-              className={`${styles['pm']} ${isPm ? styles['active'] : ''}`}
+              className={`${styles['pm']} ${
+                meridianPosition === dayPeriod.pm ? styles['active'] : ''
+              }`}
+              disabled={meridianPosition === dayPeriod.pm}
               type="button"
-              onClick={setTruePm}
+              onClick={() => handleMeridian(dayPeriod.pm)}
             >
               PM
             </button>

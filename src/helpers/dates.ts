@@ -142,3 +142,19 @@ export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
 }
+
+export const getLocaleDayPeriod = (locale: string) => {
+  console.log(locale)
+  const getDatePartValue = (date: number, defaultValue: string) => {
+    return (
+      Intl.DateTimeFormat(locale, { hour: 'numeric' })
+        .formatToParts(date)
+        .find((part) => part.type === 'dayPeriod')?.value ?? defaultValue
+    )
+  }
+
+  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM')
+  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM')
+
+  return { am, pm }
+}
