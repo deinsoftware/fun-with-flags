@@ -50,7 +50,6 @@ type Props = {
   }
 }
 
-// const TimePicker = ({ is12H }: Props) => {
 const TimePicker = ({
   time,
   format,

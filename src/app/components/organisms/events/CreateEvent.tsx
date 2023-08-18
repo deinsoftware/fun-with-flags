@@ -14,20 +14,20 @@ import {
 import { Clock3 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
-import Toggle from '../../atoms/util/toggle/Toggle'
-
-import { SelectCountry } from '../../molecules/select-country/SelectCountry'
-
-import TimePicker from '../../atoms/util/time-picker/TimePicker'
-import { Button } from '../../atoms/ui/button/Button'
-
-import TitleOnPage from '../../atoms/ui/TitleOnPage'
-
 import styles from './CreateEvent.module.css'
 
 import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
+
+import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
+
+import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
+import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
+
+import Toggle from '@/app/components/atoms/util/toggle/Toggle'
 
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
