@@ -21,13 +21,10 @@ import { Timezones } from '@/types/timezones.types'
 
 import LoadingPage from '@/app/loading'
 
-const WrapperWithLoading = dynamic(
-  () => import('../../atoms/util/wrapper/Wrapper'),
-  {
-    ssr: false,
-    loading: LoadingPage,
-  },
-)
+const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
+  ssr: false,
+  loading: LoadingPage,
+})
 
 import useDebounce from '@/app/hooks/useDebounce'
 
@@ -73,48 +70,48 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
     <>
       {createPortal(
         <div className={styles['overlay']}>
-        <div className={styles['container-list-with-search']}>
-          <div className={styles['search-bar-container']}>
-            <input
-              className={styles['search-bar']}
-              placeholder={`Search by country code or name`}
-              type="text"
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            <button
-              className={styles['close-modal']}
-              type="button"
-              onClick={() => onClose()}
-            >
-              <XCircle
-                absoluteStrokeWidth={false}
-                color={lucidIcons.color.dark}
-                size={lucidIcons.size}
-                strokeWidth={lucidIcons.strokeWidth}
+          <div className={styles['container-list-with-search']}>
+            <div className={styles['search-bar-container']}>
+              <input
+                className={styles['search-bar']}
+                placeholder={`Search by country code or name`}
+                type="text"
+                onChange={(event) => setQuery(event.target.value)}
               />
-            </button>
-          </div>
-          <div className={styles['container-list-of-countries']}>
-            <WrapperWithLoading>
-              {countryList?.map((country) => {
-                return (
-                  <SelectTimeZone
-                    key={country.countryCode}
-                    {...country}
-                    handleSelect={handleSelect}
-                  >
-                    <TimeZones
-                      countryCode={country.countryCode}
+              <button
+                className={styles['close-modal']}
+                type="button"
+                onClick={() => onClose()}
+              >
+                <XCircle
+                  absoluteStrokeWidth={false}
+                  color={lucidIcons.color.dark}
+                  size={lucidIcons.size}
+                  strokeWidth={lucidIcons.strokeWidth}
+                />
+              </button>
+            </div>
+            <div className={styles['container-list-of-countries']}>
+              <WithLoading>
+                {countryList?.map((country) => {
+                  return (
+                    <SelectTimeZone
+                      key={country.countryCode}
+                      {...country}
                       handleSelect={handleSelect}
-                      timeZone={country.timeZone}
-                    />
-                  </SelectTimeZone>
-                )
-              })}
-            </WrapperWithLoading>
+                    >
+                      <TimeZones
+                        countryCode={country.countryCode}
+                        handleSelect={handleSelect}
+                        timeZone={country.timeZone}
+                      />
+                    </SelectTimeZone>
+                  )
+                })}
+              </WithLoading>
+            </div>
           </div>
-        </div>
-      </div>,
+        </div>,
         document.getElementById('country-list-modal') as HTMLDivElement,
       )}
     </>

@@ -170,7 +170,6 @@ const TimePicker = ({
               max={format === 12 ? 12 : 23}
               min={format === 12 ? 1 : 0}
               step="1"
-              style={{ width: '100%', textAlign: 'center' }}
               type="number"
               value={arrayHours[hours]}
               onChange={(event) =>
@@ -208,7 +207,6 @@ const TimePicker = ({
               max="59"
               min="0"
               step="1"
-              style={{ width: '100%', textAlign: 'center' }}
               type="number"
               value={arrayMinutes[minutes]}
               onChange={(event) =>
