@@ -10,8 +10,8 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 export const useGetFormData = () => {
   const [formData, setFormData] = useState<FormData>({
     eventName: '',
-    time: '',
-    date: '',
+    time: undefined,
+    date: undefined,
     language: '',
     eventLink: '',
     eventDescription: '',
@@ -19,7 +19,7 @@ export const useGetFormData = () => {
     combo: '',
     country: 'CO',
     timezone: 'America/Bogota',
-    gmt: '',
+    gmt: 'Z',
   })
   const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
@@ -33,11 +33,10 @@ export const useGetFormData = () => {
         date: getLocaleDate({ timeZone: timezone }, currentDate),
         country: countryCode,
         timezone: timezone,
-        gmt:
-          getLocaleGmt(
-            { timeZone: timezone, timeZoneName: 'longOffset' },
-            currentDate,
-          )?.replace('GMT', '') ?? 'Z',
+        gmt: (getLocaleGmt(
+          { timeZone: timezone, timeZoneName: 'longOffset' },
+          currentDate,
+        )),
       }
 
       setFormData((prev) => ({

@@ -8,6 +8,7 @@ import style from './DatesToRender.module.css'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
+import { Timezones } from '@/types/timezones.types'
 
 type Props = {
   datesArray: DatesFilteredArray[]
@@ -31,7 +32,7 @@ export const DatesToRender = ({ datesArray, getTextContent }: Props) => {
     const result = datesArray.map(([date, groupedCountries]) => {
       const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
         const target = event.target as HTMLImageElement
-        const name = target.id.split('--')[0]
+        const name = target.id.split('--')[0] as Timezones
         const countryCode = target.id.split('--')[1] as Countries
         deleteTimeZone({ countryCode, name })
       }
@@ -42,7 +43,7 @@ export const DatesToRender = ({ datesArray, getTextContent }: Props) => {
             <p className={format === 12 ? style['time-12'] : style['time-24']}>
               {`${countries[0].i18n.time}`}
             </p>
-            <p className={style['gmt']}>{`(${gmt})`}</p>
+            <p className={style['gmt']}>{`(GMT${gmt})`}</p>
             <div className={style['flags-container']}>
               {countries.map(({ countryCode, name }) => {
                 return (

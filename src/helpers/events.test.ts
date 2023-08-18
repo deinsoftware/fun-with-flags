@@ -29,8 +29,8 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: 'GMT+9:30',
-      gmt: 'GMT+9:30',
+      acronym: '+9:30',
+      gmt: '+9:30',
       offset: 9.5,
       i18n: {
         region: 'Australia',
@@ -60,8 +60,8 @@ describe('getDateInformation()', () => {
       name: 'Australia/Adelaide',
       date: '2023-06-10',
       time: '11:06:42',
-      acronym: 'GMT+9:30',
-      gmt: 'GMT+9:30',
+      acronym: '+9:30',
+      gmt: '+9:30',
       offset: 9.5,
       i18n: {
         region: 'Australia',
@@ -80,6 +80,7 @@ describe('getDateInformation()', () => {
       originDate: new Date('2023-06-10T01:36:42.271Z'),
       zone: {
         countryCode: 'AU',
+        //@ts-expect-error
         name: 'Foo/Bar',
       },
       locale: 'en-US',
@@ -119,7 +120,7 @@ describe('getDatesList()', () => {
         date: '2023-06-09',
         time: '21:36:42',
         acronym: 'EDT',
-        gmt: 'GMT-4',
+        gmt: '-4',
         offset: -4,
         i18n: {
           region: 'United States',
@@ -133,8 +134,8 @@ describe('getDatesList()', () => {
         name: 'Europe/Madrid',
         date: '2023-06-10',
         time: '03:36:42',
-        acronym: 'GMT+2',
-        gmt: 'GMT+2',
+        acronym: '+2',
+        gmt: '+2',
         offset: 2,
         i18n: {
           region: 'Spain',
@@ -157,8 +158,8 @@ describe('sortDatesList()', () => {
         name: 'Europe/Madrid',
         date: '6/10/2023',
         time: '03:36:42',
-        acronym: 'GMT+2',
-        gmt: 'GMT+2',
+        acronym: '+2',
+        gmt: '+2',
         offset: 2,
         i18n: {
           region: 'Spain',
@@ -173,7 +174,7 @@ describe('sortDatesList()', () => {
         date: '6/9/2023',
         time: '21:36:42',
         acronym: 'EDT',
-        gmt: 'GMT-4',
+        gmt: '-4',
         offset: -4,
         i18n: {
           region: 'United States',
@@ -191,7 +192,7 @@ describe('sortDatesList()', () => {
         date: '6/9/2023',
         time: '21:36:42',
         acronym: 'EDT',
-        gmt: 'GMT-4',
+        gmt: '-4',
         offset: -4,
         i18n: {
           region: 'United States',
@@ -205,8 +206,8 @@ describe('sortDatesList()', () => {
         name: 'Europe/Madrid',
         date: '6/10/2023',
         time: '03:36:42',
-        acronym: 'GMT+2',
-        gmt: 'GMT+2',
+        acronym: '+2',
+        gmt: '+2',
         offset: 2,
         i18n: {
           region: 'Spain',
@@ -228,8 +229,8 @@ describe('sortDatesList()', () => {
         name: 'Europe/Madrid',
         date: '6/10/2023',
         time: '03:36:42',
-        acronym: 'GMT+2',
-        gmt: 'GMT+2',
+        acronym: '+2',
+        gmt: '+2',
         offset: undefined,
         i18n: {
           region: 'Spain',
@@ -244,7 +245,7 @@ describe('sortDatesList()', () => {
         date: '6/9/2023',
         time: '21:36:42',
         acronym: 'EDT',
-        gmt: 'GMT-4',
+        gmt: '-4',
         offset: undefined,
         i18n: {
           region: 'United States',
@@ -262,7 +263,7 @@ describe('sortDatesList()', () => {
         date: '6/9/2023',
         time: '21:36:42',
         acronym: 'EDT',
-        gmt: 'GMT-4',
+        gmt: '-4',
         offset: undefined,
         i18n: {
           region: 'United States',
@@ -276,8 +277,8 @@ describe('sortDatesList()', () => {
         name: 'Europe/Madrid',
         date: '6/10/2023',
         time: '03:36:42',
-        acronym: 'GMT+2',
-        gmt: 'GMT+2',
+        acronym: '+2',
+        gmt: '+2',
         offset: undefined,
         i18n: {
           region: 'Spain',

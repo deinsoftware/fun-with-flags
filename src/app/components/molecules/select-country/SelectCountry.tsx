@@ -39,12 +39,11 @@ export const SelectCountry = ({
     countryCode: Countries
     name: Timezones
   }) => {
-    const currentDate = new Date(date)
-    const gmt =
-      getLocaleGmt(
-        { timeZone: name, timeZoneName: 'longOffset' },
-        currentDate,
-      )?.replace('GMT', '') ?? 'Z'
+    const currentDate = new Date(date as string)
+    const gmt = getLocaleGmt(
+      { timeZone: name, timeZoneName: 'longOffset' },
+      currentDate,
+    )
 
     setFormData((prev) => ({
       ...prev,

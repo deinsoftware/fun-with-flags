@@ -10,6 +10,8 @@ import {
   isValidTimeZone,
 } from './dates'
 
+import { TimezoneNames } from '@/types/timezones.types'
+
 export const getDateInformation = ({
   originDate,
   zone,
@@ -26,7 +28,10 @@ export const getDateInformation = ({
 
   const date = getLocaleDate(options, originDate)
   const time = getLocaleTime(options, originDate)
-  const gmt = getLocaleGmt(options, originDate)
+  const gmt = getLocaleGmt(
+    { ...options, timeZoneName: 'shortOffset' },
+    originDate,
+  )
   const acronym = getLocaleAcronym(options, originDate, zone.countryCode) ?? gmt
   const offset = convertGmtToNumber(gmt ?? '')
 
