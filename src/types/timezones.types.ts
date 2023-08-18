@@ -1,3 +1,5 @@
+// Values from: Intl.supportedValuesOf('timeZone')
+
 export type Timezones =
   | 'Africa/Abidjan'
   | 'Africa/Accra'
@@ -417,3 +419,5 @@ export type Timezones =
   | 'Pacific/Tongatapu'
   | 'Pacific/Wake'
   | 'Pacific/Wallis'
+
+export type TimezoneNames = 'longOffset' | 'shortOffset'

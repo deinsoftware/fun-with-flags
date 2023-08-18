@@ -1,5 +1,5 @@
 import { Countries } from '@/types/countries.types'
-import { DatePattern, GmTPattern, TimePattern } from '@/types/dates.types'
+import { DatePattern, GmtPattern, TimePattern } from '@/types/dates.types'
 import { Timezones } from '@/types/timezones.types'
 
 export type FormData = {
@@ -13,5 +13,5 @@ export type FormData = {
   combo: string
   country: Countries
   timezone: Timezones
-  gmt: GmTPattern
+  gmt: GmtPattern
 }

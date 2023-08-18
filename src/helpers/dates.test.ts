@@ -9,7 +9,10 @@ import {
   joinISODate,
   getLocaleDayPeriod,
   formatLocaleTime,
+  getLocaleGmt,
 } from './dates'
+
+import { TimezoneNames, Timezones } from '@/types/timezones.types'
 
 beforeEach(() => {
   vi.useFakeTimers()
@@ -28,6 +31,7 @@ describe('isValidTimeZone()', () => {
 
   it('should return false when using an incorrect time zone', () => {
     const value = 'Foo/Bar'
+    //@ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
   })
@@ -37,6 +41,7 @@ describe('isValidTimeZone()', () => {
     spy.mockImplementation(() => undefined)
 
     const value = 'Foo/Bar'
+    // @ts-expect-error
     const result = isValidTimeZone(value)
     expect(result).toBeFalsy()
 
@@ -160,23 +165,49 @@ describe('formatLocaleTime()', () => {
   })
 })
 
+describe('getLocaleGmt()', () => {
+  test('should return GMT pattern for longOffset timezone name', () => {
+    const options = {
+      timeZone: 'America/New_York' as Timezones,
+      timeZoneName: 'longOffset' as TimezoneNames,
+    }
+    const originDate = new Date('2022-01-01T00:00:00Z')
+
+    const result = getLocaleGmt(options, originDate)
+
+    expect(result).toBe('-05:00')
+  })
+
+  test('should return GMT pattern for shortOffset timezone name', () => {
+    const options = {
+      timeZone: 'America/New_York' as Timezones,
+      timeZoneName: 'shortOffset' as TimezoneNames,
+    }
+    const originDate = new Date('2022-01-01T00:00:00Z')
+
+    const result = getLocaleGmt(options, originDate)
+
+    expect(result).toBe('-5')
+  })
+})
+
 describe('convertGmtToNumber()', () => {
   it('should return an integer on GMT with exact time', () => {
-    const value = 'GMT+1'
+    const value = '+01:00'
     const result = convertGmtToNumber(value)
     expect(result).toBe(1)
   })
 
-  it('should return a decimal on GMT with non exact time ', () => {
-    const value = 'GMT+5:45'
+  it('should return a decimal on GMT with non exact time', () => {
+    const value = '+05:45'
     const result = convertGmtToNumber(value)
     expect(result).toBe(5.75)
   })
 
-  it('should return a decimal on empty GMT', () => {
-    const value = ''
+  it('should return 0 on GMT with Z', () => {
+    const value = 'Z'
     const result = convertGmtToNumber(value)
-    expect(result).toBeUndefined()
+    expect(result).toBe(0)
   })
 })
 

@@ -104,7 +104,7 @@ const CreateEvent = () => {
       date: getLocaleDate(
         { timeZone: prev.timezone },
         new Date(),
-      ) as DatePattern,
+      ),
     }))
   }
 

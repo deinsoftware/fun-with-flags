@@ -56,8 +56,8 @@ const TimeZones = ({ timeZone, countryCode, handleSelect }: Props) => {
                     {initial}
                   </span>
                   <span
-                    className={styles['mtz-additional-information-utc']}
-                  >{`(UTC${gmt})`}</span>
+                    className={styles['mtz-additional-information-gmt']}
+                  >{`(GMT${gmt})`}</span>
                 </div>
               </button>
             )
