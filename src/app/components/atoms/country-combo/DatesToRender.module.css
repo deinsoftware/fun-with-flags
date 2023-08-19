@@ -1,0 +1,53 @@
+.container {
+    grid-column: 1 / -1;   
+}
+
+.countries {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+
+    .time-24 {
+        width: 2.7rem;
+        flex-shrink: 0;
+    }
+
+    .time-12 {
+        width: 5rem;
+    }
+
+    .gmt {
+        width: 5.7rem;
+        flex-shrink: 0;
+    }
+}
+
+.flags-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3px;
+
+    .flag {
+        display: flex;
+        flex-shrink: 0;
+    }
+}
+
+
+
+.flag:hover {
+    background-image: url("/img/ui/trash-can-regular.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    cursor: pointer;
+
+
+    & img {
+        opacity: 0.1;
+    }
+}

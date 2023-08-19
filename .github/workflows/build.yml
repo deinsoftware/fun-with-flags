@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        node: [18]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: install packages
+        run: npm ci
+
+      - name: build project
+        run: npm run build
+
+      - name: run test and coverage
+        run: npm run test:c
+
+      - name: Display coverage files
+        run: ls -R
+        working-directory: coverage
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: coverage-artifact
+          path: coverage/lcov.info
