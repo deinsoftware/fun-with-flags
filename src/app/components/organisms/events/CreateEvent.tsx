@@ -47,11 +47,12 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { DatePattern } from '@/types/dates.types'
+import { TimePattern } from '@/types/dates.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+  const { timeZones, setOriginDate, addTimeZone, setFormat, format } =
+    useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
@@ -101,10 +102,7 @@ const CreateEvent = () => {
     setDateDisabled(disabled)
     setFormData((prev) => ({
       ...prev,
-      date: getLocaleDate(
-        { timeZone: prev.timezone },
-        new Date(),
-      ),
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
     }))
   }
 
@@ -161,6 +159,7 @@ const CreateEvent = () => {
         style: toastStyle,
         iconTheme: toastIconTheme,
       })
+      localStorage.removeItem('form-data')
     } else {
       toast.error('You must be logged in to create an event', {
         style: toastStyle,
@@ -168,10 +167,11 @@ const CreateEvent = () => {
     }
   }
 
-  const [format12, setFormat12] = useState(true)
-
-  const handleClick = (time: string) => {
-    console.log({ time })
+  const handleClick = (time: TimePattern) => {
+    setFormData((prev) => ({
+      ...prev,
+      time,
+    }))
   }
 
   const dayPeriod = getLocaleDayPeriod('en-US')
@@ -189,6 +189,7 @@ const CreateEvent = () => {
           />
           <div className={styles['container-event-name']}>
             <input
+              aria-label="Event name"
               className={styles['event-name']}
               id=""
               name="eventName"
@@ -206,6 +207,7 @@ const CreateEvent = () => {
               >
                 <div className={styles['input-button']}>
                   <input
+                    aria-label="Add time"
                     className={`${styles['time']}`}
                     id=""
                     name="time"
@@ -226,8 +228,8 @@ const CreateEvent = () => {
                   {showTimePicker && (
                     <TimePicker
                       dayPeriod={dayPeriod}
-                      format={format12 ? 12 : 24}
-                      time="23:15"
+                      format={format}
+                      time={formData.time}
                       onClick={handleClick}
                     />
                   )}
@@ -236,7 +238,7 @@ const CreateEvent = () => {
                 <div className={styles['container-toggle']}>
                   <Toggle
                     onToggle={() => {
-                      setFormat12((prev) => !prev)
+                      setFormat((prev) => (prev === 12 ? 24 : 12))
                     }}
                   />
                   <span className={styles['text-toggle']}>24H</span>
@@ -249,6 +251,7 @@ const CreateEvent = () => {
                 className={`${styles['container-with-toggle']} ${styles['container-date']}`}
               >
                 <input
+                  aria-label="Add date"
                   className={`${styles['date']} ${
                     dateDisabled ? styles['disabled'] : ''
                   }`}
@@ -272,6 +275,7 @@ const CreateEvent = () => {
 
           <div className={styles['container-hyperlink']}>
             <input
+              aria-label="Add link to event"
               className={styles['hyperlink']}
               id=""
               name="eventLink"
@@ -283,6 +287,7 @@ const CreateEvent = () => {
           </div>
 
           <textarea
+            aria-label="Add description to event"
             className={styles['description']}
             id=""
             name="eventDescription"

@@ -57,6 +57,7 @@ export const SelectCountry = ({
   return (
     <div className={styles['select-country-container']}>
       <div
+        aria-label="Select your timezone"
         className={styles['select-country']}
         tabIndex={0}
         onClick={() => setVisibleSelectMenu(true)}

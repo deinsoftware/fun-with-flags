@@ -37,7 +37,9 @@ const ComboboxCountries = ({ getTextContent, handleAddCountry }: Props) => {
       )}
       <div className={style['add-button-container']}>
         <button
+          aria-label="Add country timezone"
           className={style['add-button']}
+          type="button"
           onClick={(event) => {
             event.preventDefault()
             handleAddCountry(true)
