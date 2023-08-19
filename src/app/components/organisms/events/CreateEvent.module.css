@@ -15,14 +15,14 @@
         margin: 0 auto;
         gap: 16px;
 
+
         & .description {
             height: 80px;
             resize: none;
         }
 
         & .container-event-name,
-        .container-hyperlink,
-        .container-description {
+        .container-hyperlink {
             width: 100%;
 
             & .event-name,
@@ -39,9 +39,9 @@
             gap: 8px;
 
             & .container-with-toggle {
-                width: 100%;
                 position: relative;
                 display: flex;
+                width: 100%;
                 flex-direction: column;
                 gap: 8px;
 
@@ -55,11 +55,11 @@
 
                 & .select-time {
                     position: absolute;
-                    right: 0px;
+                    right: 0;
                     width: 50px;
                     height: 40px;
-                    border: none;
                     padding: 0;
+                    border: none;
                     background-color: transparent;
                     cursor: pointer;
                 }
@@ -98,22 +98,17 @@
                 &::after {
                     position: absolute;
                     top: 10px;
-                    right: 12px;
+                    right: 20px;
                     display: flex;
-                    width: 20px;
+                    width: 40px;
                     height: 20px;
                     align-items: center;
                     justify-content: center;
-                    background-size: cover;
-                    content: '';
+                    background-color: var(--color-darkgray-800);
+                    content: url('/img/ui/date.svg');
                     pointer-events: none;
                 }
             }
-
-            & .container-date::after {
-                background-image: url("./date.svg");
-            }
-
 
             & .container-date {
                 @media (width >=730px) {
@@ -123,7 +118,9 @@
                 &::after {
                     @media (width >=730px) {
                         /* 120px = min-height container-toggle */
+
                         /* 8px = gap between input and toggle-container */
+
                         /* 12px = space to center it */
                         right: calc(120px + 8px + 12px);
                     }
@@ -134,7 +131,6 @@
                 }
             }
         }
-
 
         & .event-name,
         .time,
@@ -148,13 +144,13 @@
         .date,
         .hyperlink,
         .description {
+            padding: 0 1rem;
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
             background-color: var(--color-darkgray-800);
             color: var(--color-whywhite-500);
-
-            padding: 1rem;
             font-family: var(--font-family-primary);
+            font-size: var(--font-size-medium);
 
             &::placeholder {
                 color: var(--color-gray-500);
@@ -164,7 +160,10 @@
                 border: 1px solid transparent;
                 outline: 1px solid var(--color-purple-500);
             }
+        }
 
+        & .description {
+            padding: 1rem;
         }
 
         & .container-time-and-date {
@@ -178,10 +177,10 @@
                 gap: 8px;
 
                 & .input-button {
-                    display: flex;
-                    align-items: center;
                     position: relative;
+                    display: flex;
                     width: 100%;
+                    align-items: center;
                 }
 
                 & .time,
