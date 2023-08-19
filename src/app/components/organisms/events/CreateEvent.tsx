@@ -47,7 +47,6 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { DatePattern } from '@/types/dates.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
