@@ -3,11 +3,7 @@ type Props = {
   children: React.ReactNode
 }
 const Wrapper = ({ children }: Props) => {
-  return (
-    <>
-      <div>{children}</div>
-    </>
-  )
+  return <>{children}</>
 }
 
 export default Wrapper
