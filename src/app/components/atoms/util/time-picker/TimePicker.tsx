@@ -1,49 +1,26 @@
 import { ChevronUp, ChevronDown } from 'lucide-react'
 
-import { useEffect, useState } from 'react'
+import {
+  useState,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+  type WheelEvent,
+  type KeyboardEvent,
+  type ChangeEvent,
+} from 'react'
 
 import styles from './TimePicker.module.css'
 
 import { lucidIconsTimePicker } from '@/libs/icon-config'
-
-const arrayMinutes = Array.from(Array(60).keys(), (num) =>
-  num.toString().padStart(2, '0'),
-)
-const arrayHours24 = Array.from(Array(24).keys(), (num) =>
-  num.toString().padStart(2, '0'),
-)
-
-const arrayHours12 = [
-  '12',
-  '01',
-  '02',
-  '03',
-  '04',
-  '05',
-  '06',
-  '07',
-  '08',
-  '09',
-  '10',
-  '11',
-  '12',
-  '01',
-  '02',
-  '03',
-  '04',
-  '05',
-  '06',
-  '07',
-  '08',
-  '09',
-  '10',
-  '11',
-]
+import { TimePattern } from '@/types/dates.types'
+import { TimeFormat } from '@/helpers/events.types'
+import { arrayHours12, arrayHours24, arrayMinutes } from '@/helpers/dates'
 
 type Props = {
-  time: string //HH:MM
-  format: 12 | 24 //type TimeFormat
-  onClick: (time: string) => void
+  time: TimePattern
+  format: TimeFormat
+  onClick: (time: TimePattern) => void
   dayPeriod?: {
     am: string
     pm: string
@@ -66,8 +43,8 @@ const TimePicker = ({
   //todo: load time
   const [hh, mm] = time.split(':')
 
-  const [hours, setHours] = useState(parseInt(hh, 10) ?? 0)
-  const [minutes, setMinutes] = useState(parseInt(mm, 10) ?? 0)
+  const [hours, setHours] = useState<number>(parseInt(hh, 10) ?? 0)
+  const [minutes, setMinutes] = useState<number>(parseInt(mm, 10) ?? 0)
 
   const [meridianPosition, setMeridianPosition] = useState(dayPeriod.am)
 
@@ -82,14 +59,20 @@ const TimePicker = ({
     setArrayHours(hoursArray)
   }, [format])
 
-  const handlePlus = (array, setFunction) => {
-    setFunction((index) => {
+  const handlePlus = (
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
+    setFunction((index: number) => {
       return index + 1 < array.length ? index + 1 : 0
     })
   }
 
-  const handleMinus = (array, setFunction) => {
-    setFunction((index) => {
+  const handleMinus = (
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
+    setFunction((index: number) => {
       return index - 1 >= 0 ? index - 1 : array.length - 1
     })
   }
@@ -99,7 +82,11 @@ const TimePicker = ({
     setHours((index) => index + operation)
   }
 
-  const handleWheel = (event, array, setFunction) => {
+  const handleWheel = (
+    event: WheelEvent,
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
     if (event.deltaY < 0) {
       // Scroll up
       handleMinus(array, setFunction)
@@ -109,7 +96,11 @@ const TimePicker = ({
     }
   }
 
-  const handleKeyPress = (event, array, setFunction) => {
+  const handleKeyPress = (
+    event: KeyboardEvent,
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
     if (event.key === 'ArrowUp') {
       handleMinus(array, setFunction)
     } else if (event.key === 'ArrowDown') {
@@ -118,20 +109,32 @@ const TimePicker = ({
   }
 
   useEffect(() => {
-    onClick(`${hours.toString().padStart(2, '0')}:${arrayMinutes[minutes]}`)
+    onClick(
+      `${hours.toString().padStart(2, '0')}:${
+        arrayMinutes[minutes]
+      }` as TimePattern,
+    )
   }, [hours, minutes])
 
-  const handleChange = (event, array, setFunction) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
     const value = event.target.valueAsNumber
 
-    const minValue = parseInt(array.at(0), 10)
-    const maxValue = parseInt(array.at(-1), 10)
+    const minValue = parseInt(array.at(0) ?? '0', 10)
+    const maxValue = parseInt(array.at(-1) ?? '0', 10)
 
     if (value <= maxValue && value >= minValue) {
       setFunction(value)
     }
   }
-  const handleChangeHours = (event, array, setFunction) => {
+  const handleChangeHours = (
+    event: ChangeEvent<HTMLInputElement>,
+    array: string[],
+    setFunction: Dispatch<SetStateAction<number>>,
+  ) => {
     const value = event.target.valueAsNumber
 
     // console.log(value, parseInt(value, 10));

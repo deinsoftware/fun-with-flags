@@ -10,8 +10,8 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 export const useGetFormData = () => {
   const [formData, setFormData] = useState<FormData>({
     eventName: '',
-    time: undefined,
-    date: undefined,
+    time: '',
+    date: '',
     language: '',
     eventLink: '',
     eventDescription: '',
