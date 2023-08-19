@@ -11,15 +11,8 @@ import {
   useEffect,
 } from 'react'
 
+import { Clock3 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-
-import Toggle from '../../atoms/util/toggle/Toggle'
-
-import { SelectCountry } from '../../molecules/select-country/SelectCountry'
-
-import { Button } from '../../atoms/ui/button/Button'
-
-import TitleOnPage from '../../atoms/ui/TitleOnPage'
 
 import styles from './CreateEvent.module.css'
 
@@ -27,12 +20,30 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
+import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
+
+import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
+import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
+
+import Toggle from '@/app/components/atoms/util/toggle/Toggle'
+
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
+import { getLocaleDayPeriod } from '@/helpers/dates'
+
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
-import { getLocaleDate, joinISODate } from '@/helpers/dates'
+import {
+  addDateYears,
+  extractDate,
+  getLocaleDate,
+  joinISODate,
+} from '@/helpers/dates'
+import { lucidIcons } from '@/libs/icon-config'
+
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
@@ -78,7 +89,7 @@ const CreateEvent = () => {
     }),
     [timeZones.origin.date],
   )
-  const flagList = useFetch(props)
+  const { data: flagList, error } = useFetch(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -126,6 +137,8 @@ const CreateEvent = () => {
     [setFormData],
   )
 
+  const [showTimePicker, setShowTimePicker] = useState(false)
+
   const handleCreateEvent = async () => {
     if (session?.user?.name) {
       const body: EventBody = {
@@ -154,6 +167,15 @@ const CreateEvent = () => {
       })
     }
   }
+
+  const [format12, setFormat12] = useState(true)
+
+  const handleClick = (time: string) => {
+    console.log({ time })
+  }
+
+  const dayPeriod = getLocaleDayPeriod('en-US')
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -178,54 +200,73 @@ const CreateEvent = () => {
           </div>
 
           <div className={styles['container-time-and-date']}>
-            <div className={styles['container-with-toggle']}>
-              <input
-                className={`${styles['time']}`}
-                id=""
-                name="time"
-                type="time"
-                value={formData.time}
-                onChange={handleChangeForm}
-              />
-            </div>
+            <div className={styles['container-to-position-relative']}>
+              <div
+                className={`${styles['container-with-toggle']} ${styles['container-time']}`}
+              >
+                <div className={styles['input-button']}>
+                  <input
+                    className={`${styles['time']}`}
+                    id=""
+                    name="time"
+                    type="time"
+                    value={formData.time}
+                    onChange={handleChangeForm}
+                  />
+                  <button
+                    className={styles['select-time']}
+                    type="button"
+                    onClick={() => setShowTimePicker(!showTimePicker)}
+                  >
+                    <Clock3
+                      color={lucidIcons.color.main}
+                      size={lucidIcons.size}
+                    />
+                  </button>
+                  {showTimePicker && (
+                    <TimePicker
+                      dayPeriod={dayPeriod}
+                      format={format12 ? 12 : 24}
+                      time="23:15"
+                      onClick={handleClick}
+                    />
+                  )}
+                </div>
 
-            <div
-              className={`${styles['container-with-toggle']} ${styles['container-date']}`}
-            >
-              <input
-                className={`${styles['date']} ${
-                  dateDisabled ? styles['disabled'] : ''
-                }`}
-                disabled={dateDisabled}
-                id=""
-                name="date"
-                type="date"
-                value={formData.date}
-                onChange={handleChangeForm}
-              />
-
-              <div className={styles['container-toggle']}>
-                <Toggle onToggle={handleDateToggle} />
-                <span className={styles['text-toggle']}>Use data</span>
+                <div className={styles['container-toggle']}>
+                  <Toggle
+                    onToggle={() => {
+                      setFormat12((prev) => !prev)
+                    }}
+                  />
+                  <span className={styles['text-toggle']}>24H</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className={styles['container-time-zone-and-language']}>
-            <div className={styles['container-language']}>
-              <select
-                className={styles['language']}
-                id=""
-                name="language"
-                value={formData.language}
-                onChange={handleChangeForm}
+            <div className={styles['container-to-position-relative']}>
+              <div
+                className={`${styles['container-with-toggle']} ${styles['container-date']}`}
               >
-                <option disabled hidden value="default">
-                  Select a language
-                </option>
-                <option value="lg-1">First language</option>
-                <option value="lg-2">Second language</option>
-              </select>
+                <input
+                  className={`${styles['date']} ${
+                    dateDisabled ? styles['disabled'] : ''
+                  }`}
+                  disabled={dateDisabled}
+                  id=""
+                  max={extractDate(addDateYears(new Date(), 100))}
+                  min={extractDate(new Date())}
+                  name="date"
+                  type="date"
+                  value={formData.date}
+                  onChange={handleChangeForm}
+                />
+
+                <div className={styles['container-toggle']}>
+                  <Toggle onToggle={handleDateToggle} />
+                  <span className={styles['text-toggle']}>Use data</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -249,18 +290,6 @@ const CreateEvent = () => {
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
-
-          <div className={styles['container-upload-image']}>
-            <input
-              className={styles['upload-image']}
-              id=""
-              name="image"
-              placeholder="how to do an update image?"
-              type="text"
-              value={formData.image}
-              onChange={handleChangeForm}
-            />
-          </div>
 
           <ComboboxCountries
             getTextContent={handleChangeTextContent}

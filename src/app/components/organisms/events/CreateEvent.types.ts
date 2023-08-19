@@ -4,8 +4,8 @@ import { Timezones } from '@/types/timezones.types'
 
 export type FormData = {
   eventName: string
-  time?: TimePattern
-  date?: DatePattern
+  time: TimePattern | ''
+  date: DatePattern | ''
   language: string
   eventLink: string
   eventDescription: string

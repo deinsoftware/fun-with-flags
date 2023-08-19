@@ -32,6 +32,11 @@ export const isValidTimeZone = (timeZone: Timezones): boolean => {
   }
 }
 
+export const addDateYears = (date: Date, years: number) => {
+  date.setFullYear(date.getFullYear() + years)
+  return date
+}
+
 export const extractDate = (date: Date): DatePattern => {
   let year = String(date.getFullYear())
   let month = String(date.getMonth() + 1).padStart(2, '0')
