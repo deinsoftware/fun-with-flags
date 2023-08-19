@@ -17,6 +17,8 @@ type Props = {
   flagList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
+  gmt: FormData['gmt']
+  timezone: FormData['timezone']
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
 }
 
@@ -24,10 +26,11 @@ export const SelectCountry = ({
   flagList,
   countryCode,
   date,
+  gmt,
+  timezone,
   setFormData,
 }: Props) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
-
   const handleClose = () => {
     setVisibleSelectMenu(false)
   }
@@ -77,6 +80,8 @@ export const SelectCountry = ({
             title={`Flag of ${countryCode}`}
           />
         )}
+        <p>{`${timezone}`}</p>
+        <p>{`GMT: ${gmt}`}</p>
       </div>
 
       {visibleSelectMenu && (

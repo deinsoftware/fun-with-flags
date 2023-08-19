@@ -185,7 +185,9 @@ const CreateEvent = () => {
             countryCode={formData.country}
             date={formData.date}
             flagList={flagList}
+            gmt={formData.gmt}
             setFormData={setFormData}
+            timezone={formData.timezone}
           />
           <div className={styles['container-event-name']}>
             <input
