@@ -18,6 +18,14 @@
         width: 5rem;
     }
 
+    .time-short-12 {
+        width: 3.56rem;
+    }
+
+    .time-short-24 {
+        width: 2.3rem;
+    }
+
     .gmt {
         width: 5.7rem;
         flex-shrink: 0;
