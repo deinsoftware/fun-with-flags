@@ -51,6 +51,10 @@ export const DatesToRender = ({
         ? countries[0].i18n.time
         : `${countries[0].i18n.time.split(':')[0]} ${complementShortHour}`
 
+      let gmtText = ''
+      if (showGmtWord) {
+        gmtText = gmt.startsWith('-') || gmt.startsWith('+') ? 'GMT' : ''
+      }
       return (
         <div key={gmt} className={style['countries']}>
           <p
@@ -61,9 +65,9 @@ export const DatesToRender = ({
             {timeText}
           </p>
           {(showGmt || showGmtWord) && (
-            <p className={style['gmt']}>{`(${showGmtWord ? 'GMT' : ''}${
-              showGmt ? gmt : ''
-            })`}</p>
+            <p className={style['gmt']}>
+              {`(${gmtText}${showGmt ? gmt : ''})`}
+            </p>
           )}
           <div className={style['flags-container']}>
             {countries.map(({ countryCode, name }) => (
