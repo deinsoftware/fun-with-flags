@@ -100,7 +100,10 @@ const CreateEvent = () => {
     setDateDisabled(!disabled)
     setFormData((prev) => ({
       ...prev,
-      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
+      date: getLocaleDate(
+        { timeZone: prev.timezone },
+        new Date(),
+      ),
     }))
   }
 
