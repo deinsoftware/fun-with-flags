@@ -4,6 +4,7 @@ import {
   type SetStateAction,
   createContext,
   useMemo,
+  useCallback,
 } from 'react'
 
 import { useGetTimes } from './useGetTimes'
@@ -45,65 +46,76 @@ export function TimeZoneProvider({ children }: Props) {
     initialTimeZoneData,
     24,
   )
-  const addTimeZone = (zone: Zone) => {
-    const index = timeZones?.list?.findIndex((timeZone) => {
-      return (
-        timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
-      )
-    })
-    if (index >= 0) return
+  const addTimeZone = useCallback(
+    (zone: Zone) => {
+      const index = timeZones?.list?.findIndex((timeZone) => {
+        return (
+          timeZone.countryCode === zone.countryCode &&
+          timeZone.name === zone.name
+        )
+      })
+      if (index >= 0) return
 
-    setTimeZones((prev) => {
-      return {
-        ...prev,
-        list: [...(prev?.list ?? []), zone],
-        origin: {
-          ...prev?.origin,
-        },
-      }
-    })
-  }
-
-  const deleteTimeZone = (zone: Zone) => {
-    const index = timeZones?.list?.findIndex((timeZone) => {
-      return (
-        timeZone.countryCode === zone.countryCode && timeZone.name === zone.name
-      )
-    })
-
-    if (index === -1 || index === undefined) {
-      return
-    } else {
-      let newTimeZonesList = structuredClone(timeZones?.list)
-      newTimeZonesList?.splice(index, 1)
       setTimeZones((prev) => {
         return {
           ...prev,
-          list: newTimeZonesList ?? [],
+          list: [...(prev?.list ?? []), zone],
           origin: {
             ...prev?.origin,
           },
         }
       })
-    }
-  }
+    },
+    [setTimeZones, timeZones?.list],
+  )
 
-  const setOriginDate = (zone?: Zone, originDate?: string) => {
-    if (!zone && !originDate) return
-    setTimeZones((prev) => {
-      const origin: OriginDate = {
-        ...prev.origin,
-        ...(originDate && { date: originDate }),
-        ...(zone && { ...zone }),
-      }
+  const deleteTimeZone = useCallback(
+    (zone: Zone) => {
+      const index = timeZones?.list?.findIndex((timeZone) => {
+        return (
+          timeZone.countryCode === zone.countryCode &&
+          timeZone.name === zone.name
+        )
+      })
 
-      return {
-        ...prev,
-        list: [...(prev?.list ?? [])],
-        origin: origin,
+      if (index === -1 || index === undefined) {
+        return
+      } else {
+        let newTimeZonesList = structuredClone(timeZones?.list)
+        newTimeZonesList?.splice(index, 1)
+        setTimeZones((prev) => {
+          return {
+            ...prev,
+            list: newTimeZonesList ?? [],
+            origin: {
+              ...prev?.origin,
+            },
+          }
+        })
       }
-    })
-  }
+    },
+    [timeZones?.list, setTimeZones],
+  )
+
+  const setOriginDate = useCallback(
+    (zone?: Zone, originDate?: string) => {
+      if (!zone && !originDate) return
+      setTimeZones((prev) => {
+        const origin: OriginDate = {
+          ...prev.origin,
+          ...(originDate && { date: originDate }),
+          ...(zone && { ...zone }),
+        }
+
+        return {
+          ...prev,
+          list: [...(prev?.list ?? [])],
+          origin: origin,
+        }
+      })
+    },
+    [setTimeZones],
+  )
   const contextValue = useMemo(
     () => ({
       timeZones,
@@ -113,7 +125,7 @@ export function TimeZoneProvider({ children }: Props) {
       setOriginDate,
       setFormat,
     }),
-    [timeZones, format],
+    [timeZones, format, addTimeZone, deleteTimeZone, setOriginDate, setFormat],
   )
 
   return (
