@@ -104,28 +104,30 @@ export const DatesToRender = ({
   useEffect(() => {
     const result = datesArray.map(([date, groupedCountries]) => {
       const values = Object.values(groupedCountries)
-      const firstCountry = values[0][0]
-      const complementShortHour: string =
-        format === 12 ? firstCountry.i18n.time.split(' ')[1] : 'H'
-      const timeInfo = Object.entries(groupedCountries).map(
-        ([gmt, countries]) => getTimeInfo(gmt, countries, complementShortHour),
-      )
+      if (values.length >= 1) {
+        const firstCountry = values[0][0]
+        const complementShortHour: string =
+          format === 12 ? firstCountry.i18n.time.split(' ')[1] : 'H'
+        const timeInfo = Object.entries(groupedCountries).map(
+          ([gmt, countries]) =>
+            getTimeInfo(gmt, countries, complementShortHour),
+        )
 
-      return (
-        <div
-          key={self.crypto.randomUUID()}
-          ref={ref}
-          className={style['container']}
-        >
-          <p>
-            <strong>{date}</strong>
-          </p>
-          {timeInfo}
-        </div>
-      )
+        return (
+          <div
+            key={self.crypto.randomUUID()}
+            ref={ref}
+            className={style['container']}
+          >
+            <p>
+              <strong>{date}</strong>
+            </p>
+            {timeInfo}
+          </div>
+        )
+      }
     })
-
-    setTimeToRender(result)
+    if (result[0] !== undefined) setTimeToRender(result)
   }, [datesArray, deleteTimeZone, format])
 
   return timeToRender
