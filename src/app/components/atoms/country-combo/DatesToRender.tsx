@@ -43,7 +43,9 @@ export const DatesToRender = ({ datesArray, getTextContent }: Props) => {
             <p className={format === 12 ? style['time-12'] : style['time-24']}>
               {`${countries[0].i18n.time}`}
             </p>
-            <p className={style['gmt']}>{`(GMT${gmt})`}</p>
+            <p className={style['gmt']}>{`(${
+              gmt.startsWith('-') || gmt.startsWith('+') ? 'GMT' : ''
+            }${gmt})`}</p>
             <div className={style['flags-container']}>
               {countries.map(({ countryCode, name }) => {
                 return (
