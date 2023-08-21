@@ -17,6 +17,7 @@ import { lucidIconsTimePicker } from '@/libs/icon-config'
 import { TimePattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { arrayHours12, arrayHours24, arrayMinutes } from '@/helpers/dates'
+import useDebounce from '@/app/hooks/useDebounce'
 
 type MouseDownState = {
   plusHours: boolean
@@ -160,14 +161,17 @@ const TimePicker = ({
       handlePlus(array, setFunction)
     }
   }
-
-  useEffect(() => {
-    onClick(
-      `${hours.toString().padStart(2, '0')}:${
-        arrayMinutes[minutes]
-      }` as TimePattern,
-    )
-  }, [hours, minutes])
+  useDebounce({
+    fn: () => {
+      onClick(
+        `${hours.toString().padStart(2, '0')}:${
+          arrayMinutes[minutes]
+        }` as TimePattern,
+      )
+    },
+    time: 400,
+    deps: [hours, minutes],
+  })
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement>,
