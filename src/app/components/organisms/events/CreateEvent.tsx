@@ -177,6 +177,12 @@ const CreateEvent = () => {
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
+  const [optionsCombo, setOptionsCombo] = useState({
+    hourComplete: true,
+    showGmt: true,
+    showGmtWord: true,
+  })
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -202,7 +208,6 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-to-position-relative']}>
               <div
@@ -275,7 +280,6 @@ const CreateEvent = () => {
               </div>
             </div>
           </div>
-
           <div className={styles['container-hyperlink']}>
             <input
               aria-label="Add link to event"
@@ -288,7 +292,6 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <textarea
             aria-label="Add description to event"
             className={styles['description']}
@@ -298,11 +301,49 @@ const CreateEvent = () => {
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
-
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            showGmt={optionsCombo.showGmt}
+            showGmtWord={optionsCombo.showGmtWord}
+            showHourComplete={optionsCombo.hourComplete}
           />
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  hourComplete: !prev.hourComplete,
+                }))
+              }}
+            />
+            <p>Show only hours</p>
+          </div>
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  showGmt: !prev.showGmt,
+                  showGmtWord: !prev.showGmt,
+                }))
+              }}
+            />
+            <p>Show GMT</p>
+          </div>
+          {optionsCombo.showGmt && (
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    showGmtWord: !prev.showGmtWord,
+                  }))
+                }}
+              />
+              <p>Show GMT word</p>
+            </div>
+          )}
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>

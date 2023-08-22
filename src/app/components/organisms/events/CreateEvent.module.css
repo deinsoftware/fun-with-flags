@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: var(--padding);
+    color: var(--color-whywhite-500);
     gap: 1rem;
 
     .form {
@@ -219,4 +220,9 @@
             gap: 1rem;
         }
     }
+}
+
+.container-options-combo {
+    display: flex;
+    gap: 1rem;
 }

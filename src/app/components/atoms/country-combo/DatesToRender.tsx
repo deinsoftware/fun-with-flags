@@ -9,14 +9,14 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
-import { EventDate, Zone } from '@/helpers/events.types'
+import { EventDate } from '@/helpers/events.types'
 
 type Props = {
   datesArray: DatesFilteredArray[]
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
-  showGmt?: boolean
-  showGmtWord?: boolean
-  showHourComplete?: boolean
+  showGmt: boolean
+  showGmtWord: boolean
+  showHourComplete: boolean
 }
 
 export const DatesToRender = ({
@@ -30,7 +30,6 @@ export const DatesToRender = ({
   const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
 
   const ref = useRef<HTMLDivElement>(null)
-
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLImageElement>) => {
       const target = event.target as HTMLImageElement
@@ -128,7 +127,7 @@ export const DatesToRender = ({
       }
     })
     if (result[0] !== undefined) setTimeToRender(result)
-  }, [datesArray, deleteTimeZone, format])
+  }, [datesArray, deleteTimeZone, format, getTimeInfo])
 
   return timeToRender
 }
