@@ -160,6 +160,7 @@ const CreateEvent = () => {
         iconTheme: toastIconTheme,
       })
       localStorage.removeItem('form-data')
+      localStorage.removeItem('time-zones')
     } else {
       toast.error('You must be logged in to create an event', {
         style: toastStyle,
