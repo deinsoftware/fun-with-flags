@@ -9,7 +9,6 @@
     background-color: rgb(0 0 0 / 45%);
 
     .container-list-with-search {
-        display: block;
         width: 90%;
         height: calc(90% - 60px);
         border-radius: 10px;
@@ -76,6 +75,20 @@
             border-radius: 0 0 10px 10px;
             overflow-y: scroll;
             scroll-behavior: smooth;
+        }
+    }
+
+    @media (width >=920px) {
+        background-color: transparent;
+        pointer-events: none;
+
+        .container-list-with-search {
+            pointer-events: all;
+            position: fixed;
+            top: 80px;
+            right: 80px;
+            max-width: 300px;
+            max-height: 500px;
         }
     }
 }
