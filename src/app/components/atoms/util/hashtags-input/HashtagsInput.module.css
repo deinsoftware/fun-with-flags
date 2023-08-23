@@ -1,11 +1,11 @@
 .hashtag-container {
     display: flex;
-    flex-direction: column;
-
     width: 100%;
+    flex-direction: column;
     gap: 8px;
 
     & .hashtag-input {
+        height: 40px;
         padding: 0 1rem;
         border: 1.5px solid var(--color-darkgray-500);
         border-radius: 10px;
@@ -13,8 +13,6 @@
         color: var(--color-whywhite-500);
         font-family: var(--font-family-primary);
         font-size: var(--font-size-medium);
-
-        height: 40px;
 
         &::placeholder {
             color: var(--color-gray-500);
@@ -35,8 +33,8 @@
 
         & .tag {
             padding: 0 8px;
-            background-color: var(--color-darkgray-500);
             border-radius: 8px;
+            background-color: var(--color-darkgray-500);
             cursor: pointer;
 
             &:hover {
