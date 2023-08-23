@@ -14,7 +14,8 @@ type Props = {
 const Hashtags = ({ hashTags, setHashTags }: Props) => {
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const hashTag = event.target.value.trim()
+      const target = event.target as HTMLInputElement 
+      const hashTag = target.value.trim()
 
       if (!hashTag) return
       if (hashTag.includes(' ')) {
@@ -22,11 +23,11 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
       }
       if (hashTags.includes(hashTag)) {
         toast('Hashtag already exists')
-        return (event.target.value = null)
+        return ((target.value as string | null) = null)
       }
 
       setHashTags((prev: string[]) => [...prev, hashTag])
-      event.target.value = null
+      return ((target.value as string | null) = null)
     }
   }
 
