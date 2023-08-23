@@ -20,10 +20,14 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
+import { shareEventsTwitter } from '@/helpers/share-events'
+
 import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
 
 import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
 import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
 
 import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
 
@@ -100,10 +104,7 @@ const CreateEvent = () => {
     setDateDisabled(!disabled)
     setFormData((prev) => ({
       ...prev,
-      date: getLocaleDate(
-        { timeZone: prev.timezone },
-        new Date(),
-      ),
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
     }))
   }
 
@@ -174,6 +175,9 @@ const CreateEvent = () => {
   }
 
   const dayPeriod = getLocaleDayPeriod('en-US')
+
+  const [hashTags, setHashTags] = useState([])
+  console.log(hashTags)
 
   return (
     <>
@@ -289,6 +293,8 @@ const CreateEvent = () => {
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
+
+          <HashtagsInput hashTags={hashTags} setHashTags={setHashTags} />
 
           <ComboboxCountries
             getTextContent={handleChangeTextContent}

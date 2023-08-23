@@ -1,0 +1,47 @@
+.hashtag-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    gap: 8px;
+
+    & .hashtag-input {
+        padding: 0 1rem;
+        border: 1.5px solid var(--color-darkgray-500);
+        border-radius: 10px;
+        background-color: var(--color-darkgray-800);
+        color: var(--color-whywhite-500);
+        font-family: var(--font-family-primary);
+        font-size: var(--font-size-medium);
+
+        height: 40px;
+
+        &::placeholder {
+            color: var(--color-gray-500);
+        }
+
+        &:focus {
+            border: 1px solid transparent;
+            outline: 1px solid var(--color-purple-500);
+        }
+    }
+
+
+    & .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+
+        & .tag {
+            padding: 0 8px;
+            background-color: var(--color-darkgray-500);
+            border-radius: 8px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
