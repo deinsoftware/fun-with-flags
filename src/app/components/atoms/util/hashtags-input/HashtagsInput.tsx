@@ -2,10 +2,17 @@
 
 import { toast } from 'react-hot-toast'
 
+import { type Dispatch, type KeyboardEvent, type SetStateAction } from 'react'
+
 import styles from './HashtagsInput.module.css'
 
-const Hashtags = ({ hashTags, setHashTags }) => {
-  const onKeyDown = (event) => {
+type Props = {
+  hashTags: string[]
+  setHashTags: Dispatch<SetStateAction<string[]>>
+}
+
+const Hashtags = ({ hashTags, setHashTags }: Props) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const hashTag = event.target.value.trim()
 
@@ -18,12 +25,12 @@ const Hashtags = ({ hashTags, setHashTags }) => {
         return (event.target.value = null)
       }
 
-      setHashTags((prev) => [...prev, hashTag])
+      setHashTags((prev: string[]) => [...prev, hashTag])
       event.target.value = null
     }
   }
 
-  const removeTag = (tag) => {
+  const removeTag = (tag: string) => {
     setHashTags(hashTags.filter((t) => t !== tag))
   }
 
