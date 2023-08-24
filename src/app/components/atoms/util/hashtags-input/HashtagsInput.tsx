@@ -22,14 +22,14 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
         hashTag = hashTag.slice(1)
       }
 
+      if (hashTag.includes(' ')) {
+        return toast('Spaces are not allowed')
+      }
       const regExp = /[^A-Za-z0-9#]/
       if (regExp.test(hashTag)) {
         return toast('Special characters are not allowed')
       }
 
-      if (hashTag.includes(' ')) {
-        return toast('Spaces are not allowed')
-      }
       if (hashTags.includes(hashTag)) {
         return toast('Hashtag already exists')
       }
@@ -42,10 +42,6 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
   const removeTag = (tag: string) => {
     setHashTags(hashTags.filter((t) => t !== tag))
   }
-
-  /* 
-  ! we need a better key={} in <span>
-  */
 
   return (
     <>
