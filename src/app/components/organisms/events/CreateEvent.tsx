@@ -96,10 +96,10 @@ const CreateEvent = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  const [dateDisabled, setDateDisabled] = useState(false)
+  const [dateDisabled, setDateDisabled] = useState(true)
 
   const handleDateToggle = (disabled: boolean) => {
-    setDateDisabled(disabled)
+    setDateDisabled(!disabled)
     setFormData((prev) => ({
       ...prev,
       date: getLocaleDate(

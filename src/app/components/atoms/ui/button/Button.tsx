@@ -3,8 +3,8 @@ import Image from 'next/image'
 import styles from './Button.module.css'
 
 const sizeAvatar = {
-  height: 32,
-  width: 32,
+  height: 28,
+  width: 28,
 }
 
 type Props = {
