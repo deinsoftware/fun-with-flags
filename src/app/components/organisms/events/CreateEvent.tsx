@@ -47,7 +47,8 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { DatePattern } from '@/types/dates.types'
+
+import { shareEventsTwitter } from '@/helpers/share-events'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -176,6 +177,15 @@ const CreateEvent = () => {
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
+  const handleShareEventOnTwitter = () => {
+    return shareEventsTwitter({
+      url: formData.eventLink,
+      text: formData.eventDescription,
+      // hashtags: formData.tags,
+      hashtags: ['event', 'emoji', 'salsa'],
+    })
+  }
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -300,7 +310,9 @@ const CreateEvent = () => {
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
             </Button>
-            <Button handleClick={() => {}}>Share</Button>
+            <Button isSharing handleClick={handleShareEventOnTwitter}>
+              Share
+            </Button>
           </div>
         </form>
       </div>
