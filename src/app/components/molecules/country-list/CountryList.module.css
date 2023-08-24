@@ -83,12 +83,12 @@
         pointer-events: none;
 
         .container-list-with-search {
-            pointer-events: all;
             position: fixed;
             top: 80px;
             right: 80px;
             max-width: 300px;
             max-height: 500px;
+            pointer-events: all;
         }
     }
 }

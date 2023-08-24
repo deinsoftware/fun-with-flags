@@ -33,13 +33,14 @@
 
         & .tag {
             padding: 0 8px;
+            border: 1.5px solid var(--color-darkgray-500);
             border-radius: 8px;
-            background-color: var(--color-darkgray-500);
-            cursor: pointer;
+            background-color: var(--color-darkgray-800);
             color: var(--color-purple-500);
+            cursor: pointer;
 
             &:hover {
-                color: #f00;
+                color: rgb(255 40 40 / 80%);
                 opacity: 0.8;
             }
         }
