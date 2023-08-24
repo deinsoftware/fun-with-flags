@@ -36,7 +36,7 @@ export const Button = ({
         event.preventDefault()
 
         if (isSharing) {
-          let url = handleClick(event)
+          let url = handleClick(event) as string | undefined
           window.open(url, '_blank')
         }
 
