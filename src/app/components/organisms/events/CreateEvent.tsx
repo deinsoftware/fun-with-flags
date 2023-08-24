@@ -176,7 +176,7 @@ const CreateEvent = () => {
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
-  const [hashTags, setHashTags] = useState([])
+  const [hashTags, setHashTags] = useState<string[]>([])
   console.log(hashTags)
 
   return (
