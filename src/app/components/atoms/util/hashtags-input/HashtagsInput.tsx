@@ -14,16 +14,24 @@ type Props = {
 const Hashtags = ({ hashTags, setHashTags }: Props) => {
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const target = event.target as HTMLInputElement 
-      const hashTag = target.value.trim()
+      const target = event.target as HTMLInputElement
+      let hashTag = target.value.trim()
 
       if (!hashTag) return
+      if (hashTag.charAt(0) === '#') {
+        hashTag = hashTag.slice(1)
+      }
+
+      const regExp = /[^A-Za-z0-9#]/
+      if (regExp.test(hashTag)) {
+        return toast('Special characters are not allowed')
+      }
+
       if (hashTag.includes(' ')) {
         return toast('Spaces are not allowed')
       }
       if (hashTags.includes(hashTag)) {
-        toast('Hashtag already exists')
-        return ((target.value as string | null) = null)
+        return toast('Hashtag already exists')
       }
 
       setHashTags((prev: string[]) => [...prev, hashTag])
