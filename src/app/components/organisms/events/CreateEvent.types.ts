@@ -14,4 +14,5 @@ export type FormData = {
   country: Countries
   timezone: Timezones
   gmt: GmtPattern
+  hashtags: string[]
 }
