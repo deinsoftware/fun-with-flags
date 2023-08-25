@@ -137,11 +137,9 @@ const TimePicker = ({
   ) => {
     const value = event.target.valueAsNumber
 
-    // console.log(value, parseInt(value, 10));
     if (format === 12) {
       if (value <= 12 && value >= 1) {
         const index = array.indexOf(value.toString().padStart(2, '0'))
-        // console.log({ index });
         if (index >= 0) {
           const operation = meridianPosition === dayPeriod.am ? 0 : +12
           setHours(() => index + operation)
