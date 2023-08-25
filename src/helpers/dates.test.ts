@@ -1,15 +1,15 @@
 import { it, expect, describe, vi } from 'vitest'
 
 import {
-  isValidTimeZone,
+  addDateYears,
   convertGmtToNumber,
-  getRegionNames,
   extractDate,
   extractTime,
   joinISODate,
   getLocaleDayPeriod,
   formatLocaleTime,
   getLocaleGmt,
+  getUserTimeFormat,
 } from './dates'
 
 import { TimezoneNames, Timezones } from '@/types/timezones.types'
@@ -22,30 +22,21 @@ afterEach(() => {
   vi.useRealTimers()
 })
 
-describe('isValidTimeZone()', () => {
-  it('should return true when using a correct time zone', () => {
-    const value = 'Australia/Adelaide'
-    const result = isValidTimeZone(value)
-    expect(result).toBeTruthy()
+describe('addDateYears()', () => {
+  it('should add the specified number of years to the date', () => {
+    const date = new Date(2022, 1, 1)
+
+    const result = addDateYears(date, 5)
+
+    expect(result.getFullYear()).toBe(2027)
   })
 
-  it('should return false when using an incorrect time zone', () => {
-    const value = 'Foo/Bar'
-    //@ts-expect-error
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-  })
+  it('should handle negative years', () => {
+    const date = new Date(2022, 1, 1)
 
-  it('should return false when Intl is not available', () => {
-    const spy = vi.spyOn<typeof Intl, any>(Intl, 'DateTimeFormat')
-    spy.mockImplementation(() => undefined)
+    const result = addDateYears(date, -3)
 
-    const value = 'Foo/Bar'
-    // @ts-expect-error
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-
-    spy.mockRestore()
+    expect(result.getFullYear()).toBe(2019)
   })
 })
 
@@ -211,25 +202,28 @@ describe('convertGmtToNumber()', () => {
   })
 })
 
-describe('getRegionNames()', () => {
-  it('should return the region name in english', () => {
-    const locale = 'en-US'
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('United States')
+describe('getUserTimeFormat()', () => {
+  it('should return 12 when the time format is AM/PM', () => {
+    const spy = vi
+      .spyOn(global.Date.prototype, 'toLocaleTimeString')
+      .mockReturnValue('12:00:00 AM')
+
+    const result = getUserTimeFormat()
+
+    expect(result).toBe(12)
+
+    spy.mockRestore()
   })
 
-  it('should return the region name in traditional chinese', () => {
-    const locale = 'zh-Hant'
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('美國')
-  })
+  it('should return 24 when the time format is 24-hour', () => {
+    const spy = vi
+      .spyOn(global.Date.prototype, 'toLocaleTimeString')
+      .mockReturnValue('18:00:00')
 
-  it('should return the region name with default language', () => {
-    const locale = undefined
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('United States')
+    const result = getUserTimeFormat()
+
+    expect(result).toBe(24)
+
+    spy.mockRestore()
   })
 })

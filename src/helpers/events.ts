@@ -5,12 +5,10 @@ import {
   getLocaleAcronym,
   getLocaleDate,
   getLocaleGmt,
-  getRegionNames,
   getLocaleTime,
-  isValidTimeZone,
 } from './dates'
 
-import { TimezoneNames } from '@/types/timezones.types'
+import { isValidTimeZone, getRegionNames } from './timezones'
 
 export const getDateInformation = ({
   originDate,

@@ -3,7 +3,6 @@ import { TimeFormat } from './events.types'
 import { DatePattern, GmtPattern, TimePattern } from '@/types/dates.types'
 
 import { Countries } from '@/types/countries.types'
-import { Locale } from '@/types/locale.types'
 import { TimezoneNames, Timezones } from '@/types/timezones.types'
 
 const arrayHours = Array.from(Array(11).keys(), (num) =>
@@ -18,19 +17,6 @@ export const arrayHours24 = Array.from(Array(24).keys(), (num) =>
 export const arrayMinutes = Array.from(Array(60).keys(), (num) =>
   num.toString().padStart(2, '0'),
 )
-
-export const isValidTimeZone = (timeZone: Timezones): boolean => {
-  try {
-    const current = Intl.DateTimeFormat().resolvedOptions().timeZone
-
-    if (current) {
-      Intl.DateTimeFormat(undefined, { timeZone: timeZone })
-    }
-    return true
-  } catch (error: unknown) {
-    return false
-  }
-}
 
 export const addDateYears = (date: Date, years: number) => {
   date.setFullYear(date.getFullYear() + years)
@@ -188,7 +174,9 @@ export const convertGmtToNumber = (gmtTime: GmtPattern) => {
   )
 }
 
-export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
-  const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
-  return regionNames.of(countryCode)
+export const getUserTimeFormat = (): TimeFormat => {
+  const dateString = new Date(
+    Date.UTC(1970, 0, 1, 0, 0, 0),
+  ).toLocaleTimeString()
+  return dateString.match(/am|pm/i) ? 12 : 24
 }
