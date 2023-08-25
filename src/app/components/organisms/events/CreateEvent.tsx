@@ -180,7 +180,7 @@ const CreateEvent = () => {
     return shareEventsTwitter({
       text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
       url: `${formData.eventLink}\n`,
-      hashtags: ['event', 'emoji', 'salsa'],
+      hashtags: formData.hashtags,
     })
   }
   const addHashtag = (tag: string) => {
