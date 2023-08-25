@@ -87,7 +87,6 @@ export const DatesToRender = ({
               </div>
             ))}
           </div>
-          {`\n`}
         </div>
       )
     },
