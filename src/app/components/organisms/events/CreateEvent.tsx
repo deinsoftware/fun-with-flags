@@ -181,6 +181,14 @@ const CreateEvent = () => {
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
+  const handleShareEventOnTwitter = () => {
+    const url = shareEventsTwitter({
+      text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
+      url: `${formData.eventLink}\n`,
+      hashtags: formData.hashtags,
+    })
+    window.open(url, '_blank')
+  }
   const [optionsCombo, setOptionsCombo] = useState({
     hourComplete: true,
     showGmt: true,
@@ -193,6 +201,7 @@ const CreateEvent = () => {
       hashtags: [...prev.hashtags, tag],
     }))
   }
+
   const removeHashtag = (tag: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -373,7 +382,9 @@ const CreateEvent = () => {
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
             </Button>
-            <Button handleClick={() => {}}>Share</Button>
+            <Button handleClick={handleShareEventOnTwitter}>
+              Share
+            </Button>
           </div>
         </form>
       </div>

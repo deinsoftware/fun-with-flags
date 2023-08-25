@@ -193,6 +193,7 @@ const TimePicker = ({
     setFunction: Dispatch<SetStateAction<number>>,
   ) => {
     const value = event.target.valueAsNumber
+
     if (format === 12) {
       if (value <= 12 && value >= 1) {
         const index = array.indexOf(value.toString().padStart(2, '0'))
