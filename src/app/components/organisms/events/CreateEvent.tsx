@@ -102,10 +102,7 @@ const CreateEvent = () => {
     setDateDisabled(!disabled)
     setFormData((prev) => ({
       ...prev,
-      date: getLocaleDate(
-        { timeZone: prev.timezone },
-        new Date(),
-      ),
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
     }))
   }
 
@@ -179,9 +176,8 @@ const CreateEvent = () => {
 
   const handleShareEventOnTwitter = () => {
     return shareEventsTwitter({
-      url: formData.eventLink,
-      text: formData.eventDescription,
-      // hashtags: formData.tags,
+      text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
+      url: `${formData.eventLink}\n`,
       hashtags: ['event', 'emoji', 'salsa'],
     })
   }

@@ -20,6 +20,7 @@ export const useGetFormData = () => {
     country: 'CO',
     timezone: 'America/Bogota',
     gmt: 'Z',
+    hashtags: [],
   })
   const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
