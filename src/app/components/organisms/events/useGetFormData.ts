@@ -20,6 +20,7 @@ export const useGetFormData = () => {
     country: 'CO',
     timezone: 'America/Bogota',
     gmt: 'Z',
+    hashtags: [],
   })
   const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
@@ -33,10 +34,10 @@ export const useGetFormData = () => {
         date: getLocaleDate({ timeZone: timezone }, currentDate),
         country: countryCode,
         timezone: timezone,
-        gmt: (getLocaleGmt(
+        gmt: getLocaleGmt(
           { timeZone: timezone, timeZoneName: 'longOffset' },
           currentDate,
-        )),
+        ),
       }
 
       setFormData((prev) => ({

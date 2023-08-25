@@ -20,10 +20,14 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
+import { shareEventsTwitter } from '@/helpers/share-events'
+
 import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
 
 import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
 import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
 
 import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
 
@@ -183,6 +187,19 @@ const CreateEvent = () => {
     showGmtWord: true,
   })
 
+  const addHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: [...prev.hashtags, tag],
+    }))
+  }
+  const removeHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: prev.hashtags.filter((t) => t !== tag),
+    }))
+  }
+
   return (
     <>
       <div className={styles['container-form']}>
@@ -301,6 +318,13 @@ const CreateEvent = () => {
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
+
+          <HashtagsInput
+            addHashtag={addHashtag}
+            hashTagsList={formData.hashtags}
+            removeHashtag={removeHashtag}
+          />
+
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}

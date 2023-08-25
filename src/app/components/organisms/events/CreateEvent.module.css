@@ -95,9 +95,9 @@
 
                 & .container-toggle {
                     display: flex;
+                    min-width: 110px;
                     align-items: center;
                     gap: 4px;
-                    min-width: 110px;
 
                     & .text-toggle {
                         color: var(--color-gray-500);
