@@ -1,9 +1,7 @@
 import { it, expect, describe, vi } from 'vitest'
 
 import {
-  isValidTimeZone,
   convertGmtToNumber,
-  getRegionNames,
   extractDate,
   extractTime,
   joinISODate,
@@ -20,33 +18,6 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.useRealTimers()
-})
-
-describe('isValidTimeZone()', () => {
-  it('should return true when using a correct time zone', () => {
-    const value = 'Australia/Adelaide'
-    const result = isValidTimeZone(value)
-    expect(result).toBeTruthy()
-  })
-
-  it('should return false when using an incorrect time zone', () => {
-    const value = 'Foo/Bar'
-    //@ts-expect-error
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-  })
-
-  it('should return false when Intl is not available', () => {
-    const spy = vi.spyOn<typeof Intl, any>(Intl, 'DateTimeFormat')
-    spy.mockImplementation(() => undefined)
-
-    const value = 'Foo/Bar'
-    // @ts-expect-error
-    const result = isValidTimeZone(value)
-    expect(result).toBeFalsy()
-
-    spy.mockRestore()
-  })
 })
 
 describe('extractDate()', () => {
@@ -208,28 +179,5 @@ describe('convertGmtToNumber()', () => {
     const value = 'Z'
     const result = convertGmtToNumber(value)
     expect(result).toBe(0)
-  })
-})
-
-describe('getRegionNames()', () => {
-  it('should return the region name in english', () => {
-    const locale = 'en-US'
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('United States')
-  })
-
-  it('should return the region name in traditional chinese', () => {
-    const locale = 'zh-Hant'
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('美國')
-  })
-
-  it('should return the region name with default language', () => {
-    const locale = undefined
-    const countryCode = 'US'
-    const result = getRegionNames(countryCode, locale)
-    expect(result).toBe('United States')
   })
 })

@@ -5,7 +5,7 @@ import { prisma } from '@/libs/prisma'
 import { Locale } from '@/types/locale.types'
 import { FlagCountry } from '@/helpers/flags.types'
 
-import { getRegionNames } from '@/helpers/dates'
+import { getRegionNames } from '@/helpers/timezones'
 import { calcOffset } from '@/helpers/flags'
 
 const handler = async (request: Request) => {
