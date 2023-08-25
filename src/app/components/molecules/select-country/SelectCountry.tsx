@@ -12,6 +12,7 @@ import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
 import { getLocaleGmt } from '@/helpers/dates'
+import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   flagList: FlagCountry[] | null
@@ -19,7 +20,11 @@ type Props = {
   date: FormData['date']
   gmt: FormData['gmt']
   timezone: FormData['timezone']
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>
+  setCountryInfo: (
+    countryCode: Countries,
+    name: Timezones,
+    gmt: GmtPattern,
+  ) => void
 }
 
 export const SelectCountry = ({
@@ -28,7 +33,7 @@ export const SelectCountry = ({
   date,
   gmt,
   timezone,
-  setFormData,
+  setCountryInfo,
 }: Props) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
   const handleClose = () => {
@@ -47,13 +52,7 @@ export const SelectCountry = ({
       { timeZone: name, timeZoneName: 'longOffset' },
       currentDate,
     )
-
-    setFormData((prev) => ({
-      ...prev,
-      country: countryCode,
-      timezone: name,
-      gmt,
-    }))
+    setCountryInfo(countryCode, name, gmt)
     handleClose()
   }
 
