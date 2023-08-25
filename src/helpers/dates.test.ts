@@ -8,6 +8,7 @@ import {
   getLocaleDayPeriod,
   formatLocaleTime,
   getLocaleGmt,
+  getUserTimeFormat,
 } from './dates'
 
 import { TimezoneNames, Timezones } from '@/types/timezones.types'
@@ -179,5 +180,31 @@ describe('convertGmtToNumber()', () => {
     const value = 'Z'
     const result = convertGmtToNumber(value)
     expect(result).toBe(0)
+  })
+})
+
+describe('getUserTimeFormat()', () => {
+  it('should return 12 when the time format is AM/PM', () => {
+    const spy = vi
+      .spyOn(global.Date.prototype, 'toLocaleTimeString')
+      .mockReturnValue('12:00:00 AM')
+
+    const result = getUserTimeFormat()
+
+    expect(result).toBe(12)
+
+    spy.mockRestore()
+  })
+
+  it('should return 24 when the time format is 24-hour', () => {
+    const spy = vi
+      .spyOn(global.Date.prototype, 'toLocaleTimeString')
+      .mockReturnValue('18:00:00')
+
+    const result = getUserTimeFormat()
+
+    expect(result).toBe(24)
+
+    spy.mockRestore()
   })
 })
