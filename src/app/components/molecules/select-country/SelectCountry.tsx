@@ -12,22 +12,30 @@ import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
 import { getLocaleGmt } from '@/helpers/dates'
+import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   flagList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>
+  gmt: FormData['gmt']
+  timezone: FormData['timezone']
+  setCountryInfo: (
+    countryCode: Countries,
+    name: Timezones,
+    gmt: GmtPattern,
+  ) => void
 }
 
 export const SelectCountry = ({
   flagList,
   countryCode,
   date,
-  setFormData,
+  gmt,
+  timezone,
+  setCountryInfo,
 }: Props) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
-
   const handleClose = () => {
     setVisibleSelectMenu(false)
   }
@@ -44,19 +52,14 @@ export const SelectCountry = ({
       { timeZone: name, timeZoneName: 'longOffset' },
       currentDate,
     )
-
-    setFormData((prev) => ({
-      ...prev,
-      country: countryCode,
-      timezone: name,
-      gmt,
-    }))
+    setCountryInfo(countryCode, name, gmt)
     handleClose()
   }
 
   return (
     <div className={styles['select-country-container']}>
       <div
+        aria-label="Select your timezone"
         className={styles['select-country']}
         tabIndex={0}
         onClick={() => setVisibleSelectMenu(true)}
@@ -76,6 +79,8 @@ export const SelectCountry = ({
             title={`Flag of ${countryCode}`}
           />
         )}
+        <p>{`${timezone}`}</p>
+        <p>{`GMT: ${gmt}`}</p>
       </div>
 
       {visibleSelectMenu && (

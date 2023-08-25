@@ -8,20 +8,17 @@
     background-color: var(--color-darkgray-800);
     box-shadow: 1px 1px 10px rgb(0 0 0 / 74.8%);
     cursor: pointer;
-    transition: background-color 0.3s ease border-color 0.2s ease;
 
     & .thumb {
         width: 20px;
         height: 20px;
         border-radius: 99px;
-        background-color: var(--color-purple-500);
+        background-color: var(--color-darkgray-300);
         justify-self: flex-start;
-
-        /* transition: justify-self 0.5s ease; <- Esto no funciona */
     }
 
     &.toggled .thumb {
-        background-color: var(--color-darkgray-300);
+        background-color: var(--color-purple-500);
         justify-self: flex-end;
     }
 }

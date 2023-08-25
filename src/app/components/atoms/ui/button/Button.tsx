@@ -3,8 +3,8 @@ import Image from 'next/image'
 import styles from './Button.module.css'
 
 const sizeAvatar = {
-  height: 32,
-  width: 32,
+  height: 28,
+  width: 28,
 }
 
 type Props = {
@@ -30,6 +30,7 @@ export const Button = ({
       className={styles['button']}
       disabled={disabled}
       style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
+      type="button"
       onClick={(event) => {
         event.preventDefault()
         handleClick(event)

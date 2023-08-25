@@ -3,6 +3,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react'
 import {
   useState,
   useEffect,
+  useReducer,
   type Dispatch,
   type SetStateAction,
   type WheelEvent,
@@ -16,9 +17,62 @@ import { lucidIconsTimePicker } from '@/libs/icon-config'
 import { TimePattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { arrayHours12, arrayHours24, arrayMinutes } from '@/helpers/dates'
+import useDebounce from '@/app/hooks/useDebounce'
 
+type MouseDownState = {
+  plusHours: boolean
+  minusHours: boolean
+  plusMinutes: boolean
+  minusMinutes: boolean
+}
+
+type ActionMouseDownReducer = {
+  type:
+    | 'PLUS_HOURS'
+    | 'MINUS_HOURS'
+    | 'PLUS_MINUTES'
+    | 'MINUS_MINUTES'
+    | 'INITIAL'
+}
+const initialState: MouseDownState = {
+  plusHours: false,
+  minusHours: false,
+  plusMinutes: false,
+  minusMinutes: false,
+}
+const mouseDownReducer = (
+  state: MouseDownState,
+  action: ActionMouseDownReducer,
+): MouseDownState => {
+  switch (action.type) {
+    case 'PLUS_HOURS':
+      return {
+        ...state,
+        plusHours: true,
+      }
+    case 'MINUS_HOURS':
+      return {
+        ...state,
+        minusHours: true,
+      }
+    case 'PLUS_MINUTES':
+      return {
+        ...state,
+        plusMinutes: true,
+      }
+    case 'MINUS_MINUTES':
+      return {
+        ...state,
+        minusMinutes: true,
+      }
+    case 'INITIAL':
+      return initialState
+    default:
+      return state
+  }
+}
 type Props = {
-  time: TimePattern
+  time: TimePattern | ''
   format: TimeFormat
   onClick: (time: TimePattern) => void
   dayPeriod?: {
@@ -107,14 +161,17 @@ const TimePicker = ({
       handlePlus(array, setFunction)
     }
   }
-
-  useEffect(() => {
-    onClick(
-      `${hours.toString().padStart(2, '0')}:${
-        arrayMinutes[minutes]
-      }` as TimePattern,
-    )
-  }, [hours, minutes])
+  useDebounce({
+    fn: () => {
+      onClick(
+        `${hours.toString().padStart(2, '0')}:${
+          arrayMinutes[minutes]
+        }` as TimePattern,
+      )
+    },
+    time: 400,
+    deps: [hours, minutes],
+  })
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -137,11 +194,9 @@ const TimePicker = ({
   ) => {
     const value = event.target.valueAsNumber
 
-    // console.log(value, parseInt(value, 10));
     if (format === 12) {
       if (value <= 12 && value >= 1) {
         const index = array.indexOf(value.toString().padStart(2, '0'))
-        // console.log({ index });
         if (index >= 0) {
           const operation = meridianPosition === dayPeriod.am ? 0 : +12
           setHours(() => index + operation)
@@ -150,6 +205,31 @@ const TimePicker = ({
     } else {
       handleChange(event, array, setFunction)
     }
+  }
+
+  const [isMouseDown, dispatch] = useReducer(mouseDownReducer, initialState)
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    const timeAwait = 200
+    interval = setInterval(() => {
+      if (isMouseDown.plusHours) {
+        handlePlus(arrayHours, setHours)
+      } else if (isMouseDown.minusHours) {
+        handleMinus(arrayHours, setHours)
+      } else if (isMouseDown.plusMinutes) {
+        handlePlus(arrayMinutes, setMinutes)
+      } else if (isMouseDown.minusMinutes) {
+        handleMinus(arrayMinutes, setMinutes)
+      }
+    }, timeAwait)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [isMouseDown, arrayHours])
+
+  const handleOnMouseDown = (action: ActionMouseDownReducer['type']) => {
+    dispatch({ type: action })
   }
 
   return (
@@ -161,6 +241,8 @@ const TimePicker = ({
               className={styles['increment-hours-button']}
               type="button"
               onClick={() => handleMinus(arrayHours, setHours)}
+              onMouseDown={() => handleOnMouseDown('MINUS_HOURS')}
+              onMouseUp={() => handleOnMouseDown('INITIAL')}
             >
               <ChevronUp
                 color={lucidIconsTimePicker.color.dark}
@@ -179,12 +261,17 @@ const TimePicker = ({
                 handleChangeHours(event, arrayHours, setHours)
               }
               onKeyDown={(event) => handleKeyPress(event, arrayHours, setHours)}
-              onWheel={(event) => handleWheel(event, arrayHours, setHours)}
+              onWheel={(event) => {
+                event.stopPropagation()
+                handleWheel(event, arrayHours, setHours)
+              }}
             />
             <button
               className={styles['decrease-hours-button']}
               type="button"
               onClick={() => handlePlus(arrayHours, setHours)}
+              onMouseDown={() => handleOnMouseDown('PLUS_HOURS')}
+              onMouseUp={() => handleOnMouseDown('INITIAL')}
             >
               <ChevronDown
                 color={lucidIconsTimePicker.color.dark}
@@ -198,6 +285,8 @@ const TimePicker = ({
               className={styles['increment-minutes-button']}
               type="button"
               onClick={() => handleMinus(arrayMinutes, setMinutes)}
+              onMouseDown={() => handleOnMouseDown('MINUS_MINUTES')}
+              onMouseUp={() => handleOnMouseDown('INITIAL')}
             >
               <ChevronUp
                 color={lucidIconsTimePicker.color.dark}
@@ -218,12 +307,17 @@ const TimePicker = ({
               onKeyDown={(event) =>
                 handleKeyPress(event, arrayMinutes, setMinutes)
               }
-              onWheel={(event) => handleWheel(event, arrayMinutes, setMinutes)}
+              onWheel={(event) => {
+                event.stopPropagation()
+                handleWheel(event, arrayMinutes, setMinutes)
+              }}
             />
             <button
               className={styles['decrease-hours-button']}
               type="button"
               onClick={() => handlePlus(arrayMinutes, setMinutes)}
+              onMouseDown={() => handleOnMouseDown('PLUS_MINUTES')}
+              onMouseUp={() => handleOnMouseDown('INITIAL')}
             >
               <ChevronDown
                 color={lucidIconsTimePicker.color.dark}

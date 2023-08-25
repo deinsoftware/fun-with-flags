@@ -20,10 +20,14 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
+import { shareEventsTwitter } from '@/helpers/share-events'
+
 import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
 
 import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
 import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
 
 import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
 
@@ -47,11 +51,14 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { DatePattern } from '@/types/dates.types'
+import { GmtPattern, TimePattern } from '@/types/dates.types'
+import { Countries } from '@/types/countries.types'
+import { Timezones } from '@/types/timezones.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+  const { timeZones, setOriginDate, addTimeZone, setFormat, format } =
+    useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
@@ -95,16 +102,13 @@ const CreateEvent = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  const [dateDisabled, setDateDisabled] = useState(false)
+  const [dateDisabled, setDateDisabled] = useState(true)
 
   const handleDateToggle = (disabled: boolean) => {
-    setDateDisabled(disabled)
+    setDateDisabled(!disabled)
     setFormData((prev) => ({
       ...prev,
-      date: getLocaleDate(
-        { timeZone: prev.timezone },
-        new Date(),
-      ),
+      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
     }))
   }
 
@@ -147,7 +151,7 @@ const CreateEvent = () => {
         timeZone: timeZones,
         url: formData.eventLink,
         userName: session.user.name,
-        // tags?: string[],
+        tags: formData.hashtags,
         lang: formData.language,
       }
       const response = await createEvent(body, signal)
@@ -161,6 +165,8 @@ const CreateEvent = () => {
         style: toastStyle,
         iconTheme: toastIconTheme,
       })
+      localStorage.removeItem('form-data')
+      localStorage.removeItem('time-zones')
     } else {
       toast.error('You must be logged in to create an event', {
         style: toastStyle,
@@ -168,14 +174,55 @@ const CreateEvent = () => {
     }
   }
 
-  const [format12, setFormat12] = useState(true)
-
-  const handleClick = (time: string) => {
-    console.log({ time })
+  const handleClick = (time: TimePattern) => {
+    setFormData((prev) => ({
+      ...prev,
+      time,
+    }))
   }
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
+  const handleShareEventOnTwitter = () => {
+    const url = shareEventsTwitter({
+      text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
+      url: `${formData.eventLink}\n`,
+      hashtags: formData.hashtags,
+    })
+    window.open(url, '_blank')
+  }
+  const [optionsCombo, setOptionsCombo] = useState({
+    hourComplete: true,
+    showGmt: true,
+    showGmtWord: true,
+  })
+
+  const addHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: [...prev.hashtags, tag],
+    }))
+  }
+
+  const removeHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: prev.hashtags.filter((t) => t !== tag),
+    }))
+  }
+
+  const setCountryInfo = (
+    countryCode: Countries,
+    name: Timezones,
+    gmt: GmtPattern,
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      country: countryCode,
+      timezone: name,
+      gmt,
+    }))
+  }
   return (
     <>
       <div className={styles['container-form']}>
@@ -185,10 +232,13 @@ const CreateEvent = () => {
             countryCode={formData.country}
             date={formData.date}
             flagList={flagList}
-            setFormData={setFormData}
+            gmt={formData.gmt}
+            setCountryInfo={setCountryInfo}
+            timezone={formData.timezone}
           />
           <div className={styles['container-event-name']}>
             <input
+              aria-label="Event name"
               className={styles['event-name']}
               id=""
               name="eventName"
@@ -198,7 +248,6 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-to-position-relative']}>
               <div
@@ -206,6 +255,7 @@ const CreateEvent = () => {
               >
                 <div className={styles['input-button']}>
                   <input
+                    aria-label="Add time"
                     className={`${styles['time']}`}
                     id=""
                     name="time"
@@ -226,8 +276,8 @@ const CreateEvent = () => {
                   {showTimePicker && (
                     <TimePicker
                       dayPeriod={dayPeriod}
-                      format={format12 ? 12 : 24}
-                      time="23:15"
+                      format={format}
+                      time={formData.time}
                       onClick={handleClick}
                     />
                   )}
@@ -236,7 +286,7 @@ const CreateEvent = () => {
                 <div className={styles['container-toggle']}>
                   <Toggle
                     onToggle={() => {
-                      setFormat12((prev) => !prev)
+                      setFormat((prev) => (prev === 12 ? 24 : 12))
                     }}
                   />
                   <span className={styles['text-toggle']}>24H</span>
@@ -249,6 +299,7 @@ const CreateEvent = () => {
                 className={`${styles['container-with-toggle']} ${styles['container-date']}`}
               >
                 <input
+                  aria-label="Add date"
                   className={`${styles['date']} ${
                     dateDisabled ? styles['disabled'] : ''
                   }`}
@@ -269,9 +320,9 @@ const CreateEvent = () => {
               </div>
             </div>
           </div>
-
           <div className={styles['container-hyperlink']}>
             <input
+              aria-label="Add link to event"
               className={styles['hyperlink']}
               id=""
               name="eventLink"
@@ -281,8 +332,8 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <textarea
+            aria-label="Add description to event"
             className={styles['description']}
             id=""
             name="eventDescription"
@@ -291,16 +342,61 @@ const CreateEvent = () => {
             onChange={handleChangeForm}
           />
 
+          <HashtagsInput
+            addHashtag={addHashtag}
+            hashTagsList={formData.hashtags}
+            removeHashtag={removeHashtag}
+          />
+
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            showGmt={optionsCombo.showGmt}
+            showGmtWord={optionsCombo.showGmtWord}
+            showHourComplete={optionsCombo.hourComplete}
           />
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  hourComplete: !prev.hourComplete,
+                }))
+              }}
+            />
+            <p>Show only hours</p>
+          </div>
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  showGmt: !prev.showGmt,
+                  showGmtWord: !prev.showGmt,
+                }))
+              }}
+            />
+            <p>Show GMT</p>
+          </div>
+          {optionsCombo.showGmt && (
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    showGmtWord: !prev.showGmtWord,
+                  }))
+                }}
+              />
+              <p>Show GMT word</p>
+            </div>
+          )}
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
             </Button>
-            <Button handleClick={() => {}}>Share</Button>
+            <Button handleClick={handleShareEventOnTwitter}>Share</Button>
           </div>
         </form>
       </div>

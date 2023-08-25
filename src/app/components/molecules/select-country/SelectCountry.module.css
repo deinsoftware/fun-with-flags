@@ -1,20 +1,23 @@
 .select-country-container {
     display: grid;
-    width: 8rem;
+    width: fit-content;
     height: 40px;
-    padding: 1rem;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
     background-color: var(--color-darkgray-800);
     color: var(--color-whywhite-500);
     cursor: pointer;
+    font-size: var(--font-size-medium);
     place-content: center;
 }
 
 .select-country {
     display: flex;
+    width: max-content;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding: 0 1rem;
     gap: 5px;
     outline: none;
 }

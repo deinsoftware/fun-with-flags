@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: var(--padding);
+    color: var(--color-whywhite-500);
     gap: 1rem;
 
     .form {
@@ -45,8 +46,19 @@
                 flex-direction: column;
                 gap: 8px;
 
-                & .time {
+                & .input-button {
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                }
 
+                & .time,
+                .date {
+                    width: 100%;
+                }
+
+                & .time {
                     /* * Removing default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         display: none;
@@ -75,6 +87,7 @@
                     }
 
                     &.disabled {
+                        cursor: not-allowed;
                         opacity: 0.5;
                         pointer-events: none;
                     }
@@ -82,6 +95,7 @@
 
                 & .container-toggle {
                     display: flex;
+                    min-width: 110px;
                     align-items: center;
                     gap: 4px;
 
@@ -110,7 +124,8 @@
                 }
             }
 
-            & .container-date {
+            & .container-date,
+            .container-time {
                 @media (width >=730px) {
                     flex-direction: row;
                 }
@@ -124,10 +139,6 @@
                         /* 12px = space to center it */
                         right: calc(120px + 8px + 12px);
                     }
-                }
-
-                & .container-toggle {
-                    min-width: 120px;
                 }
             }
         }
@@ -144,7 +155,7 @@
         .date,
         .hyperlink,
         .description {
-            padding: 0 1rem;
+            padding: 0 14px;
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
             background-color: var(--color-darkgray-800);
@@ -163,55 +174,7 @@
         }
 
         & .description {
-            padding: 1rem;
-        }
-
-        & .container-time-and-date {
-            display: flex;
-            width: 100%;
-            gap: 8px;
-
-            & .container-with-toggle {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-
-                & .input-button {
-                    position: relative;
-                    display: flex;
-                    width: 100%;
-                    align-items: center;
-                }
-
-                & .time,
-                .date {
-                    width: 100%;
-
-                    &.disabled {
-                        cursor: not-allowed;
-                        opacity: 0.5;
-                        pointer-events: none;
-                    }
-                }
-
-                & .container-toggle {
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-
-                    & .text-toggle {
-                        color: var(--color-gray-500);
-                        font-size: var(--font-size-small);
-                    }
-                }
-            }
-
-            & .container-date,
-            .container-time {
-                @media (width >=730px) {
-                    flex-direction: row;
-                }
-            }
+            padding: 14px;
         }
 
         & .container-button {
@@ -220,4 +183,9 @@
             gap: 1rem;
         }
     }
+}
+
+.container-options-combo {
+    display: flex;
+    gap: 1rem;
 }
