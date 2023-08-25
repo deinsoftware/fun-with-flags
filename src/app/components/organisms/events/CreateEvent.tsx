@@ -20,10 +20,14 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useGetFormData'
 
+import { shareEventsTwitter } from '@/helpers/share-events'
+
 import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
 
 import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
 import { Button } from '@/app/components/atoms/ui/button/Button'
+
+import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
 
 import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
 
@@ -47,8 +51,6 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-
-import { shareEventsTwitter } from '@/helpers/share-events'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -181,6 +183,19 @@ const CreateEvent = () => {
       hashtags: ['event', 'emoji', 'salsa'],
     })
   }
+  const addHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: [...prev.hashtags, tag],
+    }))
+  }
+
+  const removeHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: prev.hashtags.filter((t) => t !== tag),
+    }))
+  }
 
   return (
     <>
@@ -295,6 +310,12 @@ const CreateEvent = () => {
             placeholder="Description"
             value={formData.eventDescription}
             onChange={handleChangeForm}
+          />
+
+          <HashtagsInput
+            addHashtag={addHashtag}
+            hashTagsList={formData.hashtags}
+            removeHashtag={removeHashtag}
           />
 
           <ComboboxCountries
