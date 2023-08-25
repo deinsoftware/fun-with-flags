@@ -30,6 +30,7 @@ export const Button = ({
       className={styles['button']}
       disabled={disabled}
       style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
+      type="button"
       onClick={(event) => {
         event.preventDefault()
         handleClick(event)
