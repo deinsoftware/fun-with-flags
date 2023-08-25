@@ -87,6 +87,7 @@ export const DatesToRender = ({
               </div>
             ))}
           </div>
+          {`\n`}
         </div>
       )
     },
@@ -118,7 +119,6 @@ export const DatesToRender = ({
               <strong>{`${date}\n`}</strong>
             </p>
             {timeInfo}
-            {`\n`}
           </div>
         )
       }
