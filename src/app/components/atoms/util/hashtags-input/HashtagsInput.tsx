@@ -2,16 +2,17 @@
 
 import { toast } from 'react-hot-toast'
 
-import { type Dispatch, type KeyboardEvent, type SetStateAction } from 'react'
+import { type KeyboardEvent } from 'react'
 
 import styles from './HashtagsInput.module.css'
 
 type Props = {
-  hashTags: string[]
-  setHashTags: Dispatch<SetStateAction<string[]>>
+  hashTagsList: string[]
+  addHashtag: (tag: string) => void
+  removeHashtag: (tag: string) => void
 }
 
-const Hashtags = ({ hashTags, setHashTags }: Props) => {
+const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const target = event.target as HTMLInputElement
@@ -19,7 +20,7 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
 
       if (!hashTag) return
       if (hashTag.charAt(0) === '#') {
-        hashTag = hashTag.slice(1)
+        hashTag = hashTag.replaceAll('#', '')
       }
 
       if (hashTag.includes(' ')) {
@@ -30,17 +31,14 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
         return toast('Special characters are not allowed')
       }
 
-      if (hashTags.includes(hashTag)) {
+      if (hashTagsList.includes(hashTag)) {
         return toast('Hashtag already exists')
       }
 
-      setHashTags((prev: string[]) => [...prev, hashTag])
-      return ((target.value as string | null) = null)
-    }
-  }
+      addHashtag(hashTag)
 
-  const removeTag = (tag: string) => {
-    setHashTags(hashTags.filter((t) => t !== tag))
+      return ((hashTag as string | null) = null)
+    }
   }
 
   return (
@@ -53,13 +51,13 @@ const Hashtags = ({ hashTags, setHashTags }: Props) => {
           onKeyDown={onKeyDown}
         />
 
-        {hashTags.length > 0 && (
+        {hashTagsList.length > 0 && (
           <div className={styles['tags-container']}>
-            {hashTags.map((hashTag) => (
+            {hashTagsList.map((hashTag) => (
               <span
                 key={hashTag}
                 className={styles['tag']}
-                onClick={() => removeTag(hashTag)}
+                onClick={() => removeHashtag(hashTag)}
               >
                 {hashTag.charAt(0).includes('#') ? hashTag : `#${hashTag}`}
               </span>

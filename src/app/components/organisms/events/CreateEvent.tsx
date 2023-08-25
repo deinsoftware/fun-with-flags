@@ -176,7 +176,18 @@ const CreateEvent = () => {
 
   const dayPeriod = getLocaleDayPeriod('en-US')
 
-  const [hashTags, setHashTags] = useState<string[]>([])
+  const addHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: [...prev.hashtags, tag],
+    }))
+  }
+  const removeHashtag = (tag: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      hashtags: prev.hashtags.filter((t) => t !== tag),
+    }))
+  }
 
   return (
     <>
@@ -293,7 +304,11 @@ const CreateEvent = () => {
             onChange={handleChangeForm}
           />
 
-          <HashtagsInput hashTags={hashTags} setHashTags={setHashTags} />
+          <HashtagsInput
+            addHashtag={addHashtag}
+            hashTagsList={formData.hashtags}
+            removeHashtag={removeHashtag}
+          />
 
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
