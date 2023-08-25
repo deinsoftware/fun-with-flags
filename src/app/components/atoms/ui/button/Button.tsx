@@ -16,7 +16,6 @@ type Props = {
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
   children: React.ReactNode
-  isSharing?: boolean
 }
 
 export const Button = ({
@@ -24,7 +23,6 @@ export const Button = ({
   avatar,
   disabled,
   color,
-  isSharing,
   children,
 }: Props) => {
   return (
@@ -35,12 +33,6 @@ export const Button = ({
       type="button"
       onClick={(event) => {
         event.preventDefault()
-
-        if (isSharing) {
-          let url = handleClick(event) as string | undefined
-          window.open(url, '_blank')
-        }
-
         handleClick(event)
       }}
     >

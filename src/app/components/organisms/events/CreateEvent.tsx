@@ -182,11 +182,12 @@ const CreateEvent = () => {
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   const handleShareEventOnTwitter = () => {
-    return shareEventsTwitter({
+    const url = shareEventsTwitter({
       text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
       url: `${formData.eventLink}\n`,
       hashtags: formData.hashtags,
     })
+    window.open(url, '_blank')
   }
   const [optionsCombo, setOptionsCombo] = useState({
     hourComplete: true,
@@ -381,7 +382,7 @@ const CreateEvent = () => {
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
             </Button>
-            <Button isSharing handleClick={handleShareEventOnTwitter}>
+            <Button handleClick={handleShareEventOnTwitter}>
               Share
             </Button>
           </div>
