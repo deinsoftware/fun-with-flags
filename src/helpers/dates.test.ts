@@ -1,6 +1,7 @@
 import { it, expect, describe, vi } from 'vitest'
 
 import {
+  addDateYears,
   convertGmtToNumber,
   extractDate,
   extractTime,
@@ -19,6 +20,24 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.useRealTimers()
+})
+
+describe('addDateYears()', () => {
+  it('should add the specified number of years to the date', () => {
+    const date = new Date(2022, 1, 1)
+
+    const result = addDateYears(date, 5)
+
+    expect(result.getFullYear()).toBe(2027)
+  })
+
+  it('should handle negative years', () => {
+    const date = new Date(2022, 1, 1)
+
+    const result = addDateYears(date, -3)
+
+    expect(result.getFullYear()).toBe(2019)
+  })
 })
 
 describe('extractDate()', () => {
