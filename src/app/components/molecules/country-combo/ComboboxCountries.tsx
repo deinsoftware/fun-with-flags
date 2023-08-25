@@ -18,9 +18,18 @@ import { lucidIcons } from '@/libs/icon-config'
 type Props = {
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
   handleAddCountry: (value: SetStateAction<boolean>) => void
+  showGmt?: boolean
+  showGmtWord?: boolean
+  showHourComplete?: boolean
 }
 
-const ComboboxCountries = ({ getTextContent, handleAddCountry }: Props) => {
+const ComboboxCountries = ({
+  getTextContent,
+  handleAddCountry,
+  showGmt = true,
+  showGmtWord = true,
+  showHourComplete = true,
+}: Props) => {
   const { format } = useTimeZoneContext()
   const { dateList } = useGetInfoDates({ format })
   const filteredDates = useFilteredDates(dateList, format)
@@ -33,11 +42,16 @@ const ComboboxCountries = ({ getTextContent, handleAddCountry }: Props) => {
         <DatesToRender
           datesArray={filteredDates}
           getTextContent={getTextContent}
+          showGmt={showGmt}
+          showGmtWord={showGmtWord}
+          showHourComplete={showHourComplete}
         />
       )}
       <div className={style['add-button-container']}>
         <button
+          aria-label="Add country timezone"
           className={style['add-button']}
+          type="button"
           onClick={(event) => {
             event.preventDefault()
             handleAddCountry(true)

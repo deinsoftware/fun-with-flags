@@ -51,10 +51,12 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { TimePattern } from '@/types/dates.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+  const { timeZones, setOriginDate, addTimeZone, setFormat, format } =
+    useTimeZoneContext()
   const { formData, setFormData } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
@@ -161,6 +163,8 @@ const CreateEvent = () => {
         style: toastStyle,
         iconTheme: toastIconTheme,
       })
+      localStorage.removeItem('form-data')
+      localStorage.removeItem('time-zones')
     } else {
       toast.error('You must be logged in to create an event', {
         style: toastStyle,
@@ -168,10 +172,11 @@ const CreateEvent = () => {
     }
   }
 
-  const [format12, setFormat12] = useState(true)
-
-  const handleClick = (time: string) => {
-    console.log({ time })
+  const handleClick = (time: TimePattern) => {
+    setFormData((prev) => ({
+      ...prev,
+      time,
+    }))
   }
 
   const dayPeriod = getLocaleDayPeriod('en-US')
@@ -183,6 +188,12 @@ const CreateEvent = () => {
       hashtags: formData.hashtags,
     })
   }
+  const [optionsCombo, setOptionsCombo] = useState({
+    hourComplete: true,
+    showGmt: true,
+    showGmtWord: true,
+  })
+
   const addHashtag = (tag: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -206,10 +217,13 @@ const CreateEvent = () => {
             countryCode={formData.country}
             date={formData.date}
             flagList={flagList}
+            gmt={formData.gmt}
             setFormData={setFormData}
+            timezone={formData.timezone}
           />
           <div className={styles['container-event-name']}>
             <input
+              aria-label="Event name"
               className={styles['event-name']}
               id=""
               name="eventName"
@@ -219,7 +233,6 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-to-position-relative']}>
               <div
@@ -227,6 +240,7 @@ const CreateEvent = () => {
               >
                 <div className={styles['input-button']}>
                   <input
+                    aria-label="Add time"
                     className={`${styles['time']}`}
                     id=""
                     name="time"
@@ -247,8 +261,8 @@ const CreateEvent = () => {
                   {showTimePicker && (
                     <TimePicker
                       dayPeriod={dayPeriod}
-                      format={format12 ? 12 : 24}
-                      time="23:15"
+                      format={format}
+                      time={formData.time}
                       onClick={handleClick}
                     />
                   )}
@@ -257,7 +271,7 @@ const CreateEvent = () => {
                 <div className={styles['container-toggle']}>
                   <Toggle
                     onToggle={() => {
-                      setFormat12((prev) => !prev)
+                      setFormat((prev) => (prev === 12 ? 24 : 12))
                     }}
                   />
                   <span className={styles['text-toggle']}>24H</span>
@@ -270,6 +284,7 @@ const CreateEvent = () => {
                 className={`${styles['container-with-toggle']} ${styles['container-date']}`}
               >
                 <input
+                  aria-label="Add date"
                   className={`${styles['date']} ${
                     dateDisabled ? styles['disabled'] : ''
                   }`}
@@ -290,9 +305,9 @@ const CreateEvent = () => {
               </div>
             </div>
           </div>
-
           <div className={styles['container-hyperlink']}>
             <input
+              aria-label="Add link to event"
               className={styles['hyperlink']}
               id=""
               name="eventLink"
@@ -302,8 +317,8 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
           </div>
-
           <textarea
+            aria-label="Add description to event"
             className={styles['description']}
             id=""
             name="eventDescription"
@@ -321,7 +336,46 @@ const CreateEvent = () => {
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            showGmt={optionsCombo.showGmt}
+            showGmtWord={optionsCombo.showGmtWord}
+            showHourComplete={optionsCombo.hourComplete}
           />
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  hourComplete: !prev.hourComplete,
+                }))
+              }}
+            />
+            <p>Show only hours</p>
+          </div>
+          <div className={styles['container-options-combo']}>
+            <Toggle
+              onToggle={() => {
+                setOptionsCombo((prev) => ({
+                  ...prev,
+                  showGmt: !prev.showGmt,
+                  showGmtWord: !prev.showGmt,
+                }))
+              }}
+            />
+            <p>Show GMT</p>
+          </div>
+          {optionsCombo.showGmt && (
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    showGmtWord: !prev.showGmtWord,
+                  }))
+                }}
+              />
+              <p>Show GMT word</p>
+            </div>
+          )}
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
