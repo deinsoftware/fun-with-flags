@@ -51,7 +51,9 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { TimePattern } from '@/types/dates.types'
+import { GmtPattern, TimePattern } from '@/types/dates.types'
+import { Countries } from '@/types/countries.types'
+import { Timezones } from '@/types/timezones.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -149,7 +151,7 @@ const CreateEvent = () => {
         timeZone: timeZones,
         url: formData.eventLink,
         userName: session.user.name,
-        // tags?: string[],
+        tags: formData.hashtags,
         lang: formData.language,
       }
       const response = await createEvent(body, signal)
@@ -209,6 +211,18 @@ const CreateEvent = () => {
     }))
   }
 
+  const setCountryInfo = (
+    countryCode: Countries,
+    name: Timezones,
+    gmt: GmtPattern,
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      country: countryCode,
+      timezone: name,
+      gmt,
+    }))
+  }
   return (
     <>
       <div className={styles['container-form']}>
@@ -219,7 +233,7 @@ const CreateEvent = () => {
             date={formData.date}
             flagList={flagList}
             gmt={formData.gmt}
-            setFormData={setFormData}
+            setCountryInfo={setCountryInfo}
             timezone={formData.timezone}
           />
           <div className={styles['container-event-name']}>
@@ -382,9 +396,7 @@ const CreateEvent = () => {
             <Button disabled={!session} handleClick={handleCreateEvent}>
               Create
             </Button>
-            <Button handleClick={handleShareEventOnTwitter}>
-              Share
-            </Button>
+            <Button handleClick={handleShareEventOnTwitter}>Share</Button>
           </div>
         </form>
       </div>
