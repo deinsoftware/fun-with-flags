@@ -87,6 +87,7 @@ export const DatesToRender = ({
               </div>
             ))}
           </div>
+          {`\n`}
         </div>
       )
     },
@@ -113,15 +114,12 @@ export const DatesToRender = ({
         )
 
         return (
-          <div
-            key={self.crypto.randomUUID()}
-            ref={ref}
-            className={style['container']}
-          >
+          <div key={self.crypto.randomUUID()}>
             <p>
-              <strong>{date}</strong>
+              <strong>{`${date}\n`}</strong>
             </p>
             {timeInfo}
+            {`\n`}
           </div>
         )
       }
@@ -129,5 +127,9 @@ export const DatesToRender = ({
     if (result[0] !== undefined) setTimeToRender(result)
   }, [datesArray, deleteTimeZone, format, getTimeInfo])
 
-  return timeToRender
+  return (
+    <div ref={ref} className={style['container']}>
+      {timeToRender}
+    </div>
+  )
 }
