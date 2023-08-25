@@ -210,7 +210,6 @@ const TimePicker = ({
   useEffect(() => {
     let interval: NodeJS.Timeout
     const timeAwait = 200
-    clearInterval(interval)
     interval = setInterval(() => {
       if (isMouseDown.plusHours) {
         handlePlus(arrayHours, setHours)
@@ -226,7 +225,7 @@ const TimePicker = ({
     return () => {
       clearInterval(interval)
     }
-  }, [isMouseDown])
+  }, [isMouseDown, arrayHours])
 
   const handleOnMouseDown = (action: ActionMouseDownReducer['type']) => {
     dispatch({ type: action })
