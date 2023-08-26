@@ -37,7 +37,7 @@ import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
 import { getLocaleDayPeriod } from '@/helpers/dates'
-import { cleanDataStorage } from '@/helpers/local-storage'
+import { cleanDataStorage } from '@/app/components/organisms/events/local-storage'
 
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
