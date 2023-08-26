@@ -36,14 +36,13 @@ import Toggle from '@/app/components/atoms/util/toggle/Toggle'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
-import { getLocaleDayPeriod } from '@/helpers/dates'
-
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import {
   addDateYears,
   extractDate,
   getLocaleDate,
+  getLocaleDayPeriod,
   joinISODate,
 } from '@/helpers/dates'
 import { lucidIcons } from '@/libs/icon-config'
@@ -96,6 +95,8 @@ const CreateEvent = () => {
     }),
     [timeZones.origin.date],
   )
+
+  //TODO: add error message when fails
   const { data: flagList, error } = useFetch(props)
 
   const handleClose = () => {
