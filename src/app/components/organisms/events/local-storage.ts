@@ -1,5 +1,5 @@
 import { FormData } from '@/app/components/organisms/events/CreateEvent.types'
-import { addYearsToDate, daysBetweenDates } from '@/helpers/dates'
+import { daysBetweenDates } from '@/helpers/dates'
 
 export const cleanDataStorage = () => {
   localStorage.removeItem('form-data')
