@@ -18,9 +18,14 @@ export const arrayMinutes = Array.from(Array(60).keys(), (num) =>
   num.toString().padStart(2, '0'),
 )
 
-export const addDateYears = (date: Date, years: number) => {
+export const addYearsToDate = (date: Date, years: number) => {
   date.setFullYear(date.getFullYear() + years)
   return date
+}
+
+export const daysBetweenDates = (startDate: Date, endDate: Date) => {
+  const ONE_DAY = 1000 * 60 * 60 * 24
+  return Math.round((endDate.getTime() - startDate.getTime()) / ONE_DAY)
 }
 
 export const extractDate = (date: Date): DatePattern => {

@@ -15,4 +15,8 @@ export type FormData = {
   timezone: Timezones
   gmt: GmtPattern
   hashtags: string[]
+  signature: {
+    version: string | ''
+    date: string | ''
+  }
 }

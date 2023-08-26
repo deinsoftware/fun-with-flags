@@ -1,7 +1,8 @@
 import { it, expect, describe, vi } from 'vitest'
 
 import {
-  addDateYears,
+  addYearsToDate,
+  daysBetweenDates,
   convertGmtToNumber,
   extractDate,
   extractTime,
@@ -22,11 +23,11 @@ afterEach(() => {
   vi.useRealTimers()
 })
 
-describe('addDateYears()', () => {
+describe('addYearsToDate()', () => {
   it('should add the specified number of years to the date', () => {
     const date = new Date(2022, 1, 1)
 
-    const result = addDateYears(date, 5)
+    const result = addYearsToDate(date, 5)
 
     expect(result.getFullYear()).toBe(2027)
   })
@@ -34,9 +35,29 @@ describe('addDateYears()', () => {
   it('should handle negative years', () => {
     const date = new Date(2022, 1, 1)
 
-    const result = addDateYears(date, -3)
+    const result = addYearsToDate(date, -3)
 
     expect(result.getFullYear()).toBe(2019)
+  })
+})
+
+describe('daysBetweenDates()', () => {
+  it('should return 0 when startDate and endDate are the same', () => {
+    const startDate = new Date('2022-01-01')
+    const endDate = new Date('2022-01-01')
+    expect(daysBetweenDates(startDate, endDate)).toEqual(0)
+  })
+
+  it('should return 1 when startDate is one day before endDate', () => {
+    const startDate = new Date('2022-01-01')
+    const endDate = new Date('2022-01-02')
+    expect(daysBetweenDates(startDate, endDate)).toEqual(1)
+  })
+
+  it('should return 365 when startDate is one year before endDate', () => {
+    const startDate = new Date('2022-01-01')
+    const endDate = new Date('2023-01-01')
+    expect(daysBetweenDates(startDate, endDate)).toEqual(365)
   })
 })
 

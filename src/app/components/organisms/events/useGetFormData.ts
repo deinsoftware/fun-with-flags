@@ -6,6 +6,11 @@ import { extractTime, getLocaleDate, getLocaleGmt } from '@/helpers/dates'
 import { getUserTimezone } from '@/helpers/timezones'
 import { getCountryByZone } from '@/services/timezones'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import {
+  getDataStorage,
+  setDataStorage,
+  cleanDataStorage,
+} from '@/helpers/local-storage'
 
 export const useGetFormData = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -21,6 +26,10 @@ export const useGetFormData = () => {
     timezone: 'America/New_York',
     gmt: 'Z',
     hashtags: [],
+    signature: {
+      version: '',
+      date: '',
+    },
   })
   const { addTimeZone } = useTimeZoneContext()
   useEffect(() => {
@@ -52,12 +61,12 @@ export const useGetFormData = () => {
       addTimeZone(initialCountryCombo)
     }
     const getInitialFormData = () => {
-      const localFormData = localStorage.getItem('form-data')
-      if (localFormData) {
-        const formData = JSON.parse(localFormData)
-        setFormData(formData)
-      } else {
+      const localFormData = getDataStorage()
+      if (localFormData === null) {
+        cleanDataStorage()
         setInitialFormData()
+      } else {
+        setFormData(localFormData)
       }
     }
     getInitialFormData()
@@ -65,7 +74,7 @@ export const useGetFormData = () => {
 
   useEffect(() => {
     const saveFormData = () => {
-      localStorage.setItem('form-data', JSON.stringify(formData))
+      setDataStorage(formData)
     }
     saveFormData()
   }, [formData])

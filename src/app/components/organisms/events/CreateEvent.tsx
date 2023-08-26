@@ -25,7 +25,7 @@ import { shareEventsTwitter } from '@/helpers/share-events'
 import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
 
 import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
-import { Button } from '@/app/components/atoms/ui/button/Button'
+import Button from '@/app/components/atoms/ui/button/Button'
 
 import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
 
@@ -37,11 +37,12 @@ import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
 import { getLocaleDayPeriod } from '@/helpers/dates'
+import { cleanDataStorage } from '@/helpers/local-storage'
 
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import {
-  addDateYears,
+  addYearsToDate,
   extractDate,
   getLocaleDate,
   joinISODate,
@@ -165,8 +166,7 @@ const CreateEvent = () => {
         style: toastStyle,
         iconTheme: toastIconTheme,
       })
-      localStorage.removeItem('form-data')
-      localStorage.removeItem('time-zones')
+      cleanDataStorage()
     } else {
       toast.error('You must be logged in to create an event', {
         style: toastStyle,
@@ -305,7 +305,7 @@ const CreateEvent = () => {
                   }`}
                   disabled={dateDisabled}
                   id=""
-                  max={extractDate(addDateYears(new Date(), 100))}
+                  max={extractDate(addYearsToDate(new Date(), 100))}
                   min={extractDate(new Date())}
                   name="date"
                   type="date"
