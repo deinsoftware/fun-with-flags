@@ -286,7 +286,7 @@ const CreateEvent = () => {
                 <div className={styles['container-toggle']}>
                   <Toggle
                     onToggle={() => {
-                      setFormat((prev) => (prev === 12 ? 24 : 12))
+                      setFormat((prev) => (prev === 24 ? 12 : 24))
                     }}
                   />
                   <span className={styles['text-toggle']}>24H</span>
