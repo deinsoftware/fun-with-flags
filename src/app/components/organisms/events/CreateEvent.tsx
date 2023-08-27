@@ -297,7 +297,9 @@ const CreateEvent = () => {
 
             <div className={styles['container-to-position-relative']}>
               <div
-                className={`${styles['container-with-toggle']} ${styles['container-date']}`}
+                className={`${styles['container-with-toggle']} ${styles['container-date']} ${
+                  dateDisabled ? styles['hidding-after'] : ''
+                }`}
               >
                 <input
                   aria-label="Add date"

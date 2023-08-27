@@ -59,6 +59,7 @@
                 }
 
                 & .time {
+
                     /* * Removing default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         display: none;
@@ -74,23 +75,6 @@
                     border: none;
                     background-color: transparent;
                     cursor: pointer;
-                }
-
-                & .date {
-                    position: relative;
-                    width: 100%;
-
-                    /* * Hiding default icon in browsers * */
-                    &::-webkit-calendar-picker-indicator {
-                        width: 60px;
-                        opacity: 0;
-                    }
-
-                    &.disabled {
-                        cursor: not-allowed;
-                        opacity: 0.5;
-                        pointer-events: none;
-                    }
                 }
 
                 & .container-toggle {
@@ -114,13 +98,35 @@
                     top: 10px;
                     right: 20px;
                     display: flex;
-                    width: 40px;
+                    width: 30px;
                     height: 20px;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: end;
                     background-color: var(--color-darkgray-800);
                     content: url('/img/ui/date.svg');
                     pointer-events: none;
+                }
+
+                &.hidding-after::after {
+                    opacity: 0.5;
+                    background-color: transparent;
+                }
+
+                & .date {
+                    position: relative;
+                    width: 100%;
+
+                    /* * Hiding default icon in browsers * */
+                    &::-webkit-calendar-picker-indicator {
+                        width: 60px;
+                        opacity: 0;
+                    }
+
+                    &.disabled {
+                        cursor: not-allowed;
+                        opacity: 0.5;
+                        pointer-events: none;
+                    }
                 }
             }
 
