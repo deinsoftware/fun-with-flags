@@ -285,8 +285,9 @@ const CreateEvent = () => {
 
                 <div className={styles['container-toggle']}>
                   <Toggle
+                    initialState={false}
                     onToggle={() => {
-                      setFormat((prev) => (prev === 24 ? 12 : 24))
+                      setFormat((prev) => (prev === 12 ? 24 : 12))
                     }}
                   />
                   <span className={styles['text-toggle']}>24H</span>
@@ -314,7 +315,7 @@ const CreateEvent = () => {
                 />
 
                 <div className={styles['container-toggle']}>
-                  <Toggle onToggle={handleDateToggle} />
+                  <Toggle initialState={false} onToggle={handleDateToggle} />
                   <span className={styles['text-toggle']}>Use data</span>
                 </div>
               </div>
@@ -357,6 +358,7 @@ const CreateEvent = () => {
           />
           <div className={styles['container-options-combo']}>
             <Toggle
+              initialState={false}
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
@@ -368,6 +370,7 @@ const CreateEvent = () => {
           </div>
           <div className={styles['container-options-combo']}>
             <Toggle
+              initialState
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
@@ -381,6 +384,7 @@ const CreateEvent = () => {
           {optionsCombo.showGmt && (
             <div className={styles['container-options-combo']}>
               <Toggle
+                initialState
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
                     ...prev,

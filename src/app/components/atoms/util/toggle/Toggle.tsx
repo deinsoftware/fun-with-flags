@@ -6,10 +6,11 @@ import styles from './Toggle.module.css'
 
 type Props = {
   onToggle: (toggled: boolean) => void
+  initialState: boolean
 }
 
-const Toggle = ({ onToggle }: Props) => {
-  const [toggled, setToggled] = useState(false)
+const Toggle = ({ onToggle, initialState }: Props) => {
+  const [toggled, setToggled] = useState(initialState)
 
   const handleClick = () => {
     setToggled(!toggled)
