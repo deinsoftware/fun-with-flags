@@ -2,7 +2,7 @@
 
 import { SetStateAction, RefObject } from 'react'
 
-import { PlusSquare } from 'lucide-react'
+import { PlusCircle } from 'lucide-react'
 
 import { DatesToRender } from '../../atoms/country-combo/DatesToRender'
 
@@ -57,10 +57,7 @@ const ComboboxCountries = ({
             handleAddCountry(true)
           }}
         >
-          <PlusSquare
-            color="var(--color-whywhite-500)"
-            size={lucidIcons.size}
-          />
+          <PlusCircle color="var(--color-purple-500)" size={lucidIcons.size} />
         </button>
       </div>
     </div>
