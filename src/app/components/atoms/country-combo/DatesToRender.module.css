@@ -1,5 +1,5 @@
 .container {
-    grid-column: 1 / -1;   
+    grid-column: 1 / -1;
 }
 
 .countries {
@@ -15,7 +15,7 @@
     }
 
     .time-12 {
-        width: 5rem;
+        width: 5.2rem;
     }
 
     .time-short-12 {
