@@ -178,5 +178,7 @@ export const getUserTimeFormat = (): TimeFormat => {
   const dateString = new Date(
     Date.UTC(1970, 0, 1, 0, 0, 0),
   ).toLocaleTimeString()
-  return dateString.match(/am|pm/i) ? 12 : 24
+
+  const regExp = /am|pm/i
+  return regExp.test(dateString) ? 12 : 24
 }

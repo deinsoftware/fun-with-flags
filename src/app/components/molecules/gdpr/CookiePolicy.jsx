@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import CookieConsent from 'react-cookie-consent'
 
-import { ToastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { toastStyle } from '@/libs/react-host-toast-config'
 
 const CookiePolicy = () => {
   return (
