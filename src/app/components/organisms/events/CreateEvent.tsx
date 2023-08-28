@@ -185,13 +185,27 @@ const CreateEvent = () => {
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   const handleShareEventOnTwitter = () => {
-    const url = shareEventsTwitter({
-      text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
-      url: `${formData.eventLink}\n`,
-      hashtags: formData.hashtags,
-    })
-    window.open(url, '_blank')
+    if (formData.eventName && formData.eventLink && formData.combo) {
+      const url = shareEventsTwitter({
+        text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
+        url: `${formData.eventLink}\n`,
+        hashtags: formData.hashtags,
+      })
+      window.open(url, '_blank')
+    } else {
+      toast(
+        `Necesitas agregar:${
+          formData.eventName ? '' : '\n❌ Nombre del evento'
+        }${formData.eventLink ? '' : '\n❌ Enlace'}${
+          formData.combo ? '' : '\n❌ Zona horaria'
+        }`,
+        {
+          style: toastStyle,
+        },
+      )
+    }
   }
+
   const [optionsCombo, setOptionsCombo] = useState({
     hourComplete: true,
     showGmt: true,
@@ -298,9 +312,9 @@ const CreateEvent = () => {
 
             <div className={styles['container-to-position-relative']}>
               <div
-                className={`${styles['container-with-toggle']} ${styles['container-date']} ${
-                  dateDisabled ? styles['hidding-after'] : ''
-                }`}
+                className={`${styles['container-with-toggle']} ${
+                  styles['container-date']
+                } ${dateDisabled ? styles['hidding-after'] : ''}`}
               >
                 <input
                   aria-label="Add date"
