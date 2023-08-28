@@ -56,6 +56,14 @@ export const SelectCountry = ({
     handleClose()
   }
 
+  const getCountry = (timezone: string) => {
+    const parts = timezone.split('/')
+    return parts[parts.length - 1].replaceAll('_', ' ')
+  }
+  const getContinent = (timezone: string) => {
+    return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
+  }
+
   return (
     <div className={styles['select-country-container']}>
       <div
@@ -65,22 +73,24 @@ export const SelectCountry = ({
         onClick={() => setVisibleSelectMenu(true)}
         onKeyDown={(e) => e.key === 'Enter' && setVisibleSelectMenu(true)}
       >
-        <p>Country:</p>
-        {Boolean(countryCode) && (
-          <ReactCountryFlag
-            svg
-            alt={`Flag of ${countryCode}`}
-            countryCode={countryCode}
-            id={`${countryCode}`}
-            style={{
-              width: '1.6rem',
-              height: '1.6rem',
-            }}
-            title={`Flag of ${countryCode}`}
-          />
-        )}
-        <p>{`${timezone}`}</p>
-        <p>{`GMT: ${gmt}`}</p>
+        <div className={styles['country-container']}>
+          {Boolean(countryCode) && (
+            <ReactCountryFlag
+              svg
+              alt={`Flag of ${countryCode}`}
+              countryCode={countryCode}
+              id={`${countryCode}`}
+              style={{
+                width: '1.6rem',
+                height: '1.6rem',
+              }}
+              title={`Flag of ${countryCode}`}
+            />
+          )}
+          <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
+        </div>
+        <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
+        <p className={styles['gmt']}>{`(GMT: ${gmt})`}</p>
       </div>
 
       {visibleSelectMenu && (
