@@ -2,7 +2,7 @@
 
 import { toast } from 'react-hot-toast'
 
-import { type KeyboardEvent } from 'react'
+import { type KeyboardEvent, useState } from 'react'
 
 import styles from './HashtagsInput.module.css'
 
@@ -13,19 +13,18 @@ type Props = {
 }
 
 const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
+  const initialState = ''
+  const [tag, setTag] = useState(initialState)
+
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      const target = event.target as HTMLInputElement
-      let hashTag = target.value.trim()
+    const target = event.target as HTMLInputElement
+    let hashTag = target.value.trim().replaceAll('#', '')
 
-      if (!hashTag) return
-      if (hashTag.charAt(0) === '#') {
-        hashTag = hashTag.replaceAll('#', '')
-      }
-
+    if (event.key === 'Enter' && hashTag) {
       if (hashTag.includes(' ')) {
         return toast('Spaces are not allowed')
       }
+
       const regExp = /[^A-Za-z0-9#]/
       if (regExp.test(hashTag)) {
         return toast('Special characters are not allowed')
@@ -36,8 +35,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
       }
 
       addHashtag(hashTag)
-
-      return ((hashTag as string | null) = null)
+      setTag(initialState)
     }
   }
 
@@ -46,8 +44,10 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
       <div className={styles['hashtag-container']}>
         <input
           className={styles['hashtag-input']}
-          placeholder="#Hashtag"
+          placeholder="Hashtags (add pressing enter)"
           type="text"
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
           onKeyDown={onKeyDown}
         />
 
@@ -59,7 +59,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
                 className={styles['tag']}
                 onClick={() => removeHashtag(hashTag)}
               >
-                {hashTag.charAt(0).includes('#') ? hashTag : `#${hashTag}`}
+                {`#${hashTag}`}
               </span>
             ))}
           </div>
