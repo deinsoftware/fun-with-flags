@@ -57,7 +57,8 @@ export const SelectCountry = ({
   }
 
   const getCountry = (timezone: string) => {
-    return timezone.replace(/.*?\//, '').replaceAll('_', ' ')
+    const parts = timezone.split('/')
+    return parts[parts.length - 1].replaceAll('_', ' ')
   }
   const getContinent = (timezone: string) => {
     return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
