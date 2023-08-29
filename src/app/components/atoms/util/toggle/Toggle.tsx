@@ -5,7 +5,7 @@ import styles from './Toggle.module.css'
 
 type Props = {
   value: boolean
-  onToggle: (toggled: boolean) => void
+  onToggle: () => void
 }
 
 const Toggle = ({ value, onToggle }: Props) => {

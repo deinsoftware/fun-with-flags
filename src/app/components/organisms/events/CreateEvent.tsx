@@ -29,8 +29,6 @@ import Toggle from '@/app/components/atoms/util/toggle/Toggle'
 import CountryList from '@/app/components/molecules/country-list/CountryList'
 import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
 
-import { cleanDataStorage } from '@/app/components/organisms/events/local-storage'
-
 import { Locale } from '@/types/locale.types'
 import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import {
@@ -44,9 +42,7 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { GmtPattern } from '@/types/dates.types'
-import { Countries } from '@/types/countries.types'
-import { Timezones } from '@/types/timezones.types'
+
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
