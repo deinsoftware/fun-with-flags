@@ -30,7 +30,7 @@ export const TimeZoneContext = createContext<{
   setFormat: Dispatch<SetStateAction<TimeFormat>>
 }>({
   timeZones: initialTimeZoneData,
-  format: 24,
+  format: 12,
   addTimeZone: () => {},
   deleteTimeZone: () => {},
   setOriginDate: () => {},
@@ -44,7 +44,7 @@ type Props = {
 export function TimeZoneProvider({ children }: Props) {
   const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
     initialTimeZoneData,
-    24,
+    12,
   )
   const addTimeZone = useCallback(
     (zone: Zone) => {

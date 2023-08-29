@@ -2,14 +2,7 @@
 
 import toast from 'react-hot-toast'
 
-import {
-  useState,
-  useMemo,
-  ChangeEvent,
-  RefObject,
-  useCallback,
-  useEffect,
-} from 'react'
+import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
 
 import { Clock3 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -18,7 +11,7 @@ import styles from './CreateEvent.module.css'
 
 import useFetch from './useFetch'
 
-import { useGetFormData } from './useGetFormData'
+import { useGetFormData } from './useFormData'
 
 import { shareEventsTwitter } from '@/helpers/share-events'
 
@@ -43,7 +36,6 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import {
   addYearsToDate,
   extractDate,
-  getLocaleDate,
   getLocaleDayPeriod,
   joinISODate,
 } from '@/helpers/dates'
@@ -52,15 +44,23 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { GmtPattern, TimePattern } from '@/types/dates.types'
+import { GmtPattern } from '@/types/dates.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  const { timeZones, setOriginDate, addTimeZone, setFormat, format } =
-    useTimeZoneContext()
-  const { formData, setFormData } = useGetFormData()
+  const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+  const {
+    formData,
+    setFormData,
+    handleChangeForm,
+    handleDateToggle,
+    handleChangeTime,
+    handleTimeToggle,
+    addHashtag,
+    removeHashtag
+  } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
 
@@ -105,27 +105,6 @@ const CreateEvent = () => {
     setIsOpenSelectTimeZone(false)
   }
 
-  const [dateDisabled, setDateDisabled] = useState(true)
-
-  const handleDateToggle = (disabled: boolean) => {
-    setDateDisabled(!disabled)
-    setFormData((prev) => ({
-      ...prev,
-      date: getLocaleDate({ timeZone: prev.timezone }, new Date()),
-    }))
-  }
-
-  const handleChangeForm = (
-    event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const { name, value } = event.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
   const handleChangeTextContent = useCallback(
     (ref: RefObject<HTMLDivElement> | null) => {
       if (ref?.current?.textContent) {
@@ -176,13 +155,6 @@ const CreateEvent = () => {
     }
   }
 
-  const handleClick = (time: TimePattern) => {
-    setFormData((prev) => ({
-      ...prev,
-      time,
-    }))
-  }
-
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   const handleShareEventOnTwitter = () => {
@@ -199,32 +171,7 @@ const CreateEvent = () => {
     showGmtWord: true,
   })
 
-  const addHashtag = (tag: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      hashtags: [...prev.hashtags, tag],
-    }))
-  }
 
-  const removeHashtag = (tag: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      hashtags: prev.hashtags.filter((t) => t !== tag),
-    }))
-  }
-
-  const setCountryInfo = (
-    countryCode: Countries,
-    name: Timezones,
-    gmt: GmtPattern,
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      country: countryCode,
-      timezone: name,
-      gmt,
-    }))
-  }
   return (
     <>
       <div className={styles['container-form']}>
@@ -278,19 +225,19 @@ const CreateEvent = () => {
                   {showTimePicker && (
                     <TimePicker
                       dayPeriod={dayPeriod}
-                      format={format}
+                      format={formData.toggleState.timeFormat}
                       time={formData.time}
-                      onClick={handleClick}
+                      onClick={handleChangeTime}
                     />
                   )}
                 </div>
 
                 <div className={styles['container-toggle']}>
                   <Toggle
-                    initialState={false}
-                    onToggle={() => {
-                      setFormat((prev) => (prev === 12 ? 24 : 12))
-                    }}
+                    value={
+                      formData.toggleState.timeFormat === 12 ? false : true
+                    }
+                    onToggle={handleTimeToggle}
                   />
                   <span className={styles['text-toggle']}>24H</span>
                 </div>
@@ -299,16 +246,20 @@ const CreateEvent = () => {
 
             <div className={styles['container-to-position-relative']}>
               <div
-                className={`${styles['container-with-toggle']} ${styles['container-date']} ${
-                  dateDisabled ? styles['hidding-after'] : ''
+                className={`${styles['container-with-toggle']} ${
+                  styles['container-date']
+                } ${
+                  formData.toggleState.dateIsDisable
+                    ? styles['hidding-after']
+                    : ''
                 }`}
               >
                 <input
                   aria-label="Add date"
                   className={`${styles['date']} ${
-                    dateDisabled ? styles['disabled'] : ''
+                    formData.toggleState.dateIsDisable ? styles['disabled'] : ''
                   }`}
-                  disabled={dateDisabled}
+                  disabled={formData.toggleState.dateIsDisable}
                   id=""
                   max={extractDate(addYearsToDate(new Date(), 100))}
                   min={extractDate(new Date())}
@@ -319,8 +270,11 @@ const CreateEvent = () => {
                 />
 
                 <div className={styles['container-toggle']}>
-                  <Toggle initialState={false} onToggle={handleDateToggle} />
-                  <span className={styles['text-toggle']}>Use data</span>
+                  <Toggle
+                    value={!formData.toggleState.dateIsDisable}
+                    onToggle={handleDateToggle}
+                  />
+                  <span className={styles['text-toggle']}>Use date</span>
                 </div>
               </div>
             </div>
@@ -362,7 +316,7 @@ const CreateEvent = () => {
           />
           <div className={styles['container-options-combo']}>
             <Toggle
-              initialState={false}
+              value={false}
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
@@ -374,7 +328,7 @@ const CreateEvent = () => {
           </div>
           <div className={styles['container-options-combo']}>
             <Toggle
-              initialState
+              value
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
@@ -388,7 +342,7 @@ const CreateEvent = () => {
           {optionsCombo.showGmt && (
             <div className={styles['container-options-combo']}>
               <Toggle
-                initialState
+                value
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
                     ...prev,
