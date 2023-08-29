@@ -145,34 +145,47 @@ const CreateEvent = () => {
   const [showTimePicker, setShowTimePicker] = useState(false)
 
   const handleCreateEvent = async () => {
-    if (session?.user?.name) {
-      const body: EventBody = {
-        description: formData.eventDescription,
-        eventName: formData.eventName,
-        timeZone: timeZones,
-        url: formData.eventLink,
-        userName: session.user.name,
-        tags: formData.hashtags,
-        lang: formData.language,
-      }
-      const response = await createEvent(body, signal)
-      if (typeof response !== 'string') {
-        toast.error(response.message, {
-          style: toastStyle,
-        })
-        return
-      }
-      toast.success(response, {
-        style: toastStyle,
-        iconTheme: toastIconTheme,
-      })
-      localStorage.removeItem('form-data')
-      localStorage.removeItem('time-zones')
-    } else {
-      toast.error('You must be logged in to create an event', {
+    if (!session?.user?.name) {
+      return toast.error('You must be logged in to create an event', {
         style: toastStyle,
       })
     }
+
+    if (!formData.eventName || !formData.eventLink || !formData.combo) {
+      return toast(
+        `Necesitas agregar:${
+          formData.eventName ? '' : '\n❌ Nombre del evento'
+        }${formData.eventLink ? '' : '\n❌ Enlace'}${
+          formData.combo ? '' : '\n❌ Zona horaria'
+        }`,
+        {
+          style: toastStyle,
+        },
+      )
+    }
+
+    const body: EventBody = {
+      description: formData.eventDescription,
+      eventName: formData.eventName,
+      timeZone: timeZones,
+      url: formData.eventLink,
+      userName: session.user.name,
+      tags: formData.hashtags,
+      lang: formData.language,
+    }
+    const response = await createEvent(body, signal)
+    if (typeof response !== 'string') {
+      toast.error(response.message, {
+        style: toastStyle,
+      })
+      return
+    }
+    toast.success(response, {
+      style: toastStyle,
+      iconTheme: toastIconTheme,
+    })
+    localStorage.removeItem('form-data')
+    localStorage.removeItem('time-zones')
   }
 
   const handleClick = (time: TimePattern) => {
@@ -192,6 +205,7 @@ const CreateEvent = () => {
     })
     window.open(url, '_blank')
   }
+
   const [optionsCombo, setOptionsCombo] = useState({
     hourComplete: true,
     showGmt: true,
@@ -298,9 +312,9 @@ const CreateEvent = () => {
 
             <div className={styles['container-to-position-relative']}>
               <div
-                className={`${styles['container-with-toggle']} ${styles['container-date']} ${
-                  dateDisabled ? styles['hidding-after'] : ''
-                }`}
+                className={`${styles['container-with-toggle']} ${
+                  styles['container-date']
+                } ${dateDisabled ? styles['hidding-after'] : ''}`}
               >
                 <input
                   aria-label="Add date"
