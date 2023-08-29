@@ -59,7 +59,8 @@ const CreateEvent = () => {
     handleChangeTime,
     handleTimeToggle,
     addHashtag,
-    removeHashtag
+    removeHashtag,
+    setCountryInfo,
   } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
@@ -90,6 +91,8 @@ const CreateEvent = () => {
     formData.gmt,
   ])
 
+
+  // FIXME: use values from user configuration
   const props = useMemo(
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
@@ -97,6 +100,7 @@ const CreateEvent = () => {
     }),
     [timeZones.origin.date],
   )
+  const dayPeriod = getLocaleDayPeriod('en-US')
 
   //TODO: add error message when fails
   const { data: flagList, error } = useFetch(props)
@@ -155,8 +159,6 @@ const CreateEvent = () => {
     }
   }
 
-  const dayPeriod = getLocaleDayPeriod('en-US')
-
   const handleShareEventOnTwitter = () => {
     const url = shareEventsTwitter({
       text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
@@ -170,7 +172,6 @@ const CreateEvent = () => {
     showGmt: true,
     showGmtWord: true,
   })
-
 
   return (
     <>
