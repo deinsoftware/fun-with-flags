@@ -18,13 +18,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export const Button = ({
-  handleClick,
-  avatar,
-  disabled,
-  color,
-  children,
-}: Props) => {
+const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
   return (
     <button
       className={styles['button']}
@@ -49,3 +43,5 @@ export const Button = ({
     </button>
   )
 }
+
+export default Button

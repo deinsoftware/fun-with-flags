@@ -1,7 +1,5 @@
 import { convertGmtToNumber, getLocaleGmt } from './dates'
 
-import { TimezoneNames } from '@/types/timezones.types'
-
 import { FlagZone } from '@/helpers/flags.types'
 
 export const calcOffset = (

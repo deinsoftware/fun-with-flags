@@ -1,6 +1,6 @@
 .select-country-container {
     display: grid;
-    width: fit-content;
+    width: 100%;
     height: 40px;
     border: 1.5px solid var(--color-darkgray-500);
     border-radius: 10px;
@@ -8,21 +8,36 @@
     color: var(--color-whywhite-500);
     cursor: pointer;
     font-size: var(--font-size-medium);
-    place-content: center;
 }
 
 .select-country {
     display: flex;
-    width: max-content;
-    flex-wrap: wrap;
+    width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 0 1rem;
-    gap: 5px;
     outline: none;
 }
 
 .select-country-container:focus-within {
     border: 1px solid transparent;
     outline: 1px solid var(--color-purple-500);
+}
+
+.country-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gmt {
+    color: var(--color-purple-500);
+}
+
+.gmt:hover {
+    color: var(--color-purple-700);
+}
+
+.continent {
+    color: var(--color-gray-500);
 }
