@@ -134,10 +134,10 @@ const CreateEvent = () => {
 
     if (!formData.eventName || !formData.eventLink || !formData.combo) {
       return toast(
-        `Necesitas agregar:${
-          formData.eventName ? '' : '\n❌ Nombre del evento'
-        }${formData.eventLink ? '' : '\n❌ Enlace'}${
-          formData.combo ? '' : '\n❌ Zona horaria'
+        `You need to add the fields of:${
+          formData.eventName ? '' : '\n❌ Event name'
+        }${formData.eventLink ? '' : '\n❌ Link'}${
+          formData.combo ? '' : '\n❌ Time zone'
         }`,
         {
           style: toastStyle,
@@ -199,11 +199,14 @@ const CreateEvent = () => {
           />
           <div className={styles['container-event-name']}>
             <input
+              required
               aria-label="Event name"
-              className={styles['event-name']}
+              className={`${styles['event-name']} ${
+                !formData.eventName && styles['empty']
+              }`}
               id=""
               name="eventName"
-              placeholder="Event name"
+              placeholder="Event name *"
               type="text"
               value={formData.eventName}
               onChange={handleChangeForm}
@@ -293,11 +296,14 @@ const CreateEvent = () => {
           </div>
           <div className={styles['container-hyperlink']}>
             <input
+              required
               aria-label="Add link to event"
-              className={styles['hyperlink']}
+              className={`${styles['hyperlink']} ${
+                !formData.eventLink && styles['empty']
+              }`}
               id=""
               name="eventLink"
-              placeholder="Hyperlink"
+              placeholder="Hyperlink *"
               type="url"
               value={formData.eventLink}
               onChange={handleChangeForm}

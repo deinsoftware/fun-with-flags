@@ -30,6 +30,11 @@
             .hyperlink,
             .description {
                 width: 100%;
+
+                &.empty {
+                    outline: 1px solid #f00;
+
+                }
             }
         }
 
