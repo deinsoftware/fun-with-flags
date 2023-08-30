@@ -7,7 +7,7 @@ import { Zone } from '@/helpers/events.types'
 export type OriginDate = {
   countryCode: Countries | ''
   date: string
-  name: Timezones
+  name: Timezones | ''
 }
 export type TimeZoneData = {
   list: Zone[]

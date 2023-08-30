@@ -36,7 +36,7 @@
 }
 
 .add-button:hover svg {
-    stroke: var(--color-purple-500);
+    stroke: var(--color-purple-700);
 }
 
 .add-button:active {

@@ -11,23 +11,31 @@ import styles from './SelectCountry.module.css'
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
-import { getLocaleGmt } from '@/helpers/dates'
+import { formatGmt, getLocaleGmt } from '@/helpers/dates'
+import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   flagList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>
+  gmt: FormData['gmt']
+  timezone: FormData['timezone']
+  setCountryInfo: (
+    countryCode: Countries,
+    name: Timezones,
+    gmt: GmtPattern,
+  ) => void
 }
 
 export const SelectCountry = ({
   flagList,
   countryCode,
   date,
-  setFormData,
+  gmt,
+  timezone,
+  setCountryInfo,
 }: Props) => {
   const [visibleSelectMenu, setVisibleSelectMenu] = useState(false)
-
   const handleClose = () => {
     setVisibleSelectMenu(false)
   }
@@ -39,44 +47,52 @@ export const SelectCountry = ({
     countryCode: Countries
     name: Timezones
   }) => {
-    const currentDate = new Date(date)
-    const gmt =
-      getLocaleGmt(
-        { timeZone: name, timeZoneName: 'longOffset' },
-        currentDate,
-      )?.replace('GMT', '') ?? 'Z'
-
-    setFormData((prev) => ({
-      ...prev,
-      country: countryCode,
-      timezone: name,
-      gmt,
-    }))
+    const currentDate = new Date(date as string)
+    const gmt = getLocaleGmt(
+      { timeZone: name, timeZoneName: 'longOffset' },
+      currentDate,
+    )
+    setCountryInfo(countryCode, name, gmt)
     handleClose()
+  }
+
+  const getCountry = (timezone: string) => {
+    const parts = timezone.split('/')
+    return parts[parts.length - 1].replaceAll('_', ' ')
+  }
+  const getContinent = (timezone: string) => {
+    return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
   }
 
   return (
     <div className={styles['select-country-container']}>
       <div
+        aria-label="Select your timezone"
         className={styles['select-country']}
         tabIndex={0}
         onClick={() => setVisibleSelectMenu(true)}
         onKeyDown={(e) => e.key === 'Enter' && setVisibleSelectMenu(true)}
       >
-        <p>Country:</p>
-        {Boolean(countryCode) && (
-          <ReactCountryFlag
-            svg
-            alt={`Flag of ${countryCode}`}
-            countryCode={countryCode}
-            id={`${countryCode}`}
-            style={{
-              width: '1.6rem',
-              height: '1.6rem',
-            }}
-            title={`Flag of ${countryCode}`}
-          />
-        )}
+        <div className={styles['country-container']}>
+          {Boolean(countryCode) && (
+            <ReactCountryFlag
+              svg
+              alt={`Flag of ${countryCode}`}
+              countryCode={countryCode}
+              id={`${countryCode}`}
+              style={{
+                width: '1.6rem',
+                height: '1.6rem',
+              }}
+              title={`Flag of ${countryCode}`}
+            />
+          )}
+          <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
+        </div>
+        <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
+        <p className={styles['gmt']}>{`(${
+          formatGmt(gmt) === 'UTC' ? '' : 'GMT: '
+        }${formatGmt(gmt)})`}</p>
       </div>
 
       {visibleSelectMenu && (

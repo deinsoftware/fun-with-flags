@@ -6,9 +6,11 @@ import { createPortal } from 'react-dom'
 
 import { XCircle } from 'lucide-react'
 
-import TimeZones from '../../atoms/country-list/TimeZones'
+import dynamic from 'next/dynamic'
 
 import styles from './CountryList.module.css'
+
+import TimeZones from '@/app/components/atoms/country-list/TimeZones'
 
 import { lucidIcons } from '@/libs/icon-config'
 
@@ -16,6 +18,13 @@ import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
+
+import LoadingPage from '@/app/loading'
+
+const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
+  ssr: false,
+  loading: LoadingPage,
+})
 
 import useDebounce from '@/app/hooks/useDebounce'
 
@@ -49,7 +58,7 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
 
   useDebounce({
     fn: () => setCountryList(getCountriesByQuery()),
-    time: 500,
+    time: 400,
     deps: query,
   })
 
@@ -83,21 +92,23 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
               </button>
             </div>
             <div className={styles['container-list-of-countries']}>
-              {countryList?.map((country) => {
-                return (
-                  <SelectTimeZone
-                    key={country.countryCode}
-                    {...country}
-                    handleSelect={handleSelect}
-                  >
-                    <TimeZones
-                      countryCode={country.countryCode}
+              <WithLoading>
+                {countryList?.map((country) => {
+                  return (
+                    <SelectTimeZone
+                      key={country.countryCode}
+                      {...country}
                       handleSelect={handleSelect}
-                      timeZone={country.timeZone}
-                    />
-                  </SelectTimeZone>
-                )
-              })}
+                    >
+                      <TimeZones
+                        countryCode={country.countryCode}
+                        handleSelect={handleSelect}
+                        timeZone={country.timeZone}
+                      />
+                    </SelectTimeZone>
+                  )
+                })}
+              </WithLoading>
             </div>
           </div>
         </div>,

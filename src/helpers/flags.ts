@@ -12,7 +12,10 @@ export const calcOffset = (
         timeZone: zone.zoneNames[0],
       }
 
-      const gmt = getLocaleGmt(options, originDate)
+      const gmt = getLocaleGmt(
+        { ...options, timeZoneName: 'longOffset' },
+        originDate,
+      )
       const offset = convertGmtToNumber(gmt ?? '')
 
       if (offset) {

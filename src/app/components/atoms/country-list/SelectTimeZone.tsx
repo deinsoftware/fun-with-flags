@@ -47,13 +47,12 @@ const SelectTimeZone = ({
         type="button"
         onClick={() => {
           toggleIsOpen()
-          {
-            timeZone?.length < 2 &&
-              handleSelect({
-                countryCode: countryCode,
-                name: timeZone[0].zoneNames[0],
-              })
-          }
+
+          timeZone?.length < 2 &&
+            handleSelect({
+              countryCode: countryCode,
+              name: timeZone[0].zoneNames[0],
+            })
         }}
       >
         <div className={styles['flag-and-country-name']}>
