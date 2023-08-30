@@ -150,6 +150,16 @@ export const getLocaleAcronym = (
     ?.find(({ type }) => type == 'timeZoneName')?.value
 }
 
+export const formatGmt = (
+  gmt: GmtPattern,
+  timeZoneName: TimezoneNames = 'shortOffset',
+) => {
+  if (gmt === 'Z') {
+    return timeZoneName === 'longOffset' ? '00:00' : '0'
+  }
+  return gmt
+}
+
 export const getLocaleGmt = (
   options: {
     timeZone: Timezones
@@ -162,7 +172,7 @@ export const getLocaleGmt = (
   })
     ?.formatToParts(originDate)
     ?.find(({ type }) => type == 'timeZoneName')
-    ?.value?.replace('GMT', '') ?? 'Z') as GmtPattern
+    ?.value?.replace('GMT', '') || 'Z') as GmtPattern
 }
 
 export const convertGmtToNumber = (gmtTime: GmtPattern) => {

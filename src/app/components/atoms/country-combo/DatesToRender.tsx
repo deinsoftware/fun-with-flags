@@ -10,6 +10,7 @@ import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 import { EventDate } from '@/helpers/events.types'
+import { formatGmt } from '@/helpers/dates'
 
 type Props = {
   datesArray: DatesFilteredArray[]
@@ -52,7 +53,7 @@ export const DatesToRender = ({
 
       let gmtText = ''
       if (showGmtWord) {
-        gmtText = gmt.startsWith('-') || gmt.startsWith('+') ? 'GMT' : ''
+        gmtText = gmt.startsWith('-') || gmt.startsWith('+') || gmt === '0' ? 'GMT' : ''
       }
       return (
         <div key={gmt} className={style['countries']}>
@@ -65,7 +66,7 @@ export const DatesToRender = ({
           </p>
           {(showGmt || showGmtWord) && (
             <p className={style['gmt']}>
-              {`(${gmtText}${showGmt ? gmt : ''})`}
+              {`(${gmtText}${showGmt ? formatGmt(gmt) : ''})`}
             </p>
           )}
           <div className={style['flags-container']}>
