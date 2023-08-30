@@ -201,6 +201,18 @@ describe('getLocaleGmt()', () => {
 
     expect(result).toBe('-5')
   })
+
+  test('should return GMT pattern for longOffset timezone name', () => {
+    const options = {
+      timeZone: 'Atlantic/Reykjavik' as Timezones,
+      timeZoneName: 'longOffset' as TimezoneNames,
+    }
+    const originDate = new Date('2023-08-29T00:00:00.000Z')
+
+    const result = getLocaleGmt(options, originDate)
+
+    expect(result).toBe('Z')
+  })
 })
 
 describe('convertGmtToNumber()', () => {

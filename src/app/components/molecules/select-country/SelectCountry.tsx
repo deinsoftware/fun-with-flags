@@ -11,7 +11,7 @@ import styles from './SelectCountry.module.css'
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
-import { getLocaleGmt } from '@/helpers/dates'
+import { formatGmt, getLocaleGmt } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
@@ -90,7 +90,9 @@ export const SelectCountry = ({
           <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
         </div>
         <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
-        <p className={styles['gmt']}>{`(GMT: ${gmt})`}</p>
+        <p className={styles['gmt']}>{`(${
+          formatGmt(gmt) === 'UTC' ? '' : 'GMT: '
+        }${formatGmt(gmt)})`}</p>
       </div>
 
       {visibleSelectMenu && (

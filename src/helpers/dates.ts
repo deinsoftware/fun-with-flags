@@ -150,6 +150,13 @@ export const getLocaleAcronym = (
     ?.find(({ type }) => type == 'timeZoneName')?.value
 }
 
+export const formatGmt = (gmt: GmtPattern) => {
+  if (gmt === 'Z') {
+    return 'UTC'
+  }
+  return gmt
+}
+
 export const getLocaleGmt = (
   options: {
     timeZone: Timezones
@@ -162,7 +169,7 @@ export const getLocaleGmt = (
   })
     ?.formatToParts(originDate)
     ?.find(({ type }) => type == 'timeZoneName')
-    ?.value?.replace('GMT', '') ?? 'Z') as GmtPattern
+    ?.value?.replace('GMT', '') || 'Z') as GmtPattern
 }
 
 export const convertGmtToNumber = (gmtTime: GmtPattern) => {
