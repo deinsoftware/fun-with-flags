@@ -150,12 +150,9 @@ export const getLocaleAcronym = (
     ?.find(({ type }) => type == 'timeZoneName')?.value
 }
 
-export const formatGmt = (
-  gmt: GmtPattern,
-  timeZoneName: TimezoneNames = 'shortOffset',
-) => {
+export const formatGmt = (gmt: GmtPattern) => {
   if (gmt === 'Z') {
-    return timeZoneName === 'longOffset' ? '00:00' : '0'
+    return 'UTC'
   }
   return gmt
 }

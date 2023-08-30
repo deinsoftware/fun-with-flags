@@ -11,9 +11,8 @@ import {
   setDataStorage,
   cleanDataStorage,
 } from '@/app/components/organisms/events/local-storage'
-import { TimePattern } from '@/types/dates.types'
+import { TimePattern, GmtPattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
-import { GmtPattern } from '@/types/dates.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
@@ -29,7 +28,7 @@ export const useGetFormData = () => {
     combo: '',
     country: 'US',
     timezone: 'America/New_York',
-    gmt: 'Z',
+    gmt: '-05:00',
     hashtags: [],
     toggleState: {
       timeFormat: 12,

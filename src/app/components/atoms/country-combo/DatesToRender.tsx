@@ -11,6 +11,7 @@ import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 import { EventDate } from '@/helpers/events.types'
 import { formatGmt } from '@/helpers/dates'
+import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   datesArray: DatesFilteredArray[]
@@ -41,7 +42,7 @@ export const DatesToRender = ({
     [deleteTimeZone],
   )
   const getTimeInfo = useCallback(
-    (gmt: string, countries: EventDate[], complementShortHour: string) => {
+    (gmt: GmtPattern, countries: EventDate[], complementShortHour: string) => {
       let classNameToAdd = ''
       if (!showHourComplete) {
         classNameToAdd =
@@ -53,7 +54,7 @@ export const DatesToRender = ({
 
       let gmtText = ''
       if (showGmtWord) {
-        gmtText = gmt.startsWith('-') || gmt.startsWith('+') || gmt === '0' ? 'GMT' : ''
+        gmtText = gmt.startsWith('-') || gmt.startsWith('+') ? 'GMT' : ''
       }
       return (
         <div key={gmt} className={style['countries']}>
@@ -111,7 +112,7 @@ export const DatesToRender = ({
           format === 12 ? firstCountry.i18n.time.split(' ')[1] : 'H'
         const timeInfo = Object.entries(groupedCountries).map(
           ([gmt, countries]) =>
-            getTimeInfo(gmt, countries, complementShortHour),
+            getTimeInfo(gmt as GmtPattern, countries, complementShortHour),
         )
 
         return (
