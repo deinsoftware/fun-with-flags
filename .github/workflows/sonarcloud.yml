@@ -2,9 +2,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ['main', 'dev']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -50,6 +50,7 @@ jobs:
             -Dsonar.projectVersion=${{ steps.package.outputs.version }}
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.coverage.exclusions=**/*.test.ts,**/*.test.tsx
+            -Dsonar.cpd.exclusions=**/*.test.ts,**/*.test.tsx
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
             # When you need the analysis to take place in a directory other than the one from which it was launched
