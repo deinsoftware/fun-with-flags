@@ -4,25 +4,59 @@
     flex-direction: column;
     gap: 8px;
 
-    & .hashtag-input {
-        height: 40px;
-        padding: 0 1rem;
-        border: 1.5px solid var(--color-darkgray-500);
-        border-radius: 10px;
-        background-color: var(--color-darkgray-800);
-        color: var(--color-whywhite-500);
-        font-family: var(--font-family-primary);
-        font-size: var(--font-size-medium);
+    & .actions {
+        display: flex;
+        gap: 4px;
+        width: 100%;
 
-        &::placeholder {
-            color: var(--color-gray-500);
+        & .hashtag-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 1rem;
+            border: 1.5px solid var(--color-darkgray-500);
+            border-radius: 10px;
+            background-color: var(--color-darkgray-800);
+            color: var(--color-whywhite-500);
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-medium);
+
+            &::placeholder {
+                color: var(--color-gray-500);
+            }
+
+            &:focus {
+                border: 1px solid transparent;
+                outline: 1px solid var(--color-purple-500);
+            }
         }
 
-        &:focus {
-            border: 1px solid transparent;
-            outline: 1px solid var(--color-purple-500);
+        & .add-hashtag {
+            height: 40px;
+            min-width: 80px;
+
+            outline: none;
+            border: 1.5px solid var(--color-darkgray-500);
+            border-radius: 10px;
+
+
+            background-color: var(--color-darkgray-800);
+
+            color: var(--color-purple-500);
+            cursor: pointer;
+
+            font-size: var(--font-size-medium);
+            font-weight: var(--font-weight-bold);
+
+
+
+            &:focus {
+                outline: 1px solid var(--color-purple-500);
+            }
+
+
         }
     }
+
 
 
     & .tags-container {
@@ -36,13 +70,27 @@
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 8px;
             background-color: var(--color-darkgray-800);
-            color: var(--color-purple-500);
-            cursor: pointer;
 
-            &:hover {
+            display: flex;
+            gap: 8px;
+
+            & .remove-hashtag-icon {
+                cursor: pointer;
+
+                display: grid;
+                place-items: center;
+            }
+
+            & .tag-text {
+                color: var(--color-purple-500);
+
+            }
+
+            /* &:hover {
                 color: rgb(255 40 40 / 80%);
                 opacity: 0.8;
-            }
+            } */
+
         }
     }
 }
