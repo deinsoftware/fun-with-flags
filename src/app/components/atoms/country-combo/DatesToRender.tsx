@@ -45,9 +45,11 @@ export const DatesToRender = ({
     (gmt: GmtPattern, countries: EventDate[]) => {
       return (
         <div key={gmt} className={style['countries']}>
-          {/* FIXME: && ${optionsCombo.hideMins ? style[`time-short-${format}`] : '' */}
-
-          <p className={style[`time-${format}`]}>
+          <p
+            className={`${style[`time-${format}`]} ${
+              optionsCombo.hideMins ? style[`time-short-${format}`] : ''
+            }`}
+          >
             {formatTime(countries[0].i18n.time, format, optionsCombo.hideMins)}
           </p>
           {optionsCombo.showGmt && (
