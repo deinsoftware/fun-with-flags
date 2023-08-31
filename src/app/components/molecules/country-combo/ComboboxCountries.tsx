@@ -12,12 +12,13 @@ import { useFilteredDates } from './useFilteredDates'
 
 import { useGetInfoDates } from './useGetInfoDates'
 
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { lucidIcons } from '@/libs/icon-config'
+import { TimeFormat } from '@/helpers/events.types'
 
 type Props = {
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
   handleAddCountry: (value: SetStateAction<boolean>) => void
+  format: TimeFormat
   optionsCombo: {
     hideMins: boolean
     showGmt: boolean
@@ -28,9 +29,9 @@ type Props = {
 const ComboboxCountries = ({
   getTextContent,
   handleAddCountry,
+  format,
   optionsCombo,
 }: Props) => {
-  const { format } = useTimeZoneContext()
   const { dateList } = useGetInfoDates({ format })
   const filteredDates = useFilteredDates(dateList, format)
 
@@ -41,6 +42,7 @@ const ComboboxCountries = ({
       ) : (
         <DatesToRender
           datesArray={filteredDates}
+          format={format}
           getTextContent={getTextContent}
           optionsCombo={optionsCombo}
         />

@@ -318,6 +318,7 @@ const CreateEvent = () => {
           />
 
           <ComboboxCountries
+            format={formData.toggleState.timeFormat}
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
             optionsCombo={optionsCombo}

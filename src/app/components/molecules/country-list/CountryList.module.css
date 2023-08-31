@@ -10,7 +10,7 @@
 
     .container-list-with-search {
         width: 90%;
-        height: calc(90% - 60px);
+        height: calc(8*47.99px);
         border-radius: 10px;
         margin: 30px auto;
         background-color: var(--color-neutral-500);
@@ -84,7 +84,7 @@
 
         .container-list-with-search {
             position: fixed;
-            top: 80px;
+            top: 55px;
             right: 80px;
             max-width: 300px;
             max-height: 500px;

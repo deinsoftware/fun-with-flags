@@ -40,7 +40,7 @@ export const useGetFormData = () => {
     },
   })
 
-  const { addTimeZone, setFormat } = useTimeZoneContext()
+  const { addTimeZone } = useTimeZoneContext()
 
   useEffect(() => {
     const setInitialFormData = async () => {
@@ -139,9 +139,6 @@ export const useGetFormData = () => {
       }
       return current
     })
-
-    // FIXME: take this value from formData state and not from context
-    setFormat((prev) => (prev === 12 ? 24 : 12))
   }
 
   const addHashtag = (tag: string) => {
