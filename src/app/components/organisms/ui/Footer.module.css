@@ -12,20 +12,21 @@
     justify-content: center;
     border-top: 1px solid var(--color-darkgray-500);
     background-color: var(--color-darkgray-900);
-}
 
-.btn-container {
-    display: flex;
-    width: 100%;
-    max-width: 500px;
-    align-items: center;
-    justify-content: space-evenly;
+    .container-icons {
+        display: flex;
+        width: 100%;
+        max-width: 500px;
+        align-items: center;
+        justify-content: space-evenly;
 
-    & img {
-        filter: invert(40%);
+        & .container-icon {
+            display: grid;
+            place-content: center;
 
-        &:active {
-            filter: invert(80%);
+            & .icon:active {
+                filter: invert(50%);
+            }
         }
     }
 }

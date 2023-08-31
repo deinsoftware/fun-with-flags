@@ -1,5 +1,5 @@
 import CreateEvent from '@/app/components/organisms/events/CreateEvent'
-import { Locale } from '@/types/locale.types'
+import { TimeZoneProvider } from '@/app/context/timeZoneContext'
 
 export const metadata = {
   title: 'Create event',
@@ -8,7 +8,9 @@ export const metadata = {
 const CreateEventPage = () => {
   return (
     <>
+      <TimeZoneProvider>
       <CreateEvent />
+      </TimeZoneProvider>
     </>
   )
 }

@@ -1,132 +1,67 @@
-"use client"
-import ReactCountryFlag from "react-country-flag"
+'use client'
 
-import { useContext } from "react"
+import { SetStateAction, RefObject } from 'react'
+
+import { PlusCircle } from 'lucide-react'
+
+import { DatesToRender } from '../../atoms/country-combo/DatesToRender'
 
 import style from './ComboboxCountries.module.css'
 
-import { useGetNextAndPrevDay } from "./useGetNextAndPrevDay"
-import { useFilteredDates } from "./useFilteredDates"
+import { useFilteredDates } from './useFilteredDates'
 
-import { getDatesList, sortDatesList } from "@/helpers/events"
-import {  ZoneList } from "@/helpers/events.types"
-import { DateArray } from "@/types/DateArray.types"
-import { TimeZoneContext } from "@/app/context/timeZoneContext"
+import { useGetInfoDates } from './useGetInfoDates'
 
+import { lucidIcons } from '@/libs/icon-config'
+import { TimeFormat } from '@/helpers/events.types'
 
- type Format = {
-    format: 12 | 24
- }
+type Props = {
+  getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
+  handleAddCountry: (value: SetStateAction<boolean>) => void
+  format: TimeFormat
+  optionsCombo: {
+    hideMins: boolean
+    showGmt: boolean
+    hideInitials: boolean
+  }
+}
 
-const ComboboxCountries = ({format}: Format) => {
-    const {timeZones}= useContext(TimeZoneContext)
-    
-    const valueList: ZoneList | null = timeZones? {
-        originDate: new Date(timeZones.origin.date),
-        zoneList: timeZones.list,
-        timeFormat: format,
-    }: null
-    const dateList = valueList? sortDatesList(getDatesList(valueList)) : undefined
-    const currentDate = timeZones ? new Date(timeZones.origin.date) : new Date()
+const ComboboxCountries = ({
+  getTextContent,
+  handleAddCountry,
+  format,
+  optionsCombo,
+}: Props) => {
+  const { dateList } = useGetInfoDates({ format })
+  const filteredDates = useFilteredDates(dateList, format)
 
-    const filteredDates = useFilteredDates(dateList, format)
-    const {isNextDate, isPrevDate} = useGetNextAndPrevDay(filteredDates, currentDate)
-   
-    const currentDatePlusOne = new Date(currentDate.getTime())
-    currentDatePlusOne.setDate(currentDatePlusOne.getDate() + 1)
-    
-    const currentDateMinusOne = new Date(currentDate.getTime())
-    currentDateMinusOne.setDate(currentDateMinusOne.getDate() - 1)
-
-    
-    const DatesToRender =({datesArray, nextDate= false, prevDate=false}
-        :{datesArray: DateArray[], nextDate?: boolean, prevDate?: boolean} )=>{
-        const timeToRender = datesArray.map(([time, groupedDate]) => {
-            const date= new Date(groupedDate.date)
-            const isSameDate = date.getDate() === currentDate.getDate()
-            const isNextDate = date.getDate() === currentDate.getDate()+1
-            const isPrevDate = date.getDate() === currentDate.getDate()-1
-
-            const handleClick = (event: React.MouseEvent<HTMLImageElement>)=>{
-                const target = event.target as HTMLImageElement
-                console.log(target.id)
-            }
-            const elementJSX = ()=>{
-                return (
-                    <>
-                        <p className={format === 12 ? style['time-12'] : style['time-24'] }>{`${time}`}</p>
-                        <p className={style['gmt']}>{`(${groupedDate.gmt})`}</p>
-                        <div className={style['flags-container']}>
-                        {groupedDate.countryCodes.map(([countryCode, name]) =>{
-                        return (
-                            <div key={self.crypto.randomUUID()} className={style['flag']}>
-                                
-                                <ReactCountryFlag
-                                svg 
-                                alt={`Flag of ${countryCode}`}
-                                countryCode={countryCode}
-                                id={name}
-                                style={{
-                                    width: '1.6rem',
-                                    height: '1.6rem',
-                                }}
-                                title={`Flag of ${countryCode}`}
-                                onClick={handleClick}
-                                />
-                                <ReactCountryFlag 
-                                    countryCode={countryCode} 
-                                    style={{display: 'none'}}
-                                />
-                            </div>
-                            )
-                        })}
-                        {`\n`}
-                    </div>
-                    </>
-                    
-                )
-            }
-            
-            return (
-                <div key={time} className={style['countries']}>
-                    {!nextDate && !prevDate && isSameDate && elementJSX()}              
-                    {nextDate && isNextDate && elementJSX()} 
-                    {prevDate && isPrevDate && elementJSX()} 
-                </div>
-            )
-        })
-        
-        return  timeToRender
-    }
-
-    return (
-        
-        <div className={style['countries-container']}>
-            {isPrevDate && 
-             <>
-                <p><strong>{`${currentDateMinusOne.toDateString()}\n`}</strong></p>
-                <DatesToRender datesArray={filteredDates} prevDate={true} />
-             </> 
-            }
-            
-            {(typeof dateList !== 'undefined') ? 
-            <>
-                <p><strong>{`${currentDate.toDateString()}\n`}</strong></p>
-                <DatesToRender datesArray={filteredDates} />
-            </> 
-            : 'Add a timezone to start'}
-
-            
-            {isNextDate && 
-             <>
-                <p><strong>{`${currentDatePlusOne.toDateString()}\n`}</strong></p>
-                <DatesToRender datesArray={filteredDates} nextDate={true}/>
-             </> 
-            }
-            
-        </div>     
-        
-    )
+  return (
+    <div className={style['countries-container']}>
+      {!dateList || dateList?.length === 0 ? (
+        <p>Add a timezone to start</p>
+      ) : (
+        <DatesToRender
+          datesArray={filteredDates}
+          format={format}
+          getTextContent={getTextContent}
+          optionsCombo={optionsCombo}
+        />
+      )}
+      <div className={style['add-button-container']}>
+        <button
+          aria-label="Add country timezone"
+          className={style['add-button']}
+          type="button"
+          onClick={(event) => {
+            event.preventDefault()
+            handleAddCountry(true)
+          }}
+        >
+          <PlusCircle color="var(--color-purple-500)" size={lucidIcons.size} />
+        </button>
+      </div>
+    </div>
+  )
 }
 
 export default ComboboxCountries

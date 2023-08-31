@@ -4,12 +4,28 @@ import styles from './TimeZones.module.css'
 
 import { FlagZone } from '@/helpers/flags.types'
 
+import { Timezones } from '@/types/timezones.types'
+import { Countries } from '@/types/countries.types'
+
 function getZoneName(zoneNames: string[]) {
   const newZoneNames = [...zoneNames]?.shift() ?? ''
   return newZoneNames?.split('/')?.pop()?.replaceAll('_', ' ') ?? newZoneNames
 }
 
-const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
+type Props = {
+  timeZone: FlagZone[]
+} & {
+  countryCode: string
+  handleSelect: ({
+    countryCode,
+    name,
+  }: {
+    countryCode: Countries
+    name: Timezones
+  }) => void
+}
+
+const TimeZones = ({ timeZone, countryCode, handleSelect }: Props) => {
   return (
     <>
       {timeZone?.map(
@@ -21,6 +37,13 @@ const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
               <button
                 key={self.crypto.randomUUID()}
                 className={styles['mtz-item-country-container']}
+                type="button"
+                onClick={() => {
+                  handleSelect({
+                    countryCode: countryCode as Countries,
+                    name: timeZone[index].zoneNames[0],
+                  })
+                }}
               >
                 <div className={styles['mtz-zone-name-container']}>
                   <span>{getZoneName(zoneNames)}</span>
@@ -33,8 +56,8 @@ const TimeZones: React.FC<{ timeZone: FlagZone[] }> = ({ timeZone }) => {
                     {initial}
                   </span>
                   <span
-                    className={styles['mtz-additional-information-utc']}
-                  >{`(UTC${gmt})`}</span>
+                    className={styles['mtz-additional-information-gmt']}
+                  >{`(GMT${gmt})`}</span>
                 </div>
               </button>
             )

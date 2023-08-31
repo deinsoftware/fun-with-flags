@@ -1,60 +1,62 @@
 import Link from 'next/link'
-import Image from 'next/image'
+
+import { Home, CalendarDays, CalendarPlus, Settings } from 'lucide-react'
 
 import styles from './Footer.module.css'
 
+import { lucidIcons } from '@/libs/icon-config'
+
 const Footer = () => {
-  const imageWidth = 25
   return (
     <>
       <div className={styles['footer-pusher']} />
 
-      <footer className={styles.footer}>
-        <div className={styles['btn-container']}>
+      <footer className={styles['footer']}>
+        <div className={styles['container-icons']}>
           <Link className="" href="/">
-            <div className="">
-              <Image
-                alt="Home"
-                className=""
-                height={imageWidth}
-                src="/img/menu/home.png"
-                width={imageWidth}
+            <div className={styles['container-icon']}>
+              <Home
+                absoluteStrokeWidth={false}
+                className={styles['icon']}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/events">
-            <div className="">
-              <Image
-                alt="Events"
-                className=""
-                height={imageWidth}
-                src="/img/menu/events.png"
-                width={imageWidth}
+            <div className={styles['container-icon']}>
+              <CalendarDays
+                absoluteStrokeWidth={false}
+                className={styles['icon']}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/events/create">
-            <div className="">
-              <Image
-                alt="Create event"
-                className=""
-                height={imageWidth}
-                src="/img/menu/create-event.png"
-                width={imageWidth}
+            <div className={styles['container-icon']}>
+              <CalendarPlus
+                absoluteStrokeWidth={false}
+                className={styles['icon']}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>
 
           <Link className="" href="/settings">
-            <div className="">
-              <Image
-                alt="Settings"
-                className=""
-                height={imageWidth}
-                src="/img/menu/menu.png"
-                width={imageWidth}
+            <div className={styles['container-icon']}>
+              <Settings
+                absoluteStrokeWidth={false}
+                className={styles['icon']}
+                color={lucidIcons.color.dark}
+                size={lucidIcons.size}
+                strokeWidth={lucidIcons.strokeWidth}
               />
             </div>
           </Link>

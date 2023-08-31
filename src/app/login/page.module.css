@@ -4,7 +4,7 @@
     height: 65vh;
     flex-direction: column;
     justify-content: space-between;
-    padding: 12px 40px;
+    padding: var(--padding);
     color: var(--color-whywhite-500);
 
     & .paragraph {

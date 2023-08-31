@@ -1,52 +1,38 @@
 import { useEffect, useState } from 'react'
 
-import { EventDate } from '@/helpers/events.types'
-import { DateArray } from '@/types/DateArray.types'
-
-type TimezoneInfo = {
-  [time: string]: {
-    countryCodes: [string[]]
-    gmt?: string
-    date: string
-  }
-}
+import { EventDate, TimeFormat } from '@/helpers/events.types'
+import { DatesFiltered, DatesFilteredArray } from '@/types/flags.types'
 
 export function useFilteredDates(
   dateList: EventDate[] | undefined,
-  format: 12 | 24,
+  format: TimeFormat,
 ) {
-  const [filteredDates, setFilteredDates] = useState<DateArray[]>([])
+  const [filteredDates, setFilteredDates] = useState<DatesFilteredArray[]>([])
 
   useEffect(() => {
     const filterDates = (
       dateList: EventDate[] | undefined,
-    ): DateArray[] | [] => {
-      let groupedDates: TimezoneInfo = {}
-
+    ): DatesFilteredArray[] | [] => {
+      const flags: DatesFiltered = {}
       if (dateList === undefined) return []
 
-      dateList?.forEach((dateInfo) => {
-        const countryCode: string = dateInfo.countryCode
-        const time: string = dateInfo.i18n.time
-        const date = dateInfo.i18n.date
-        const gmt = dateInfo.acronym
-        const name = dateInfo.name
-
-        if (groupedDates[time]) {
-          groupedDates[time].countryCodes.push([countryCode, name])
-        } else {
-          groupedDates[time] = {
-            countryCodes: [[countryCode, name]],
-            gmt,
-            date,
+      dateList.forEach((country) => {
+        if (!flags.hasOwnProperty(country.date)) {
+          flags[country.date] = {}
+        }
+        if (country.acronym) {
+          if (!flags[country.date].hasOwnProperty(country.acronym)) {
+            flags[country.date][country.acronym] = []
           }
+          flags[country.date][country.acronym].push(country)
         }
       })
-      const groupedDatesArray = Object.entries(groupedDates)
+
+      const groupedDatesArray = Object.entries(flags)
       return groupedDatesArray
     }
     setFilteredDates(filterDates(dateList))
-  }, [format])
+  }, [format, dateList])
 
   return filteredDates
 }

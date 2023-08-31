@@ -2,12 +2,14 @@ import Image from 'next/image'
 
 import styles from './CardPost.module.css'
 
-const CardPost: React.FC<{
+type Props = {
   srcImage: string
   title: string
   text: string
   date: string
-}> = ({ srcImage, title, text, date }) => {
+}
+
+const CardPost = ({ srcImage, title, text, date }: Props) => {
   return (
     <>
       <article className={styles['card-container']}>

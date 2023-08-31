@@ -1,29 +1,31 @@
 import { Countries } from '@/types/countries.types'
 import { Locale } from '@/types/locale.types'
-import { TimeZones } from '@/types/timeZones.types'
+import { Timezones } from '@/types/timezones.types'
+
+export type TimeFormat = 12 | 24
 
 export type Zone = {
   countryCode: Countries
-  name: TimeZones
+  name: Timezones
 }
 
 export type DateInformation = {
   originDate: Date
   zone: Zone
   locale?: Locale
-  timeFormat: 12 | 24
+  timeFormat: TimeFormat
 }
 
 export type ZoneList = {
   originDate: Date
   zoneList: Zone[]
   locale?: Locale
-  timeFormat: 12 | 24
+  timeFormat: TimeFormat
 }
 
 export type EventDate = {
   countryCode: Countries
-  name: TimeZones
+  name: Timezones
   date: string
   time: string
   acronym?: string
