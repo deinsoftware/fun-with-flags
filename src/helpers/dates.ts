@@ -138,6 +138,7 @@ export const getLocaleAcronym = (
   countryCode: Countries,
 ) => {
   const acronymList = process?.env?.NEXT_PUBLIC_ACRONYM_COUNTRIES ?? ''
+
   if (acronymList && !acronymList.includes(countryCode)) {
     return
   }
@@ -147,7 +148,8 @@ export const getLocaleAcronym = (
     timeZoneName: 'short',
   })
     ?.formatToParts(originDate)
-    ?.find(({ type }) => type == 'timeZoneName')?.value
+    ?.find(({ type }) => type == 'timeZoneName')
+    ?.value?.replace('GMT', '')
 }
 
 export const formatTime = (
