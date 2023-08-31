@@ -94,7 +94,6 @@ export const DatesToRender = ({
     const result = datesArray.map(([date, groupedCountries]) => {
       const values = Object.values(groupedCountries)
       if (values.length >= 1) {
-        const firstCountry = values[0][0]
         const timeInfo = Object.entries(groupedCountries).map(
           ([gmt, countries]) => getTimeInfo(gmt as GmtPattern, countries),
         )
