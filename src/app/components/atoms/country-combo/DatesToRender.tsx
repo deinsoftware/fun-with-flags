@@ -10,23 +10,23 @@ import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 import { EventDate } from '@/helpers/events.types'
-import { formatGmt } from '@/helpers/dates'
+import { formatGmt, formatTime } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   datesArray: DatesFilteredArray[]
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
-  showGmt: boolean
-  showGmtWord: boolean
-  showHourComplete: boolean
+  optionsCombo: {
+    hideMins: boolean
+    showGmt: boolean
+    hideInitials: boolean
+  }
 }
 
 export const DatesToRender = ({
   datesArray,
   getTextContent,
-  showGmt,
-  showGmtWord,
-  showHourComplete,
+  optionsCombo,
 }: Props) => {
   const { deleteTimeZone, format } = useTimeZoneContext()
   const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
@@ -42,32 +42,17 @@ export const DatesToRender = ({
     [deleteTimeZone],
   )
   const getTimeInfo = useCallback(
-    (gmt: GmtPattern, countries: EventDate[], complementShortHour: string) => {
-      let classNameToAdd = ''
-      if (!showHourComplete) {
-        classNameToAdd =
-          format === 12 ? style['time-short-12'] : style['time-short-24']
-      }
-      const timeText = showHourComplete
-        ? countries[0].i18n.time
-        : `${countries[0].i18n.time.split(':')[0]} ${complementShortHour}`
-
-      let gmtText = ''
-      if (showGmtWord) {
-        gmtText = gmt.startsWith('-') || gmt.startsWith('+') ? 'GMT' : ''
-      }
+    (gmt: GmtPattern, countries: EventDate[]) => {
       return (
         <div key={gmt} className={style['countries']}>
-          <p
-            className={`${
-              format === 12 ? style['time-12'] : style['time-24']
-            } ${classNameToAdd}`}
-          >
-            {timeText}
+          {/* FIXME: && ${optionsCombo.hideMins ? style[`time-short-${format}`] : '' */}
+
+          <p className={style[`time-${format}`]}>
+            {formatTime(countries[0].i18n.time, format, optionsCombo.hideMins)}
           </p>
-          {(showGmt || showGmtWord) && (
+          {optionsCombo.showGmt && (
             <p className={style['gmt']}>
-              {`(${gmtText}${showGmt ? formatGmt(gmt) : ''})`}
+              {formatGmt(gmt, 'shortOffset', !optionsCombo.hideInitials)}
             </p>
           )}
           <div className={style['flags-container']}>
@@ -93,7 +78,7 @@ export const DatesToRender = ({
         </div>
       )
     },
-    [showHourComplete, showGmt, showGmtWord, format, handleClick],
+    [optionsCombo, format, handleClick],
   )
 
   useEffect(() => {
@@ -108,11 +93,8 @@ export const DatesToRender = ({
       const values = Object.values(groupedCountries)
       if (values.length >= 1) {
         const firstCountry = values[0][0]
-        const complementShortHour: string =
-          format === 12 ? firstCountry.i18n.time.split(' ')[1] : 'H'
         const timeInfo = Object.entries(groupedCountries).map(
-          ([gmt, countries]) =>
-            getTimeInfo(gmt as GmtPattern, countries, complementShortHour),
+          ([gmt, countries]) => getTimeInfo(gmt as GmtPattern, countries),
         )
 
         return (
