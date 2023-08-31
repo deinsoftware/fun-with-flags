@@ -54,7 +54,7 @@ export const DatesToRender = ({
           </p>
           {optionsCombo.showGmt && (
             <p className={style['gmt']}>
-              {formatGmt(gmt, 'shortOffset', !optionsCombo.hideInitials)}
+              {formatGmt(gmt, 'longOffset', !optionsCombo.hideInitials)}
             </p>
           )}
           <div className={style['flags-container']}>
