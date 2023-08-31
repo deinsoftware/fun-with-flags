@@ -6,8 +6,8 @@
 
     & .actions {
         display: flex;
-        gap: 4px;
         width: 100%;
+        gap: 4px;
 
         & .hashtag-input {
             width: 100%;
@@ -31,33 +31,22 @@
         }
 
         & .add-hashtag {
-            height: 40px;
             min-width: 80px;
-
-            outline: none;
+            height: 40px;
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 10px;
-
-
             background-color: var(--color-darkgray-800);
-
             color: var(--color-purple-500);
             cursor: pointer;
-
             font-size: var(--font-size-medium);
             font-weight: var(--font-weight-bold);
-
-
+            outline: none;
 
             &:focus {
                 outline: 1px solid var(--color-purple-500);
             }
-
-
         }
     }
-
-
 
     & .tags-container {
         display: flex;
@@ -66,31 +55,24 @@
 
 
         & .tag {
+            display: flex;
             padding: 0 8px;
             border: 1.5px solid var(--color-darkgray-500);
             border-radius: 8px;
             background-color: var(--color-darkgray-800);
-
-            display: flex;
             gap: 8px;
 
             & .remove-hashtag-icon {
-                cursor: pointer;
-
                 display: grid;
+                cursor: pointer;
                 place-items: center;
+
             }
 
             & .tag-text {
                 color: var(--color-purple-500);
-
+                cursor: default;
             }
-
-            /* &:hover {
-                color: rgb(255 40 40 / 80%);
-                opacity: 0.8;
-            } */
-
         }
     }
 }

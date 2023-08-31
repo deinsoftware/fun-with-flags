@@ -8,6 +8,8 @@ import { X } from 'lucide-react'
 
 import styles from './HashtagsInput.module.css'
 
+import { lucidIconsHashtags } from '@/libs/icon-config'
+
 type Props = {
   hashTagsList: string[]
   addHashtag: (tag: string) => void
@@ -74,7 +76,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
         <div className={styles['actions']}>
           <input
             className={styles['hashtag-input']}
-            placeholder="Hashtags (add pressing enter)"
+            placeholder="Hashtags"
             type="text"
             value={tag}
             onChange={(e) => setTag(e.target.value)}
@@ -98,7 +100,10 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
                   className={styles['remove-hashtag-icon']}
                   onClick={() => removeHashtag(hashTag)}
                 >
-                  <X color="#fc0000" size={18} /> {/*TODO: Crear constantes*/}
+                  <X
+                    color={lucidIconsHashtags.color.red}
+                    size={lucidIconsHashtags.size}
+                  />
                 </i>
               </div>
             ))}
