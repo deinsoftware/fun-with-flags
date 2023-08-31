@@ -1,15 +1,9 @@
 'use client'
-import {
-  type Dispatch,
-  type SetStateAction,
-  createContext,
-  useMemo,
-  useCallback,
-} from 'react'
+import { createContext, useMemo, useCallback } from 'react'
 
 import { useGetTimes } from './useGetTimes'
 
-import { TimeFormat, Zone } from '@/helpers/events.types'
+import { Zone } from '@/helpers/events.types'
 import { OriginDate, TimeZoneData } from '@/types/context.types'
 
 const initialTimeZoneData: TimeZoneData = {
@@ -23,18 +17,16 @@ const initialTimeZoneData: TimeZoneData = {
 
 export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData
-  format: TimeFormat
+
   addTimeZone: (zone: Zone) => void
   deleteTimeZone: (zone: Zone) => void
   setOriginDate: (zone?: Zone, originDate?: string, gmt?: string) => void
-  setFormat: Dispatch<SetStateAction<TimeFormat>>
 }>({
   timeZones: initialTimeZoneData,
-  format: 12,
+
   addTimeZone: () => {},
   deleteTimeZone: () => {},
   setOriginDate: () => {},
-  setFormat: () => {},
 })
 
 type Props = {
@@ -42,10 +34,7 @@ type Props = {
 }
 
 export function TimeZoneProvider({ children }: Props) {
-  const { timeZones, setTimeZones, format, setFormat } = useGetTimes(
-    initialTimeZoneData,
-    12,
-  )
+  const { timeZones, setTimeZones } = useGetTimes(initialTimeZoneData)
   const addTimeZone = useCallback(
     (zone: Zone) => {
       const index = timeZones?.list?.findIndex((timeZone) => {
@@ -119,13 +108,11 @@ export function TimeZoneProvider({ children }: Props) {
   const contextValue = useMemo(
     () => ({
       timeZones,
-      format,
       addTimeZone,
       deleteTimeZone,
       setOriginDate,
-      setFormat,
     }),
-    [timeZones, format, addTimeZone, deleteTimeZone, setOriginDate, setFormat],
+    [timeZones, addTimeZone, deleteTimeZone, setOriginDate],
   )
 
   return (

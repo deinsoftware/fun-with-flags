@@ -9,13 +9,14 @@ import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
-import { EventDate } from '@/helpers/events.types'
+import { EventDate, TimeFormat } from '@/helpers/events.types'
 import { formatGmt, formatTime } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
 
 type Props = {
   datesArray: DatesFilteredArray[]
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
+  format: TimeFormat
   optionsCombo: {
     hideMins: boolean
     showGmt: boolean
@@ -26,9 +27,10 @@ type Props = {
 export const DatesToRender = ({
   datesArray,
   getTextContent,
+  format,
   optionsCombo,
 }: Props) => {
-  const { deleteTimeZone, format } = useTimeZoneContext()
+  const { deleteTimeZone } = useTimeZoneContext()
   const [timeToRender, setTimeToRender] = useState<React.ReactNode[]>([])
 
   const ref = useRef<HTMLDivElement>(null)
@@ -54,7 +56,7 @@ export const DatesToRender = ({
           </p>
           {optionsCombo.showGmt && (
             <p className={style['gmt']}>
-              {formatGmt(gmt, 'longOffset', !optionsCombo.hideInitials)}
+              {formatGmt(gmt, 'shortOffset', !optionsCombo.hideInitials)}
             </p>
           )}
           <div className={style['flags-container']}>
