@@ -1,0 +1,20 @@
+{
+  "Index": {
+    "title": "Fun with Flags"
+  },
+  "Events": {
+    "Create": {
+      "Form": {
+        "Fields": {},
+        "Error": {
+          "Required": {
+            "message": "Review this fields",
+            "eventName": "Name: is required",
+            "eventLink": "Link: is required",
+            "combo": "Flags: almost one country is required"
+          }
+        }
+      }
+    }
+  }
+}

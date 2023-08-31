@@ -1,6 +1,7 @@
 'use client'
 
 import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
 
 import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
 
@@ -15,22 +16,18 @@ import { useGetFormData } from './useFormData'
 
 import { shareEventsTwitter } from '@/helpers/share-events'
 
-import { SelectCountry } from '@/app/components/molecules/select-country/SelectCountry'
+import { SelectCountry } from '@/app/[locale]/components/molecules/select-country/SelectCountry'
 
-import TimePicker from '@/app/components/atoms/util/time-picker/TimePicker'
-import Button from '@/app/components/atoms/ui/button/Button'
-
-import HashtagsInput from '@/app/components/atoms/util/hashtags-input/HashtagsInput'
-
-import TitleOnPage from '@/app/components/atoms/ui/TitleOnPage'
-
-import Toggle from '@/app/components/atoms/util/toggle/Toggle'
-
-import CountryList from '@/app/components/molecules/country-list/CountryList'
-import ComboboxCountries from '@/app/components/molecules/country-combo/ComboboxCountries'
+import TimePicker from '@/app/[locale]/components/atoms/util/time-picker/TimePicker'
+import Button from '@/app/[locale]/components/atoms/ui/Button'
+import HashtagsInput from '@/app/[locale]/components/atoms/util/hashtags-input/HashtagsInput'
+import TitleOnPage from '@/app/[locale]/components/atoms/ui/TitleOnPage'
+import Toggle from '@/app/[locale]/components/atoms/util/toggle/Toggle'
+import CountryList from '@/app/[locale]/components/molecules/country-list/CountryList'
+import ComboboxCountries from '@/app/[locale]/components/molecules/country-combo/ComboboxCountries'
 
 import { Locale } from '@/types/locale.types'
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { useTimeZoneContext } from '@/app/[locale]/context/useTimeZoneContext'
 import {
   addYearsToDate,
   extractDate,
@@ -44,6 +41,8 @@ import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
 const CreateEvent = () => {
+  const t = useTranslations('Events.Create')
+
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const {
@@ -131,16 +130,18 @@ const CreateEvent = () => {
     }
 
     if (!formData.eventName || !formData.eventLink || !formData.combo) {
-      return toast(
-        `Necesitas agregar:${
-          formData.eventName ? '' : '\n❌ Nombre del evento'
-        }${formData.eventLink ? '' : '\n❌ Enlace'}${
-          formData.combo ? '' : '\n❌ Zona horaria'
-        }`,
-        {
-          style: toastStyle,
-        },
-      )
+      let errorMessage = `${t('Form.Error.Required.message')}:`
+      if (!formData.eventName) {
+        errorMessage += `\n❌ ${t('Form.Error.Required.eventName')}`
+      }
+      if (!formData.eventLink) {
+        errorMessage += `\n❌ ${t('Form.Error.Required.eventLink')}`
+      }
+      if (!formData.combo) {
+        errorMessage += `\n❌ ${t('Form.Error.Required.combo')}`
+      }
+
+      return toast(`${errorMessage}`, { style: toastStyle })
     }
 
     const body: EventBody = {

@@ -5,12 +5,12 @@ import { FormData } from './CreateEvent.types'
 import { extractTime, getLocaleDate, getLocaleGmt } from '@/helpers/dates'
 import { getUserTimezone } from '@/helpers/timezones'
 import { getCountryByZone } from '@/services/timezones'
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { useTimeZoneContext } from '@/app/[locale]/context/useTimeZoneContext'
 import {
   getDataStorage,
   setDataStorage,
   cleanDataStorage,
-} from '@/app/components/organisms/events/local-storage'
+} from '@/app/[locale]/components/organisms/events/local-storage'
 import { TimePattern, GmtPattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { Countries } from '@/types/countries.types'

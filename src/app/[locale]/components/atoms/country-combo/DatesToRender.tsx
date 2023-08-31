@@ -5,7 +5,7 @@ import ReactCountryFlag from 'react-country-flag'
 
 import style from './DatesToRender.module.css'
 
-import { useTimeZoneContext } from '@/app/context/useTimeZoneContext'
+import { useTimeZoneContext } from '@/app/[locale]/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'

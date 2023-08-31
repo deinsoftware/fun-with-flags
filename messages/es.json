@@ -1,0 +1,19 @@
+{
+  "Index": {
+    "title": "Diversión con Banderas"
+  },
+  "Events": {
+    "Create": {
+      "Form": {
+        "Error": {
+          "Required": {
+            "combo": "Banderas: al menos un país es requerido",
+            "eventLink": "Enlace: es obligatorio",
+            "eventName": "Nombre: es obligatorio",
+            "message": "Verificar los campos"
+          }
+        }
+      }
+    }
+  }
+}

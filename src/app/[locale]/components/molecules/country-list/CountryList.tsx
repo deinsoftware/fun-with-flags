@@ -10,23 +10,23 @@ import dynamic from 'next/dynamic'
 
 import styles from './CountryList.module.css'
 
-import TimeZones from '@/app/components/atoms/country-list/TimeZones'
+import TimeZones from '@/app/[locale]/components/atoms/country-list/TimeZones'
 
 import { lucidIcons } from '@/libs/icon-config'
 
-import SelectTimeZone from '@/app/components/atoms/country-list/SelectTimeZone'
+import SelectTimeZone from '@/app/[locale]/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
-import LoadingPage from '@/app/loading'
+import LoadingPage from '@/app/[locale]/loading'
 
 const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
   ssr: false,
   loading: LoadingPage,
 })
 
-import useDebounce from '@/app/hooks/useDebounce'
+import useDebounce from '@/app/[locale]/hooks/useDebounce'
 
 type Props = {
   flagList: FlagCountry[] | null

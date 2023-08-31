@@ -27,6 +27,7 @@
     "Eucla",
     "Fakaofo",
     "gdpr",
+    "googleusercontent",
     "Hovd",
     "htmlhint",
     "Inuvik",
@@ -177,4 +178,8 @@
     "connectionId": "dein-vscode",
     "projectKey": "dein:fwf"
   },
+  "i18n-ally.localesPaths": [
+    "messages"
+  ],
+  "i18n-ally.keystyle": "nested",
 }
