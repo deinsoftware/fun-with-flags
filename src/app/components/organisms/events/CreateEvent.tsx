@@ -341,9 +341,6 @@ const CreateEvent = () => {
             handleAddCountry={setIsOpenSelectTimeZone}
             isRequired={submitted && !formData.combo}
             optionsCombo={optionsCombo}
-            showGmt={optionsCombo.showGmt}
-            showGmtWord={optionsCombo.showGmtWord}
-            showHourComplete={optionsCombo.hourComplete}
           />
           <div className={styles['container-options-combo']}>
             <Toggle
