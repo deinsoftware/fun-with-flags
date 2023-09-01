@@ -17,3 +17,11 @@ export const lucidIconsTimePicker = {
   },
   strokeWidth: 2,
 }
+
+export const lucidIconsHashtags = {
+  size: 18,
+  color: {
+    red: '#FC0000',
+  },
+  strokeWidth: 2,
+}
