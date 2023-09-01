@@ -125,12 +125,27 @@ const CreateEvent = () => {
 
   const [showTimePicker, setShowTimePicker] = useState(false)
 
+  const [submitted, setSubmitted] = useState(false)
+
+  const addBordersInEmptyInputs = () => {
+    if (formData.eventName && formData.eventLink && formData.combo) {
+      return // null ?
+    } else {
+      setSubmitted((prev => true))
+      setTimeout(() => {
+        setSubmitted((prev) => false)
+      }, 5000)
+    }
+  }
+
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
       return toast.error('You must be logged in to create an event', {
         style: toastStyle,
       })
     }
+
+    addBordersInEmptyInputs()
 
     if (!formData.eventName || !formData.eventLink || !formData.combo) {
       return toast(
@@ -202,7 +217,7 @@ const CreateEvent = () => {
               required
               aria-label="Event name"
               className={`${styles['event-name']} ${
-                !formData.eventName && styles['empty']
+                submitted && !formData.eventName ? styles['empty'] : ''
               }`}
               id=""
               name="eventName"
@@ -299,7 +314,7 @@ const CreateEvent = () => {
               required
               aria-label="Add link to event"
               className={`${styles['hyperlink']} ${
-                !formData.eventLink && styles['empty']
+                submitted && !formData.eventLink ? styles['empty'] : ''
               }`}
               id=""
               name="eventLink"
