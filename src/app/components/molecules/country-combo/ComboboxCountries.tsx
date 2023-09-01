@@ -6,7 +6,7 @@ import { PlusCircle } from 'lucide-react'
 
 import { DatesToRender } from '../../atoms/country-combo/DatesToRender'
 
-import style from './ComboboxCountries.module.css'
+import styles from './ComboboxCountries.module.css'
 
 import { useFilteredDates } from './useFilteredDates'
 
@@ -21,6 +21,7 @@ type Props = {
   showGmt?: boolean
   showGmtWord?: boolean
   showHourComplete?: boolean
+  isRequired: boolean
 }
 
 const ComboboxCountries = ({
@@ -29,13 +30,18 @@ const ComboboxCountries = ({
   showGmt = true,
   showGmtWord = true,
   showHourComplete = true,
+  isRequired,
 }: Props) => {
   const { format } = useTimeZoneContext()
   const { dateList } = useGetInfoDates({ format })
   const filteredDates = useFilteredDates(dateList, format)
 
   return (
-    <div className={style['countries-container']}>
+    <div
+      className={`${styles['countries-container']} 
+    ${isRequired ? styles['empty'] : ''}
+      `}
+    >
       {!dateList || dateList?.length === 0 ? (
         <p>Add a timezone to start</p>
       ) : (
@@ -47,10 +53,10 @@ const ComboboxCountries = ({
           showHourComplete={showHourComplete}
         />
       )}
-      <div className={style['add-button-container']}>
+      <div className={styles['add-button-container']}>
         <button
           aria-label="Add country timezone"
-          className={style['add-button']}
+          className={styles['add-button']}
           type="button"
           onClick={(event) => {
             event.preventDefault()

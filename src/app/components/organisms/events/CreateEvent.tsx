@@ -43,7 +43,6 @@ import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
-
 const CreateEvent = () => {
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
@@ -87,7 +86,6 @@ const CreateEvent = () => {
     formData.gmt,
   ])
 
-
   // FIXME: use values from user configuration
   const props = useMemo(
     () => ({
@@ -129,12 +127,9 @@ const CreateEvent = () => {
 
   const addBordersInEmptyInputs = () => {
     if (formData.eventName && formData.eventLink && formData.combo) {
-      return // null ?
+      return
     } else {
-      setSubmitted((prev => true))
-      setTimeout(() => {
-        setSubmitted((prev) => false)
-      }, 5000)
+      setSubmitted(true)
     }
   }
 
@@ -343,6 +338,7 @@ const CreateEvent = () => {
           <ComboboxCountries
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            isRequired={submitted && !formData.combo}
             showGmt={optionsCombo.showGmt}
             showGmtWord={optionsCombo.showGmtWord}
             showHourComplete={optionsCombo.hourComplete}
