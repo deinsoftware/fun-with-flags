@@ -30,6 +30,10 @@
             .hyperlink,
             .description {
                 width: 100%;
+
+                &.empty {
+                    outline: 1px solid var(--color-red-error);
+                }
             }
         }
 

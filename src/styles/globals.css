@@ -15,6 +15,9 @@
   --font-weight-regular: 400;
   --font-weight-bold: 700;
 
+  /* Padding */
+  --padding: 20px 40px;
+
   /* Colors */
   --color-neutral-050: #;
   --color-neutral-100: #;
@@ -70,12 +73,13 @@
   --color-darkpurple-800: #0A0518;
   --color-darkpurple-900: #080413;
   --color-darkpurple-950: #;
+
   --color-white-000: #FFF;
   --color-black-000: #000;
   --color-btn-google: #4285F4;
   --color-btn-google-hover: #3d7de4;
   --color-btn-google-active: #3367d6;
-  --padding: 20px 12px;
+  --color-red-error: #FC0000;
 }
 
 body {
@@ -92,5 +96,4 @@ body {
   :root {
     --padding: 20px 40px;
   }
-  
 }

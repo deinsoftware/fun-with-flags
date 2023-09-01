@@ -123,6 +123,16 @@ const CreateEvent = () => {
 
   const [showTimePicker, setShowTimePicker] = useState(false)
 
+  const [submitted, setSubmitted] = useState(false)
+
+  const addBordersInEmptyInputs = () => {
+    if (formData.eventName && formData.eventLink && formData.combo) {
+      return
+    } else {
+      setSubmitted(true)
+    }
+  }
+
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
       return toast.error('You must be logged in to create an event', {
@@ -130,12 +140,14 @@ const CreateEvent = () => {
       })
     }
 
+    addBordersInEmptyInputs()
+
     if (!formData.eventName || !formData.eventLink || !formData.combo) {
       return toast(
-        `Necesitas agregar:${
-          formData.eventName ? '' : '\n❌ Nombre del evento'
-        }${formData.eventLink ? '' : '\n❌ Enlace'}${
-          formData.combo ? '' : '\n❌ Zona horaria'
+        `You need to add the fields of:${
+          formData.eventName ? '' : '\n❌ Event name'
+        }${formData.eventLink ? '' : '\n❌ Link'}${
+          formData.combo ? '' : '\n❌ Time zone'
         }`,
         {
           style: toastStyle,
@@ -197,11 +209,14 @@ const CreateEvent = () => {
           />
           <div className={styles['container-event-name']}>
             <input
+              required
               aria-label="Event name"
-              className={styles['event-name']}
+              className={`${styles['event-name']} ${
+                submitted && !formData.eventName ? styles['empty'] : ''
+              }`}
               id=""
               name="eventName"
-              placeholder="Event name"
+              placeholder="Event name *"
               type="text"
               value={formData.eventName}
               onChange={handleChangeForm}
@@ -291,11 +306,14 @@ const CreateEvent = () => {
           </div>
           <div className={styles['container-hyperlink']}>
             <input
+              required
               aria-label="Add link to event"
-              className={styles['hyperlink']}
+              className={`${styles['hyperlink']} ${
+                submitted && !formData.eventLink ? styles['empty'] : ''
+              }`}
               id=""
               name="eventLink"
-              placeholder="Hyperlink"
+              placeholder="Hyperlink *"
               type="url"
               value={formData.eventLink}
               onChange={handleChangeForm}
@@ -321,6 +339,7 @@ const CreateEvent = () => {
             format={formData.toggleState.timeFormat}
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            isRequired={submitted && !formData.combo}
             optionsCombo={optionsCombo}
           />
           <div className={styles['container-options-combo']}>
