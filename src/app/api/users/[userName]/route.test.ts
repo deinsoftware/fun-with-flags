@@ -1,5 +1,6 @@
 import { it, expect, describe, vi } from 'vitest'
 import { Roles, Providers } from '@prisma/client'
+
 import { GET as getUser } from './route'
 
 import prismaMock from '@/libs/__mocks__/prisma'
