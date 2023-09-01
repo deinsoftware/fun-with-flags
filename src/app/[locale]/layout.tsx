@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import { useLocale } from 'next-intl'
+import { useLocale, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 
 import Provider from '@/app/[locale]/components/organisms/auth/Provider'
@@ -46,17 +46,26 @@ const RootLayout = ({ children }: RootProps) => {
 
 type LocaleProps = { children: React.ReactNode; params: { locale: string } }
 
-const LocaleLayout = ({ children, params }: LocaleProps) => {
+const LocaleLayout = async ({ children, params }: LocaleProps) => {
   const locale = useLocale()
-
-  // Validate that the incoming `locale` parameter is a valid locale
   if (params.locale !== locale) {
+    notFound()
+  }
+
+  let messages
+  try {
+    messages = (await import(`../../messages/${locale}.json`)).default
+  } catch (error) {
     notFound()
   }
 
   return (
     <html lang={locale}>
-      <RootLayout>{children}</RootLayout>
+      <RootLayout>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </RootLayout>
     </html>
   )
 }

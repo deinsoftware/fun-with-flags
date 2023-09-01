@@ -4,6 +4,7 @@
   },
   "Events": {
     "Create": {
+      "title": "Crear Evento",
       "Form": {
         "Error": {
           "Required": {

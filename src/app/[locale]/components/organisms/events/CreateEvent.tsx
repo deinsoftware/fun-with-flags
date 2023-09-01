@@ -124,7 +124,7 @@ const CreateEvent = () => {
 
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
-      return toast.error('You must be logged in to create an event', {
+      return toast.error(t('Form.Error.Required.combo'), {
         style: toastStyle,
       })
     }
@@ -186,7 +186,7 @@ const CreateEvent = () => {
   return (
     <>
       <div className={styles['container-form']}>
-        <TitleOnPage>Create Event</TitleOnPage>
+        <TitleOnPage>{t('title')}</TitleOnPage>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}

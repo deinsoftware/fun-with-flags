@@ -4,6 +4,7 @@
   },
   "Events": {
     "Create": {
+      "title": "Create Event",
       "Form": {
         "Fields": {},
         "Error": {
