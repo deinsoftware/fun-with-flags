@@ -340,10 +340,10 @@ const CreateEvent = () => {
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
             isRequired={submitted && !formData.combo}
+            optionsCombo={optionsCombo}
             showGmt={optionsCombo.showGmt}
             showGmtWord={optionsCombo.showGmtWord}
             showHourComplete={optionsCombo.hourComplete}
-            optionsCombo={optionsCombo}
           />
           <div className={styles['container-options-combo']}>
             <Toggle
