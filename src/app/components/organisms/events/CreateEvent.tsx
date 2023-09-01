@@ -189,9 +189,9 @@ const CreateEvent = () => {
   }
 
   const [optionsCombo, setOptionsCombo] = useState({
-    hourComplete: true,
+    hideMins: false,
     showGmt: true,
-    showGmtWord: true,
+    hideInitials: false,
   })
 
   return (
@@ -275,7 +275,7 @@ const CreateEvent = () => {
                   styles['container-date']
                 } ${
                   formData.toggleState.dateIsDisable
-                    ? styles['hidding-after']
+                    ? styles['hiding-after']
                     : ''
                 }`}
               >
@@ -336,33 +336,35 @@ const CreateEvent = () => {
           />
 
           <ComboboxCountries
+            format={formData.toggleState.timeFormat}
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
             isRequired={submitted && !formData.combo}
             showGmt={optionsCombo.showGmt}
             showGmtWord={optionsCombo.showGmtWord}
             showHourComplete={optionsCombo.hourComplete}
+            optionsCombo={optionsCombo}
           />
           <div className={styles['container-options-combo']}>
             <Toggle
-              value={false}
+              value={optionsCombo.hideMins}
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
-                  hourComplete: !prev.hourComplete,
+                  hideMins: !prev.hideMins,
                 }))
               }}
             />
-            <p>Show only hours</p>
+            <p>Hide minutes</p>
           </div>
           <div className={styles['container-options-combo']}>
             <Toggle
-              value
+              value={optionsCombo.showGmt}
               onToggle={() => {
                 setOptionsCombo((prev) => ({
                   ...prev,
                   showGmt: !prev.showGmt,
-                  showGmtWord: !prev.showGmt,
+                  hideInitials: false,
                 }))
               }}
             />
@@ -371,15 +373,15 @@ const CreateEvent = () => {
           {optionsCombo.showGmt && (
             <div className={styles['container-options-combo']}>
               <Toggle
-                value
+                value={optionsCombo.hideInitials}
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
                     ...prev,
-                    showGmtWord: !prev.showGmtWord,
+                    hideInitials: !prev.hideInitials,
                   }))
                 }}
               />
-              <p>Show GMT word</p>
+              <p>Hide Initials</p>
             </div>
           )}
 

@@ -90,9 +90,7 @@ export const SelectCountry = ({
           <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
         </div>
         <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
-        <p className={styles['gmt']}>{`(${
-          formatGmt(gmt) === 'UTC' ? '' : 'GMT: '
-        }${formatGmt(gmt)})`}</p>
+        <p className={styles['gmt']}>{formatGmt(gmt, 'longOffset')}</p>
       </div>
 
       {visibleSelectMenu && (

@@ -138,6 +138,7 @@ export const getLocaleAcronym = (
   countryCode: Countries,
 ) => {
   const acronymList = process?.env?.NEXT_PUBLIC_ACRONYM_COUNTRIES ?? ''
+
   if (acronymList && !acronymList.includes(countryCode)) {
     return
   }
@@ -147,14 +148,38 @@ export const getLocaleAcronym = (
     timeZoneName: 'short',
   })
     ?.formatToParts(originDate)
-    ?.find(({ type }) => type == 'timeZoneName')?.value
+    ?.find(({ type }) => type == 'timeZoneName')
+    ?.value?.replace('GMT', '')
 }
 
-export const formatGmt = (gmt: GmtPattern) => {
-  if (gmt === 'Z') {
-    return 'UTC'
+export const formatTime = (
+  time: string,
+  timeFormat: TimeFormat,
+  hideMinutes: boolean = false,
+) => {
+  let value = time
+  const meridian = timeFormat === 12 ? time.split(' ')[1] : 'H'
+  if (hideMinutes) {
+    value = `${time.split(':')[0]} ${meridian}`
   }
-  return gmt
+
+  return value
+}
+
+export const formatGmt = (
+  gmt: GmtPattern,
+  timeZoneName: TimezoneNames,
+  showInitial: boolean = true,
+) => {
+  const isNumber = gmt.startsWith('-') || gmt.startsWith('+')
+
+  let text = ''
+  if (showInitial && isNumber) {
+    text = timeZoneName === 'longOffset' ? 'GMT: ' : 'GMT'
+  }
+
+  const value = gmt === 'Z' ? 'UTC' : gmt
+  return `(${showInitial ? text : ''}${value})`
 }
 
 export const getLocaleGmt = (
