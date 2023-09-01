@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { toast } from 'react-hot-toast'
 
 import { type KeyboardEvent, useState } from 'react'
@@ -13,6 +14,8 @@ type Props = {
 }
 
 const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
+  const t = useTranslations('Events.Create')
+
   const initialState = ''
   const [tag, setTag] = useState(initialState)
 
@@ -44,7 +47,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
       <div className={styles['hashtag-container']}>
         <input
           className={styles['hashtag-input']}
-          placeholder="Hashtags (add pressing enter)"
+          placeholder={t('Form.Fields.hashtags')}
           type="text"
           value={tag}
           onChange={(e) => setTag(e.target.value)}

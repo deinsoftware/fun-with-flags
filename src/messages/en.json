@@ -6,16 +6,38 @@
     "Create": {
       "title": "Create Event",
       "Form": {
-        "Fields": {},
+        "Fields": {
+          "eventName": "Event name",
+          "eventLink": "Hyperlink",
+          "eventDescription": "Description",
+          "hashtags": "Hashtags",
+          "combo": "Add a time zone"
+        },
+        "Toggle": {
+          "time": "24H",
+          "date": "Use date",
+          "hideMins": "Hide minutes",
+          "showGmt": "Show GMT",
+          "hideInitials": "Hide initials"
+        },
+        "Button": {
+          "add": "Add",
+          "create": "Create",
+          "share": "Share"
+        },
         "Error": {
           "Required": {
             "message": "Review this fields",
             "eventName": "Name: is required",
-            "eventLink": "Link: is required",
-            "combo": "Flags: almost one country is required"
-          }
+            "eventLink": "Hyperlink: is required",
+            "combo": "Time zones: at least one is required"
+          },
+          "login": "You must be logged in to create an event"
         }
       }
     }
+  },
+  "CountryList": {
+    "search": "Search by country code or name"
   }
 }

@@ -124,7 +124,7 @@ const CreateEvent = () => {
 
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
-      return toast.error(t('Form.Error.Required.combo'), {
+      return toast.error(t('Form.Error.login'), {
         style: toastStyle,
       })
     }
@@ -198,11 +198,11 @@ const CreateEvent = () => {
           />
           <div className={styles['container-event-name']}>
             <input
-              aria-label="Event name"
+              aria-label={t('Form.Fields.eventName')}
               className={styles['event-name']}
               id=""
               name="eventName"
-              placeholder="Event name"
+              placeholder={t('Form.Fields.eventName')}
               type="text"
               value={formData.eventName}
               onChange={handleChangeForm}
@@ -250,7 +250,9 @@ const CreateEvent = () => {
                     }
                     onToggle={handleTimeToggle}
                   />
-                  <span className={styles['text-toggle']}>24H</span>
+                  <span className={styles['text-toggle']}>
+                    {t('Form.Toggle.time')}
+                  </span>
                 </div>
               </div>
             </div>
@@ -285,29 +287,31 @@ const CreateEvent = () => {
                     value={!formData.toggleState.dateIsDisable}
                     onToggle={handleDateToggle}
                   />
-                  <span className={styles['text-toggle']}>Use date</span>
+                  <span className={styles['text-toggle']}>
+                    {t('Form.Toggle.date')}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           <div className={styles['container-hyperlink']}>
             <input
-              aria-label="Add link to event"
+              aria-label={t('Form.Fields.eventLink')}
               className={styles['hyperlink']}
               id=""
               name="eventLink"
-              placeholder="Hyperlink"
+              placeholder={t('Form.Fields.eventLink')}
               type="url"
               value={formData.eventLink}
               onChange={handleChangeForm}
             />
           </div>
           <textarea
-            aria-label="Add description to event"
+            aria-label={t('Form.Fields.eventDescription')}
             className={styles['description']}
             id=""
             name="eventDescription"
-            placeholder="Description"
+            placeholder={t('Form.Fields.eventDescription')}
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
@@ -334,7 +338,7 @@ const CreateEvent = () => {
                 }))
               }}
             />
-            <p>Hide minutes</p>
+            <p>{t('Form.Toggle.hideMins')}</p>
           </div>
           <div className={styles['container-options-combo']}>
             <Toggle
@@ -347,7 +351,7 @@ const CreateEvent = () => {
                 }))
               }}
             />
-            <p>Show GMT</p>
+            <p>{t('Form.Toggle.showGmt')}</p>
           </div>
           {optionsCombo.showGmt && (
             <div className={styles['container-options-combo']}>
@@ -360,15 +364,17 @@ const CreateEvent = () => {
                   }))
                 }}
               />
-              <p>Hide Initials</p>
+              <p>{t('Form.Toggle.hideInitials')}</p>
             </div>
           )}
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
-              Create
+              {t('Form.Button.create')}
             </Button>
-            <Button handleClick={handleShareEventOnTwitter}>Share</Button>
+            <Button handleClick={handleShareEventOnTwitter}>
+              {t('Form.Button.share')}
+            </Button>
           </div>
         </form>
       </div>

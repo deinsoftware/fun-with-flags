@@ -8,13 +8,36 @@
       "Form": {
         "Error": {
           "Required": {
-            "combo": "Banderas: al menos un país es requerido",
+            "combo": "Zonas horarias: al menos un país es requerido",
             "eventLink": "Enlace: es obligatorio",
             "eventName": "Nombre: es obligatorio",
             "message": "Verificar los campos"
-          }
+          },
+          "login": "Debes iniciar sesión para crear un evento."
+        },
+        "Button": {
+          "add": "Agregar",
+          "create": "Crear",
+          "share": "Compartir"
+        },
+        "Fields": {
+          "eventDescription": "Descripción",
+          "eventLink": "Enlace",
+          "eventName": "Nombre del evento",
+          "hashtags": "Hashtags",
+          "combo": "Agrega una zona horaria"
+        },
+        "Toggle": {
+          "date": "Usar fecha",
+          "time": "24H",
+          "hideMins": "Ocultar minutos",
+          "showGmt": "Mostrar GMT",
+          "hideInitials": "Ocultar iniciales"
         }
       }
     }
+  },
+  "CountryList": {
+    "search": "Buscar por código o nombre de país"
   }
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { useEffect, useState } from 'react'
 
 import { createPortal } from 'react-dom'
@@ -41,6 +43,8 @@ type Props = {
 }
 
 const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
+  const t = useTranslations('CountryList')
+
   const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
   const [query, setQuery] = useState<string>('')
 
@@ -74,7 +78,7 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
             <div className={styles['search-bar-container']}>
               <input
                 className={styles['search-bar']}
-                placeholder={`Search by country code or name`}
+                placeholder={t('search')}
                 type="text"
                 onChange={(event) => setQuery(event.target.value)}
               />

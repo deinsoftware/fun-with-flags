@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { SetStateAction, RefObject } from 'react'
 
 import { PlusCircle } from 'lucide-react'
@@ -32,13 +33,15 @@ const ComboboxCountries = ({
   format,
   optionsCombo,
 }: Props) => {
+  const t = useTranslations('Events.Create')
+
   const { dateList } = useGetInfoDates({ format })
   const filteredDates = useFilteredDates(dateList, format)
 
   return (
     <div className={style['countries-container']}>
       {!dateList || dateList?.length === 0 ? (
-        <p>Add a timezone to start</p>
+        <p>{t('Form.Fields.combo')}</p>
       ) : (
         <DatesToRender
           datesArray={filteredDates}
