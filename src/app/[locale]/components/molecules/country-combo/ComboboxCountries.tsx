@@ -5,16 +5,17 @@ import { SetStateAction, RefObject } from 'react'
 
 import { PlusCircle } from 'lucide-react'
 
-import { DatesToRender } from '../../atoms/country-combo/DatesToRender'
-
-import style from './ComboboxCountries.module.css'
-
 import { useFilteredDates } from './useFilteredDates'
 
 import { useGetInfoDates } from './useGetInfoDates'
 
-import { lucidIcons } from '@/libs/icon-config'
+import styles from './ComboboxCountries.module.css'
+
 import { TimeFormat } from '@/helpers/events.types'
+
+import { DatesToRender } from '@/components/atoms/country-combo/DatesToRender'
+
+import { lucidIcons } from '@/libs/icon-config'
 
 type Props = {
   getTextContent: (ref: RefObject<HTMLDivElement> | null) => void
@@ -25,6 +26,7 @@ type Props = {
     showGmt: boolean
     hideInitials: boolean
   }
+  isRequired: boolean
 }
 
 const ComboboxCountries = ({
@@ -32,14 +34,19 @@ const ComboboxCountries = ({
   handleAddCountry,
   format,
   optionsCombo,
+  isRequired,
 }: Props) => {
-  const t = useTranslations('Events.Create')
+  const t = useTranslations('ComboCountries')
 
   const { dateList } = useGetInfoDates({ format })
   const filteredDates = useFilteredDates(dateList, format)
 
   return (
-    <div className={style['countries-container']}>
+    <div
+      className={`${styles['countries-container']}
+    ${isRequired ? styles['empty'] : ''}
+      `}
+    >
       {!dateList || dateList?.length === 0 ? (
         <p>{t('Form.Fields.combo')}</p>
       ) : (
@@ -50,10 +57,10 @@ const ComboboxCountries = ({
           optionsCombo={optionsCombo}
         />
       )}
-      <div className={style['add-button-container']}>
+      <div className={styles['add-button-container']}>
         <button
-          aria-label="Add country timezone"
-          className={style['add-button']}
+          aria-label={t('Form.Button.add')}
+          className={styles['add-button']}
           type="button"
           onClick={(event) => {
             event.preventDefault()

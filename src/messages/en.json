@@ -10,8 +10,8 @@
           "eventName": "Event name",
           "eventLink": "Hyperlink",
           "eventDescription": "Description",
-          "hashtags": "Hashtags",
-          "combo": "Add a time zone"
+          "time": "Time",
+          "date": "Date"
         },
         "Toggle": {
           "time": "24H",
@@ -21,7 +21,6 @@
           "hideInitials": "Hide initials"
         },
         "Button": {
-          "add": "Add",
           "create": "Create",
           "share": "Share"
         },
@@ -37,7 +36,38 @@
       }
     }
   },
+  "ComboCountries": {
+    "Form": {
+      "Fields": {
+        "combo": "Add a time zone"
+      },
+      "Button": {
+        "add": "Add"
+      }
+    }
+  },
+  "Hashtags": {
+    "Form": {
+      "Fields": {
+        "input": "Hashtags"
+      },
+      "Button": {
+        "add": "Add"
+      },
+      "Error": {
+        "Validation": {
+          "spaces": "Spaces are not allowed",
+          "special": "Special characters are not allowed",
+          "existent": "This hashtag already exists"
+        }
+      }
+    }
+  },
   "CountryList": {
-    "search": "Search by country code or name"
+    "Form": {
+      "Fields": {
+        "search": "Search by country code or name"
+      }
+    }
   }
 }

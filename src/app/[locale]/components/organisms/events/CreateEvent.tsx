@@ -14,20 +14,26 @@ import useFetch from './useFetch'
 
 import { useGetFormData } from './useFormData'
 
+import { cleanDataStorage } from './local-storage'
+
 import { shareEventsTwitter } from '@/helpers/share-events'
 
-import { SelectCountry } from '@/app/[locale]/components/molecules/select-country/SelectCountry'
+import { SelectCountry } from '@/components/molecules/select-country/SelectCountry'
 
-import TimePicker from '@/app/[locale]/components/atoms/util/time-picker/TimePicker'
-import Button from '@/app/[locale]/components/atoms/ui/Button'
-import HashtagsInput from '@/app/[locale]/components/atoms/util/hashtags-input/HashtagsInput'
-import TitleOnPage from '@/app/[locale]/components/atoms/ui/TitleOnPage'
-import Toggle from '@/app/[locale]/components/atoms/util/toggle/Toggle'
-import CountryList from '@/app/[locale]/components/molecules/country-list/CountryList'
-import ComboboxCountries from '@/app/[locale]/components/molecules/country-combo/ComboboxCountries'
+import TimePicker from '@/components/atoms/util/time-picker/TimePicker'
+import Button from '@/components/atoms/ui/Button'
+
+import HashtagsInput from '@/components/atoms/util/hashtags-input/HashtagsInput'
+
+import TitleOnPage from '@/components/atoms/ui/TitleOnPage'
+
+import Toggle from '@/components/atoms/util/toggle/Toggle'
+
+import CountryList from '@/components/molecules/country-list/CountryList'
+import ComboboxCountries from '@/components/molecules/country-combo/ComboboxCountries'
 
 import { Locale } from '@/types/locale.types'
-import { useTimeZoneContext } from '@/app/[locale]/context/useTimeZoneContext'
+import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 import {
   addYearsToDate,
   extractDate,
@@ -122,14 +128,12 @@ const CreateEvent = () => {
 
   const [showTimePicker, setShowTimePicker] = useState(false)
 
-  const handleCreateEvent = async () => {
-    if (!session?.user?.name) {
-      return toast.error(t('Form.Error.login'), {
-        style: toastStyle,
-      })
-    }
+  const [submitted, setSubmitted] = useState(false)
 
-    if (!formData.eventName || !formData.eventLink || !formData.combo) {
+  const requiredFieldsValidation = () => {
+    const requiredFields =
+      !formData.eventName || !formData.eventLink || !formData.combo
+    if (requiredFields) {
       let errorMessage = `${t('Form.Error.Required.message')}:`
       if (!formData.eventName) {
         errorMessage += `\n❌ ${t('Form.Error.Required.eventName')}`
@@ -143,6 +147,18 @@ const CreateEvent = () => {
 
       return toast(`${errorMessage}`, { style: toastStyle })
     }
+
+    setSubmitted(requiredFields)
+  }
+
+  const handleCreateEvent = async () => {
+    if (!session?.user?.name) {
+      return toast.error(t('Form.Error.login'), {
+        style: toastStyle,
+      })
+    }
+
+    requiredFieldsValidation()
 
     const body: EventBody = {
       description: formData.eventDescription,
@@ -164,13 +180,14 @@ const CreateEvent = () => {
       style: toastStyle,
       iconTheme: toastIconTheme,
     })
-    localStorage.removeItem('form-data')
-    localStorage.removeItem('time-zones')
+    cleanDataStorage()
   }
 
   const handleShareEventOnTwitter = () => {
+    const text = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`
+
     const url = shareEventsTwitter({
-      text: `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`,
+      text,
       url: `${formData.eventLink}\n`,
       hashtags: formData.hashtags,
     })
@@ -198,8 +215,11 @@ const CreateEvent = () => {
           />
           <div className={styles['container-event-name']}>
             <input
+              required
               aria-label={t('Form.Fields.eventName')}
-              className={styles['event-name']}
+              className={`${styles['event-name']} ${
+                submitted && !formData.eventName ? styles['empty'] : ''
+              }`}
               id=""
               name="eventName"
               placeholder={t('Form.Fields.eventName')}
@@ -215,7 +235,7 @@ const CreateEvent = () => {
               >
                 <div className={styles['input-button']}>
                   <input
-                    aria-label="Add time"
+                    aria-label={t('Form.Fields.time')}
                     className={`${styles['time']}`}
                     id=""
                     name="time"
@@ -268,7 +288,7 @@ const CreateEvent = () => {
                 }`}
               >
                 <input
-                  aria-label="Add date"
+                  aria-label={t('Form.Fields.date')}
                   className={`${styles['date']} ${
                     formData.toggleState.dateIsDisable ? styles['disabled'] : ''
                   }`}
@@ -296,8 +316,11 @@ const CreateEvent = () => {
           </div>
           <div className={styles['container-hyperlink']}>
             <input
+              required
               aria-label={t('Form.Fields.eventLink')}
-              className={styles['hyperlink']}
+              className={`${styles['hyperlink']} ${
+                submitted && !formData.eventLink ? styles['empty'] : ''
+              }`}
               id=""
               name="eventLink"
               placeholder={t('Form.Fields.eventLink')}
@@ -326,6 +349,7 @@ const CreateEvent = () => {
             format={formData.toggleState.timeFormat}
             getTextContent={handleChangeTextContent}
             handleAddCountry={setIsOpenSelectTimeZone}
+            isRequired={submitted && !formData.combo}
             optionsCombo={optionsCombo}
           />
           <div className={styles['container-options-combo']}>
@@ -378,6 +402,7 @@ const CreateEvent = () => {
           </div>
         </form>
       </div>
+
       {isOpenSelectTimeZone && (
         <CountryList
           flagList={flagList}

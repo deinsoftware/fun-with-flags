@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getDatesList, sortDatesList } from '@/helpers/events'
 import { EventDate, TimeFormat, ZoneList } from '@/helpers/events.types'
-import { useTimeZoneContext } from '@/app/[locale]/context/useTimeZoneContext'
+import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 
 type Props = { format: TimeFormat }
 

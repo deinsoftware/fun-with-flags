@@ -17,7 +17,7 @@ import { lucidIconsTimePicker } from '@/libs/icon-config'
 import { TimePattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { arrayHours12, arrayHours24, arrayMinutes } from '@/helpers/dates'
-import useDebounce from '@/app/[locale]/hooks/useDebounce'
+import useDebounce from '@/hooks/useDebounce'
 
 type MouseDownState = {
   plusHours: boolean

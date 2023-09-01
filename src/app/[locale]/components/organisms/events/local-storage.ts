@@ -1,4 +1,4 @@
-import { FormData } from '@/app/[locale]/components/organisms/events/CreateEvent.types'
+import { FormData } from '@/components/organisms/events/CreateEvent.types'
 import { daysBetweenDates } from '@/helpers/dates'
 
 export const cleanDataStorage = () => {

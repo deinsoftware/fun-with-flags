@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import {useTranslations} from 'next-intl';
+import { useTranslations } from 'next-intl'
 
 import styles from './Header.module.css'
 
-import LoginButton from '@/app/[locale]/components/atoms/auth/LoginButton'
+import LoginButton from '@/components/atoms/auth/LoginButton'
 
 const Header = () => {
-  const t = useTranslations('Index');
+  const t = useTranslations('Index')
 
   return (
     <>

@@ -2,11 +2,11 @@ import ReactCountryFlag from 'react-country-flag'
 
 import { useState } from 'react'
 
-import CountryList from '../country-list/CountryList'
-
-import { FormData } from '../../organisms/events/CreateEvent.types'
-
 import styles from './SelectCountry.module.css'
+
+import CountryList from '@/components/molecules/country-list/CountryList'
+
+import { FormData } from '@/components/organisms/events/CreateEvent.types'
 
 import { Countries } from '@/types/countries.types'
 import { FlagCountry } from '@/helpers/flags.types'

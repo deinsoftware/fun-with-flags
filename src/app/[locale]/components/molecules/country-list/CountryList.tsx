@@ -12,11 +12,11 @@ import dynamic from 'next/dynamic'
 
 import styles from './CountryList.module.css'
 
-import TimeZones from '@/app/[locale]/components/atoms/country-list/TimeZones'
+import TimeZones from '@/components/atoms/country-list/TimeZones'
 
 import { lucidIcons } from '@/libs/icon-config'
 
-import SelectTimeZone from '@/app/[locale]/components/atoms/country-list/SelectTimeZone'
+import SelectTimeZone from '@/components/atoms/country-list/SelectTimeZone'
 import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
@@ -28,7 +28,7 @@ const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
   loading: LoadingPage,
 })
 
-import useDebounce from '@/app/[locale]/hooks/useDebounce'
+import useDebounce from '@/hooks/useDebounce'
 
 type Props = {
   flagList: FlagCountry[] | null
@@ -78,7 +78,7 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
             <div className={styles['search-bar-container']}>
               <input
                 className={styles['search-bar']}
-                placeholder={t('search')}
+                placeholder={t('Form.Fields.search')}
                 type="text"
                 onChange={(event) => setQuery(event.target.value)}
               />

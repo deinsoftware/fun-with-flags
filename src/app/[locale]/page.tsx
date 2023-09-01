@@ -1,6 +1,7 @@
 import styles from './page.module.css'
-import SearchBar from './components/atoms/util/SearchBar'
-import CardPost from './components/organisms/card-post/CardPost'
+
+import SearchBar from '@/components/atoms/util/SearchBar'
+import CardPost from '@/components/organisms/card-post/CardPost'
 
 const posts = [
   {

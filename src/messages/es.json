@@ -16,7 +16,6 @@
           "login": "Debes iniciar sesión para crear un evento."
         },
         "Button": {
-          "add": "Agregar",
           "create": "Crear",
           "share": "Compartir"
         },
@@ -24,8 +23,8 @@
           "eventDescription": "Descripción",
           "eventLink": "Enlace",
           "eventName": "Nombre del evento",
-          "hashtags": "Hashtags",
-          "combo": "Agrega una zona horaria"
+          "time": "Hora",
+          "date": "Fecha"
         },
         "Toggle": {
           "date": "Usar fecha",
@@ -37,7 +36,38 @@
       }
     }
   },
+  "ComboCountries": {
+    "Form": {
+      "Fields": {
+        "combo": "Agrega una zona horaria"
+      },
+      "Button": {
+        "add": "Agregar"
+      }
+    }
+  },
+  "Hashtags": {
+    "Form": {
+      "Fields": {
+        "input": "Hashtags"
+      },
+      "Button": {
+        "add": "Agregar"
+      },
+      "Error": {
+        "Validation": {
+          "spaces": "Los espacios no están permitidos",
+          "special": "Los caracteres especiales no están permitidos",
+          "existent": "Este hashtag ya existe"
+        }
+      }
+    }
+  },
   "CountryList": {
-    "search": "Buscar por código o nombre de país"
+    "Form": {
+      "Fields": {
+        "search": "Buscar por código o nombre de país"
+      }
+    }
   }
 }
