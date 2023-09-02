@@ -25,12 +25,12 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
 
   const validateHashTag = (tag: string) => {
     if (tag.includes(' ')) {
-      return t('Form.Error.Validation.spaces')
+      return t('Form.Error.Validation.spaces', { tag })
     }
 
     const regExp = /[^A-Za-z0-9#]/
     if (regExp.test(tag)) {
-      return t('Form.Error.Validation.special')
+      return t('Form.Error.Validation.special', { tag })
     }
 
     if (hashTagsList.includes(tag)) {

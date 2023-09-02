@@ -57,9 +57,9 @@
       },
       "Error": {
         "Validation": {
-          "spaces": "Los espacios no están permitidos",
-          "special": "Los caracteres especiales no están permitidos",
-          "existent": "El hashtag #{tag} ya existe"
+          "spaces": "Los espacios en '#{tag}' no están permitidos",
+          "special": "Los caracteres especiales en '#{tag}' no están permitidos",
+          "existent": "El hashtag '#{tag}' ya existe"
         }
       }
     }
