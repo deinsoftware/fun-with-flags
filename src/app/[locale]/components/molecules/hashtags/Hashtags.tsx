@@ -23,50 +23,54 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
   const initialState = ''
   const [tag, setTag] = useState(initialState)
 
-  const validateHashTag = (hashTag: string) => {
-    let trimmedHashTag = hashTag.trim().replaceAll('#', '')
-
-    if (trimmedHashTag.includes(' ')) {
+  const validateHashTag = (tag: string) => {
+    if (tag.includes(' ')) {
       return t('Form.Error.Validation.spaces')
     }
 
     const regExp = /[^A-Za-z0-9#]/
-    if (regExp.test(trimmedHashTag)) {
+    if (regExp.test(tag)) {
       return t('Form.Error.Validation.special')
     }
 
-    if (hashTagsList.includes(trimmedHashTag)) {
-      return t('Form.Error.Validation.existent')
+    if (hashTagsList.includes(tag)) {
+      return t('Form.Error.Validation.existent', { tag })
     }
 
     return null
   }
 
-  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement
-    let hashTag = target.value.trim().replaceAll('#', '')
+  const addTag = (tags: string) => {
+    const validationError = tags
+      .split(',')
+      .filter((tag) => tag.trim())
+      .map((tag) => {
+        const hashTag = tag.trim().replaceAll('#', '')
 
-    if ((event.key === 'Enter' || event.key === ',') && hashTag) {
-      const validationError = validateHashTag(hashTag)
-      if (validationError) {
-        return toast(validationError)
-      }
+        const validationError = validateHashTag(hashTag)
+        if (validationError !== null) {
+          toast(validationError)
+          return tag
+        }
 
-      addHashtag(hashTag)
-      setTag(initialState)
+        addHashtag(hashTag)
+        return null
+      })
+
+    if (validationError.some((errorFound) => errorFound)) {
+      return setTag(validationError.filter((tag) => tag).join(','))
     }
+
+    setTag(initialState)
   }
 
-  const handleClick = (tag: string) => {
-    let hashTag = tag.trim().replaceAll('#', '')
+  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement
+    const tags = target.value
 
-    const validationError = validateHashTag(hashTag)
-    if (validationError) {
-      return toast(validationError)
+    if (event.key === 'Enter' && tags) {
+      addTag(tags)
     }
-
-    addHashtag(hashTag)
-    setTag(initialState)
   }
 
   return (
@@ -79,13 +83,12 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
             placeholder={`${t('Form.Fields.input')} (${t('Form.Fields.info')})`}
             type="text"
             value={tag}
-            onChange={(e) => setTag(e.target.value.replaceAll(',', ''))}
+            onChange={(e) => setTag(e.target.value)}
             onKeyDown={onKeyDown}
           />
-
-          <Button handleClick={() => handleClick(tag)}>
-              {t('Form.Button.add')}
-            </Button>
+          <Button handleClick={() => addTag(tag)}>
+            {t('Form.Button.add')}
+          </Button>
         </div>
 
         {hashTagsList.length > 0 && (

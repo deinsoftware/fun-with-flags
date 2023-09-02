@@ -59,7 +59,7 @@
         "Validation": {
           "spaces": "Spaces are not allowed",
           "special": "Special characters are not allowed",
-          "existent": "This hashtag already exists"
+          "existent": "#{tag} hashtag already exists"
         }
       }
     }
