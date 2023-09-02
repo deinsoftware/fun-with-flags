@@ -10,11 +10,11 @@ import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
 
-import useFetch from './useFetch'
+import useFetch from './useFetchCountries'
 
 import { useGetFormData } from './useFormData'
 
-import { cleanDataStorage } from './local-storage'
+import { cleanDataStorage } from './CreateEvent.utils'
 
 import { shareEventsTwitter } from '@/helpers/share-events'
 
@@ -50,7 +50,9 @@ const CreateEvent = () => {
   const t = useTranslations('Events.Create')
 
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
+  
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+
   const {
     formData,
     setFormData,
@@ -61,6 +63,8 @@ const CreateEvent = () => {
     addHashtag,
     removeHashtag,
     setCountryInfo,
+    wasSubmitted,
+    requiredFieldsValidation,
   } = useGetFormData()
   const { data: session } = useSession()
   const [signal, setSignal] = useState<AbortSignal>()
@@ -72,6 +76,7 @@ const CreateEvent = () => {
 
     return () => controller.abort()
   }, [])
+
   useEffect(() => {
     const gmt = formData.gmt
     const timezone = formData.timezone
@@ -128,20 +133,6 @@ const CreateEvent = () => {
 
   const [showTimePicker, setShowTimePicker] = useState(false)
 
-  const [submitted, setSubmitted] = useState(false)
-
-  const requiredFieldsValidation = () => {
-    const haveEmptyFields =
-      !formData.eventName || !formData.eventLink || !formData.combo
-
-    if (haveEmptyFields) {
-      toast.error(`${t('Form.Error.Required.message')}`, { style: toastStyle })
-    }
-
-    setSubmitted(haveEmptyFields)
-    return !haveEmptyFields
-  }
-
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
       return toast.error(t('Form.Error.login'), {
@@ -150,34 +141,36 @@ const CreateEvent = () => {
     }
 
     const validationResult = requiredFieldsValidation()
-
-    if (validationResult) {
-      const body: EventBody = {
-        description: formData.eventDescription,
-        eventName: formData.eventName,
-        timeZone: timeZones,
-        url: formData.eventLink,
-        userName: session.user.name,
-        tags: formData.hashtags,
-        lang: formData.language,
-      }
-
-      const response = await createEvent(body, signal)
-
-      if (typeof response !== 'string') {
-        toast.error(response.message, {
-          style: toastStyle,
-        })
-        return
-      }
-
-      toast.success(response, {
+    if (!validationResult) {
+      return toast.error(`${t('Form.Error.Required.message')}`, {
         style: toastStyle,
-        iconTheme: toastIconTheme,
       })
-
-      cleanDataStorage()
     }
+
+    const body: EventBody = {
+      description: formData.eventDescription,
+      eventName: formData.eventName,
+      timeZone: timeZones,
+      url: formData.eventLink,
+      userName: session.user.name,
+      tags: formData.hashtags,
+      lang: formData.language,
+    }
+
+    const response = await createEvent(body, signal)
+
+    if (typeof response !== 'string') {
+      return toast.error(response.message, {
+        style: toastStyle,
+      })
+    }
+
+    toast.success(response, {
+      style: toastStyle,
+      iconTheme: toastIconTheme,
+    })
+
+    cleanDataStorage()
   }
 
   const handleShareEventOnTwitter = () => {
@@ -194,7 +187,7 @@ const CreateEvent = () => {
   const [optionsCombo, setOptionsCombo] = useState({
     hideMins: false,
     showGmt: true,
-    hideInitials: false,
+    onlyNum: false,
   })
 
   return (
@@ -215,7 +208,7 @@ const CreateEvent = () => {
               required
               aria-label={t('Form.Fields.eventName')}
               className={`${styles['event-name']} ${
-                submitted && !formData.eventName ? styles['empty'] : ''
+                wasSubmitted && !formData.eventName ? styles['empty'] : ''
               }`}
               id=""
               name="eventName"
@@ -224,7 +217,7 @@ const CreateEvent = () => {
               value={formData.eventName}
               onChange={handleChangeForm}
             />
-            {submitted && !formData.eventName && (
+            {wasSubmitted && !formData.eventName && (
               <span className={styles['required']}>
                 {t('Form.Error.Required.eventName')}
               </span>
@@ -321,7 +314,7 @@ const CreateEvent = () => {
               required
               aria-label={t('Form.Fields.eventLink')}
               className={`${styles['hyperlink']} ${
-                submitted && !formData.eventLink ? styles['empty'] : ''
+                wasSubmitted && !formData.eventLink ? styles['empty'] : ''
               }`}
               id=""
               name="eventLink"
@@ -330,7 +323,7 @@ const CreateEvent = () => {
               value={formData.eventLink}
               onChange={handleChangeForm}
             />
-            {submitted && !formData.eventLink && (
+            {wasSubmitted && !formData.eventLink && (
               <span className={styles['required']}>
                 {t('Form.Error.Required.eventLink')}
               </span>
@@ -357,10 +350,10 @@ const CreateEvent = () => {
               format={formData.toggleState.timeFormat}
               getTextContent={handleChangeTextContent}
               handleAddCountry={setIsOpenSelectTimeZone}
-              isRequired={submitted && !formData.combo}
+              isRequired={wasSubmitted && !formData.combo}
               optionsCombo={optionsCombo}
             />
-            {submitted && !formData.combo && (
+            {wasSubmitted && !formData.combo && (
               <span className={styles['required']}>
                 {t('Form.Error.Required.combo')}
               </span>
@@ -377,7 +370,9 @@ const CreateEvent = () => {
                 }))
               }}
             />
-            <p>{t('Form.Toggle.hideMins')}</p>
+            <span className={styles['text-toggle']}>
+              {t('Form.Toggle.hideMins')}
+            </span>
           </div>
           <div className={styles['container-options-combo']}>
             <Toggle
@@ -386,24 +381,28 @@ const CreateEvent = () => {
                 setOptionsCombo((prev) => ({
                   ...prev,
                   showGmt: !prev.showGmt,
-                  hideInitials: false,
+                  onlyNum: false,
                 }))
               }}
             />
-            <p>{t('Form.Toggle.showGmt')}</p>
+            <span className={styles['text-toggle']}>
+              {t('Form.Toggle.showGmt')}
+            </span>
           </div>
           {optionsCombo.showGmt && (
             <div className={styles['container-options-combo']}>
               <Toggle
-                value={optionsCombo.hideInitials}
+                value={optionsCombo.onlyNum}
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
                     ...prev,
-                    hideInitials: !prev.hideInitials,
+                    onlyNum: !prev.onlyNum,
                   }))
                 }}
               />
-              <p>{t('Form.Toggle.hideInitials')}</p>
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.onlyNum')}
+              </span>
             </div>
           )}
 

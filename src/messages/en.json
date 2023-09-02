@@ -18,7 +18,7 @@
           "date": "Use date",
           "hideMins": "Hide minutes",
           "showGmt": "Show GMT",
-          "hideInitials": "Hide initials"
+          "onlyNum": "Only numbers"
         },
         "Button": {
           "create": "Create",
@@ -50,7 +50,7 @@
     "Form": {
       "Fields": {
         "input": "Hashtags",
-        "info": "Separate with commas"
+        "info": "separate with commas"
       },
       "Button": {
         "add": "Add"

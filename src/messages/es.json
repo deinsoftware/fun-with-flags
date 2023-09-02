@@ -18,7 +18,7 @@
           "date": "Usar fecha",
           "hideMins": "Ocultar minutos",
           "showGmt": "Mostrar GMT",
-          "hideInitials": "Ocultar iniciales"
+          "onlyNum": "Solo números"
         },
         "Button": {
           "create": "Crear",

@@ -24,7 +24,7 @@ type Props = {
   optionsCombo: {
     hideMins: boolean
     showGmt: boolean
-    hideInitials: boolean
+    onlyNum: boolean
   }
   isRequired: boolean
 }

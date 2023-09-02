@@ -10,7 +10,7 @@ import {
   getDataStorage,
   setDataStorage,
   cleanDataStorage,
-} from '@/components/organisms/events/local-storage'
+} from '@/app/[locale]/components/organisms/events/CreateEvent.utils'
 import { TimePattern, GmtPattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { Countries } from '@/types/countries.types'
@@ -168,15 +168,27 @@ export const useGetFormData = () => {
     }))
   }
 
+  const [wasSubmitted, setWasSubmitted] = useState(false)
+
+  const requiredFieldsValidation = () => {
+    const haveEmptyFields =
+      !formData.eventName || !formData.eventLink || !formData.combo
+
+    setWasSubmitted(haveEmptyFields)
+    return !haveEmptyFields
+  }
+
   return {
     formData,
     setFormData,
     handleChangeForm,
-    handleDateToggle,
-    handleChangeTime,
     handleTimeToggle,
+    handleChangeTime,
+    handleDateToggle,
     addHashtag,
     removeHashtag,
     setCountryInfo,
+    wasSubmitted,
+    requiredFieldsValidation,
   }
 }

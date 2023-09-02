@@ -9,6 +9,7 @@ import { X } from 'lucide-react'
 import styles from './Hashtags.module.css'
 
 import { lucidIconsHashtags } from '@/libs/icon-config'
+import Button from '@/components/atoms/ui/Button'
 
 type Props = {
   hashTagsList: string[]
@@ -82,13 +83,9 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
             onKeyDown={onKeyDown}
           />
 
-          <button
-            className={styles['add-hashtag']}
-            type="button"
-            onClick={() => handleClick(tag)}
-          >
-            {t('Form.Button.add')}
-          </button>
+          <Button handleClick={() => handleClick(tag)}>
+              {t('Form.Button.add')}
+            </Button>
         </div>
 
         {hashTagsList.length > 0 && (

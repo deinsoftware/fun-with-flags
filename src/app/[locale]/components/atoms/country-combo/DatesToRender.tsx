@@ -20,7 +20,7 @@ type Props = {
   optionsCombo: {
     hideMins: boolean
     showGmt: boolean
-    hideInitials: boolean
+    onlyNum: boolean
   }
 }
 
@@ -56,7 +56,7 @@ export const DatesToRender = ({
           </p>
           {optionsCombo.showGmt && (
             <p className={style['gmt']}>
-              {formatGmt(gmt, 'shortOffset', !optionsCombo.hideInitials)}
+              {formatGmt(gmt, 'shortOffset', !optionsCombo.onlyNum)}
             </p>
           )}
           <div className={style['flags-container']}>
