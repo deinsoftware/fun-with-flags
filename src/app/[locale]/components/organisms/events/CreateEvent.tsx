@@ -23,7 +23,7 @@ import { SelectCountry } from '@/components/molecules/select-country/SelectCount
 import TimePicker from '@/components/atoms/util/time-picker/TimePicker'
 import Button from '@/components/atoms/ui/Button'
 
-import HashtagsInput from '@/components/atoms/util/hashtags-input/HashtagsInput'
+import Hashtags from '@/components/molecules/hashtags/Hashtags'
 
 import TitleOnPage from '@/components/atoms/ui/TitleOnPage'
 
@@ -131,24 +131,15 @@ const CreateEvent = () => {
   const [submitted, setSubmitted] = useState(false)
 
   const requiredFieldsValidation = () => {
-    const requiredFields =
+    const haveEmptyFields =
       !formData.eventName || !formData.eventLink || !formData.combo
-    if (requiredFields) {
-      let errorMessage = `${t('Form.Error.Required.message')}:`
-      if (!formData.eventName) {
-        errorMessage += `\n❌ ${t('Form.Error.Required.eventName')}`
-      }
-      if (!formData.eventLink) {
-        errorMessage += `\n❌ ${t('Form.Error.Required.eventLink')}`
-      }
-      if (!formData.combo) {
-        errorMessage += `\n❌ ${t('Form.Error.Required.combo')}`
-      }
 
-      return toast(`${errorMessage}`, { style: toastStyle })
+    if (haveEmptyFields) {
+      toast.error(`${t('Form.Error.Required.message')}`, { style: toastStyle })
     }
 
-    setSubmitted(requiredFields)
+    setSubmitted(haveEmptyFields)
+    return !haveEmptyFields
   }
 
   const handleCreateEvent = async () => {
@@ -158,29 +149,35 @@ const CreateEvent = () => {
       })
     }
 
-    requiredFieldsValidation()
+    const validationResult = requiredFieldsValidation()
 
-    const body: EventBody = {
-      description: formData.eventDescription,
-      eventName: formData.eventName,
-      timeZone: timeZones,
-      url: formData.eventLink,
-      userName: session.user.name,
-      tags: formData.hashtags,
-      lang: formData.language,
-    }
-    const response = await createEvent(body, signal)
-    if (typeof response !== 'string') {
-      toast.error(response.message, {
+    if (validationResult) {
+      const body: EventBody = {
+        description: formData.eventDescription,
+        eventName: formData.eventName,
+        timeZone: timeZones,
+        url: formData.eventLink,
+        userName: session.user.name,
+        tags: formData.hashtags,
+        lang: formData.language,
+      }
+
+      const response = await createEvent(body, signal)
+
+      if (typeof response !== 'string') {
+        toast.error(response.message, {
+          style: toastStyle,
+        })
+        return
+      }
+
+      toast.success(response, {
         style: toastStyle,
+        iconTheme: toastIconTheme,
       })
-      return
+
+      cleanDataStorage()
     }
-    toast.success(response, {
-      style: toastStyle,
-      iconTheme: toastIconTheme,
-    })
-    cleanDataStorage()
   }
 
   const handleShareEventOnTwitter = () => {
@@ -227,6 +224,11 @@ const CreateEvent = () => {
               value={formData.eventName}
               onChange={handleChangeForm}
             />
+            {submitted && !formData.eventName && (
+              <span className={styles['required']}>
+                {t('Form.Error.Required.eventName')}
+              </span>
+            )}
           </div>
           <div className={styles['container-time-and-date']}>
             <div className={styles['container-to-position-relative']}>
@@ -328,6 +330,11 @@ const CreateEvent = () => {
               value={formData.eventLink}
               onChange={handleChangeForm}
             />
+            {submitted && !formData.eventLink && (
+              <span className={styles['required']}>
+                {t('Form.Error.Required.eventLink')}
+              </span>
+            )}
           </div>
           <textarea
             aria-label={t('Form.Fields.eventDescription')}
@@ -339,19 +346,27 @@ const CreateEvent = () => {
             onChange={handleChangeForm}
           />
 
-          <HashtagsInput
+          <Hashtags
             addHashtag={addHashtag}
             hashTagsList={formData.hashtags}
             removeHashtag={removeHashtag}
           />
 
-          <ComboboxCountries
-            format={formData.toggleState.timeFormat}
-            getTextContent={handleChangeTextContent}
-            handleAddCountry={setIsOpenSelectTimeZone}
-            isRequired={submitted && !formData.combo}
-            optionsCombo={optionsCombo}
-          />
+          <div>
+            <ComboboxCountries
+              format={formData.toggleState.timeFormat}
+              getTextContent={handleChangeTextContent}
+              handleAddCountry={setIsOpenSelectTimeZone}
+              isRequired={submitted && !formData.combo}
+              optionsCombo={optionsCombo}
+            />
+            {submitted && !formData.combo && (
+              <span className={styles['required']}>
+                {t('Form.Error.Required.combo')}
+              </span>
+            )}
+          </div>
+
           <div className={styles['container-options-combo']}>
             <Toggle
               value={optionsCombo.hideMins}

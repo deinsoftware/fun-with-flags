@@ -16,6 +16,10 @@
         margin: 0 auto;
         gap: 16px;
 
+        & .required {
+            color: var(--color-error);
+            font-size: var(--font-size-small)
+        }
 
         & .description {
             height: 80px;

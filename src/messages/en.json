@@ -26,8 +26,8 @@
         },
         "Error": {
           "Required": {
-            "message": "Review this fields",
-            "eventName": "Name: is required",
+            "message": "Please review required fields",
+            "eventName": "Event Name: is required",
             "eventLink": "Hyperlink: is required",
             "combo": "Time zones: at least one is required"
           },
@@ -49,7 +49,8 @@
   "Hashtags": {
     "Form": {
       "Fields": {
-        "input": "Hashtags"
+        "input": "Hashtags",
+        "info": "separate with commas"
       },
       "Button": {
         "add": "Add"
