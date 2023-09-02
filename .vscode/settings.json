@@ -27,6 +27,7 @@
     "Eucla",
     "Fakaofo",
     "gdpr",
+    "googleusercontent",
     "Hovd",
     "htmlhint",
     "Inuvik",
@@ -81,6 +82,10 @@
     "Winamac",
     "Yakutat"
   ],
+  "i18n-ally.localesPaths": [
+    "src/messages"
+  ],
+  "i18n-ally.keystyle": "nested",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).*.ts, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",

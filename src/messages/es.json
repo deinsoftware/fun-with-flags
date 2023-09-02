@@ -1,0 +1,74 @@
+{
+  "Index": {
+    "title": "Diversión con Banderas"
+  },
+  "Events": {
+    "Create": {
+      "title": "Crear Evento",
+      "Form": {
+        "Fields": {
+          "eventName": "Nombre del evento",
+          "eventLink": "Enlace",
+          "eventDescription": "Descripción",
+          "time": "Hora",
+          "date": "Fecha"
+        },
+        "Toggle": {
+          "time": "24H",
+          "date": "Usar fecha",
+          "hideMins": "Ocultar minutos",
+          "showGmt": "Mostrar GMT",
+          "onlyNum": "Solo números"
+        },
+        "Button": {
+          "create": "Crear",
+          "share": "Compartir"
+        },
+        "Error": {
+          "Required": {
+            "message": "Por favor, verifica los campos requeridos",
+            "eventName": "El Nombre del evento es obligatorio",
+            "eventLink": "El enlace es obligatorio",
+            "combo": "Al menos una zona horaria es requerida"
+          },
+          "login": "Debes iniciar sesión para crear un evento."
+        }
+      }
+    }
+  },
+  "ComboCountries": {
+    "Form": {
+      "Fields": {
+        "combo": "Agregar una zona horaria"
+      },
+      "Button": {
+        "add": "Agregar"
+      }
+    }
+  },
+  "Hashtags": {
+    "Form": {
+      "Fields": {
+        "input": "Hashtags",
+        "info": "separar con comas"
+      },
+      "Button": {
+        "add": "Agregar"
+      },
+      "Error": {
+        "Validation": {
+          "spaces": "Los espacios en '#{tag}' no están permitidos",
+          "special": "Los caracteres especiales en '#{tag}' no están permitidos",
+          "existent": "El hashtag '#{tag}' ya existe"
+        }
+      }
+    }
+  },
+  "CountryList": {
+    "Form": {
+      "Fields": {
+        "search": "Buscar por código o nombre de país"
+      }
+    }
+  }
+}
