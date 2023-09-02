@@ -6,7 +6,7 @@ import { type KeyboardEvent, useState } from 'react'
 
 import { X } from 'lucide-react'
 
-import styles from './HashtagsInput.module.css'
+import styles from './Hashtags.module.css'
 
 import { lucidIconsHashtags } from '@/libs/icon-config'
 
@@ -45,7 +45,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
     const target = event.target as HTMLInputElement
     let hashTag = target.value.trim().replaceAll('#', '')
 
-    if (event.key === 'Enter' && hashTag) {
+    if ((event.key === 'Enter' || event.key === ',') && hashTag) {
       const validationError = validateHashTag(hashTag)
       if (validationError) {
         return toast(validationError)
@@ -74,12 +74,14 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
         <div className={styles['actions']}>
           <input
             className={styles['hashtag-input']}
-            placeholder={t('Form.Fields.input')}
+            maxLength={50}
+            placeholder={`${t('Form.Fields.input')} (${t('Form.Fields.info')})`}
             type="text"
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => setTag(e.target.value.replaceAll(',', ''))}
             onKeyDown={onKeyDown}
           />
+
           <button
             className={styles['add-hashtag']}
             type="button"
