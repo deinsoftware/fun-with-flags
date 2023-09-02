@@ -11,7 +11,7 @@
     line-height: 1.8;
 
     &.empty {
-        outline: 1px solid var(--color-red-error);
+        outline: 1px solid var(--color-error);
     }
 
     &::placeholder {

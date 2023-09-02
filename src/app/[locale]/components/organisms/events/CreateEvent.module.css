@@ -32,7 +32,7 @@
                 width: 100%;
 
                 &.empty {
-                    outline: 1px solid var(--color-red-error);
+                    outline: 1px solid var(--color-error);
                 }
             }
         }
@@ -63,7 +63,6 @@
                 }
 
                 & .time {
-
                     /* * Removing default icon in browsers * */
                     &::-webkit-calendar-picker-indicator {
                         display: none;
@@ -112,8 +111,8 @@
                 }
 
                 &.hiding-after::after {
-                    opacity: 0.5;
                     background-color: transparent;
+                    opacity: 0.5;
                 }
 
                 & .date {
