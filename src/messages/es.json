@@ -6,32 +6,32 @@
     "Create": {
       "title": "Crear Evento",
       "Form": {
-        "Error": {
-          "Required": {
-            "combo": "Zonas horarias: al menos un país es requerido",
-            "eventLink": "Enlace: es obligatorio",
-            "eventName": "Nombre del Evento: es obligatorio",
-            "message": "Por favor verificar los campos requeridos"
-          },
-          "login": "Debes iniciar sesión para crear un evento."
+        "Fields": {
+          "eventName": "Nombre del evento",
+          "eventLink": "Enlace",
+          "eventDescription": "Descripción",
+          "time": "Hora",
+          "date": "Fecha"
+        },
+        "Toggle": {
+          "time": "24H",
+          "date": "Usar fecha",
+          "hideMins": "Ocultar minutos",
+          "showGmt": "Mostrar GMT",
+          "hideInitials": "Ocultar iniciales"
         },
         "Button": {
           "create": "Crear",
           "share": "Compartir"
         },
-        "Fields": {
-          "eventDescription": "Descripción",
-          "eventLink": "Enlace",
-          "eventName": "Nombre del evento",
-          "time": "Hora",
-          "date": "Fecha"
-        },
-        "Toggle": {
-          "date": "Usar fecha",
-          "time": "24H",
-          "hideMins": "Ocultar minutos",
-          "showGmt": "Mostrar GMT",
-          "hideInitials": "Ocultar iniciales"
+        "Error": {
+          "Required": {
+            "message": "Por favor, verifica los campos requeridos",
+            "eventName": "El Nombre del evento es obligatorio",
+            "eventLink": "El enlace es obligatorio",
+            "combo": "Al menos una zona horaria es requerida"
+          },
+          "login": "Debes iniciar sesión para crear un evento."
         }
       }
     }
@@ -39,7 +39,7 @@
   "ComboCountries": {
     "Form": {
       "Fields": {
-        "combo": "Agrega una zona horaria"
+        "combo": "Agregar una zona horaria"
       },
       "Button": {
         "add": "Agregar"

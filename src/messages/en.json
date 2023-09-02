@@ -26,10 +26,10 @@
         },
         "Error": {
           "Required": {
-            "message": "Please review required fields",
-            "eventName": "Event Name: is required",
-            "eventLink": "Hyperlink: is required",
-            "combo": "Time zones: at least one is required"
+            "message": "Please review the required fields",
+            "eventName": "Event Name is required",
+            "eventLink": "Hyperlink is required",
+            "combo": "At least one time zone is required"
           },
           "login": "You must be logged in to create an event"
         }
@@ -39,7 +39,7 @@
   "ComboCountries": {
     "Form": {
       "Fields": {
-        "combo": "Add a time zone"
+        "combo": "Add a Time Zone"
       },
       "Button": {
         "add": "Add"
@@ -50,7 +50,7 @@
     "Form": {
       "Fields": {
         "input": "Hashtags",
-        "info": "separate with commas"
+        "info": "Separate with commas"
       },
       "Button": {
         "add": "Add"
@@ -67,7 +67,7 @@
   "CountryList": {
     "Form": {
       "Fields": {
-        "search": "Search by country code or name"
+        "search": "Search by Country Code or Name"
       }
     }
   }
