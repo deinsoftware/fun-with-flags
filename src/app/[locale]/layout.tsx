@@ -7,6 +7,8 @@ import Header from '@/components/organisms/ui/Header'
 import Footer from '@/components/organisms/ui/Footer'
 import CookiePolicy from '@/components/molecules/gdpr/CookiePolicy'
 
+import getRequestConfig from '@/libs/i18n'
+
 import '@/styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
 
@@ -54,7 +56,8 @@ const LocaleLayout = async ({ children, params }: LocaleProps) => {
 
   let messages
   try {
-    messages = (await import(`../../messages/${locale}.json`)).default
+    const config = await getRequestConfig(params)
+    messages = config.messages
   } catch (error) {
     notFound()
   }
