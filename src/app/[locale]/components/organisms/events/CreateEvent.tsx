@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
 
-import useFetch from './useFetchCountries'
+import useFetchCountries from './useFetchCountries'
 
 import { useGetFormData } from './useFormData'
 
@@ -49,9 +49,14 @@ import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
 
-  const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
-  
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
+  const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
+  const [showTimePicker, setShowTimePicker] = useState(false)
+  const [optionsCombo, setOptionsCombo] = useState({
+    hideMins: false,
+    showGmt: true,
+    onlyNum: false,
+  })
 
   const {
     formData,
@@ -107,7 +112,7 @@ const CreateEvent = () => {
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   //TODO: add error message when fails
-  const { data: flagList, error } = useFetch(props)
+  const { data: flagList, error } = useFetchCountries(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -130,8 +135,6 @@ const CreateEvent = () => {
     },
     [setFormData],
   )
-
-  const [showTimePicker, setShowTimePicker] = useState(false)
 
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
@@ -183,12 +186,6 @@ const CreateEvent = () => {
     })
     window.open(url, '_blank')
   }
-
-  const [optionsCombo, setOptionsCombo] = useState({
-    hideMins: false,
-    showGmt: true,
-    onlyNum: false,
-  })
 
   return (
     <>
