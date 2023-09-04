@@ -50,7 +50,7 @@ const ComboboxCountries = ({
       `}
     >
       {!dateList || dateList?.length === 0 ? (
-        <p>Add a timezone to start</p>
+        <p className={styles['empty-message']}>Add a timezone to start *</p>
       ) : (
         <DatesToRender
           datesArray={filteredDates}

@@ -24,6 +24,11 @@
     }
 }
 
+.empty-message {
+    font-size: var(--font-size-medium);
+    color: var(--color-gray-500)
+}
+
 .add-button-container {
     align-self: baseline;
     grid-column: 2;
