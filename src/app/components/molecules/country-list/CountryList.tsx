@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { createPortal } from 'react-dom'
 
-import { XCircle } from 'lucide-react'
+import { Search, XCircle } from 'lucide-react'
 
 import dynamic from 'next/dynamic'
 
@@ -72,6 +72,13 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
         <div className={styles['overlay']}>
           <div className={styles['container-list-with-search']}>
             <div className={styles['search-bar-container']}>
+              <div className={styles['search-icon']}>
+                <Search
+                  color={lucidIcons.color.dark}
+                  size={lucidIcons.size}
+                  strokeWidth={lucidIcons.strokeWidth}
+                />
+              </div>
               <input
                 className={styles['search-bar']}
                 placeholder={`Search by country code or name`}
