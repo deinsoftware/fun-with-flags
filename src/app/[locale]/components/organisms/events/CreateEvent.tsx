@@ -45,6 +45,9 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { Zone } from '@/helpers/events.types'
+import { getCountry } from '@/helpers/timezones'
 
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
@@ -187,6 +190,17 @@ const CreateEvent = () => {
     window.open(url, '_blank')
   }
 
+  const isMobile = useIsMobile()
+  const handleSelectTimeZone = (zone: Zone) => {
+    const result = addTimeZone(zone)
+    const name = getCountry(zone.name)
+    if (isMobile && result) {
+      toast(t('Toast.selectedTimezone', { name }), {
+        style: toastStyle,
+        duration: 3000,
+      })
+    }
+  }
   return (
     <>
       <div className={styles['container-form']}>
@@ -417,7 +431,7 @@ const CreateEvent = () => {
       {isOpenSelectTimeZone && (
         <CountryList
           flagList={flagList}
-          handleSelect={addTimeZone}
+          handleSelect={handleSelectTimeZone}
           onClose={handleClose}
         />
       )}

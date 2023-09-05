@@ -13,6 +13,7 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
 import { formatGmt, getLocaleGmt } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
+import { getContinent, getCountry } from '@/helpers/timezones'
 
 type Props = {
   flagList: FlagCountry[] | null
@@ -54,14 +55,6 @@ export const SelectCountry = ({
     )
     setCountryInfo(countryCode, name, gmt)
     handleClose()
-  }
-
-  const getCountry = (timezone: string) => {
-    const parts = timezone.split('/')
-    return parts[parts.length - 1].replaceAll('_', ' ')
-  }
-  const getContinent = (timezone: string) => {
-    return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
   }
 
   return (
