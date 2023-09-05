@@ -31,7 +31,7 @@ const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
 import useDebounce from '@/hooks/useDebounce'
 
 type Props = {
-  flagList: FlagCountry[] | null
+  timezoneList: FlagCountry[] | null
   onClose: () => void
   handleSelect: ({
     countryCode,
@@ -42,15 +42,17 @@ type Props = {
   }) => void
 }
 
-const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
+const CountryList = ({ timezoneList, onClose, handleSelect }: Props) => {
   const t = useTranslations('CountryList')
 
-  const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
+  const [countryList, setCountryList] = useState<FlagCountry[] | null>(
+    timezoneList,
+  )
   const [query, setQuery] = useState<string>('')
 
   const getCountriesByQuery = () => {
     return (
-      flagList?.filter(({ countryCode, regionName }) => {
+      timezoneList?.filter(({ countryCode, regionName }) => {
         if (query.length === 2) {
           return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
         } else {
@@ -67,8 +69,8 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
   })
 
   useEffect(() => {
-    if (!query) return setCountryList(flagList)
-  }, [query, flagList])
+    if (!query) return setCountryList(timezoneList)
+  }, [query, timezoneList])
 
   return (
     <>

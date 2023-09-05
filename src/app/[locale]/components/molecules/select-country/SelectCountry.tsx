@@ -16,7 +16,7 @@ import { GmtPattern } from '@/types/dates.types'
 import { getContinent, getCountry } from '@/helpers/timezones'
 
 type Props = {
-  flagList: FlagCountry[] | null
+  timezoneList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
   gmt: FormData['gmt']
@@ -29,7 +29,7 @@ type Props = {
 }
 
 export const SelectCountry = ({
-  flagList,
+  timezoneList,
   countryCode,
   date,
   gmt,
@@ -88,8 +88,8 @@ export const SelectCountry = ({
 
       {visibleSelectMenu && (
         <CountryList
-          flagList={flagList}
           handleSelect={handleSelect}
+          timezoneList={timezoneList}
           onClose={handleClose}
         />
       )}
