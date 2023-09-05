@@ -1,3 +1,5 @@
+import { DateTimeFormatOptions } from 'next-intl'
+
 import { TimeFormat } from './events.types'
 
 import { DatePattern, GmtPattern, TimePattern } from '@/types/dates.types'
@@ -91,17 +93,18 @@ export const getLocaleTime = (
 
 export const getLocaleDayPeriod = (locale?: string) => {
   const getDatePartValue = (date: number, defaultValue: string) => {
-    return (
-      Intl.DateTimeFormat(locale, { hour: 'numeric' })
-        .formatToParts(date)
-        .find((part) => part.type === 'dayPeriod')?.value ?? defaultValue
-    )
-  }
+    const options: DateTimeFormatOptions = { hour: 'numeric' };
+    const formatter = new Intl.DateTimeFormat(locale, options);
+    const parts = formatter.formatToParts(date);
+    const dayPeriodPart = parts.find(part => part.type === 'dayPeriod');
+    const value = dayPeriodPart?.value ?? defaultValue;
+    return value;
+  };
 
-  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM')
-  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM')
+  const am = getDatePartValue(new Date().setHours(0, 0, 0, 0), 'AM');
+  const pm = getDatePartValue(new Date().setHours(23, 0, 0, 0), 'PM');
 
-  return { am, pm }
+  return { am, pm };
 }
 
 export const formatLocaleTime = (
@@ -157,30 +160,26 @@ export const formatTime = (
   timeFormat: TimeFormat,
   hideMinutes: boolean = false,
 ) => {
-  let value = time
-  const meridian = timeFormat === 12 ? time.split(' ')[1] : 'H'
-  if (hideMinutes) {
-    value = `${time.split(':')[0]} ${meridian}`
-  }
+  if (!hideMinutes) return time
 
-  return value
+  const hour = time.split(':', 1)
+  const meridian = time.split(' ').pop()
+  const suffix = timeFormat === 12 ? meridian : 'H'
+  return `${hour} ${suffix}`
 }
 
 export const formatGmt = (
   gmt: GmtPattern,
   timeZoneName: TimezoneNames,
-  showInitial: boolean = true,
+  showInitial = true
 ) => {
   const isNumber = gmt.startsWith('-') || gmt.startsWith('+')
-
-  let text = ''
-  if (showInitial && isNumber) {
-    text = timeZoneName === 'longOffset' ? 'GMT: ' : 'GMT'
-  }
-
+  const initial = timeZoneName === 'longOffset' ? 'GMT: ' : 'GMT'
+  const text = showInitial && isNumber ? initial : ''
   const value = gmt === 'Z' ? 'UTC' : gmt
+
   return `(${showInitial ? text : ''}${value})`
-}
+};
 
 export const getLocaleGmt = (
   options: {

@@ -17,8 +17,8 @@ export type FormData = {
   gmt: GmtPattern
   hashtags: string[]
   signature: {
-    version: string | ''
-    date: string | ''
+    version: string
+    date: string
   }
   toggleState: {
     timeFormat: TimeFormat

@@ -272,7 +272,7 @@ const CreateEvent = () => {
                 <div className={styles['container-toggle']}>
                   <Toggle
                     value={
-                      formData.toggleState.timeFormat === 12 ? false : true
+                      formData.toggleState.timeFormat === 12
                     }
                     onToggle={handleTimeToggle}
                   />

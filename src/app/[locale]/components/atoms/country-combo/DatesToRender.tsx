@@ -9,7 +9,7 @@ import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 import { DatesFilteredArray } from '@/types/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
-import { EventDate, TimeFormat } from '@/helpers/events.types'
+import { EventDate, TimeFormat, Zone } from '@/helpers/events.types'
 import { formatGmt, formatTime } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
 
@@ -37,9 +37,12 @@ export const DatesToRender = ({
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLImageElement>) => {
       const target = event.target as HTMLImageElement
-      const name = target.id.split('--')[0] as Timezones
-      const countryCode = target.id.split('--')[1] as Countries
-      deleteTimeZone({ countryCode, name })
+      const [name, countryCode] = target.id.split('--')
+      const zone: Zone = {
+        countryCode: countryCode as Countries,
+        name: name as Timezones,
+      }
+      deleteTimeZone(zone)
     },
     [deleteTimeZone],
   )
@@ -48,9 +51,10 @@ export const DatesToRender = ({
       return (
         <div key={gmt} className={style['countries']}>
           <p
-            className={`${style[`time-${format}`]} ${
-              optionsCombo.hideMins ? style[`time-short-${format}`] : ''
-            }`}
+            className={
+              style[`time-${format}`] +
+              (optionsCombo.hideMins && ' ' + style[`time-short-${format}`])
+            }
           >
             {formatTime(countries[0].i18n.time, format, optionsCombo.hideMins)}
           </p>
