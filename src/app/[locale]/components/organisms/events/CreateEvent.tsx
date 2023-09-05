@@ -193,9 +193,16 @@ const CreateEvent = () => {
   const isMobile = useIsMobile()
   const handleSelectTimeZone = (zone: Zone) => {
     const result = addTimeZone(zone)
+
     const name = getCountry(zone.name)
     if (isMobile && result) {
-      toast(t('Toast.selectedTimezone', { name }), {
+      toast.success(t('Toast.selectedTimezone', { name }), {
+        style: toastStyle,
+        duration: 3000,
+      })
+    }
+    if (isMobile && !result) {
+      toast.error(t('Toast.alreadySelectedTimezone', { name }), {
         style: toastStyle,
         duration: 3000,
       })
