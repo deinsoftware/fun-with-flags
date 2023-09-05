@@ -271,9 +271,7 @@ const CreateEvent = () => {
 
                 <div className={styles['container-toggle']}>
                   <Toggle
-                    value={
-                      formData.toggleState.timeFormat === 12
-                    }
+                    value={formData.toggleState.timeFormat === 12}
                     onToggle={handleTimeToggle}
                   />
                   <span className={styles['text-toggle']}>
@@ -413,7 +411,10 @@ const CreateEvent = () => {
                   }))
                 }}
               />
-              <span className={styles['text-toggle']}>
+              <span
+                className={styles['text-toggle']}
+                style={{ opacity: `${!optionsCombo.showGmt ? '0.3' : 1}` }}
+              >
                 {t('Form.Toggle.onlyNum')}
               </span>
             </div>
