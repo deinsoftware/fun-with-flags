@@ -44,10 +44,10 @@
     "react-hot-toast": "2.4.1",
     "typescript": "5.2.2"
   },
-  "swpm": "npm",
+  "swpm": "pnpm",
   "volta": {
     "node": "18.17.0",
-    "npm": "9.6.7"
+    "pnpm": "8.7.1"
   },
   "devDependencies": {
     "@testing-library/dom": "9.3.1",
