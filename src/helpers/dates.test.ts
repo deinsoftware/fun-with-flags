@@ -11,6 +11,8 @@ import {
   formatLocaleTime,
   getLocaleGmt,
   getUserTimeFormat,
+  formatTime,
+  formatGmt,
 } from './dates'
 
 import { TimezoneNames, Timezones } from '@/types/timezones.types'
@@ -174,6 +176,52 @@ describe('formatLocaleTime()', () => {
 
     // assert that the result matches the expected format
     expect(result).toBe('12:00 PM')
+  })
+})
+
+describe('formatTime()', () => {
+  it('should format time with minutes', () => {
+    const time = '12:30'
+    const timeFormat = 24
+    const hideMinutes = false
+    const result = formatTime(time, timeFormat, hideMinutes)
+    expect(result).toBe('12:30')
+  })
+
+  it('should format time without minutes', () => {
+    const time = '12:30 PM'
+    const timeFormat = 24
+    const hideMinutes = true
+    const result = formatTime(time, timeFormat, hideMinutes)
+    expect(result).toBe('12 H')
+  })
+
+  it('should format time with 12-hour format', () => {
+    const time = '12:30 PM'
+    const timeFormat = 12
+    const hideMinutes = false
+    const result = formatTime(time, timeFormat, hideMinutes)
+    expect(result).toBe('12:30 PM')
+  })
+
+  it('should format time with 12-hour format and hide minutes', () => {
+    const time = '12:30 PM'
+    const timeFormat = 12
+    const hideMinutes = true
+    const result = formatTime(time, timeFormat, hideMinutes)
+    expect(result).toBe('12 PM')
+  })
+})
+
+describe('formatGmt()', () => {
+  it('should return formatted GMT string with initial text', () => {
+    expect(formatGmt('Z', 'longOffset')).toBe('(UTC)')
+    expect(formatGmt('+05:00', 'shortOffset')).toBe('(GMT+05:00)')
+  })
+
+  it('should return formatted GMT string without initial text', () => {
+    expect(formatGmt('-03:30', 'shortOffset', false)).toBe('(-03:30)')
+    expect(formatGmt('Z', 'longOffset', false)).toBe('(UTC)')
   })
 })
 

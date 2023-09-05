@@ -34,6 +34,9 @@
           },
           "login": "You must be logged in to create an event"
         }
+      },
+      "Toast": {
+        "selectedTimezone": "Time zone selected: \"{name}\""
       }
     }
   },
@@ -58,9 +61,9 @@
       },
       "Error": {
         "Validation": {
-          "spaces": "Spaces in '#{tag}' are not allowed",
-          "special": "Special characters in '#{tag}' are not allowed",
-          "existent": "'#{tag}' hashtag already exists"
+          "spaces": "Spaces in \"#{tag}\" are not allowed",
+          "special": "Special characters in \"#{tag}\" are not allowed",
+          "existent": "\"#{tag}\" hashtag already exists"
         }
       }
     }

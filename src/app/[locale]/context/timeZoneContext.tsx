@@ -18,13 +18,13 @@ const initialTimeZoneData: TimeZoneData = {
 export const TimeZoneContext = createContext<{
   timeZones: TimeZoneData
 
-  addTimeZone: (zone: Zone) => void
+  addTimeZone: (zone: Zone) => boolean
   deleteTimeZone: (zone: Zone) => void
   setOriginDate: (zone?: Zone, originDate?: string, gmt?: string) => void
 }>({
   timeZones: initialTimeZoneData,
 
-  addTimeZone: () => {},
+  addTimeZone: (): boolean => false,
   deleteTimeZone: () => {},
   setOriginDate: () => {},
 })
@@ -43,7 +43,7 @@ export function TimeZoneProvider({ children }: Props) {
           timeZone.name === zone.name
         )
       })
-      if (index >= 0) return
+      if (index >= 0) return false
 
       setTimeZones((prev) => {
         return {
@@ -54,6 +54,7 @@ export function TimeZoneProvider({ children }: Props) {
           },
         }
       })
+      return true
     },
     [setTimeZones, timeZones?.list],
   )
