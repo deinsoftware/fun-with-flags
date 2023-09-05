@@ -48,7 +48,7 @@ const ComboboxCountries = ({
       `}
     >
       {!dateList || dateList?.length === 0 ? (
-        <p>{t('Form.Fields.combo')}</p>
+        <p className={styles['empty-message']}>{t('Form.Fields.combo')}</p>
       ) : (
         <DatesToRender
           datesArray={filteredDates}
