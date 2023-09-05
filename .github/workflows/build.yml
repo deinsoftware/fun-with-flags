@@ -17,14 +17,18 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.7.1
+
       - name: install packages
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: build project
-        run: npm run build
+        run: pnpm run build
 
       - name: run test and coverage
-        run: npm run test:c
+        run: pnpm run test:c
 
       - name: Display coverage files
         run: ls -R

@@ -27,6 +27,18 @@
       "@/*": [
         "./src/*"
       ],
+      "@/app/*": [
+        "./src/app/[locale]/*"
+      ],
+      "@/components/*": [
+        "./src/app/[locale]/components/*"
+      ],
+      "@/context/*": [
+        "./src/app/[locale]/context/*"
+      ],
+      "@/hooks/*": [
+        "./src/app/[locale]/hooks/*"
+      ],
       "#/*": [
         "./*"
       ],

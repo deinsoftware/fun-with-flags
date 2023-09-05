@@ -1,0 +1,23 @@
+.toggle {
+    display: grid;
+    width: 50px;
+    height: 28px;
+    align-items: center;
+    border: 1.5px solid var(--color-darkgray-500);
+    border-radius: 99px;
+    background-color: var(--color-darkgray-800);
+    cursor: pointer;
+
+    & .thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 99px;
+        background-color: var(--color-darkgray-300);
+        justify-self: flex-start;
+    }
+
+    &.toggled .thumb {
+        background-color: var(--color-purple-500);
+        justify-self: flex-end;
+    }
+}
