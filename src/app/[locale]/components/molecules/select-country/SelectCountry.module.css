@@ -30,12 +30,19 @@
     gap: 8px;
 }
 
-.gmt {
-    color: var(--color-purple-500);
+.gmt-and-icon {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
 }
 
-.gmt:hover {
+.gmt-and-icon:hover .gmt {
     color: var(--color-purple-700);
+}
+
+.gmt {
+    color: var(--color-purple-500);
 }
 
 .continent {
