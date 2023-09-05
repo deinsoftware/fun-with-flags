@@ -25,7 +25,7 @@ export const generateMetadata = async({params: {locale}}: MetadataProps) => {
       template: `%s | ${t('title')}`,
       default: t('title')
     },
-    description: 'Time zone with country flags for events',
+    description: t('description'),
     keywords: ['timezone', 'country', 'flags', 'events'],
     themeColor: [
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
@@ -34,21 +34,6 @@ export const generateMetadata = async({params: {locale}}: MetadataProps) => {
       { media: '(prefers-color-scheme: light)', color: 'EMPTY' },
     ],
   }
-}
-
-export const metadata = {
-  title: {
-    template: '%s | Fun With Flags',
-    default: 'Fun With Flags',
-  },
-  description: 'Time zone with country flags for events',
-  keywords: ['timezone', 'country', 'flags', 'events'],
-  themeColor: [
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
-    // ! pay attention, here should be the base color of each theme in hexadecimal
-    { media: '(prefers-color-scheme: dark)', color: '#202020' },
-    { media: '(prefers-color-scheme: light)', color: 'EMPTY' },
-  ],
 }
 
 type RootProps = { children: React.ReactNode }

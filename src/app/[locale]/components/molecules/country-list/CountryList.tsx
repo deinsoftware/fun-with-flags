@@ -21,7 +21,7 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
-import LoadingPage from '@/app/[locale]/loading'
+import LoadingPage from '@/app/loading'
 
 const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
   ssr: false,

@@ -1,6 +1,7 @@
 {
   "Index": {
-    "title": "Fun with Flags"
+    "title": "Fun with Flags",
+    "description": "Time zone with country flags for events"
   },
   "Events": {
     "Create": {

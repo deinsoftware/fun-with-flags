@@ -1,6 +1,7 @@
 {
   "Index": {
-    "title": "Diversión con Banderas"
+    "title": "Diversión con Banderas",
+    "description": "Zonas horarias con banderas de países para eventos"
   },
   "Events": {
     "Create": {

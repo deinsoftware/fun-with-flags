@@ -10,7 +10,7 @@ import {
   getDataStorage,
   setDataStorage,
   cleanDataStorage,
-} from '@/app/[locale]/components/organisms/events/CreateEvent.utils'
+} from '@/components/organisms/events/CreateEvent.utils'
 import { TimePattern, GmtPattern } from '@/types/dates.types'
 import { TimeFormat } from '@/helpers/events.types'
 import { Countries } from '@/types/countries.types'
