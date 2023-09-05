@@ -198,6 +198,14 @@
     }
 }
 
+.container-toggles{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 .container-options-combo {
     display: flex;
     gap: 1rem;

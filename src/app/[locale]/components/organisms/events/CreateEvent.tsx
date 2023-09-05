@@ -357,38 +357,40 @@ const CreateEvent = () => {
             )}
           </div>
 
-          <div className={styles['container-options-combo']}>
-            <Toggle
-              value={optionsCombo.hideMins}
-              onToggle={() => {
-                setOptionsCombo((prev) => ({
-                  ...prev,
-                  hideMins: !prev.hideMins,
-                }))
-              }}
-            />
-            <span className={styles['text-toggle']}>
-              {t('Form.Toggle.hideMins')}
-            </span>
-          </div>
-          <div className={styles['container-options-combo']}>
-            <Toggle
-              value={optionsCombo.showGmt}
-              onToggle={() => {
-                setOptionsCombo((prev) => ({
-                  ...prev,
-                  showGmt: !prev.showGmt,
-                  onlyNum: false,
-                }))
-              }}
-            />
-            <span className={styles['text-toggle']}>
-              {t('Form.Toggle.showGmt')}
-            </span>
-          </div>
-          {optionsCombo.showGmt && (
+          <div className={styles['container-toggles']}>
             <div className={styles['container-options-combo']}>
               <Toggle
+                value={optionsCombo.hideMins}
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    hideMins: !prev.hideMins,
+                  }))
+                }}
+              />
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.hideMins')}
+              </span>
+            </div>
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                value={optionsCombo.showGmt}
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    showGmt: !prev.showGmt,
+                    onlyNum: false,
+                  }))
+                }}
+              />
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.showGmt')}
+              </span>
+            </div>
+
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                disabled={!optionsCombo.showGmt}
                 value={optionsCombo.onlyNum}
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
@@ -401,7 +403,7 @@ const CreateEvent = () => {
                 {t('Form.Toggle.onlyNum')}
               </span>
             </div>
-          )}
+          </div>
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
