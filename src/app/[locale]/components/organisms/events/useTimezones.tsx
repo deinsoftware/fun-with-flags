@@ -32,7 +32,7 @@ const useTimezones = ({ locale, date }: Props) => {
 
   useEffect(() => {
     setTimezoneError(false)
-    getTimeZones({ locale, date, signal })
+    getTimeZones({ locale, date })
 
     return () => controller.abort()
   }, [locale, date])
