@@ -23,8 +23,7 @@
     "test:cw": "vitest watch --coverage",
     "prisma:pull": "prisma db pull --force",
     "prisma:client": "prisma generate",
-    "prisma:studio": "prisma studio",
-    "pre-commit": "lint-staged"
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "5.2.0",
