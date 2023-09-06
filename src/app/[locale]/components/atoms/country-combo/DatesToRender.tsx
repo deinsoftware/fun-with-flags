@@ -51,10 +51,9 @@ export const DatesToRender = ({
       return (
         <div key={gmt} className={style['countries']}>
           <p
-            className={
-              style[`time-${format}`] +
-              (optionsCombo.hideMins && ' ' + style[`time-short-${format}`])
-            }
+            className={`${style[`time-${format}`]}${
+              optionsCombo.hideMins ? ` ${style[`time-short-${format}`]}` : ''
+            }`}
           >
             {formatTime(countries[0].i18n.time, format, optionsCombo.hideMins)}
           </p>
