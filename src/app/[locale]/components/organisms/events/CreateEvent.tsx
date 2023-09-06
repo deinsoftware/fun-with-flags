@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
 
-import useFetchCountries from './useFetchCountries'
+import useTimezones from './useTimezones'
 
 import { useGetFormData } from './useFormData'
 
@@ -45,9 +45,22 @@ import { lucidIcons } from '@/libs/icon-config'
 import { createEvent } from '@/services/event'
 import { EventBody } from '@/types/event.types'
 import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { Zone } from '@/helpers/events.types'
+import { getCountry } from '@/helpers/timezones'
 
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
+
+  const [signal, setSignal] = useState<AbortSignal>()
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => controller.abort()
+  }, [])
 
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
@@ -72,15 +85,6 @@ const CreateEvent = () => {
     requiredFieldsValidation,
   } = useGetFormData()
   const { data: session } = useSession()
-  const [signal, setSignal] = useState<AbortSignal>()
-
-  useEffect(() => {
-    const controller = new AbortController()
-    const signal = controller.signal
-    setSignal(signal)
-
-    return () => controller.abort()
-  }, [])
 
   useEffect(() => {
     const gmt = formData.gmt
@@ -106,13 +110,14 @@ const CreateEvent = () => {
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
       date: new Date(timeZones.origin.date),
+      signal,
     }),
-    [timeZones.origin.date],
+    [timeZones.origin.date, signal],
   )
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   //TODO: add error message when fails
-  const { data: flagList, error } = useFetchCountries(props)
+  const { timezoneList, timezoneError, getTimeZones } = useTimezones(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -187,6 +192,22 @@ const CreateEvent = () => {
     window.open(url, '_blank')
   }
 
+  const isMobile = useIsMobile()
+  const handleSelectTimeZone = (zone: Zone) => {
+    const result = addTimeZone(zone)
+
+    const name = getCountry(zone.name)
+    if (isMobile && result) {
+      toast.success(t('Toast.selectedTimezone', { name }), {
+        style: toastStyle,
+      })
+    }
+    if (isMobile && !result) {
+      toast.error(t('Toast.alreadySelectedTimezone', { name }), {
+        style: toastStyle,
+      })
+    }
+  }
   return (
     <>
       <div className={styles['container-form']}>
@@ -195,10 +216,10 @@ const CreateEvent = () => {
           <SelectCountry
             countryCode={formData.country}
             date={formData.date}
-            flagList={flagList}
             gmt={formData.gmt}
             setCountryInfo={setCountryInfo}
             timezone={formData.timezone}
+            timezoneList={timezoneList}
           />
           <div className={styles['container-event-name']}>
             <input
@@ -257,9 +278,7 @@ const CreateEvent = () => {
 
                 <div className={styles['container-toggle']}>
                   <Toggle
-                    value={
-                      formData.toggleState.timeFormat === 12 ? false : true
-                    }
+                    value={formData.toggleState.timeFormat === 12}
                     onToggle={handleTimeToggle}
                   />
                   <span className={styles['text-toggle']}>
@@ -357,38 +376,40 @@ const CreateEvent = () => {
             )}
           </div>
 
-          <div className={styles['container-options-combo']}>
-            <Toggle
-              value={optionsCombo.hideMins}
-              onToggle={() => {
-                setOptionsCombo((prev) => ({
-                  ...prev,
-                  hideMins: !prev.hideMins,
-                }))
-              }}
-            />
-            <span className={styles['text-toggle']}>
-              {t('Form.Toggle.hideMins')}
-            </span>
-          </div>
-          <div className={styles['container-options-combo']}>
-            <Toggle
-              value={optionsCombo.showGmt}
-              onToggle={() => {
-                setOptionsCombo((prev) => ({
-                  ...prev,
-                  showGmt: !prev.showGmt,
-                  onlyNum: false,
-                }))
-              }}
-            />
-            <span className={styles['text-toggle']}>
-              {t('Form.Toggle.showGmt')}
-            </span>
-          </div>
-          {optionsCombo.showGmt && (
+          <div className={styles['container-toggles']}>
             <div className={styles['container-options-combo']}>
               <Toggle
+                value={optionsCombo.hideMins}
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    hideMins: !prev.hideMins,
+                  }))
+                }}
+              />
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.hideMins')}
+              </span>
+            </div>
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                value={optionsCombo.showGmt}
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    showGmt: !prev.showGmt,
+                    onlyNum: false,
+                  }))
+                }}
+              />
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.showGmt')}
+              </span>
+            </div>
+
+            <div className={styles['container-options-combo']}>
+              <Toggle
+                disabled={!optionsCombo.showGmt}
                 value={optionsCombo.onlyNum}
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
@@ -397,11 +418,14 @@ const CreateEvent = () => {
                   }))
                 }}
               />
-              <span className={styles['text-toggle']}>
+              <span
+                className={styles['text-toggle']}
+                style={{ opacity: `${!optionsCombo.showGmt ? '0.3' : 1}` }}
+              >
                 {t('Form.Toggle.onlyNum')}
               </span>
             </div>
-          )}
+          </div>
 
           <div className={styles['container-button']}>
             <Button disabled={!session} handleClick={handleCreateEvent}>
@@ -416,8 +440,8 @@ const CreateEvent = () => {
 
       {isOpenSelectTimeZone && (
         <CountryList
-          flagList={flagList}
-          handleSelect={addTimeZone}
+          handleSelect={handleSelectTimeZone}
+          timezoneList={timezoneList}
           onClose={handleClose}
         />
       )}

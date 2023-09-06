@@ -41,21 +41,28 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
   }
 
   const addTag = (tags: string) => {
-    const validationError = tags
+    const uniqueTags = tags
       .split(',')
-      .filter((tag) => tag.trim())
-      .map((tag) => {
-        const hashTag = tag.trim().replaceAll('#', '')
-
-        const validationError = validateHashTag(hashTag)
-        if (validationError !== null) {
-          toast(validationError)
-          return tag
+      .map((tag) => tag.trim())
+      .filter((current, index, arr) => {
+        const tag = current.trim()
+        if (tag) {
+          return arr.indexOf(tag) == index
         }
-
-        addHashtag(hashTag)
-        return null
       })
+
+    const validationError = uniqueTags.map((tag) => {
+      const hashTag = tag.trim().replaceAll('#', '')
+
+      const validationError = validateHashTag(hashTag)
+      if (validationError !== null) {
+        toast(validationError)
+        return tag
+      }
+
+      addHashtag(hashTag)
+      return null
+    })
 
     if (validationError.some((errorFound) => errorFound)) {
       return setTag(validationError.filter((tag) => tag).join(','))

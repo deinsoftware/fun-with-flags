@@ -3,6 +3,15 @@
     "title": "Fun with Flags",
     "description": "Time zone with country flags for events"
   },
+  "Header": {
+    "Button": {
+      "Log": {
+        "signUp": "Sign Up",
+        "signIn": "Sign In",
+        "signOut": "Sign Out"
+      }
+    }
+  },
   "Events": {
     "Create": {
       "title": "Create Event",
@@ -28,12 +37,16 @@
         "Error": {
           "Required": {
             "message": "Please review the required fields",
-            "eventName": "Event Name is required",
+            "eventName": "Event name is required",
             "eventLink": "Hyperlink is required",
             "combo": "At least one time zone is required"
           },
           "login": "You must be logged in to create an event"
         }
+      },
+      "Toast": {
+        "selectedTimezone": "Time zone selected: \"{name}\"",
+        "alreadySelectedTimezone": "\"{name}\" is already selected"
       }
     }
   },
@@ -58,9 +71,9 @@
       },
       "Error": {
         "Validation": {
-          "spaces": "Spaces in '#{tag}' are not allowed",
-          "special": "Special characters in '#{tag}' are not allowed",
-          "existent": "'#{tag}' hashtag already exists"
+          "spaces": "Spaces in \"#{tag}\" are not allowed",
+          "special": "Special characters in \"#{tag}\" are not allowed",
+          "existent": "\"#{tag}\" hashtag already exists"
         }
       }
     }

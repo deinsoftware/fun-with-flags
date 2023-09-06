@@ -1,6 +1,6 @@
 import { Toaster } from 'react-hot-toast'
 import { useLocale, NextIntlClientProvider } from 'next-intl'
-import {  getTranslator } from 'next-intl/server'
+import { getTranslator } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
 import Provider from '@/components/organisms/auth/Provider'
@@ -17,13 +17,15 @@ import { MetadataProps } from '@/app/layout.types'
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin']})
 
-export const generateMetadata = async({params: {locale}}: MetadataProps) => {
+export const generateMetadata = async ({
+  params: { locale },
+}: MetadataProps) => {
   const t = await getTranslator(locale, 'Index')
 
   return {
     title: {
       template: `%s | ${t('title')}`,
-      default: t('title')
+      default: t('title'),
     },
     description: t('description'),
     keywords: ['timezone', 'country', 'flags', 'events'],

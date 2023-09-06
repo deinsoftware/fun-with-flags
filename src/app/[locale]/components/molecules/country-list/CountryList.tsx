@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { createPortal } from 'react-dom'
 
-import { XCircle } from 'lucide-react'
+import { Search, XCircle } from 'lucide-react'
 
 import dynamic from 'next/dynamic'
 
@@ -31,7 +31,7 @@ const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
 import useDebounce from '@/hooks/useDebounce'
 
 type Props = {
-  flagList: FlagCountry[] | null
+  timezoneList: FlagCountry[] | null
   onClose: () => void
   handleSelect: ({
     countryCode,
@@ -42,15 +42,17 @@ type Props = {
   }) => void
 }
 
-const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
+const CountryList = ({ timezoneList, onClose, handleSelect }: Props) => {
   const t = useTranslations('CountryList')
 
-  const [countryList, setCountryList] = useState<FlagCountry[] | null>(flagList)
+  const [countryList, setCountryList] = useState<FlagCountry[] | null>(
+    timezoneList,
+  )
   const [query, setQuery] = useState<string>('')
 
   const getCountriesByQuery = () => {
     return (
-      flagList?.filter(({ countryCode, regionName }) => {
+      timezoneList?.filter(({ countryCode, regionName }) => {
         if (query.length === 2) {
           return countryCode?.toLowerCase()?.includes(query?.toLowerCase())
         } else {
@@ -67,8 +69,8 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
   })
 
   useEffect(() => {
-    if (!query) return setCountryList(flagList)
-  }, [query, flagList])
+    if (!query) return setCountryList(timezoneList)
+  }, [query, timezoneList])
 
   return (
     <>
@@ -76,6 +78,13 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
         <div className={styles['overlay']}>
           <div className={styles['container-list-with-search']}>
             <div className={styles['search-bar-container']}>
+              <div className={styles['search-icon']}>
+                <Search
+                  color={lucidIcons.color.dark}
+                  size={lucidIcons.size}
+                  strokeWidth={lucidIcons.strokeWidth}
+                />
+              </div>
               <input
                 className={styles['search-bar']}
                 placeholder={t('Form.Fields.search')}

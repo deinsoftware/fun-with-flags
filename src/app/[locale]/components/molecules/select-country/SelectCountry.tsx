@@ -2,7 +2,11 @@ import ReactCountryFlag from 'react-country-flag'
 
 import { useState } from 'react'
 
+import { MapPin } from 'lucide-react'
+
 import styles from './SelectCountry.module.css'
+
+import { lucidIcons } from '@/libs/icon-config'
 
 import CountryList from '@/components/molecules/country-list/CountryList'
 
@@ -13,9 +17,10 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { Timezones } from '@/types/timezones.types'
 import { formatGmt, getLocaleGmt } from '@/helpers/dates'
 import { GmtPattern } from '@/types/dates.types'
+import { getContinent, getCountry } from '@/helpers/timezones'
 
 type Props = {
-  flagList: FlagCountry[] | null
+  timezoneList: FlagCountry[] | null
   countryCode: Countries
   date: FormData['date']
   gmt: FormData['gmt']
@@ -28,7 +33,7 @@ type Props = {
 }
 
 export const SelectCountry = ({
-  flagList,
+  timezoneList,
   countryCode,
   date,
   gmt,
@@ -54,14 +59,6 @@ export const SelectCountry = ({
     )
     setCountryInfo(countryCode, name, gmt)
     handleClose()
-  }
-
-  const getCountry = (timezone: string) => {
-    const parts = timezone.split('/')
-    return parts[parts.length - 1].replaceAll('_', ' ')
-  }
-  const getContinent = (timezone: string) => {
-    return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
   }
 
   return (
@@ -90,13 +87,16 @@ export const SelectCountry = ({
           <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
         </div>
         <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
-        <p className={styles['gmt']}>{formatGmt(gmt, 'longOffset')}</p>
+        <div className={styles['gmt-and-icon']}>
+          <p className={styles['gmt']}>{formatGmt(gmt, 'longOffset')}</p>
+          <MapPin color={lucidIcons.color.main} size={lucidIcons.size} />
+        </div>
       </div>
 
       {visibleSelectMenu && (
         <CountryList
-          flagList={flagList}
           handleSelect={handleSelect}
+          timezoneList={timezoneList}
           onClose={handleClose}
         />
       )}
