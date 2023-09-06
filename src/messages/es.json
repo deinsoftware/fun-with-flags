@@ -3,6 +3,15 @@
     "title": "Diversión con Banderas",
     "description": "Zonas horarias con banderas de países para eventos"
   },
+  "Header": {
+    "Button": {
+      "Log": {
+        "signUp": "Registrarse",
+        "signIn": "Iniciar sesión",
+        "signOut": "Cerrar sesión"
+      }
+    }
+  },
   "Events": {
     "Create": {
       "title": "Crear Evento",
@@ -28,7 +37,7 @@
         "Error": {
           "Required": {
             "message": "Por favor, verifica los campos requeridos",
-            "eventName": "El Nombre del evento es obligatorio",
+            "eventName": "El nombre del evento es obligatorio",
             "eventLink": "El enlace es obligatorio",
             "combo": "Al menos una zona horaria es requerida"
           },
@@ -36,7 +45,8 @@
         }
       },
       "Toast": {
-        "selectedTimezone": "Zona horaria seleccionada: \"{name}\""
+        "selectedTimezone": "Zona horaria seleccionada: \"{name}\"",
+        "alreadySelectedTimezone": "\"{name}\" ya está seleccionada"
       }
     }
   },
@@ -71,7 +81,7 @@
   "CountryList": {
     "Form": {
       "Fields": {
-        "search": "Buscar por código o nombre de país"
+        "search": "Buscar por código o nombre del país"
       }
     }
   }

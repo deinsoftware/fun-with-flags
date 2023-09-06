@@ -3,6 +3,15 @@
     "title": "Fun with Flags",
     "description": "Time zone with country flags for events"
   },
+  "Header": {
+    "Button": {
+      "Log": {
+        "signUp": "Sign Up",
+        "signIn": "Sign In",
+        "signOut": "Sign Out"
+      }
+    }
+  },
   "Events": {
     "Create": {
       "title": "Create Event",
@@ -28,7 +37,7 @@
         "Error": {
           "Required": {
             "message": "Please review the required fields",
-            "eventName": "Event Name is required",
+            "eventName": "Event name is required",
             "eventLink": "Hyperlink is required",
             "combo": "At least one time zone is required"
           },
@@ -36,7 +45,8 @@
         }
       },
       "Toast": {
-        "selectedTimezone": "Time zone selected: \"{name}\""
+        "selectedTimezone": "Time zone selected: \"{name}\"",
+        "alreadySelectedTimezone": "\"{name}\" is already selected"
       }
     }
   },
