@@ -72,11 +72,9 @@ const LocaleLayout = async ({ children, params }: LocaleProps) => {
 
   return (
     <html lang={locale}>
-      <RootLayout>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </RootLayout>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <RootLayout>{children}</RootLayout>
+      </NextIntlClientProvider>
     </html>
   )
 }

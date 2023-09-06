@@ -278,7 +278,7 @@ const CreateEvent = () => {
 
                 <div className={styles['container-toggle']}>
                   <Toggle
-                    value={formData.toggleState.timeFormat === 12}
+                    value={formData.toggleState.timeFormat === 24}
                     onToggle={handleTimeToggle}
                   />
                   <span className={styles['text-toggle']}>
