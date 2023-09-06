@@ -4,7 +4,7 @@ import { getTranslator } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
 import Provider from '@/components/organisms/auth/Provider'
-import Header from '@/components/organisms/ui/Header'
+import Header from '@/components/organisms/ui/header/Header'
 import Footer from '@/components/organisms/ui/Footer'
 import CookiePolicy from '@/components/molecules/gdpr/CookiePolicy'
 

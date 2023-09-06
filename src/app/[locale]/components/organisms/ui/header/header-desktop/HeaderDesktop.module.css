@@ -1,0 +1,29 @@
+.header {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding);
+    background-color: var(--color-darkgray-900);
+
+    & .title {
+        display: none;
+    }
+}
+
+/* .nav {} */
+.nav-list {
+    display: flex;
+    gap: 16px;
+
+    & .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        color: var(--color-whywhite-500);
+        text-decoration: none;
+    }
+}
