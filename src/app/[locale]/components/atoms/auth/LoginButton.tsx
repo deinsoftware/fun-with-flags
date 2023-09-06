@@ -3,14 +3,18 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { Session, DefaultSession } from 'next-auth'
 
+import { useTranslations } from 'next-intl'
+
 import Button from '@/components/atoms/ui/Button'
 
 const LoginButton = () => {
+  const t = useTranslations('Header.Button.Log')
+
   const session = useSession()
   const data = session.data as Session | DefaultSession
 
   if (!data) {
-    return <Button handleClick={() => signIn()}>Sign In</Button>
+    return <Button handleClick={() => signIn()}>{t('signIn')}</Button>
   }
 
   return (
@@ -21,7 +25,7 @@ const LoginButton = () => {
       }}
       handleClick={() => signOut()}
     >
-      Sign Out
+      {t('signOut')}
     </Button>
   )
 }
