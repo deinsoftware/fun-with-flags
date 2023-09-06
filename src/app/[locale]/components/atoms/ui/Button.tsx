@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { Save, Twitter } from 'lucide-react'
+
 import styles from './Button.module.css'
 
 const sizeAvatar = {
@@ -15,10 +17,20 @@ type Props = {
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
+  saveIcon?: boolean
+  shareTwitterIcon?: boolean
   children: React.ReactNode
 }
 
-const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
+const Button = ({
+  handleClick,
+  avatar,
+  disabled,
+  color,
+  saveIcon,
+  shareTwitterIcon,
+  children,
+}: Props) => {
   return (
     <button
       className={styles['button']}
@@ -39,6 +51,8 @@ const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
           width={sizeAvatar.width}
         />
       )}
+      {saveIcon && <Save />}
+      {shareTwitterIcon && <Twitter />}
       <span className={styles.text}>{children}</span>
     </button>
   )
