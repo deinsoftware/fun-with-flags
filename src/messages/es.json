@@ -86,7 +86,7 @@
     }
   },
   "Login": {
-    "title": "Ingreso",
+    "title": "Inicio de Sesión",
     "instructions": "Utiliza tu correo electrónico u otro servicio para continuar",
     "Providers": {
       "Google": {
