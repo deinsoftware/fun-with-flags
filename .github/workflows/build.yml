@@ -9,6 +9,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [18]
+        pnpm: [8]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -17,14 +18,18 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm }}
+
       - name: install packages
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: build project
-        run: npm run build
+        run: pnpm run build
 
       - name: run test and coverage
-        run: npm run test:c
+        run: pnpm run test:c
 
       - name: Display coverage files
         run: ls -R

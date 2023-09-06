@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { createPortal } from 'react-dom'
 
-import { XCircle } from 'lucide-react'
+import { Search, XCircle } from 'lucide-react'
 
 import dynamic from 'next/dynamic'
 
@@ -21,7 +21,7 @@ import { FlagCountry } from '@/helpers/flags.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
-import LoadingPage from '@/app/[locale]/loading'
+import LoadingPage from '@/app/loading'
 
 const WithLoading = dynamic(() => import('../../atoms/util/wrapper/Wrapper'), {
   ssr: false,
@@ -76,6 +76,13 @@ const CountryList = ({ flagList, onClose, handleSelect }: Props) => {
         <div className={styles['overlay']}>
           <div className={styles['container-list-with-search']}>
             <div className={styles['search-bar-container']}>
+              <div className={styles['search-icon']}>
+                <Search
+                  color={lucidIcons.color.dark}
+                  size={lucidIcons.size}
+                  strokeWidth={lucidIcons.strokeWidth}
+                />
+              </div>
               <input
                 className={styles['search-bar']}
                 placeholder={t('Form.Fields.search')}

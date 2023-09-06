@@ -1,6 +1,7 @@
 {
   "Index": {
-    "title": "Diversión con Banderas"
+    "title": "Diversión con Banderas",
+    "description": "Zonas horarias con banderas de países para eventos"
   },
   "Events": {
     "Create": {
@@ -33,6 +34,9 @@
           },
           "login": "Debes iniciar sesión para crear un evento."
         }
+      },
+      "Toast": {
+        "selectedTimezone": "Zona horaria seleccionada: \"{name}\""
       }
     }
   },
@@ -57,9 +61,9 @@
       },
       "Error": {
         "Validation": {
-          "spaces": "Los espacios en '#{tag}' no están permitidos",
-          "special": "Los caracteres especiales en '#{tag}' no están permitidos",
-          "existent": "El hashtag '#{tag}' ya existe"
+          "spaces": "Los espacios en \"#{tag}\" no están permitidos",
+          "special": "Los caracteres especiales en \"#{tag}\" no están permitidos",
+          "existent": "El hashtag \"#{tag}\" ya existe"
         }
       }
     }

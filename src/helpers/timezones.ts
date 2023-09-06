@@ -25,3 +25,11 @@ export const getRegionNames = (countryCode: Countries, locale?: Locale) => {
   const regionNames = new Intl.DisplayNames(locale, { type: 'region' })
   return regionNames.of(countryCode)
 }
+
+export const getCountry = (timezone: string) => {
+  const parts = timezone.split('/')
+  return parts[parts.length - 1].replaceAll('_', ' ')
+}
+export const getContinent = (timezone: string) => {
+  return timezone.replace(/\/.*/, '').replaceAll('_', ' ')
+}
