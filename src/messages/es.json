@@ -32,7 +32,8 @@
         },
         "Button": {
           "create": "Crear",
-          "share": "Compartir"
+          "share": "Compartir",
+          "clipboard": "Copiar"
         },
         "Error": {
           "Required": {

@@ -192,6 +192,19 @@ const CreateEvent = () => {
     window.open(url, '_blank')
   }
 
+  const handleCopyToClipboard = () => {
+    const hashtags = formData.hashtags.map(
+      (hashtag) => (hashtag = '#' + hashtag.slice(0)),
+    )
+
+    const textToCopy = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n${formData.eventLink}\n${hashtags}`
+
+    navigator.clipboard.writeText(textToCopy)
+    toast.success('Texto copiado', {
+      style: toastStyle,
+    })
+  }
+
   const isMobile = useIsMobile()
   const handleSelectTimeZone = (zone: Zone) => {
     const result = addTimeZone(zone)
@@ -433,6 +446,10 @@ const CreateEvent = () => {
             </Button>
             <Button handleClick={handleShareEventOnTwitter}>
               {t('Form.Button.share')}
+            </Button>
+            <Button handleClick={handleCopyToClipboard}>
+              {' '}
+              {t('Form.Button.clipboard')}
             </Button>
           </div>
         </form>
