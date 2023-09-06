@@ -1,78 +1,83 @@
-.login-container {
-    display: flex;
-    width: 100%;
-    height: 65vh;
-    flex-direction: column;
-    justify-content: space-between;
+.container {
+    max-width: 700px;
+    margin: 0 auto;
     padding: var(--padding);
-    color: var(--color-whywhite-500);
 
-    & .paragraph {
-        font-size: var(--font-size-medium);
-    }
-
-    & .helper-text {
-        display: block;
-        color: var(--color-gray-500);
-        font-size: var(--font-size-small);
-        line-height: 1.4;
-
-
-        & .helper-text-link {
-            color: var(--color-purple-500);
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    & .providers-button {
+    .login-container {
         display: flex;
         width: 100%;
+        height: 65vh;
         flex-direction: column;
-        gap: 16px;
+        justify-content: space-between;
+        color: var(--color-whywhite-500);
 
-        /* Estos estilos serviran para cuando tengamos más de un provider */
+        & .paragraph {
+            font-size: var(--font-size-medium);
+        }
 
-        & .provider {
-            display: flex;
-            width: 100%;
-            height: 48px;
-            align-items: center;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            cursor: pointer;
+        & .helper-text {
+            display: block;
+            color: var(--color-gray-500);
+            font-size: var(--font-size-small);
+            line-height: 1.4;
 
-            &:hover {
-                border: none;
-                outline: none;
-            }
 
-            & .image-provider {
-                width: 46px;
-                height: auto;
-            }
+            & .helper-text-link {
+                color: var(--color-purple-500);
+                text-decoration: none;
 
-            & .name-provider {
-                width: 100%;
-                font-size: var(--font-size-xlarge);
-                font-weight: var(--font-weight-bold);
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
-        & .google-provider {
-            background-color: var(--color-btn-google);
-            color: var(--color-whywhite-500);
+        & .providers-button {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
 
-            &:hover {
+            /* Estos estilos serviran para cuando tengamos más de un provider */
+
+            & .provider {
+                display: flex;
+                width: 100%;
+                height: 48px;
+                align-items: center;
                 border: 1px solid transparent;
-                background-color: var(--color-btn-google-hover);
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:hover {
+                    border: none;
+                    outline: none;
+                }
+
+                & .image-provider {
+                    width: 46px;
+                    height: auto;
+                }
+
+                & .name-provider {
+                    width: 100%;
+                    font-size: var(--font-size-xlarge);
+                    font-weight: var(--font-weight-bold);
+                }
             }
 
-            &:active {
-                background-color: var(--color-btn-google-active);
+            & .google-provider {
+                background-color: var(--color-btn-google);
+                color: var(--color-whywhite-500);
+
+                &:hover {
+                    border: 1px solid transparent;
+                    background-color: var(--color-btn-google-hover);
+                }
+
+                &:active {
+                    background-color: var(--color-btn-google-active);
+                }
             }
         }
     }
