@@ -198,13 +198,11 @@ const CreateEvent = () => {
     if (isMobile && result) {
       toast.success(t('Toast.selectedTimezone', { name }), {
         style: toastStyle,
-        duration: 3000,
       })
     }
     if (isMobile && !result) {
       toast.error(t('Toast.alreadySelectedTimezone', { name }), {
         style: toastStyle,
-        duration: 3000,
       })
     }
   }
