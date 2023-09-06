@@ -84,5 +84,28 @@
         "search": "Search by Country Code or Name"
       }
     }
+  },
+  "Login": {
+    "principalText": "Use your email or another service to continue with FwF (it's free)!",
+    "Providers": {
+      "Google": {
+        "text": "Continue with Google",
+        "altImg": "Sign in with Google"
+      },
+      "GitHub": {
+        "text": "Continue with GitHub",
+        "altImg": "Sign in with GitHub"
+      }
+    },
+    "HelperText": {
+      "TermsOfUse": {
+        "text": "By continuing, you agree to FwF's",
+        "link": "Terms of Use"
+      },
+      "PrivacyPolicy": {
+        "text": "Read our",
+        "link": "Privacy Policy"
+      }
+    }
   }
 }
