@@ -86,15 +86,12 @@
     }
   },
   "Login": {
-    "principalText": "Utiliza tu correo electrónico u otro servicio para continuar con FwF (es gratis).",
+    "title": "Ingreso",
+    "instructions": "Utiliza tu correo electrónico u otro servicio para continuar",
     "Providers": {
       "Google": {
         "text": "Continuar con Google",
         "altImg": "Iniciar sesión con Google"
-      },
-      "GitHub": {
-        "text": "Continuar con Github",
-        "altImg": "Iniciar sesión con Github"
       }
     },
     "HelperText": {

@@ -86,21 +86,18 @@
     }
   },
   "Login": {
-    "principalText": "Use your email or another service to continue with FwF (it's free)!",
+    "title": "Login",
+    "instructions": "Use your email or another service to continue",
     "Providers": {
       "Google": {
         "text": "Continue with Google",
         "altImg": "Sign in with Google"
-      },
-      "GitHub": {
-        "text": "Continue with GitHub",
-        "altImg": "Sign in with GitHub"
       }
     },
     "HelperText": {
       "TermsOfUse": {
-        "text": "By continuing, you agree to FwF's",
-        "link": "Terms of Use"
+        "text": "By continuing, you agree the",
+        "link": "Terms and conditions of Use"
       },
       "PrivacyPolicy": {
         "text": "Read our",

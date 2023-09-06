@@ -20,7 +20,7 @@ const LoginPage = () => {
     <>
       <div className={styles['login-container']}>
         <div className="">
-          <span className={styles['paragraph']}>{t('principalText')}</span>
+          <span className={styles['paragraph']}>{`${t('instructions')}.`}</span>
         </div>
 
         <div className={styles['providers-button']}>
