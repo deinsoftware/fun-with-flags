@@ -37,14 +37,7 @@
     gap: 4px;
 }
 
-.gmt-and-icon:hover .gmt {
-    color: var(--color-purple-700);
-}
-
-.gmt {
-    color: var(--color-purple-500);
-}
-
+.gmt,
 .continent {
     color: var(--color-gray-500);
 }
