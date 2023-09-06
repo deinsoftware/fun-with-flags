@@ -2,7 +2,11 @@ import ReactCountryFlag from 'react-country-flag'
 
 import { useState } from 'react'
 
+import { MapPin } from 'lucide-react'
+
 import styles from './SelectCountry.module.css'
+
+import { lucidIcons } from '@/libs/icon-config'
 
 import CountryList from '@/components/molecules/country-list/CountryList'
 
@@ -83,7 +87,10 @@ export const SelectCountry = ({
           <p className={styles['country']}>{`${getCountry(timezone)}`}</p>
         </div>
         <p className={styles['continent']}>{`${getContinent(timezone)}`}</p>
-        <p className={styles['gmt']}>{formatGmt(gmt, 'longOffset')}</p>
+        <div className={styles['gmt-and-icon']}>
+          <p className={styles['gmt']}>{formatGmt(gmt, 'longOffset')}</p>
+          <MapPin color={lucidIcons.color.main} size={lucidIcons.size} />
+        </div>
       </div>
 
       {visibleSelectMenu && (
