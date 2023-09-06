@@ -183,4 +183,10 @@
     "connectionId": "dein-vscode",
     "projectKey": "dein:fwf"
   },
+  "conventionalCommits.scopes": [
+    "app",
+    "shared",
+    "server",
+    "tools"
+  ],
 }
