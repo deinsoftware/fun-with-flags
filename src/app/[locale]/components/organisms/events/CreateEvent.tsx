@@ -14,8 +14,6 @@ import useTimezones from './useTimezones'
 
 import { useGetFormData } from './useFormData'
 
-import { cleanDataStorage } from './CreateEvent.utils'
-
 import { shareEventsTwitter } from '@/helpers/share-events'
 
 import { SelectCountry } from '@/components/molecules/select-country/SelectCountry'
@@ -177,8 +175,6 @@ const CreateEvent = () => {
       style: toastStyle,
       iconTheme: toastIconTheme,
     })
-
-    cleanDataStorage()
   }
 
   const handleShareEventOnTwitter = () => {
