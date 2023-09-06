@@ -43,8 +43,13 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
   const addTag = (tags: string) => {
     const uniqueTags = tags
       .split(',')
-      .filter((tag) => tag.trim())
-      .filter((current, index, arr) => arr.indexOf(current) == index)
+      .map((tag) => tag.trim())
+      .filter((current, index, arr) => {
+        const tag = current.trim()
+        if (tag) {
+          return arr.indexOf(tag) == index
+        }
+      })
 
     const validationError = uniqueTags.map((tag) => {
       const hashTag = tag.trim().replaceAll('#', '')

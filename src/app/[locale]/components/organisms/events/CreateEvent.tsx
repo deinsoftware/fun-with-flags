@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
 
-import useFetchCountries from './useFetchCountries'
+import useTimezones from './useTimezones'
 
 import { useGetFormData } from './useFormData'
 
@@ -52,6 +52,16 @@ import { getCountry } from '@/helpers/timezones'
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
 
+  const [signal, setSignal] = useState<AbortSignal>()
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => controller.abort()
+  }, [])
+
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
@@ -75,15 +85,6 @@ const CreateEvent = () => {
     requiredFieldsValidation,
   } = useGetFormData()
   const { data: session } = useSession()
-  const [signal, setSignal] = useState<AbortSignal>()
-
-  useEffect(() => {
-    const controller = new AbortController()
-    const signal = controller.signal
-    setSignal(signal)
-
-    return () => controller.abort()
-  }, [])
 
   useEffect(() => {
     const gmt = formData.gmt
@@ -109,13 +110,14 @@ const CreateEvent = () => {
     () => ({
       locale: Intl.NumberFormat().resolvedOptions().locale as Locale,
       date: new Date(timeZones.origin.date),
+      signal,
     }),
-    [timeZones.origin.date],
+    [timeZones.origin.date, signal],
   )
   const dayPeriod = getLocaleDayPeriod('en-US')
 
   //TODO: add error message when fails
-  const { data: flagList, error } = useFetchCountries(props)
+  const { timezoneList, timezoneError, getTimeZones } = useTimezones(props)
 
   const handleClose = () => {
     setIsOpenSelectTimeZone(false)
@@ -214,10 +216,10 @@ const CreateEvent = () => {
           <SelectCountry
             countryCode={formData.country}
             date={formData.date}
-            flagList={flagList}
             gmt={formData.gmt}
             setCountryInfo={setCountryInfo}
             timezone={formData.timezone}
+            timezoneList={timezoneList}
           />
           <div className={styles['container-event-name']}>
             <input
@@ -438,8 +440,8 @@ const CreateEvent = () => {
 
       {isOpenSelectTimeZone && (
         <CountryList
-          flagList={flagList}
           handleSelect={handleSelectTimeZone}
+          timezoneList={timezoneList}
           onClose={handleClose}
         />
       )}
