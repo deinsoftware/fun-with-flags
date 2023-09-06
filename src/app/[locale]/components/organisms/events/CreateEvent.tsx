@@ -200,7 +200,7 @@ const CreateEvent = () => {
     const textToCopy = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n${formData.eventLink}\n${hashtags}`
 
     navigator.clipboard.writeText(textToCopy)
-    toast.success('Texto copiado', {
+    toast.success(t('Toast.copiedToClipboard'), {
       style: toastStyle,
     })
   }
@@ -448,7 +448,6 @@ const CreateEvent = () => {
               {t('Form.Button.share')}
             </Button>
             <Button handleClick={handleCopyToClipboard}>
-              {' '}
               {t('Form.Button.clipboard')}
             </Button>
           </div>
