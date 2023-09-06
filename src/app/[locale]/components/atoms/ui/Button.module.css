@@ -38,12 +38,6 @@
         color: var(--color-whywhite-500);
         font-size: var(--font-size-medium);
         font-weight: var(--font-weight-bold);
-
-        /* &:hover {
-                color: var(--color-whywhite-500);
-            } */
-
-        /* TODO: Agregar más variables de blanco para utilizar en el hover de los botones con texto blanco */
     }
 
     & .avatar {
@@ -60,10 +54,8 @@
         height: 0;
         border-radius: 15px 15px 15px 0;
         background-color: var(--color-purple-700);
-
-        /* clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%); */
         color: var(--color-whywhite-500);
-        content: 'Need to be logged'; /*FIXME: this text can't be translated from here */
+        content: 'Need to be logged'; /* FIXME: this text can't be translated from here */
         opacity: 0;
         transition: all .3s ease-out;
     }
