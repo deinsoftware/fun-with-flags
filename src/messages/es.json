@@ -97,7 +97,7 @@
     "HelperText": {
       "TermsOfUse": {
         "text": "Al continuar, estás aceptando los",
-        "link": "Términos y condiciones de uso."
+        "link": "Términos y condiciones de uso"
       }
     }
   },
@@ -117,6 +117,17 @@
         "notice": "<paragraph>Usa nuestro sitio web sin responsabilidad. Este sitio web se proporciona únicamente con fines informativos. Al acceder o utilizar este sitio web, aceptas expresamente que tu uso del sitio es bajo tu propio riesgo y que asumes toda la responsabilidad por las consecuencias que puedan surgir de dicho uso.</paragraph><paragraph>La información contenida en este sitio web se proporciona tal cual y según esté disponible. El propietario del sitio web no ofrece ninguna representación o garantía de ningún tipo, expresa o implícita, en cuanto a la exactitud, confiabilidad, integridad o disponibilidad del sitio web o su contenido. El propietario del sitio web renuncia a todas las garantías, expresas o implícitas, incluidas, entre otras, las garantías de comerciabilidad, idoneidad para un propósito particular y no infracción. El propietario del sitio web no será responsable de ningún daño, incluidos, entre otros, daños directos, indirectos, incidentales, consecuentes o punitivos que surjan del uso o la imposibilidad de usar este sitio web o su contenido.</paragraph><paragraph>Este sitio web puede contener enlaces a sitios web y recursos de terceros. Estos enlaces se proporcionan únicamente para tu conveniencia y no constituyen un respaldo o afiliación por parte del propietario del sitio web. El propietario del sitio web no tiene control sobre el contenido de los sitios web de terceros y no asume ninguna responsabilidad o responsabilidad por la exactitud, legalidad o contenido de estos sitios web.</paragraph> <paragraph>El propietario del sitio web se reserva el derecho de modificar, suspender o finalizar este sitio web en cualquier momento sin previo aviso. El propietario del sitio web no será responsable ante ti ni ante ningún tercero por cualquier modificación, suspensión o terminación del sitio web.</paragraph>"
       }
     },
-    "privacyPolicy": "We take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website. Please read this Privacy Policy carefully. By accessing or using our website, you agree to be bound by the terms and conditions described in this Privacy Policy. If you do not agree to the terms of this Privacy Policy, please do not access the site."
+    "CookieConsent": {
+      "intro": "¡Hola! 🍪",
+      "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Al continuar utilizando nuestro sitio web, aceptas el uso de cookies de acuerdo con nuestra Política de cookies. ¡Prometemos no meternos en tu tarro de galletas! 😉 Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
+      "link": "Términos y Condiciones de Uso"
+    },
+    "Button": {
+      "agree": "Claro que si!",
+      "decline": "No acepto"
+    },
+    "Toast": {
+      "onDecline": "Lamentamos escuchar eso. Las funciones avanzadas como guardar eventos y configurar opciones en este sitio requieren el uso de cookies. Si cambias de opinión y decides utilizar esas funciones, te lo volveremos a preguntar"
+    }
   }
 }
