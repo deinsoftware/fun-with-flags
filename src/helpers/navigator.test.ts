@@ -2,7 +2,7 @@ import { afterEach, it, expect, describe, vi } from 'vitest'
 
 import { copyTextToClipboard } from './navigator'
 
-describe('copyTextToClipboard', () => {
+describe('copyTextToClipboard()', () => {
   let clipboardContents: string
   const originalClipboard = { ...global.navigator.clipboard }
 
