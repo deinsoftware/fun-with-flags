@@ -84,5 +84,25 @@
         "search": "Search by Country Code or Name"
       }
     }
+  },
+  "Login": {
+    "title": "Login",
+    "instructions": "Use your email or another service to continue",
+    "Providers": {
+      "Google": {
+        "text": "Continue with Google",
+        "altImg": "Sign in with Google"
+      }
+    },
+    "HelperText": {
+      "TermsOfUse": {
+        "text": "By continuing, you agree the",
+        "link": "Terms and conditions of Use"
+      },
+      "PrivacyPolicy": {
+        "text": "Read our",
+        "link": "Privacy Policy"
+      }
+    }
   }
 }

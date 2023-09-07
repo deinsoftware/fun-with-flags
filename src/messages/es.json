@@ -84,5 +84,25 @@
         "search": "Buscar por código o nombre del país"
       }
     }
+  },
+  "Login": {
+    "title": "Conectarse",
+    "instructions": "Utiliza tu correo electrónico u otro servicio para continuar",
+    "Providers": {
+      "Google": {
+        "text": "Continuar con Google",
+        "altImg": "Iniciar sesión con Google"
+      }
+    },
+    "HelperText": {
+      "TermsOfUse": {
+        "text": "Al continuar, estás aceptando los",
+        "link": "Términos y condiciones de uso."
+      },
+      "PrivacyPolicy": {
+        "text": "Consulta nuestra",
+        "link": "Política de privacidad."
+      }
+    }
   }
 }
