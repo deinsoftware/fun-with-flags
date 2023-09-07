@@ -43,7 +43,7 @@ const Notice = () => {
     >
       <strong>{`${t('CookieConsent.intro')}. `}</strong>
       {`${t('CookieConsent.notice')} `}
-      <Link className={styles['helper-text-link']} href="./legal">
+      <Link className={styles['helper-text-link']} href="/legal">
         {`${t('CookieConsent.link')}.`}
       </Link>
     </CookieConsent>
