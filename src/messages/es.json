@@ -129,5 +129,8 @@
     "Toast": {
       "onDecline": "Lamentamos escuchar eso. Las funciones avanzadas como guardar eventos y configurar opciones en este sitio requieren el uso de cookies. Si cambias de opinión y decides utilizar esas funciones, te lo volveremos a preguntar"
     }
+  },
+  "Settings": {
+    "title": "Configuración"
   }
 }

@@ -129,5 +129,8 @@
         "onDecline": "Sorry to hear that. Advanced features like saving events and setting options on this site require the use of cookies. If you change your mind and decide to use those functions, we will ask you again"
       }
     }
+  },
+  "Settings": {
+    "title": "Settings"
   }
 }
