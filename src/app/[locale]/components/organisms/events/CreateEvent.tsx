@@ -16,7 +16,7 @@ import { useGetFormData } from './useFormData'
 
 import { cleanDataStorage } from './CreateEvent.utils'
 
-import { shareEventsTwitter } from '@/helpers/share-events'
+import { shareToTwitter } from '@/helpers/social'
 
 import { SelectCountry } from '@/components/molecules/select-country/SelectCountry'
 
@@ -185,7 +185,7 @@ const CreateEvent = () => {
   const handleShareEventOnTwitter = () => {
     const text = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`
 
-    const url = shareEventsTwitter({
+    const url = shareToTwitter({
       text,
       url: `${formData.eventLink}\n`,
       hashtags: formData.hashtags,
