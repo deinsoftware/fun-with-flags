@@ -48,6 +48,7 @@ import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { Zone } from '@/helpers/events.types'
 import { getCountry } from '@/helpers/timezones'
+import { copyTextToClipboard } from '@/helpers/navigator'
 
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
@@ -192,17 +193,22 @@ const CreateEvent = () => {
     window.open(url, '_blank')
   }
 
-  const handleCopyToClipboard = () => {
-    const hashtags = formData.hashtags.map(
-      (hashtag) => (hashtag = '#' + hashtag.slice(0)),
-    )
+  const handleCopyToClipboard = async () => {
+    const hashtags = formData.hashtags.map((hashtag) => `#${hashtag}`)
 
     const textToCopy = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n${formData.eventLink}\n${hashtags}`
 
-    navigator.clipboard.writeText(textToCopy)
-    toast.success(t('Toast.copiedToClipboard'), {
-      style: toastStyle,
-    })
+    const result = await copyTextToClipboard(textToCopy)
+
+    if (result) {
+      toast.success(t('Toast.copiedToClipboard'), {
+        style: toastStyle,
+      })
+    } else {
+      toast.error(t('Toast.copiedToClipboardError'), {
+        style: toastStyle,
+      })
+    }
   }
 
   const isMobile = useIsMobile()

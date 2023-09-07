@@ -39,6 +39,7 @@ const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
           width={sizeAvatar.width}
         />
       )}
+      
       <span className={styles.text}>{children}</span>
     </button>
   )

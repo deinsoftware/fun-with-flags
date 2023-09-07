@@ -4,7 +4,7 @@ type Props = {
   hashtags?: string[]
 }
 
-export const shareEventsTwitter = ({ url, text, hashtags }: Props) => {
+export const shareToTwitter = ({ url, text, hashtags }: Props) => {
   const twitterBaseURL = 'https://twitter.com/intent/tweet'
 
   const twitterURL = new URL(twitterBaseURL)
@@ -17,14 +17,14 @@ export const shareEventsTwitter = ({ url, text, hashtags }: Props) => {
   return twitterURL.href
 }
 
-export const shareEventsLinkedin = ({ url }: { url: string }) => {
+export const shareToLinkedin = ({ url }: { url: string }) => {
   const linkedinBaseURL = 'https://www.linkedin.com/sharing/share-offsite'
   const linkedinURL = new URL(linkedinBaseURL)
   linkedinURL.searchParams.append('url', url)
   return linkedinURL.href
 }
 
-export const shareEventsFacebook = ({ url }: { url: string }) => {
+export const shareToFacebook = ({ url }: { url: string }) => {
   const facebookBaseURL = 'https://www.facebook.com/sharer.php'
   const facebookURL = new URL(facebookBaseURL)
   facebookURL.searchParams.append('u', url)
