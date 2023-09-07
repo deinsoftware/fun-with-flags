@@ -1,6 +1,7 @@
 'use client'
 
 import toast from 'react-hot-toast'
+
 import { useTranslations } from 'next-intl'
 
 import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
@@ -9,46 +10,41 @@ import { Clock3 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
-
-import useTimezones from './useTimezones'
-
-import { useGetFormData } from './useFormData'
-
 import { cleanDataStorage } from './CreateEvent.utils'
 
-import { shareToTwitter } from '@/helpers/social'
-
-import { SelectCountry } from '@/components/molecules/select-country/SelectCountry'
-
-import TimePicker from '@/components/atoms/util/time-picker/TimePicker'
-import Button from '@/components/atoms/ui/Button'
-
-import Hashtags from '@/components/molecules/hashtags/Hashtags'
-
-import TitleOnPage from '@/components/atoms/ui/TitleOnPage'
-
-import Toggle from '@/components/atoms/util/toggle/Toggle'
-
-import CountryList from '@/components/molecules/country-list/CountryList'
-import ComboboxCountries from '@/components/molecules/country-combo/ComboboxCountries'
+import { useFormData } from './useFormData'
+import { useShareEvent } from './useShareEvent'
+import { useTimezones } from './useTimezones'
 
 import { Locale } from '@/types/locale.types'
-import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 import {
   addYearsToDate,
   extractDate,
   getLocaleDayPeriod,
   joinISODate,
 } from '@/helpers/dates'
-import { lucidIcons } from '@/libs/icon-config'
+import { Zone } from '@/helpers/events.types'
+import { EventBody } from '@/types/event.types'
+
+import { useTimeZoneContext } from '@/context/useTimeZoneContext'
+
+import Button from '@/components/atoms/ui/Button'
+import TimePicker from '@/components/atoms/util/time-picker/TimePicker'
+import TitleOnPage from '@/components/atoms/ui/TitleOnPage'
+import Toggle from '@/components/atoms/util/toggle/Toggle'
+import Hashtags from '@/components/molecules/hashtags/Hashtags'
+import CountryList from '@/components/molecules/country-list/CountryList'
+import { SelectCountry } from '@/components/molecules/select-country/SelectCountry'
+import ComboboxCountries from '@/components/molecules/country-combo/ComboboxCountries'
 
 import { createEvent } from '@/services/event'
-import { EventBody } from '@/types/event.types'
-import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
-import { useIsMobile } from '@/hooks/useIsMobile'
-import { Zone } from '@/helpers/events.types'
+
 import { getCountry } from '@/helpers/timezones'
-import { copyTextToClipboard } from '@/helpers/navigator'
+
+import { lucidIcons } from '@/libs/icon-config'
+
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
 
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
@@ -84,7 +80,12 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
-  } = useGetFormData()
+  } = useFormData()
+
+  const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
+    formData,
+  })
+
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -180,35 +181,6 @@ const CreateEvent = () => {
     })
 
     cleanDataStorage()
-  }
-
-  const handleShareEventOnTwitter = () => {
-    const text = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n`
-
-    const url = shareToTwitter({
-      text,
-      url: `${formData.eventLink}\n`,
-      hashtags: formData.hashtags,
-    })
-    window.open(url, '_blank')
-  }
-
-  const handleCopyToClipboard = async () => {
-    const hashtags = formData.hashtags.map((hashtag) => `#${hashtag}`)
-
-    const textToCopy = `${formData.eventName}\n\n${formData.eventDescription}\n\n${formData.combo}\n${formData.eventLink}\n${hashtags}`
-
-    const result = await copyTextToClipboard(textToCopy)
-
-    if (result) {
-      toast.success(t('Toast.copiedToClipboard'), {
-        style: toastStyle,
-      })
-    } else {
-      toast.error(t('Toast.copiedToClipboardError'), {
-        style: toastStyle,
-      })
-    }
   }
 
   const isMobile = useIsMobile()
