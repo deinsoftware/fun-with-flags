@@ -1,5 +1,5 @@
 type ShareProps = {
-  usr: string
+  url: string
 }
 
 export const shareToLinkedIn = ({ url }: ShareProps) => {
