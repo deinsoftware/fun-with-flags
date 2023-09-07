@@ -1,8 +1,8 @@
-import styles from './TitleOnPage.module.css'
+import styles from './Title.module.css'
 
 type Props = { children: string }
 
-const TitleOnPage = ({ children }: Props) => {
+const Title = ({ children }: Props) => {
   return (
     <>
       <h1 className={styles['title']}>{children}</h1>
@@ -10,4 +10,4 @@ const TitleOnPage = ({ children }: Props) => {
   )
 }
 
-export default TitleOnPage
+export default Title
