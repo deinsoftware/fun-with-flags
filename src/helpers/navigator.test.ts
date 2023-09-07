@@ -1,32 +1,57 @@
-import { it, expect, describe, vi } from 'vitest'
+import { afterEach, it, expect, describe, vi } from 'vitest'
 
 import { copyTextToClipboard } from './navigator'
 
 describe('copyTextToClipboard', () => {
-    it('copies text to clipboard successfully', async () => {
-    // Arrange
+  let clipboardContents: string
+  const originalClipboard = { ...global.navigator.clipboard }
+
+  afterEach(() => {
+    vi.resetAllMocks()
+    vi.restoreAllMocks()
+    clipboardContents = ''
+    Object.assign(navigator, originalClipboard)
+  })
+
+  it('copies text to clipboard successfully', async () => {
     const text = 'Hello, world!'
 
-    // Act
+    const mockClipboard = {
+      clipboard: {
+        writeText: vi.fn((text) => {
+          clipboardContents = text
+        }),
+        readText: vi.fn(() => clipboardContents),
+      },
+    }
+    Object.assign(navigator, mockClipboard)
+
     const result = await copyTextToClipboard(text)
 
-    // Assert
     expect(result).toBe(true)
+    expect(navigator.clipboard.writeText).toBeCalledTimes(1)
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(text)
+    expect(navigator.clipboard.readText()).toBe(text)
   })
 
   it('returns false when failed to copy text', async () => {
-    // Arrange
     const text = 'Hello, world!'
-    const error = new Error('Failed to copy text')
+    const error = 'Failed to copy text'
 
-    // Mock the clipboard API to throw an error
-    vi.spyOn(navigator.clipboard, 'writeText').mockRejectedValueOnce(error)
+    const mockClipboard = {
+      clipboard: {
+        writeText: vi.fn((text) => Promise.reject(error)),
+      },
+    }
+    Object.assign(navigator, mockClipboard)
 
-    // Act
+    vi.spyOn(console, 'error')
+
     const result = await copyTextToClipboard(text)
 
-    // Assert
     expect(result).toBe(false)
+    expect(navigator.clipboard.writeText).toBeCalledTimes(1)
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(text)
     expect(console.error).toHaveBeenCalledWith('Failed to copy text')
   })
 })
