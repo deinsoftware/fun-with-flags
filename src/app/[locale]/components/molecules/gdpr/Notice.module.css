@@ -1,0 +1,9 @@
+
+.helper-text-link {
+    color: var(--color-purple-500);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

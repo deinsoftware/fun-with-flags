@@ -41,3 +41,9 @@
 .continent {
     color: var(--color-gray-500);
 }
+
+@media screen and (width < 768px) {
+    .continent {
+        display: none;
+    }
+}
