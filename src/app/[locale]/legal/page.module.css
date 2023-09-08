@@ -1,0 +1,15 @@
+.container {
+    max-width: 700px;
+    padding: var(--padding);
+    margin: 0 auto;
+
+    .section {
+        color: var(--color-gray-500);
+        font-size: var(--font-size-medium);
+
+        & p {
+            padding: 12px 0;
+        }
+    }
+}
+

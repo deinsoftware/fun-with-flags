@@ -1,12 +1,19 @@
 'use client'
 
 import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
 
 import CookieConsent from 'react-cookie-consent'
 
+import Link from 'next/link'
+
+import styles from './Notice.module.css'
+
 import { toastStyle } from '@/libs/react-host-toast-config'
 
-const CookiePolicy = () => {
+const Notice = () => {
+  const t = useTranslations('Notice')
+
   return (
     <CookieConsent
       enableDeclineButton // Habilitar el botón de declinar
@@ -16,27 +23,32 @@ const CookiePolicy = () => {
         fontSize: '13px',
         fontWeight: 'bold',
       }} // estilos del botón de aceptar
-      buttonText="Let's go" // Texto del botón de aceptar
+      buttonText={t('CookieConsent.Button.agree')} // Texto del botón de aceptar
       cookieName="cookie-consent" // Nombre de la cookie
       declineButtonStyle={{
         fontWeight: 'bold',
         color: '#FFFFFF',
         background: '#FF0000',
       }}
-      declineButtonText="I decline" // Texto del botón de declinar
-      expires={20} // Los días que dura para expirar la cookie
-      hideOnDecline={false} // Ocultar al declinar
+      declineButtonText={t('CookieConsent.Button.decline')} // Texto del botón de declinar
+      expires={30} // Los días que dura para expirar la cookie
+      hideOnDecline={true} // Ocultar al declinar
       location="bottom" // Ubicación - top, bottom
       style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
       onDecline={() => {
-        toast('Remember that this website needs cookies to create an event', {
+        toast(`${t('CookieConsent.Toast.onDecline')}.`, {
           style: toastStyle,
+          duration: 5000
         })
       }}
     >
-      This website uses cookies to enhance the user experience.
+      <strong>{`${t('CookieConsent.intro')}. `}</strong>
+      {`${t('CookieConsent.notice')} `}
+      <Link className={styles['helper-text-link']} href="/legal">
+        {`${t('CookieConsent.link')}.`}
+      </Link>
     </CookieConsent>
   )
 }
 
-export default CookiePolicy
+export default Notice

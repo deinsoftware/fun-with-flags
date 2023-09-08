@@ -44,12 +44,8 @@ const Login = () => {
         <div className="">
           <span className={styles['helper-text']}>
             {t('HelperText.TermsOfUse.text')}{' '}
-            <Link className={styles['helper-text-link']} href="#">
+            <Link className={styles['helper-text-link']} href="/legal">
               {t('HelperText.TermsOfUse.link')}{' '}
-            </Link>
-            {t('HelperText.PrivacyPolicy.text')}{' '}
-            <Link className={styles['helper-text-link']} href="#">
-              {t('HelperText.PrivacyPolicy.link')}
             </Link>
           </span>
         </div>

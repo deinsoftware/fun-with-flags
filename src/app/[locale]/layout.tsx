@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 import Provider from '@/components/organisms/auth/Provider'
 import Header from '@/components/organisms/ui/Header'
 import Footer from '@/components/organisms/ui/Footer'
-import CookiePolicy from '@/components/molecules/gdpr/CookiePolicy'
+import Notice from '@/components/molecules/gdpr/Notice'
 
 import getRequestConfig from '@/libs/i18n'
 
@@ -48,7 +48,7 @@ const RootLayout = ({ children }: RootProps) => {
         <Header />
         {children}
         <Footer />
-        <CookiePolicy />
+        <Notice />
       </body>
     </Provider>
   )
