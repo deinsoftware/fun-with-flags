@@ -428,7 +428,11 @@ const CreateEvent = () => {
           </div>
 
           <div className={styles['container-button']}>
-            <Button disabled={!session} handleClick={handleCreateEvent}>
+            <Button
+              disabled={!session}
+              handleClick={handleCreateEvent}
+              textHover={t('Form.Button.hover')}
+            >
               {t('Form.Button.create')}
             </Button>
             <Button handleClick={handleShareEventOnTwitter}>

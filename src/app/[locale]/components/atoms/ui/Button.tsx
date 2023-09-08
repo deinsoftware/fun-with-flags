@@ -15,13 +15,22 @@ type Props = {
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
+  textHover?: string
   children: React.ReactNode
 }
 
-const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
+const Button = ({
+  handleClick,
+  avatar,
+  disabled,
+  color,
+  textHover,
+  children,
+}: Props) => {
   return (
     <button
       className={styles['button']}
+      data-hover={textHover}
       disabled={disabled}
       style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
       type="button"
