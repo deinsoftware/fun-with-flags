@@ -30,7 +30,7 @@ import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 
 import Button from '@/components/atoms/ui/Button'
 import TimePicker from '@/components/atoms/util/time-picker/TimePicker'
-import TitleOnPage from '@/components/atoms/ui/TitleOnPage'
+import Title from '@/components/atoms/ui/Title'
 import Toggle from '@/components/atoms/util/toggle/Toggle'
 import Hashtags from '@/components/molecules/hashtags/Hashtags'
 import CountryList from '@/components/molecules/country-list/CountryList'
@@ -202,7 +202,7 @@ const CreateEvent = () => {
   return (
     <>
       <div className={styles['container-form']}>
-        <TitleOnPage>{t('title')}</TitleOnPage>
+        <Title>{t('title')}</Title>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}
