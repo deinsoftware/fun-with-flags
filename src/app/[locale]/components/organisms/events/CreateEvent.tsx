@@ -425,7 +425,7 @@ const CreateEvent = () => {
             <Button handleClick={handleShareEventOnTwitter}>
               {t('Form.Button.share')}
             </Button>
-            <Button handleClick={handleCopyToClipboard}>
+            <Button copyToClipboardIcon handleClick={handleCopyToClipboard}>
               {t('Form.Button.clipboard')}
             </Button>
           </div>
