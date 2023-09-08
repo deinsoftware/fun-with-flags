@@ -33,6 +33,7 @@
         "Button": {
           "create": "Create",
           "share": "Share",
+          "hover": "Need to be logged",
           "clipboard": "Copy"
         },
         "Error": {

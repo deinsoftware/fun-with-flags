@@ -422,6 +422,7 @@ const CreateEvent = () => {
               saveIcon
               disabled={!session}
               handleClick={handleCreateEvent}
+              textHover={t('Form.Button.hover')}
             >
               {t('Form.Button.create')}
             </Button>

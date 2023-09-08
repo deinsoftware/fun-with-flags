@@ -15,6 +15,7 @@ type Props = {
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
+  textHover?: string
   saveIcon?: boolean
   shareTwitterIcon?: boolean
   copyToClipboardIcon?: boolean
@@ -29,11 +30,13 @@ const Button = ({
   saveIcon,
   shareTwitterIcon,
   copyToClipboardIcon,
+  textHover,
   children,
 }: Props) => {
   return (
     <button
       className={styles['button']}
+      data-hover={textHover}
       disabled={disabled}
       style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
       type="button"

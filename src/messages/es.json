@@ -33,6 +33,7 @@
         "Button": {
           "create": "Crear",
           "share": "Compartir",
+          "hover": "Necesitas iniciar sesión",
           "clipboard": "Copiar"
         },
         "Error": {
