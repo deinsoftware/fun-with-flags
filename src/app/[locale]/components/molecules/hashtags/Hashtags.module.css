@@ -8,7 +8,7 @@
         display: flex;
         width: 100%;
         align-items: center;
-        gap: 4px;
+        gap: 8px;
 
         & .hashtag-input {
             width: 100%;
