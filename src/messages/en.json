@@ -32,7 +32,8 @@
         },
         "Button": {
           "create": "Create",
-          "share": "Share"
+          "share": "Share",
+          "hover": "Need to be logged"
         },
         "Error": {
           "Required": {

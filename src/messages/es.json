@@ -32,7 +32,8 @@
         },
         "Button": {
           "create": "Crear",
-          "share": "Compartir"
+          "share": "Compartir",
+          "hover": "Necesitas iniciar sesión"
         },
         "Error": {
           "Required": {
