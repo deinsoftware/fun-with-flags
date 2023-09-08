@@ -33,7 +33,8 @@
         "Button": {
           "create": "Crear",
           "share": "Compartir",
-          "hover": "Necesitas iniciar sesión"
+          "hover": "Necesitas iniciar sesión",
+          "clipboard": "Copiar"
         },
         "Error": {
           "Required": {
@@ -47,7 +48,9 @@
       },
       "Toast": {
         "selectedTimezone": "Zona horaria seleccionada: \"{name}\"",
-        "alreadySelectedTimezone": "\"{name}\" ya está seleccionada"
+        "alreadySelectedTimezone": "\"{name}\" ya está seleccionada",
+        "copiedToClipboard": "Copiado al portapapeles",
+        "copiedToClipboardError": "Error al copiar la información"
       }
     }
   },
@@ -98,12 +101,40 @@
     "HelperText": {
       "TermsOfUse": {
         "text": "Al continuar, estás aceptando los",
-        "link": "Términos y condiciones de uso."
-      },
-      "PrivacyPolicy": {
-        "text": "Consulta nuestra",
-        "link": "Política de privacidad."
+        "link": "Términos y condiciones de uso"
       }
     }
+  },
+  "Notice": {
+    "title": "Legal",
+    "Page": {
+      "Privacy": {
+        "title": "Política de Privacidad",
+        "policy": "<paragraph>Tomamos tu privacidad en serio. Esta Política de Privacidad explica cómo recopilamos, utilizamos, divulgamos y protegemos tu información cuando visitas nuestro sitio web. Describe los tipos de información que recopilamos, como información personal y no personal, y cómo utilizamos y almacenamos esa información de forma segura.</paragraph> <paragraph>Podemos recopilar información personal como tu nombre, dirección de correo electrónico e información de contacto cuando interactúas con nuestro sitio web o servicios. Utilizamos esta información para brindarte una experiencia personalizada, mejorar nuestros servicios y comunicarnos contigo respecto a tus consultas o solicitudes.</paragraph> <paragraph>También podemos recopilar información no personal como tu dirección IP, tipo de navegador e información del dispositivo con fines analíticos y para mejorar tu experiencia de navegación. Esta información nos ayuda a comprender cómo utilizas nuestro sitio web y nos permite optimizar y mejorar nuestros servicios.</paragraph> <paragraph>Tomamos las medidas adecuadas para proteger tu información y garantizar su confidencialidad. No vendemos ni compartimos tu información personal con terceros, excepto cuando lo exija la ley o con tu consentimiento.</paragraph> <paragraph>Al acceder o utilizar nuestro sitio web, aceptas estar sujeto a los términos y condiciones descritos en esta Política de Privacidad. Si no estás de acuerdo con los términos de esta Política de Privacidad, por favor no accedas al sitio.</paragraph>"
+      },
+      "Cookie": {
+        "title": "Aviso de Cookies",
+        "notice": "<paragraph>Nuestro sitio web utiliza cookies para mejorar tu experiencia de navegación. Una cookie es un pequeño archivo de texto que es almacenado en tu computadora o dispositivo móvil por el servidor de un sitio web. Utilizamos tanto cookies de sesión (que expiran una vez que cierras tu navegador web) como cookies persistentes (que permanecen en tu computadora o dispositivo móvil hasta que las eliminas) para brindarte una experiencia más personalizada y amigable.</paragraph> <paragraph>Al utilizar nuestro sitio web, aceptas el uso de cookies tal como se describe en nuestra Política de Cookies.</paragraph>"
+      },
+      "Legal": {
+        "title": "Aviso Legal",
+        "notice": "<paragraph>Usa nuestro sitio web sin responsabilidad. Este sitio web se proporciona únicamente con fines informativos. Al acceder o utilizar este sitio web, aceptas expresamente que tu uso del sitio es bajo tu propio riesgo y que asumes toda la responsabilidad por las consecuencias que puedan surgir de dicho uso.</paragraph><paragraph>La información contenida en este sitio web se proporciona tal cual y según esté disponible. El propietario del sitio web no ofrece ninguna representación o garantía de ningún tipo, expresa o implícita, en cuanto a la exactitud, confiabilidad, integridad o disponibilidad del sitio web o su contenido. El propietario del sitio web renuncia a todas las garantías, expresas o implícitas, incluidas, entre otras, las garantías de comerciabilidad, idoneidad para un propósito particular y no infracción. El propietario del sitio web no será responsable de ningún daño, incluidos, entre otros, daños directos, indirectos, incidentales, consecuentes o punitivos que surjan del uso o la imposibilidad de usar este sitio web o su contenido.</paragraph><paragraph>Este sitio web puede contener enlaces a sitios web y recursos de terceros. Estos enlaces se proporcionan únicamente para tu conveniencia y no constituyen un respaldo o afiliación por parte del propietario del sitio web. El propietario del sitio web no tiene control sobre el contenido de los sitios web de terceros y no asume ninguna responsabilidad o responsabilidad por la exactitud, legalidad o contenido de estos sitios web.</paragraph> <paragraph>El propietario del sitio web se reserva el derecho de modificar, suspender o finalizar este sitio web en cualquier momento sin previo aviso. El propietario del sitio web no será responsable ante ti ni ante ningún tercero por cualquier modificación, suspensión o terminación del sitio web.</paragraph>"
+      }
+    },
+    "CookieConsent": {
+      "intro": "¡Hola! 🍪",
+      "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
+      "link": "Términos y Condiciones de Uso"
+    },
+    "Button": {
+      "agree": "Claro que si!",
+      "decline": "No acepto"
+    },
+    "Toast": {
+      "onDecline": "Lamentamos escuchar eso. Si cambias de opinión y decides utilizar las funciones extras, te lo volveremos a preguntar"
+    }
+  },
+  "Settings": {
+    "title": "Configuración"
   }
 }
