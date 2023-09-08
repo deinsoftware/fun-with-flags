@@ -1,13 +1,11 @@
 import Image from 'next/image'
 
-import { Save, Twitter } from 'lucide-react'
+import { Save, Twitter, Copy } from 'lucide-react'
 
 import styles from './Button.module.css'
 
-const sizeAvatar = {
-  height: 28,
-  width: 28,
-}
+import { lucidIconsButton } from '@/libs/icon-config'
+import { sizeAvatar } from '@/libs/constants'
 
 type Props = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -19,6 +17,7 @@ type Props = {
   color?: `--${string}-${string}-${string}`
   saveIcon?: boolean
   shareTwitterIcon?: boolean
+  copyToClipboardIcon?: boolean
   children: React.ReactNode
 }
 
@@ -29,6 +28,7 @@ const Button = ({
   color,
   saveIcon,
   shareTwitterIcon,
+  copyToClipboardIcon,
   children,
 }: Props) => {
   return (
@@ -51,8 +51,27 @@ const Button = ({
           width={sizeAvatar.width}
         />
       )}
-      {saveIcon && <Save />}
-      {shareTwitterIcon && <Twitter />}
+      {saveIcon && (
+        <Save
+          color={lucidIconsButton.color.white}
+          size={lucidIconsButton.size}
+          strokeWidth={lucidIconsButton.strokeWidth}
+        />
+      )}
+      {shareTwitterIcon && (
+        <Twitter
+          color={lucidIconsButton.color.white}
+          size={lucidIconsButton.size}
+          strokeWidth={lucidIconsButton.strokeWidth}
+        />
+      )}
+      {copyToClipboardIcon && (
+        <Copy
+          color={lucidIconsButton.color.white}
+          size={lucidIconsButton.size}
+          strokeWidth={lucidIconsButton.strokeWidth}
+        />
+      )}
       <span className={styles.text}>{children}</span>
     </button>
   )

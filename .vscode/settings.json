@@ -1,4 +1,50 @@
 {
+  "[css][scss]": {
+    "editor.codeActionsOnSave": [
+      "source.fixAll.stylelint"
+    ],
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[javascript][typescript]": {
+    // Runs Prettier, then ESLint
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "other": "on",
+      "strings": "on"
+    },
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+  "conventionalCommits.autoCommit": false,
+  "conventionalCommits.scopes": [
+    "app",
+    "shared",
+    "server",
+    "tools"
+  ],
   "cSpell.words": [
     "Aaiun",
     "Adak",
@@ -59,6 +105,7 @@
     "Noronha",
     "Nuuk",
     "Ojinaga",
+    "outro",
     "Pohnpei",
     "Qostanay",
     "Qyzylorda",
@@ -83,10 +130,25 @@
     "Winamac",
     "Yakutat"
   ],
-  "i18n-ally.localesPaths": [
-    "src/messages"
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.linkedEditing": true,
+  "emmet.excludeLanguages": [],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "markdown": "html",
+    "typescript": "typescriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
   ],
-  "i18n-ally.keystyle": "nested",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).*.ts, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",
@@ -94,99 +156,39 @@
     "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*",
     "package.json": ".eslint*, .prettier*, .stylelint*, package-lock.json"
   },
-  "emmet.excludeLanguages": [],
-  "emmet.includeLanguages": {
-    "markdown": "html",
-    "javascript": "javascriptreact",
-    "typescript": "typescriptreact"
-  },
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.triggerExpansionOnTab": true,
-  "editor.linkedEditing": true,
   "html.autoClosingTags": true,
-  "javascript.autoClosingTags": true,
-  "javascript.suggest.completeFunctionCalls": true,
-  "typescript.suggest.completeFunctionCalls": true,
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "javascript.inlayHints.parameterNames.enabled": "all",
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "javascript.suggest.autoImports": true,
-  "search.exclude": {
-    "**/coverage": true,
-    "**/node_modules": true
-  },
-  "typescript.autoClosingTags": true,
-  "typescript.suggest.autoImports": true,
-  "eslint.probe": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": [
+    "src/messages"
   ],
-  "[javascript][typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    // Runs Prettier, then ESLint
-    "editor.codeActionsOnSave": [
-      "source.formatDocument",
-      "source.fixAll.eslint"
-    ]
-  },
+  "javascript.autoClosingTags": true,
   "javascript.format.enable": false,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.suggest.autoImports": true,
+  "javascript.suggest.completeFunctionCalls": true,
   "javascript.validate.enable": true,
-  "typescript.format.enable": false,
-  "typescript.validate.enable": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "stylelint.enable": true,
-  "css.validate": false,
   "less.validate": false,
-  "scss.validate": false,
-  "[css][scss]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint",
-    "editor.codeActionsOnSave": [
-      "source.fixAll.stylelint"
-    ]
-  },
-  "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma",
-    "editor.formatOnSave": true
-  },
-  "[markdown]": {
-    "editor.formatOnSave": false,
-    "editor.quickSuggestions": {
-      "comments": "on",
-      "strings": "on",
-      "other": "on"
-    },
-    "editor.tabSize": 2,
-    "files.trimTrailingWhitespace": false
-  },
   "markdownlint.config": {
     "MD024": {
       "siblings_only": true
     }
   },
-  "[json][jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
-  },
-  "[yaml]": {
-    "editor.formatOnSave": false,
-    "editor.tabSize": 2,
-    "files.trimTrailingWhitespace": false
+  "scss.validate": false,
+  "search.exclude": {
+    "**/coverage": true,
+    "**/node_modules": true
   },
   "sonarlint.connectedMode.project": {
     "connectionId": "dein-vscode",
     "projectKey": "dein:fwf"
   },
-  "conventionalCommits.scopes": [
-    "app",
-    "shared",
-    "server",
-    "tools"
-  ],
+  "stylelint.enable": true,
+  "typescript.autoClosingTags": true,
+  "typescript.format.enable": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.validate.enable": true
 }

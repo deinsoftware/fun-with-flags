@@ -32,7 +32,8 @@
         },
         "Button": {
           "create": "Create",
-          "share": "Share"
+          "share": "Share",
+          "clipboard": "Copy"
         },
         "Error": {
           "Required": {
@@ -46,7 +47,9 @@
       },
       "Toast": {
         "selectedTimezone": "Time zone selected: \"{name}\"",
-        "alreadySelectedTimezone": "\"{name}\" is already selected"
+        "alreadySelectedTimezone": "\"{name}\" is already selected",
+        "copiedToClipboard": "Copied to clipboard",
+        "copiedToClipboardError": "Error copying information"
       }
     }
   },
@@ -84,5 +87,53 @@
         "search": "Search by Country Code or Name"
       }
     }
+  },
+  "Login": {
+    "title": "Login",
+    "instructions": "Use your email or another service to continue",
+    "Providers": {
+      "Google": {
+        "text": "Continue with Google",
+        "altImg": "Sign in with Google"
+      }
+    },
+    "HelperText": {
+      "TermsOfUse": {
+        "text": "By continuing, you agree the",
+        "link": "Terms and conditions of Use"
+      }
+    }
+  },
+  "Notice": {
+    "title": "Legal",
+    "Page": {
+      "Privacy": {
+        "title": "Privacy Policy",
+        "policy": "<paragraph>We take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website. It outlines the types of information we collect, such as personal information and non-personal information, and how we use and store that information securely.</paragraph> <paragraph>We may collect personal information such as your name, email address, and contact information when you interact with our website or services. We use this information to provide you with a personalized experience, improve our services, and communicate with you regarding your inquiries or requests.</paragraph> <paragraph>We may also collect non-personal information such as your IP address, browser type, and device information for analytical purposes and to enhance your browsing experience. This information helps us understand how you use our website and allows us to optimize and improve our services.</paragraph> <paragraph>We take appropriate measures to protect your information and ensure its confidentiality. We do not sell or share your personal information with third parties, except as required by law or with your consent.</paragraph> <paragraph>By accessing or using our website, you agree to be bound by the terms and conditions described in this Privacy Policy. If you do not agree to the terms of this Privacy Policy, please do not access the site.</paragraph>"
+      },
+      "Cookie": {
+        "title": "Cookie Notice",
+        "notice": "<paragraph>Our website uses cookies to enhance your browsing experience. A cookie is a small text file that is stored on your computer or mobile device by a website's server. We use both session cookies (which expire once you close your web browser) and persistent cookies (which stay on your computer or mobile device until you delete them) to provide you with a more personalized and user-friendly experience.</paragraph> <paragraph>By using our website, you consent to the use of cookies as described in our Cookie Policy.</paragraph>"
+      },
+      "Legal": {
+        "title": "Legal Notice",
+        "notice": "<paragraph>Use our website with No Responsibility. This website is provided for informational purposes only. By accessing or using this website, you expressly agree that your use of the site is at your sole risk and that you assume full responsibility for any consequences arising from such use.</paragraph><paragraph>The information contained on this website is provided on an \"as is\" and \"as available\" basis. The website owner makes no representations or warranties of any kind, expressed or implied, regarding the accuracy, reliability, completeness, or availability of the website or its content. The website owner disclaims all warranties, expressed or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. The website owner shall not be liable for any damages, including but not limited to direct, indirect, incidental, consequential, or punitive damages arising out of the use or inability to use this website or its content.</paragraph><paragraph>This website may contain links to third-party websites and resources. These links are provided solely for your convenience and do not constitute an endorsement or affiliation by the website owner. The website owner has no control over the content of third-party websites and does not assume any responsibility or liability for the accuracy, legality, or content of these websites.</paragraph> <paragraph>The website owner reserves the right to modify, suspend, or terminate this website at any time without prior notice. The website owner shall not be liable to you or any third party for any modification, suspension, or termination of the website.</paragraph>"
+      }
+    },
+    "CookieConsent": {
+      "intro": "Hey there! 🍪",
+      "notice": "We use cookies to enhance your browsing experience and provide personalized content. To learn more about how we use cookies and your options, check out our ",
+      "link": "Terms and conditions of Use",
+      "Button": {
+        "agree": "Let's go!",
+        "decline": "I decline"
+      },
+      "Toast": {
+        "onDecline": "Sorry to hear that. If you change your mind and decide to use extra functions, we will ask you again"
+      }
+    }
+  },
+  "Settings": {
+    "title": "Settings"
   }
 }
