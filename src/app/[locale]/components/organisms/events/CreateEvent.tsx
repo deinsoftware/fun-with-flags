@@ -397,7 +397,6 @@ const CreateEvent = () => {
                 {t('Form.Toggle.showGmt')}
               </span>
             </div>
-
             <div className={styles['container-options-combo']}>
               <Toggle
                 disabled={!optionsCombo.showGmt}
