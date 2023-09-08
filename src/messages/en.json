@@ -32,7 +32,8 @@
         },
         "Button": {
           "create": "Create",
-          "share": "Share"
+          "share": "Share",
+          "clipboard": "Copy"
         },
         "Error": {
           "Required": {
@@ -46,7 +47,9 @@
       },
       "Toast": {
         "selectedTimezone": "Time zone selected: \"{name}\"",
-        "alreadySelectedTimezone": "\"{name}\" is already selected"
+        "alreadySelectedTimezone": "\"{name}\" is already selected",
+        "copiedToClipboard": "Copied to clipboard",
+        "copiedToClipboardError": "Error copying information"
       }
     }
   },

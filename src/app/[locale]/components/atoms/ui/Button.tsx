@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { Copy } from 'lucide-react'
+
 import styles from './Button.module.css'
 
 const sizeAvatar = {
@@ -15,10 +17,18 @@ type Props = {
   }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
+  copyToClipboardIcon?: boolean
   children: React.ReactNode
 }
 
-const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
+const Button = ({
+  handleClick,
+  avatar,
+  disabled,
+  color,
+  copyToClipboardIcon,
+  children,
+}: Props) => {
   return (
     <button
       className={styles['button']}
@@ -39,6 +49,8 @@ const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
           width={sizeAvatar.width}
         />
       )}
+      {copyToClipboardIcon && <Copy />}
+
       <span className={styles.text}>{children}</span>
     </button>
   )
