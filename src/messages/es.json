@@ -124,14 +124,14 @@
     "CookieConsent": {
       "intro": "¡Hola! 🍪",
       "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
-      "link": "Términos y Condiciones de Uso"
-    },
-    "Button": {
-      "agree": "Claro que si!",
-      "decline": "No acepto"
-    },
-    "Toast": {
-      "onDecline": "Lamentamos escuchar eso. Si cambias de opinión y decides utilizar las funciones extras, te lo volveremos a preguntar"
+      "link": "Términos y Condiciones de Uso",
+      "Button": {
+        "agree": "¡Claro que sí!",
+        "decline": "No acepto"
+      },
+      "Toast": {
+        "onDecline": "Lamentamos escuchar eso. Si cambias de opinión y decides utilizar las funciones extras, te lo volveremos a preguntar"
+      }
     }
   },
   "Settings": {
