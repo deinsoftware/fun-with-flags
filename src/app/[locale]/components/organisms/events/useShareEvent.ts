@@ -5,7 +5,7 @@ import { FormData } from './CreateEvent.types'
 
 import { copyTextToClipboard } from '@/helpers/navigator'
 import { shareToTwitter } from '@/helpers/social'
-import { toastStyle } from '@/libs/react-host-toast-config'
+import { toastStyle } from '@/libs/toast'
 
 type TextProps = Pick<FormData, 'eventName' | 'eventDescription' | 'combo'> &
   Partial<Pick<FormData, 'eventLink' | 'hashtags'>>

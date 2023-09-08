@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 import styles from './Notice.module.css'
 
-import { toastStyle } from '@/libs/react-host-toast-config'
+import { toastStyle } from '@/libs/toast'
 
 const Notice = () => {
   const t = useTranslations('Notice')
@@ -38,7 +38,7 @@ const Notice = () => {
       onDecline={() => {
         toast(`${t('CookieConsent.Toast.onDecline')}.`, {
           style: toastStyle,
-          duration: 5000
+          duration: 5000,
         })
       }}
     >

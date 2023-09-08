@@ -44,7 +44,7 @@ import { getCountry } from '@/helpers/timezones'
 import { lucidIcons } from '@/libs/icon-config'
 
 import { useIsMobile } from '@/hooks/useIsMobile'
-import { toastIconTheme, toastStyle } from '@/libs/react-host-toast-config'
+import { toastIconTheme, toastStyle } from '@/libs/toast'
 
 const CreateEvent = () => {
   const t = useTranslations('Events.Create')
@@ -419,10 +419,14 @@ const CreateEvent = () => {
           </div>
 
           <div className={styles['container-button']}>
-            <Button disabled={!session} handleClick={handleCreateEvent}>
+            <Button
+              saveIcon
+              disabled={!session}
+              handleClick={handleCreateEvent}
+            >
               {t('Form.Button.create')}
             </Button>
-            <Button handleClick={handleShareEventOnTwitter}>
+            <Button shareTwitterIcon handleClick={handleShareEventOnTwitter}>
               {t('Form.Button.share')}
             </Button>
             <Button copyToClipboardIcon handleClick={handleCopyToClipboard}>
