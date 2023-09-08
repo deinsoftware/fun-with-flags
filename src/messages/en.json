@@ -119,14 +119,14 @@
     },
     "CookieConsent": {
       "intro": "Hey there! 🍪",
-      "notice": "We use cookies to enhance your browsing experience and provide personalized content. By continuing to use our website, you consent to the use of cookies in accordance with our Cookie Policy. We promise not to sneak into your cookie jar! 😉 To learn more about how we use cookies and your options, check out our ",
+      "notice": "We use cookies to enhance your browsing experience and provide personalized content. To learn more about how we use cookies and your options, check out our ",
       "link": "Terms and conditions of Use",
       "Button": {
         "agree": "Let's go!",
         "decline": "I decline"
       },
       "Toast": {
-        "onDecline": "Sorry to hear that. Advanced features like saving events and setting options on this site require the use of cookies. If you change your mind and decide to use those functions, we will ask you again"
+        "onDecline": "Sorry to hear that. If you change your mind and decide to use extra functions, we will ask you again"
       }
     }
   },

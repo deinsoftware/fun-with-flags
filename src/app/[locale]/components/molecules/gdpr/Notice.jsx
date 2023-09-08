@@ -38,6 +38,7 @@ const Notice = () => {
       onDecline={() => {
         toast(`${t('CookieConsent.Toast.onDecline')}.`, {
           style: toastStyle,
+          duration: 5000
         })
       }}
     >

@@ -119,7 +119,7 @@
     },
     "CookieConsent": {
       "intro": "¡Hola! 🍪",
-      "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Al continuar utilizando nuestro sitio web, aceptas el uso de cookies de acuerdo con nuestra Política de cookies. ¡Prometemos no meternos en tu tarro de galletas! 😉 Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
+      "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
       "link": "Términos y Condiciones de Uso"
     },
     "Button": {
@@ -127,7 +127,7 @@
       "decline": "No acepto"
     },
     "Toast": {
-      "onDecline": "Lamentamos escuchar eso. Las funciones avanzadas como guardar eventos y configurar opciones en este sitio requieren el uso de cookies. Si cambias de opinión y decides utilizar esas funciones, te lo volveremos a preguntar"
+      "onDecline": "Lamentamos escuchar eso. Si cambias de opinión y decides utilizar las funciones extras, te lo volveremos a preguntar"
     }
   },
   "Settings": {
