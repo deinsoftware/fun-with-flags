@@ -2,12 +2,7 @@
 
 import { toast } from 'react-hot-toast'
 
-type Props = {
-  handleAccept: () => any /* <- pls, no */
-  handleReject: () => any /* <- pls, no */
-}
-
-const ToastAlertMessage = ({ handleAccept, handleReject }: Props) => {
+const ToastAlertMessage = () => {
   toast.loading(
     (t) => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -18,7 +13,6 @@ const ToastAlertMessage = ({ handleAccept, handleReject }: Props) => {
             onClick={() => {
               toast.dismiss(t.id)
               toast.success('Vacío') /* <- add i18n */
-              return handleReject()
             }}
           >
             Rechazar
@@ -28,7 +22,6 @@ const ToastAlertMessage = ({ handleAccept, handleReject }: Props) => {
             onClick={() => {
               toast.dismiss(t.id)
               toast.success('Se aceptaron') /* <- add i18n */
-              return handleAccept()
             }}
           >
             Aceptar
@@ -37,7 +30,7 @@ const ToastAlertMessage = ({ handleAccept, handleReject }: Props) => {
       </div>
     ),
     {
-      // icon: "❓",
+      icon: "❓",
     },
   )
 }
