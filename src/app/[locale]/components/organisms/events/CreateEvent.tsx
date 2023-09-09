@@ -66,6 +66,7 @@ const CreateEvent = () => {
     hideMins: false,
     showGmt: true,
     onlyNum: false,
+    hideEmojis: false,
   })
 
   const {
@@ -84,6 +85,7 @@ const CreateEvent = () => {
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
     formData,
+    hideEmojis: optionsCombo.hideEmojis,
   })
 
   const { data: session } = useSession()
@@ -370,6 +372,20 @@ const CreateEvent = () => {
           <div className={styles['container-toggles']}>
             <div className={styles['container-options-combo']}>
               <Toggle
+                value={optionsCombo.hideEmojis}
+                onToggle={() => {
+                  setOptionsCombo((prev) => ({
+                    ...prev,
+                    hideEmojis: !prev.hideEmojis,
+                  }))
+                }}
+              />
+              <span className={styles['text-toggle']}>
+                {t('Form.Toggle.hideEmojis')}
+              </span>
+            </div>
+            <div className={styles['container-options-combo']}>
+              <Toggle
                 value={optionsCombo.hideMins}
                 onToggle={() => {
                   setOptionsCombo((prev) => ({
@@ -415,6 +431,7 @@ const CreateEvent = () => {
                 {t('Form.Toggle.onlyNum')}
               </span>
             </div>
+
           </div>
 
           <div className={styles['container-button']}>
