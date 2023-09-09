@@ -107,10 +107,10 @@
                     display: flex;
                     width: 40px;
                     height: 30px;
-                    padding-right: 9px;
-                    padding-top: 4px;
                     align-items: center;
                     justify-content: end;
+                    padding-top: 4px;
+                    padding-right: 9px;
                     border-radius: 8px;
                     background-color: var(--color-darkgray-800);
                     content: url('/img/ui/date.svg');
@@ -191,6 +191,7 @@
 
         & .container-button {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
         }
@@ -208,8 +209,8 @@
 .container-options-combo {
     display: flex;
     align-items: center;
-    text-align: center;
     gap: 0.25rem;
+    text-align: center;
 
     & .text-toggle {
         font-size: var(--font-size-medium);

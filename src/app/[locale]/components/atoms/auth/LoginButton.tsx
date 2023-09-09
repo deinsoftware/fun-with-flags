@@ -5,7 +5,10 @@ import { Session, DefaultSession } from 'next-auth'
 
 import { useTranslations } from 'next-intl'
 
+import Image from 'next/image'
+
 import Button from '@/components/atoms/ui/Button'
+import { sizeAvatar } from '@/libs/constants'
 
 const LoginButton = () => {
   const t = useTranslations('Header.Button.Log')
@@ -14,18 +17,18 @@ const LoginButton = () => {
   const data = session.data as Session | DefaultSession
 
   if (!data) {
-    return <Button handleClick={() => signIn()}>{t('signIn')}</Button>
+    return <Button handleClick={() => signIn()} text={t('signIn')} />
   }
 
   return (
-    <Button
-      avatar={{
-        alt: data?.user?.name ?? 'User avatar',
-        img: data?.user?.image,
-      }}
-      handleClick={() => signOut()}
-    >
-      {t('signOut')}
+    <Button handleClick={() => signOut()} text={t('signOut')}>
+      <Image
+        alt={data?.user?.name ?? 'User avatar'}
+        height={sizeAvatar.height}
+        src={data?.user?.image ?? ''}
+        style={{ borderRadius: '50%', overflow: 'hidden' }}
+        width={sizeAvatar.width}
+      />
     </Button>
   )
 }

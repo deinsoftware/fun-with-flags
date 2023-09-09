@@ -93,9 +93,7 @@ const Hashtags = ({ hashTagsList, addHashtag, removeHashtag }: Props) => {
             onChange={(e) => setTag(e.target.value)}
             onKeyDown={onKeyDown}
           />
-          <Button handleClick={() => addTag(tag)}>
-            {t('Form.Button.add')}
-          </Button>
+          <Button handleClick={() => addTag(tag)} text={t('Form.Button.add')} />
         </div>
 
         {hashTagsList.length > 0 && (
