@@ -23,6 +23,7 @@
                 display: none;
                 color: var(--color-whywhite-500);
                 text-wrap: nowrap;
+                font-size: var(--font-size-medium);
             }
 
             & .icon:active {
@@ -34,7 +35,7 @@
 }
 
 
-@media screen and (width > 768px) {
+@media screen and (width > 920px) {
     .container-icons {
         gap: 32px;
 

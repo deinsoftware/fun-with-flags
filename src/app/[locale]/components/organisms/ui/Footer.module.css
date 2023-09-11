@@ -14,7 +14,7 @@
     background-color: var(--color-darkgray-900);
 }
 
-@media screen and (width > 768px) {
+@media screen and (width > 920px) {
     .footer-pusher {
         display: none;
     }

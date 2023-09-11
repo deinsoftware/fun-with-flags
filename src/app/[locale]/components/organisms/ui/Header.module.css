@@ -24,7 +24,7 @@
     }
 }
 
-@media screen and (width > 768px) {
+@media screen and (width > 920px) {
     .header {
         & .container-actions {
             display: block;
