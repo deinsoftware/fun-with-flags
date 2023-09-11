@@ -11,21 +11,11 @@
     & h1 {
         display: none;
     }
-}
 
-.theme-toggler {
-    display: flex;
-    width: 66px;
-    height: 28px;
-    align-items: center;
-    border-radius: 30px;
-    background-color: var(--color-neutral-500);
-
-    & .toggler {
-        width: 26px;
-        height: 26px;
-        border-radius: 30px;
-        background-color: var(--color-whywhite-500);
-        cursor: pointer;
+    & .link {
+        & .logo {
+            width: 80px;
+            height: 40px;
+        }
     }
 }
