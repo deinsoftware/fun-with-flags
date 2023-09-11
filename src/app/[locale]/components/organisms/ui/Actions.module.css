@@ -7,6 +7,12 @@
 
     & .link {
         text-decoration: none;
+        padding: 8px;
+
+        &:hover {
+            background-color: var(--color-darkgray-800);
+            border-radius: 10px;
+        }
 
         & .container-icon {
             display: flex;
@@ -16,6 +22,7 @@
             & .name {
                 display: none;
                 color: var(--color-whywhite-500);
+                text-wrap: nowrap;
             }
 
             & .icon:active {
@@ -27,9 +34,9 @@
 }
 
 
-@media screen and (min-width: 768px) {
+@media screen and (width > 768px) {
     .container-icons {
-        gap: 16px;
+        gap: 32px;
 
         & .link {
             & .container-icon {

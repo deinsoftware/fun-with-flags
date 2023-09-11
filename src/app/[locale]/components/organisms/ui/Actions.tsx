@@ -2,11 +2,15 @@ import { Home, CalendarDays, CalendarPlus, Settings } from 'lucide-react'
 
 import Link from 'next/link'
 
+import { useTranslations } from 'next-intl'
+
 import styles from './Actions.module.css'
 
 import { lucidIcons } from '@/libs/icon-config'
 
 const Actions = () => {
+  const t = useTranslations('Header.Actions')
+
   return (
     <>
       <div className={styles['container-icons']}>
@@ -15,11 +19,11 @@ const Actions = () => {
             <Home
               absoluteStrokeWidth={false}
               className={styles['icon']}
-              color={lucidIcons.color.dark}
+              color={lucidIcons.color.main}
               size={lucidIcons.size}
               strokeWidth={lucidIcons.strokeWidth}
             />
-            <span className={styles['name']}>Home</span>
+            <span className={styles['name']}>{t('home')}</span>
           </div>
         </Link>
 
@@ -28,11 +32,11 @@ const Actions = () => {
             <CalendarDays
               absoluteStrokeWidth={false}
               className={styles['icon']}
-              color={lucidIcons.color.dark}
+              color={lucidIcons.color.main}
               size={lucidIcons.size}
               strokeWidth={lucidIcons.strokeWidth}
             />
-            <span className={styles['name']}>Events</span>
+            <span className={styles['name']}>{t('events')}</span>
           </div>
         </Link>
 
@@ -41,11 +45,11 @@ const Actions = () => {
             <CalendarPlus
               absoluteStrokeWidth={false}
               className={styles['icon']}
-              color={lucidIcons.color.dark}
+              color={lucidIcons.color.main}
               size={lucidIcons.size}
               strokeWidth={lucidIcons.strokeWidth}
             />
-            <span className={styles['name']}>Create events</span>
+            <span className={styles['name']}>{t('createEvent')}</span>
           </div>
         </Link>
 
@@ -54,11 +58,11 @@ const Actions = () => {
             <Settings
               absoluteStrokeWidth={false}
               className={styles['icon']}
-              color={lucidIcons.color.dark}
+              color={lucidIcons.color.main}
               size={lucidIcons.size}
               strokeWidth={lucidIcons.strokeWidth}
             />
-            <span className={styles['name']}>Settings</span>
+            <span className={styles['name']}>{t('settings')}</span>
           </div>
         </Link>
       </div>

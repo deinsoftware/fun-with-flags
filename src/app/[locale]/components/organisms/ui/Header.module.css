@@ -6,6 +6,7 @@
     justify-content: space-between;
     padding: var(--padding);
     background-color: var(--color-darkgray-900);
+    border-bottom: 1px solid var(--color-darkgray-500);
 
     & .title {
         display: none;
@@ -23,7 +24,7 @@
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width > 768px) {
     .header {
         & .container-actions {
             display: block;
