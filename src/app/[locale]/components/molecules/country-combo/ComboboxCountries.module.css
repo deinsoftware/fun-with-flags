@@ -25,7 +25,7 @@
 }
 
 .empty-message {
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-sm);
     color: var(--color-gray-500)
 }
 

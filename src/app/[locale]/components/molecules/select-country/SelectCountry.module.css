@@ -7,7 +7,7 @@
     background-color: var(--color-darkgray-800);
     color: var(--color-whywhite-500);
     cursor: pointer;
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-sm);
 }
 
 .select-country {

@@ -18,7 +18,7 @@
 
         & .required {
             color: var(--color-error);
-            font-size: var(--font-size-small)
+            font-size: var(--font-size-sm)
         }
 
         & .description {
@@ -92,7 +92,7 @@
 
                     & .text-toggle {
                         color: var(--color-gray-500);
-                        font-size: var(--font-size-small);
+                        font-size: var(--font-size-sm);
                     }
                 }
             }
@@ -173,7 +173,7 @@
             background-color: var(--color-darkgray-800);
             color: var(--color-whywhite-500);
             font-family: var(--font-family-primary);
-            font-size: var(--font-size-medium);
+            font-size: var(--font-size-sm);
 
             &::placeholder {
                 color: var(--color-gray-500);
@@ -212,6 +212,6 @@
     gap: 0.25rem;
 
     & .text-toggle {
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-sm);
     }
 }
