@@ -21,5 +21,12 @@
         & .container-actions {
             display: block;
         }
+
+        & .link {
+            & .logo {
+                width: 80px;
+                height: 40px;
+            }
+        }
     }
 }
