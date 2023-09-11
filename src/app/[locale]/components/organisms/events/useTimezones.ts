@@ -9,7 +9,7 @@ type Props = {
   date?: Date
 }
 
-const useTimezones = ({ locale, date }: Props) => {
+export const useTimezones = ({ locale, date }: Props) => {
   const controller = new AbortController()
   const signal = controller.signal
 
@@ -39,5 +39,3 @@ const useTimezones = ({ locale, date }: Props) => {
 
   return { timezoneList, timezoneError, getTimeZones }
 }
-
-export default useTimezones

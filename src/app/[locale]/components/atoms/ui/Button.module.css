@@ -15,6 +15,8 @@
     /* Las sombras no deben ser blanco/negro */
 
     /* Investigar una buena sombra */
+
+    /* O quitar la sombra, porque nada más tiene #EduardoDelFuturo */
     box-shadow: 0 2px 2px black;
     cursor: pointer;
     gap: .5rem;
@@ -55,7 +57,7 @@
         border-radius: 15px 15px 15px 0;
         background-color: var(--color-purple-700);
         color: var(--color-whywhite-500);
-        content: 'Need to be logged'; /* FIXME: this text can't be translated from here */
+        content: attr(data-hover); 
         opacity: 0;
         transition: all .3s ease-out;
     }
