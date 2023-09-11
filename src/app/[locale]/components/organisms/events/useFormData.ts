@@ -16,7 +16,7 @@ import { TimeFormat } from '@/helpers/events.types'
 import { Countries } from '@/types/countries.types'
 import { Timezones } from '@/types/timezones.types'
 
-export const useGetFormData = () => {
+export const useFormData = () => {
   const [formData, setFormData] = useState<FormData>({
     eventName: '',
     time: '',

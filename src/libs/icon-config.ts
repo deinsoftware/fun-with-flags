@@ -25,3 +25,11 @@ export const lucidIconsHashtags = {
   },
   strokeWidth: 2,
 }
+
+export const lucidIconsButton = {
+  size: 20,
+  color: {
+    white: '#FEFEFE',
+  },
+  strokeWidth: 2,
+}
