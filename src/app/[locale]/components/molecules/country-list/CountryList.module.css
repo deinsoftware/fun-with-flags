@@ -16,8 +16,8 @@
         background-color: var(--color-neutral-500);
 
         & .search-bar-container {
-            display: flex;
             position: relative;
+            display: flex;
 
             .search-icon {
                 position: absolute;

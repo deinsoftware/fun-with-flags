@@ -6,12 +6,12 @@
     justify-content: space-evenly;
 
     & .link {
-        text-decoration: none;
         padding: 8px;
+        text-decoration: none;
 
         &:hover {
-            background-color: var(--color-darkgray-800);
             border-radius: 10px;
+            background-color: var(--color-darkgray-800);
         }
 
         & .container-icon {
@@ -22,8 +22,8 @@
             & .name {
                 display: none;
                 color: var(--color-whywhite-500);
-                text-wrap: nowrap;
                 font-size: var(--font-size-sm);
+                text-wrap: nowrap;
             }
 
             & .icon:active {

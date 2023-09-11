@@ -5,8 +5,8 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--padding);
-    background-color: var(--color-darkgray-900);
     border-bottom: 1px solid var(--color-darkgray-500);
+    background-color: var(--color-darkgray-900);
 
     & .title {
         display: none;
