@@ -1,5 +1,4 @@
 .header {
-    position: relative;
     display: flex;
     width: 100%;
     max-height: 80px;
@@ -8,24 +7,19 @@
     padding: var(--padding);
     background-color: var(--color-darkgray-900);
 
-    & h1 {
+    & .title {
+        display: none;
+    }
+
+    .container-actions {
         display: none;
     }
 }
 
-.theme-toggler {
-    display: flex;
-    width: 66px;
-    height: 28px;
-    align-items: center;
-    border-radius: 30px;
-    background-color: var(--color-neutral-500);
-
-    & .toggler {
-        width: 26px;
-        height: 26px;
-        border-radius: 30px;
-        background-color: var(--color-whywhite-500);
-        cursor: pointer;
+@media screen and (min-width: 768px) {
+    .header {
+        & .container-actions {
+            display: block;
+        }
     }
 }

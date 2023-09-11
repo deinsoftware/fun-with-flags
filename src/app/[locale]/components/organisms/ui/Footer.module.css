@@ -12,21 +12,14 @@
     justify-content: center;
     border-top: 1px solid var(--color-darkgray-500);
     background-color: var(--color-darkgray-900);
+}
 
-    .container-icons {
-        display: flex;
-        width: 100%;
-        max-width: 500px;
-        align-items: center;
-        justify-content: space-evenly;
+@media screen and (width > 768px) {
+    .footer-pusher {
+        display: none;
+    }
 
-        & .container-icon {
-            display: grid;
-            place-content: center;
-
-            & .icon:active {
-                filter: invert(50%);
-            }
-        }
+    .footer {
+        display: none;
     }
 }
