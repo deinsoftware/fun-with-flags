@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 
 import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
 
-import { Clock3 } from 'lucide-react'
+import { Clock3, Copy, Save, Twitter } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
@@ -41,7 +41,7 @@ import { createEvent } from '@/services/event'
 
 import { getCountry } from '@/helpers/timezones'
 
-import { lucidIcons } from '@/libs/icon-config'
+import { lucidIcons, lucidIconsButton } from '@/libs/icon-config'
 
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { toastIconTheme, toastStyle } from '@/libs/toast'
@@ -436,18 +436,38 @@ const CreateEvent = () => {
 
           <div className={styles['container-button']}>
             <Button
-              saveIcon
               disabled={!session}
               handleClick={handleCreateEvent}
+              text={t('Form.Button.create')}
               textHover={t('Form.Button.hover')}
             >
-              {t('Form.Button.create')}
+              <Save
+                color={lucidIconsButton.color.white}
+                size={lucidIconsButton.size}
+                strokeWidth={lucidIconsButton.strokeWidth}
+              />
             </Button>
-            <Button shareTwitterIcon handleClick={handleShareEventOnTwitter}>
-              {t('Form.Button.share')}
+
+            <Button
+              handleClick={handleShareEventOnTwitter}
+              text={t('Form.Button.share')}
+            >
+              <Twitter
+                color={lucidIconsButton.color.white}
+                size={lucidIconsButton.size}
+                strokeWidth={lucidIconsButton.strokeWidth}
+              />
             </Button>
-            <Button copyToClipboardIcon handleClick={handleCopyToClipboard}>
-              {t('Form.Button.clipboard')}
+
+            <Button
+              handleClick={handleCopyToClipboard}
+              text={t('Form.Button.clipboard')}
+            >
+              <Copy
+                color={lucidIconsButton.color.white}
+                size={lucidIconsButton.size}
+                strokeWidth={lucidIconsButton.strokeWidth}
+              />
             </Button>
           </div>
         </form>
