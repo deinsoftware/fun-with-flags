@@ -28,7 +28,8 @@
           "date": "Usar fecha",
           "hideMins": "Ocultar minutos",
           "showGmt": "Mostrar GMT",
-          "onlyNum": "Solo números"
+          "onlyNum": "Solo números",
+          "hideEmojis": "Ocultar emojis"
         },
         "Button": {
           "create": "Crear",
