@@ -1,14 +1,14 @@
 .header {
-    position: relative;
     display: flex;
     width: 100%;
     max-height: 80px;
     align-items: center;
     justify-content: space-between;
     padding: var(--padding);
+    border-bottom: 1px solid var(--color-darkgray-500);
     background-color: var(--color-darkgray-900);
 
-    & h1 {
+    & .title {
         display: none;
     }
 
@@ -16,6 +16,25 @@
         & .logo {
             width: 80px;
             height: 40px;
+        }
+    }
+
+    .container-actions {
+        display: none;
+    }
+}
+
+@media screen and (width > 920px) {
+    .header {
+        & .container-actions {
+            display: block;
+        }
+
+        & .link {
+            & .logo {
+                width: 80px;
+                height: 40px;
+            }
         }
     }
 }

@@ -5,11 +5,10 @@
 
     .section {
         color: var(--color-gray-500);
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-sm);
 
         & p {
             padding: 12px 0;
         }
     }
 }
-

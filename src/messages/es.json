@@ -10,6 +10,12 @@
         "signIn": "Iniciar sesión",
         "signOut": "Cerrar sesión"
       }
+    },
+    "Actions": {
+      "home": "Inicio",
+      "events": "Eventos",
+      "createEvent": "Crear evento",
+      "settings": "Configuración"
     }
   },
   "Events": {

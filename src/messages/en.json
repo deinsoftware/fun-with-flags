@@ -10,6 +10,12 @@
         "signIn": "Sign In",
         "signOut": "Sign Out"
       }
+    },
+    "Actions": {
+      "home": "Home",
+      "events": "Events",
+      "createEvent": "Create event",
+      "settings": "Settings"
     }
   },
   "Events": {

@@ -5,6 +5,8 @@ import Link from 'next/link'
 
 import styles from './Header.module.css'
 
+import Actions from './Actions'
+
 import LoginButton from '@/components/atoms/auth/LoginButton'
 
 const Header = () => {
@@ -12,8 +14,8 @@ const Header = () => {
 
   return (
     <>
-      <header className={styles.header}>
-        <h1>{t('title')}</h1>
+      <header className={styles['header']}>
+        <h1 className={styles['title']}>{t('title')}</h1>
         <Link className={styles['link']} href="/">
           <Image
             alt="Logo"
@@ -23,6 +25,9 @@ const Header = () => {
             width={200}
           />
         </Link>
+        <div className={styles['container-actions']}>
+          <Actions />
+        </div>
         <LoginButton />
       </header>
     </>

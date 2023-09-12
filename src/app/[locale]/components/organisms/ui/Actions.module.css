@@ -1,0 +1,50 @@
+.container-icons {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    align-items: center;
+    justify-content: space-evenly;
+
+    & .link {
+        padding: 8px;
+        text-decoration: none;
+
+        &:hover {
+            border-radius: 10px;
+            background-color: var(--color-darkgray-800);
+        }
+
+        & .container-icon {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            & .name {
+                display: none;
+                color: var(--color-whywhite-500);
+                font-size: var(--font-size-sm);
+                text-wrap: nowrap;
+            }
+
+            & .icon:active {
+                filter: invert(50%);
+            }
+        }
+    }
+
+}
+
+
+@media screen and (width > 920px) {
+    .container-icons {
+        gap: 32px;
+
+        & .link {
+            & .container-icon {
+                & .name {
+                    display: block;
+                }
+            }
+        }
+    }
+}

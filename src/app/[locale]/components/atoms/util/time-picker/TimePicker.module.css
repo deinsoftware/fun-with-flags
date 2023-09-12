@@ -79,6 +79,7 @@
     background-color: transparent;
     color: var(--color-gray-700);
     cursor: pointer;
+    font-size: 16px;
     font-weight: var(--font-weight-bold);
 }
 
