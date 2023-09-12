@@ -21,6 +21,7 @@ type Props = {
     hideMins: boolean
     showGmt: boolean
     onlyNum: boolean
+    hideEmojis: boolean
   }
 }
 
@@ -106,7 +107,9 @@ export const DatesToRender = ({
         return (
           <div key={self.crypto.randomUUID()}>
             <p>
-              <strong>{`${date}\n`}</strong>
+              <strong>{`${
+                !optionsCombo.hideEmojis ? '📅 ' : ''
+              }${date}\n`}</strong>
             </p>
             {timeInfo}
           </div>
