@@ -26,7 +26,7 @@ const LoginButton = () => {
         alt={data?.user?.name ?? 'User avatar'}
         height={sizeAvatar.height}
         src={data?.user?.image ?? ''}
-        style={{ borderRadius: '50%', overflow: 'hidden' }}
+        style={{ borderRadius: '50%' }}
         width={sizeAvatar.width}
       />
     </Button>
