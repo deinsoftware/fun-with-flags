@@ -25,6 +25,7 @@ type Props = {
     hideMins: boolean
     showGmt: boolean
     onlyNum: boolean
+    hideEmojis: boolean
   }
   isRequired: boolean
 }

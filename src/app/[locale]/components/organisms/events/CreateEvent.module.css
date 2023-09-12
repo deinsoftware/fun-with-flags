@@ -108,7 +108,7 @@
                     width: 40px;
                     height: 30px;
                     align-items: center;
-                    justify-content: end;
+                    justify-content: flex-end;
                     padding-top: 4px;
                     padding-right: 9px;
                     border-radius: 8px;
@@ -203,6 +203,8 @@
     align-content: center;
     justify-content: space-between;
     gap: 0.5rem;
+
+
 }
 
 .container-options-combo {
@@ -210,6 +212,10 @@
     align-items: center;
     gap: 0.25rem;
     text-align: center;
+
+    @media screen and (width < 768px ) {
+        flex-basis: calc(50% - 1rem);
+    }
 
     & .text-toggle {
         font-size: var(--font-size-sm);
