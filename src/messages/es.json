@@ -19,6 +19,7 @@
     }
   },
   "Events": {
+    "title": "Evento",
     "Create": {
       "title": "Crear Evento",
       "Form": {
@@ -143,5 +144,16 @@
   },
   "Settings": {
     "title": "Configuración"
+  },
+  "Response": {
+    "201": "{title} fue creado",
+    "200": "OK",
+    "400": "Solicitud incorrecta",
+    "401": "No autorizado",
+    "403": "Prohibido",
+    "404": "No encontrado",
+    "405": "Método no permitido",
+    "409": "ya existe",
+    "500": "Error interno del servidor"
   }
 }

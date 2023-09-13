@@ -24,7 +24,6 @@ import {
   joinISODate,
 } from '@/helpers/dates'
 import { Zone } from '@/helpers/events.types'
-import { EventBody } from '@/types/event.types'
 
 import { useTimeZoneContext } from '@/context/useTimeZoneContext'
 
@@ -44,10 +43,12 @@ import { getCountry } from '@/helpers/timezones'
 import { lucidIcons, lucidIconsButton } from '@/libs/icon-config'
 
 import { useIsMobile } from '@/hooks/useIsMobile'
-import { toastIconTheme, toastStyle } from '@/libs/toast'
+import { toastStyle } from '@/libs/toast'
+import { showResponseResult } from '@/helpers/alert'
 
 const CreateEvent = () => {
-  const t = useTranslations('Events.Create')
+  const t = useTranslations('Events')
+  const tResponse = useTranslations('Response')
 
   const [signal, setSignal] = useState<AbortSignal>()
 
@@ -147,41 +148,30 @@ const CreateEvent = () => {
 
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
-      return toast.error(t('Form.Error.login'), {
+      return toast.error(t('Create.Form.Error.login'), {
         style: toastStyle,
       })
     }
 
     const validationResult = requiredFieldsValidation()
     if (!validationResult) {
-      return toast.error(`${t('Form.Error.Required.message')}`, {
+      return toast.error(`${t('Create.Form.Error.Required.message')}`, {
         style: toastStyle,
       })
     }
 
-    const body: EventBody = {
+    const body = {
       description: formData.eventDescription,
-      eventName: formData.eventName,
+      name: formData.eventName,
       timeZone: timeZones,
       url: formData.eventLink,
       userName: session.user.name,
       tags: formData.hashtags,
-      lang: formData.language,
     }
 
     const response = await createEvent(body, signal)
 
-    if (typeof response !== 'string') {
-      return toast.error(response.message, {
-        style: toastStyle,
-      })
-    }
-
-    toast.success(response, {
-      style: toastStyle,
-      iconTheme: toastIconTheme,
-    })
-
+    showResponseResult({ response, t: tResponse, title: t('title') })
     cleanDataStorage()
   }
 
@@ -191,12 +181,12 @@ const CreateEvent = () => {
 
     const name = getCountry(zone.name)
     if (isMobile && result) {
-      toast.success(t('Toast.selectedTimezone', { name }), {
+      toast.success(t('Create.Toast.selectedTimezone', { name }), {
         style: toastStyle,
       })
     }
     if (isMobile && !result) {
-      toast.error(t('Toast.alreadySelectedTimezone', { name }), {
+      toast.error(t('Create.Toast.alreadySelectedTimezone', { name }), {
         style: toastStyle,
       })
     }
@@ -204,7 +194,7 @@ const CreateEvent = () => {
   return (
     <>
       <div className={styles['container-form']}>
-        <Title>{t('title')}</Title>
+        <Title>{t('Create.title')}</Title>
         <form action="" className={styles['form']}>
           <SelectCountry
             countryCode={formData.country}
@@ -217,20 +207,20 @@ const CreateEvent = () => {
           <div className={styles['container-event-name']}>
             <input
               required
-              aria-label={t('Form.Fields.eventName')}
+              aria-label={t('Create.Form.Fields.eventName')}
               className={`${styles['event-name']} ${
                 wasSubmitted && !formData.eventName ? styles['empty'] : ''
               }`}
               id=""
               name="eventName"
-              placeholder={t('Form.Fields.eventName')}
+              placeholder={t('Create.Form.Fields.eventName')}
               type="text"
               value={formData.eventName}
               onChange={handleChangeForm}
             />
             {wasSubmitted && !formData.eventName && (
               <span className={styles['required']}>
-                {t('Form.Error.Required.eventName')}
+                {t('Create.Form.Error.Required.eventName')}
               </span>
             )}
           </div>
@@ -241,7 +231,7 @@ const CreateEvent = () => {
               >
                 <div className={styles['input-button']}>
                   <input
-                    aria-label={t('Form.Fields.time')}
+                    aria-label={t('Create.Form.Fields.time')}
                     className={`${styles['time']}`}
                     id=""
                     name="time"
@@ -275,7 +265,7 @@ const CreateEvent = () => {
                     onToggle={handleTimeToggle}
                   />
                   <span className={styles['text-toggle']}>
-                    {t('Form.Toggle.time')}
+                    {t('Create.Form.Toggle.time')}
                   </span>
                 </div>
               </div>
@@ -292,7 +282,7 @@ const CreateEvent = () => {
                 }`}
               >
                 <input
-                  aria-label={t('Form.Fields.date')}
+                  aria-label={t('Create.Form.Fields.date')}
                   className={`${styles['date']} ${
                     formData.toggleState.dateIsDisable ? styles['disabled'] : ''
                   }`}
@@ -312,7 +302,7 @@ const CreateEvent = () => {
                     onToggle={handleDateToggle}
                   />
                   <span className={styles['text-toggle']}>
-                    {t('Form.Toggle.date')}
+                    {t('Create.Form.Toggle.date')}
                   </span>
                 </div>
               </div>
@@ -321,29 +311,29 @@ const CreateEvent = () => {
           <div className={styles['container-hyperlink']}>
             <input
               required
-              aria-label={t('Form.Fields.eventLink')}
+              aria-label={t('Create.Form.Fields.eventLink')}
               className={`${styles['hyperlink']} ${
                 wasSubmitted && !formData.eventLink ? styles['empty'] : ''
               }`}
               id=""
               name="eventLink"
-              placeholder={t('Form.Fields.eventLink')}
+              placeholder={t('Create.Form.Fields.eventLink')}
               type="url"
               value={formData.eventLink}
               onChange={handleChangeForm}
             />
             {wasSubmitted && !formData.eventLink && (
               <span className={styles['required']}>
-                {t('Form.Error.Required.eventLink')}
+                {t('Create.Form.Error.Required.eventLink')}
               </span>
             )}
           </div>
           <textarea
-            aria-label={t('Form.Fields.eventDescription')}
+            aria-label={t('Create.Form.Fields.eventDescription')}
             className={styles['description']}
             id=""
             name="eventDescription"
-            placeholder={t('Form.Fields.eventDescription')}
+            placeholder={t('Create.Form.Fields.eventDescription')}
             value={formData.eventDescription}
             onChange={handleChangeForm}
           />
@@ -364,7 +354,7 @@ const CreateEvent = () => {
             />
             {wasSubmitted && !formData.combo && (
               <span className={styles['required']}>
-                {t('Form.Error.Required.combo')}
+                {t('Create.Form.Error.Required.combo')}
               </span>
             )}
           </div>
@@ -381,7 +371,7 @@ const CreateEvent = () => {
                 }}
               />
               <span className={styles['text-toggle']}>
-                {t('Form.Toggle.hideEmojis')}
+                {t('Create.Form.Toggle.hideEmojis')}
               </span>
             </div>
             <div className={styles['container-options-combo']}>
@@ -395,7 +385,7 @@ const CreateEvent = () => {
                 }}
               />
               <span className={styles['text-toggle']}>
-                {t('Form.Toggle.hideMins')}
+                {t('Create.Form.Toggle.hideMins')}
               </span>
             </div>
             <div className={styles['container-options-combo']}>
@@ -410,7 +400,7 @@ const CreateEvent = () => {
                 }}
               />
               <span className={styles['text-toggle']}>
-                {t('Form.Toggle.showGmt')}
+                {t('Create.Form.Toggle.showGmt')}
               </span>
             </div>
             <div className={styles['container-options-combo']}>
@@ -428,18 +418,17 @@ const CreateEvent = () => {
                 className={styles['text-toggle']}
                 style={{ opacity: `${!optionsCombo.showGmt ? '0.3' : 1}` }}
               >
-                {t('Form.Toggle.onlyNum')}
+                {t('Create.Form.Toggle.onlyNum')}
               </span>
             </div>
-
           </div>
 
           <div className={styles['container-button']}>
             <Button
               disabled={!session}
               handleClick={handleCreateEvent}
-              text={t('Form.Button.create')}
-              textHover={t('Form.Button.hover')}
+              text={t('Create.Form.Button.create')}
+              textHover={t('Create.Form.Button.hover')}
             >
               <Save
                 color={lucidIconsButton.color.white}
@@ -450,7 +439,7 @@ const CreateEvent = () => {
 
             <Button
               handleClick={handleShareEventOnTwitter}
-              text={t('Form.Button.share')}
+              text={t('Create.Form.Button.share')}
             >
               <Twitter
                 color={lucidIconsButton.color.white}
@@ -461,7 +450,7 @@ const CreateEvent = () => {
 
             <Button
               handleClick={handleCopyToClipboard}
-              text={t('Form.Button.clipboard')}
+              text={t('Create.Form.Button.clipboard')}
             >
               <Copy
                 color={lucidIconsButton.color.white}

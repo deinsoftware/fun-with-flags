@@ -1,39 +1,37 @@
-import { EventBody } from '@/types/event.types'
+import { Prisma } from '@prisma/client'
 
 const { NEXT_PUBLIC_API_URL = '' } = process?.env || {}
 
 export async function createEvent(
-  { description, eventName, timeZone, url, userName, tags, lang }: EventBody,
+  body: Omit<Prisma.EventsCreateInput, 'Users'> & { userName: string },
   signal?: AbortSignal,
 ) {
   const headers = new Headers()
   headers.append('Content-Type', 'application/json')
 
-  const body = JSON.stringify({
-    description,
-    lang: lang ?? 'es-CO',
-    name: eventName,
-    tags,
-    timeZone,
-    url,
-    userName,
-  })
+  const payload = JSON.stringify(body)
   const params: RequestInit = {
     method: 'PUT',
     headers,
-    body,
+    body: payload,
     redirect: 'follow',
     signal,
   }
   try {
     const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/events`, params)
-    if (!response.ok) {
-      return { message: 'failed to create event', error: response }
+    const { ok, status } = response ?? {}
+    const result = { ok, status, data: {} }
+    if (response.ok) {
+      result.data = await response.json()
     }
-    const data = await response.json()
-
-    return `Created event: ${data.name}`
+    return result
   } catch (error) {
-    return { message: 'Server error', error }
+    console.error(error)
+    const result = {
+      ok: false,
+      status: 500,
+      data: {},
+    }
+    return result
   }
 }
