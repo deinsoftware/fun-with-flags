@@ -18,7 +18,6 @@ export const generateMetadata = async ({
   }
 }
 
-// FIXME: replace with real function
 const fetchEventsByUsername = async () => {
   const res = await fetch('https://api.npoint.io/ea816db8fdd340c3518d')
   return await res.json()
@@ -27,12 +26,20 @@ const fetchEventsByUsername = async () => {
 const EventsPage = async () => {
   const events = await fetchEventsByUsername()
 
+  /*
+  TODO:
+  - used 'any' in typeScript -> inside .map
+  - titleOnPage doesn't exist in messages
+  - metadata title doesn't exist in messages
+  - replace with real function (fetching)
+  */
+
   return (
     <>
       <div className={styles['container-events']}>
-        <Title>Eventos</Title> {/* TODO: <- this doesn't exist in messages */}
+        <Title>Eventos</Title>
         <main className={styles['events']}>
-          {events.map((event) => {
+          {events.map((event: any) => {
             return (
               <UserEvents
                 key={event.id}
