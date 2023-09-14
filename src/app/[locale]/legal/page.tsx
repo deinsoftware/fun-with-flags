@@ -3,7 +3,7 @@ import { getTranslator } from 'next-intl/server'
 
 import styles from './page.module.css'
 
-import ButtonBack from './ButtonBack'
+import ButtonBack from '@/components/atoms/ui/ButtonBack'
 
 import Subtitle from '@/components/atoms/ui/Subtitle'
 
