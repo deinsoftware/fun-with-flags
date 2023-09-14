@@ -147,13 +147,13 @@
   },
   "Response": {
     "201": "{title} fue creado",
-    "200": "OK",
-    "400": "Solicitud incorrecta",
-    "401": "No autorizado",
-    "403": "Prohibido",
-    "404": "No encontrado",
-    "405": "Método no permitido",
-    "409": "ya existe",
-    "500": "Error interno del servidor"
+    "200": "{title} fue {action, select, update {actualizado} delete {eliminado} other {completado con éxito}}",
+    "400": "¡Ups! Por favor, verifica tu solicitud y vuelve a intentarlo",
+    "401": "Lo siento, no estás autorizado para acceder a este recurso",
+    "403": "Acceso a este recurso está prohibido",
+    "404": "¡Ups! No se encontró el {title} solicitado",
+    "405": "Lo siento, el método solicitado no está permitido",
+    "409": "¡Ups! El {title} ya existe",
+    "500": "¡Ups! Algo salió mal en nuestro lado, vuelve a intentarlo"
   }
 }

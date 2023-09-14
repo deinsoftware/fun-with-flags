@@ -147,13 +147,13 @@
   },
   "Response": {
     "201": "{title} was created",
-    "200": "OK",
-    "400": "Bad Request",
-    "401": "Unauthorized",
-    "403": "Forbidden",
-    "404": "Not Found",
-    "405": "Method Not Allowed",
-    "409": "already exists",
-    "500": "Internal Server Error"
+    "200": "{title} was {action, select, update {updated} delete {deleted} other {completed with success}}",
+    "400": "Oops! Please check your request and try again",
+    "401": "Sorry, you are not authorized to access this resource",
+    "403": "Access to this resource is forbidden",
+    "404": "Oops! The requested {title} was not found",
+    "405": "Sorry, the requested method is not allowed",
+    "409": "Oops! The {title} already exists",
+    "500": "Oops! Something went wrong on our end, try again"
   }
 }

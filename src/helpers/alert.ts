@@ -7,21 +7,27 @@ type Props = {
     ok: boolean
     status: number
   }
-  t: (arg0: string, arg1?: { title: string }) => string
+  t: (arg0: string, arg1?: { title: string; action?: string }) => string
   title: string
-  description?: string
+  action?: 'delete' | 'update'
 }
 
 export const showResponseResult = ({
   response: { ok, status = 500 },
   t,
   title,
-  description,
+  action,
 }: Props) => {
-  const message = t(`${status}`, { title })
-  //Todo: change iconTheme only on success
-  toast[ok ? 'success' : 'error'](message, {
+  const message = t(`${status}`, { title, action })
+  const options: {
+    style: typeof toastStyle
+    iconTheme?: typeof toastIconTheme
+  } = {
     style: toastStyle,
-    iconTheme: toastIconTheme,
-  })
+  }
+
+  if (ok) {
+    options.iconTheme = toastIconTheme
+  }
+  toast[ok ? 'success' : 'error'](message, options)
 }

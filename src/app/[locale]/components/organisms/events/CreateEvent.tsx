@@ -47,8 +47,8 @@ import { toastStyle } from '@/libs/toast'
 import { showResponseResult } from '@/helpers/alert'
 
 const CreateEvent = () => {
-  const t = useTranslations('Events')
   const tResponse = useTranslations('Response')
+  const t = useTranslations('Events')
 
   const [signal, setSignal] = useState<AbortSignal>()
 
@@ -171,7 +171,11 @@ const CreateEvent = () => {
 
     const response = await createEvent(body, signal)
 
-    showResponseResult({ response, t: tResponse, title: t('title') })
+    showResponseResult({
+      response,
+      t: tResponse,
+      title: t('title'),
+    })
     cleanDataStorage()
   }
 
