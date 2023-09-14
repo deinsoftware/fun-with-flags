@@ -36,7 +36,11 @@ const Notice = () => {
       location="bottom" // Ubicación - top, bottom
       overlay={true}
       overlayStyle={{ background: '#00000095' }} // Estilo del overlay
-      style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
+      style={{
+        background: '#1C1C1C',
+        minHeight: '80px',
+        fontSize: 'var(--font-size-sm)',
+      }} // Estilo del banner
       onDecline={() => {
         toast(`${t('CookieConsent.Toast.onDecline')}.`, {
           style: toastStyle,
