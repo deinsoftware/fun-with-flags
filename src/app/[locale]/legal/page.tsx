@@ -3,7 +3,8 @@ import { getTranslator } from 'next-intl/server'
 
 import styles from './page.module.css'
 
-import Title from '@/components/atoms/ui/Title'
+import ButtonBack from './ButtonBack'
+
 import Subtitle from '@/components/atoms/ui/Subtitle'
 
 import { MetadataProps } from '@/app/layout.types'
@@ -24,6 +25,7 @@ const CreateEventPage = () => {
   return (
     <>
       <main className={styles['container']}>
+        <ButtonBack />
         <section className={styles['section']}>
           <Subtitle>{t('Page.Privacy.title')}</Subtitle>
 
