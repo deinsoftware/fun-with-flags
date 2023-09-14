@@ -25,7 +25,6 @@ const CreateEventPage = () => {
   return (
     <>
       <main className={styles['container']}>
-        <ButtonBack />
         <section className={styles['section']}>
           <Subtitle>{t('Page.Privacy.title')}</Subtitle>
 
@@ -49,6 +48,8 @@ const CreateEventPage = () => {
             paragraph: (chunks) => <p>{chunks}</p>,
           })}
         </section>
+
+        <ButtonBack />
       </main>
     </>
   )
