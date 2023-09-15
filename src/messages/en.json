@@ -155,5 +155,10 @@
     "405": "Sorry, the requested method is not allowed",
     "409": "Oops! The {title} already exists",
     "500": "Oops! Something went wrong on our end, try again"
+  },
+  "Globals": {
+    "Buttons": {
+      "Back": "Back"
+    }
   }
 }

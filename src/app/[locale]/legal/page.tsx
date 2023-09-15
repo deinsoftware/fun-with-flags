@@ -3,7 +3,8 @@ import { getTranslator } from 'next-intl/server'
 
 import styles from './page.module.css'
 
-import Title from '@/components/atoms/ui/Title'
+import ButtonBack from '@/components/atoms/ui/ButtonBack'
+
 import Subtitle from '@/components/atoms/ui/Subtitle'
 
 import { MetadataProps } from '@/app/layout.types'
@@ -47,6 +48,8 @@ const CreateEventPage = () => {
             paragraph: (chunks) => <p>{chunks}</p>,
           })}
         </section>
+
+        <ButtonBack />
       </main>
     </>
   )

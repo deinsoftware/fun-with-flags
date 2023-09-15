@@ -155,5 +155,10 @@
     "405": "Lo siento, el método solicitado no está permitido",
     "409": "¡Ups! El {title} ya existe",
     "500": "¡Ups! Algo salió mal en nuestro lado, vuelve a intentarlo"
+  },
+  "Globals": {
+    "Buttons": {
+      "Back": "Volver"
+    }
   }
 }
