@@ -178,6 +178,17 @@ export const useFormData = () => {
     return !haveEmptyFields
   }
 
+  const validateURL = (url: string) => {
+    const urlRegex =
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    if (urlRegex.test(url)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return {
     formData,
     setFormData,
@@ -190,5 +201,6 @@ export const useFormData = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    validateURL,
   }
 }

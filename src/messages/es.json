@@ -58,7 +58,8 @@
         "selectedTimezone": "Zona horaria seleccionada: \"{name}\"",
         "alreadySelectedTimezone": "\"{name}\" ya está seleccionada",
         "copiedToClipboard": "Copiado al portapapeles",
-        "copiedToClipboardError": "Error al copiar la información"
+        "copiedToClipboardError": "Error al copiar la información",
+        "validationURL": "Enlace inválido"
       }
     }
   },

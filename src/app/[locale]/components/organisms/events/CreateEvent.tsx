@@ -82,6 +82,7 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    validateURL,
   } = useFormData()
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
@@ -156,6 +157,13 @@ const CreateEvent = () => {
     const validationResult = requiredFieldsValidation()
     if (!validationResult) {
       return toast.error(`${t('Create.Form.Error.Required.message')}`, {
+        style: toastStyle,
+      })
+    }
+
+    const validationURL = validateURL(formData.eventLink)
+    if (!validationURL) {
+      return toast.error(`${t('Create.Toast.validationURL')}`, {
         style: toastStyle,
       })
     }
