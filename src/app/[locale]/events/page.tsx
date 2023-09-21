@@ -1,5 +1,7 @@
 import { getTranslator } from 'next-intl/server'
 
+import { useTranslations } from 'next-intl'
+
 import Title from '../components/atoms/ui/Title'
 
 import styles from './page.module.css'
@@ -24,6 +26,7 @@ const fetchEventsByUsername = async () => {
 }
 
 const EventsPage = async () => {
+  // const t = useTranslations('Events')
   const events = await fetchEventsByUsername()
 
   /*
@@ -31,19 +34,22 @@ const EventsPage = async () => {
   - used 'any' in typeScript -> inside .map
   - titleOnPage doesn't exist in messages
   - metadata title doesn't exist in messages
+  - titleOnPage doesn't exist in messages
   - replace with real function (fetching)
   */
 
   return (
     <>
       <div className={styles['container-events']}>
-        <Title>Eventos</Title>
+        {/* <Title>{t('title')}</Title> */}
+        <Title>{`Eventos`}</Title>
         <main className={styles['events']}>
           {events.map((event: any) => {
             return (
               <UserEvents
                 key={event.id}
                 date={event.createdAt}
+                description={event.description}
                 name={event.name}
                 timeZone={event.timeZone}
                 url={event.url}

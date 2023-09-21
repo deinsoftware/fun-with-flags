@@ -1,8 +1,24 @@
-import { MapPin, Link as LinkIcon } from 'lucide-react'
+'use client'
+
+import {
+  MapPin,
+  Link as LinkIcon,
+  ChevronDown,
+  Pencil,
+  Copy,
+  Trash2,
+  Share2,
+} from 'lucide-react'
 
 import Link from 'next/link'
 
+import { useState } from 'react'
+
+import Button from '../atoms/ui/Button'
+
 import styles from './UserEvents.module.css'
+
+import { lucidUserEvents } from '@/libs/icon-config'
 
 type Props = {
   name: string
@@ -13,9 +29,16 @@ type Props = {
     }
   }
   date: string
+  description: string
 }
 
-export const UserEvents = ({ name, url, timeZone, date }: Props) => {
+export const UserEvents = ({
+  name,
+  url,
+  timeZone,
+  date,
+  description,
+}: Props) => {
   const getMonthName = (monthIndex: number) => {
     const months = [
       'enero',
@@ -47,9 +70,9 @@ export const UserEvents = ({ name, url, timeZone, date }: Props) => {
     const formattedMonth = capitalizeFirstLetter(month)
     const hours = date.getHours()
     const ampm = hours >= 12 ? 'p. m.' : 'a. m.'
-    const formatHours = hours.toString().padStart(2, '0')
+    const formattedHours = hours.toString().padStart(2, '0')
     const minutes = date.getMinutes().toString().padStart(2, '0')
-    return `${formattedDay} ${formattedMonth} ${formatHours}:${minutes} ${ampm}`
+    return `${formattedDay} ${formattedMonth} ${formattedHours}:${minutes} ${ampm}`
   }
 
   const formattedDate = formatDate(date)
@@ -59,27 +82,93 @@ export const UserEvents = ({ name, url, timeZone, date }: Props) => {
   // TODO: move this component in correct place
   // TODO: move this component in correct place
 
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <>
       <div className={styles['container']}>
         <aside className={styles['aside']}>
           <time className={styles['date']}>{formattedDate}</time>
+          <div
+            className={`${styles['icons']} ${
+              isOpen ? styles['is-open'] : styles['']
+            }`}
+          >
+            <div className={styles['icon']}>
+              <Pencil
+                color={lucidUserEvents.actions.color.main}
+                size={lucidUserEvents.actions.size}
+                strokeWidth={lucidUserEvents.actions.strokeWidth}
+              />
+            </div>
+            <div className={styles['icon']}>
+              <Copy
+                color={lucidUserEvents.actions.color.main}
+                size={lucidUserEvents.actions.size}
+                strokeWidth={lucidUserEvents.actions.strokeWidth}
+              />
+            </div>
+            <div className={styles['icon']}>
+              <Trash2
+                color={lucidUserEvents.actions.color.main}
+                size={lucidUserEvents.actions.size}
+                strokeWidth={lucidUserEvents.actions.strokeWidth}
+              />
+            </div>
+            <div className={styles['icon']}>
+              <Share2
+                color={lucidUserEvents.actions.color.main}
+                size={lucidUserEvents.actions.size}
+                strokeWidth={lucidUserEvents.actions.strokeWidth}
+              />
+            </div>
+          </div>
         </aside>
         <div className={styles['body']}>
-          <Link className={styles['title-link']} href="#">
-            <h2 className={styles['title']}>{name}</h2>
-          </Link>
-          <div className={styles['location']}>
-            <MapPin size={14} />
-            <span className={styles['location-text']}>
-              {timeZone.origin.name}
-            </span>
-          </div>
-          <div className={styles['link-container']}>
-            <LinkIcon color="#888" size={14} />
-            <Link className={styles['link']} href="#" target="_blank">
-              {url}
+          <div className={styles['content']}>
+            <Link className={styles['title-link']} href="#">
+              <h2 className={styles['title']}>{name}</h2>
             </Link>
+            <div className={styles['location']}>
+              <MapPin
+                color={lucidUserEvents.content.color.gray}
+                size={lucidUserEvents.content.size}
+                strokeWidth={lucidUserEvents.content.strokeWidth}
+              />
+              <span className={styles['location-text']}>
+                {timeZone.origin.name}
+              </span>
+            </div>
+            <div
+              className={`${styles['description-container']} ${
+                isOpen ? styles['is-open'] : styles['']
+              }`}
+            >
+              <p className={styles['description']}>{description}</p>
+            </div>
+            <div className={styles['link-container']}>
+              <LinkIcon
+                color={lucidUserEvents.content.color.gray}
+                size={lucidUserEvents.content.size}
+                strokeWidth={lucidUserEvents.content.strokeWidth}
+              />
+              <Link className={styles['link']} href="#" target="_blank">
+                {url}
+              </Link>
+            </div>
+          </div>
+          <div
+            className={`${styles['button-is-open']} ${
+              isOpen ? styles['is-open'] : styles['']
+            }`}
+          >
+            <Button handleClick={() => setIsOpen(!isOpen)}>
+              <ChevronDown
+                color={lucidUserEvents.actions.color.white}
+                size={lucidUserEvents.actions.size}
+                strokeWidth={lucidUserEvents.actions.strokeWidth}
+              />
+            </Button>
           </div>
         </div>
       </div>
