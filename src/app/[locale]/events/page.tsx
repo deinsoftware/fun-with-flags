@@ -26,7 +26,7 @@ const fetchEventsByUsername = async () => {
 }
 
 const EventsPage = async () => {
-  // const t = useTranslations('Events')
+  // const t = useTranslations('Events') <- can't use in async function
   const events = await fetchEventsByUsername()
 
   /*
