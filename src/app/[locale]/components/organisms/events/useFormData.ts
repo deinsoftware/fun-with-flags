@@ -21,7 +21,6 @@ export const useFormData = () => {
     eventName: '',
     time: '',
     date: '',
-    language: '',
     eventLink: '',
     eventDescription: '',
     image: '',
