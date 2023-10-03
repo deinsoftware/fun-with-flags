@@ -121,7 +121,6 @@ const CreateEvent = () => {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      console.log('render')
       if (
         showTimePickerRef.current &&
         !showTimePickerRef.current.contains(e.target as Node)
