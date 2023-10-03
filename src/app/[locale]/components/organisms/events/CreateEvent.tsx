@@ -269,22 +269,7 @@ const CreateEvent = () => {
                         formData.toggleState.timeFormat,
                       )}
                   </span>
-                  <input
-                    hidden
-                    readOnly
-                    aria-label={t('Create.Form.Fields.time')}
-                    className={`${styles['time']}`}
-                    id=""
-                    name="time"
-                    placeholder={
-                      formData.toggleState.timeFormat === 24
-                        ? '--:--'
-                        : '--:-- --'
-                    }
-                    type="text"
-                    value={formData.time}
-                    onChange={handleChangeForm}
-                  />
+
                   <button
                     className={styles['select-time']}
                     type="button"

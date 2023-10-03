@@ -7,7 +7,6 @@ export type FormData = {
   eventName: string
   time: TimePattern | ''
   date: DatePattern | ''
-  language: string
   eventLink: string
   eventDescription: string
   image: string
