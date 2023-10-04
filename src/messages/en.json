@@ -51,6 +51,9 @@
             "eventLink": "Hyperlink is required",
             "combo": "At least one time zone is required"
           },
+          "Validation": {
+            "urlValidation": "Invalid URL"
+          },
           "login": "You must be logged in to create an event"
         }
       },

@@ -177,11 +177,18 @@ export const useFormData = () => {
   }
 
   const validateUrl = (url: string) => {
-    const VALIDATION_REGEX =
+    const VALIDATION_URL_REGEX =
       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
-    return VALIDATION_REGEX.test(url)
+    const urlValidation = VALIDATION_URL_REGEX.test(url)
+    return urlValidation
   }
+
+  const [isUrlValid, setIsUrlValid] = useState(false)
+  useEffect(() => {
+    const urlValidation = validateUrl(formData.eventLink)
+    setIsUrlValid(urlValidation)
+  }, [formData.eventLink])
 
   return {
     formData,
@@ -196,5 +203,6 @@ export const useFormData = () => {
     wasSubmitted,
     requiredFieldsValidation,
     validateUrl,
+    isUrlValid,
   }
 }

@@ -82,7 +82,7 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
-    validateUrl,
+    isUrlValid,
   } = useFormData()
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
@@ -147,7 +147,6 @@ const CreateEvent = () => {
     [setFormData],
   )
 
-  let validationUrl
   const handleCreateEvent = async () => {
     if (!session?.user?.name) {
       return toast.error(t('Create.Form.Error.login'), {
@@ -155,10 +154,8 @@ const CreateEvent = () => {
       })
     }
 
-    validationUrl = validateUrl(formData.eventLink)
-
     const validationResult = requiredFieldsValidation()
-    if (!validationResult || !validationUrl) {
+    if (!validationResult) {
       return toast.error(`${t('Create.Form.Error.Required.message')}`, {
         style: toastStyle,
       })
@@ -335,10 +332,10 @@ const CreateEvent = () => {
                 {t('Create.Form.Error.Required.eventLink')}
               </span>
             )}
-            {wasSubmitted && validationUrl && (
-              <span
-                className={styles['required']}
-              >{`El enlace no es válido`}</span>
+            {wasSubmitted && !isUrlValid && (
+              <span className={styles['required']}>
+                {t('Create.Form.Error.Validation.urlValidation')}
+              </span>
             )}
           </div>
           <textarea
