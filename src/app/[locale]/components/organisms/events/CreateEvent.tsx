@@ -13,7 +13,7 @@ import {
   useRef,
 } from 'react'
 
-import { Clock3, Copy, Save, Twitter } from 'lucide-react'
+import { Clock3, Copy, Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
@@ -91,6 +91,7 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    isUrlValid,
   } = useFormData()
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
@@ -354,8 +355,13 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
             {wasSubmitted && !formData.eventLink && (
-              <span className={styles['required']}>
+              <span className={`${styles['required']}`}>
                 {t('Create.Form.Error.Required.eventLink')}
+              </span>
+            )}
+            {wasSubmitted && !isUrlValid && (
+              <span className={styles['required']}>
+                {t('Create.Form.Error.Validation.urlValidation')}
               </span>
             )}
           </div>
@@ -472,11 +478,14 @@ const CreateEvent = () => {
               handleClick={handleShareEventOnTwitter}
               text={t('Create.Form.Button.share')}
             >
-              <Twitter
-                color={lucidIconsButton.color.white}
-                size={lucidIconsButton.size}
-                strokeWidth={lucidIconsButton.strokeWidth}
-              />
+              {/* This SVG is here, because the icon library didn't update the Twitter icon for X */}
+              <svg
+                height={lucidIconsButton.size}
+                style={{ fill: lucidIconsButton.color.white }}
+                viewBox="0 0 512 512"
+              >
+                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+              </svg>
             </Button>
 
             <Button

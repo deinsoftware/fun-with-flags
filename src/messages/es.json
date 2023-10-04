@@ -51,6 +51,9 @@
             "eventLink": "El enlace es obligatorio",
             "combo": "Al menos una zona horaria es requerida"
           },
+          "Validation": {
+            "urlValidation": "Enlace inválido"
+          },
           "login": "Debes iniciar sesión para crear un evento."
         }
       },
