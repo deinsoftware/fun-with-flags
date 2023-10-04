@@ -61,8 +61,7 @@
         "selectedTimezone": "Time zone selected: \"{name}\"",
         "alreadySelectedTimezone": "\"{name}\" is already selected",
         "copiedToClipboard": "Copied to clipboard",
-        "copiedToClipboardError": "Error copying information",
-        "validationURL": "Invalid URL"
+        "copiedToClipboardError": "Error copying information"
       }
     }
   },
