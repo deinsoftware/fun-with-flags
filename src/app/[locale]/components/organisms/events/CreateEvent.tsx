@@ -82,6 +82,7 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    isUrlValid,
   } = useFormData()
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
@@ -327,8 +328,13 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
             {wasSubmitted && !formData.eventLink && (
-              <span className={styles['required']}>
+              <span className={`${styles['required']}`}>
                 {t('Create.Form.Error.Required.eventLink')}
+              </span>
+            )}
+            {wasSubmitted && !isUrlValid && (
+              <span className={styles['required']}>
+                {t('Create.Form.Error.Validation.urlValidation')}
               </span>
             )}
           </div>
