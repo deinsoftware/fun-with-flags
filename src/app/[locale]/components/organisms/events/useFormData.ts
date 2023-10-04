@@ -202,7 +202,6 @@ export const useFormData = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
-    validateUrl,
     isUrlValid,
   }
 }
