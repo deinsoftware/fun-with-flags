@@ -4,7 +4,14 @@ import toast from 'react-hot-toast'
 
 import { useTranslations } from 'next-intl'
 
-import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
+import {
+  useState,
+  useMemo,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
 
 import { Clock3, Copy, Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -20,6 +27,7 @@ import { Locale } from '@/types/locale.types'
 import {
   addYearsToDate,
   extractDate,
+  formatLocaleTime,
   getLocaleDayPeriod,
   joinISODate,
 } from '@/helpers/dates'
@@ -63,6 +71,7 @@ const CreateEvent = () => {
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
+  const showTimePickerRef = useRef<HTMLDivElement | null>(null)
   const [optionsCombo, setOptionsCombo] = useState({
     hideMins: false,
     showGmt: true,
@@ -110,6 +119,22 @@ const CreateEvent = () => {
     formData.time,
     formData.gmt,
   ])
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        showTimePickerRef.current &&
+        !showTimePickerRef.current.contains(e.target as Node)
+      ) {
+        setShowTimePicker(false)
+      }
+    }
+    if (showTimePicker) document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [showTimePicker])
 
   // FIXME: use values from user configuration
   const props = useMemo(
@@ -234,16 +259,18 @@ const CreateEvent = () => {
               <div
                 className={`${styles['container-with-toggle']} ${styles['container-time']}`}
               >
-                <div className={styles['input-button']}>
-                  <input
-                    aria-label={t('Create.Form.Fields.time')}
-                    className={`${styles['time']}`}
-                    id=""
-                    name="time"
-                    type="time"
-                    value={formData.time}
-                    onChange={handleChangeForm}
-                  />
+                <div
+                  ref={showTimePickerRef}
+                  className={`${styles['input-button']} ${styles['time']}`}
+                >
+                  <span onClick={() => setShowTimePicker(!showTimePicker)}>
+                    {formData.time !== '' &&
+                      formatLocaleTime(
+                        formData.time,
+                        formData.toggleState.timeFormat,
+                      )}
+                  </span>
+
                   <button
                     className={styles['select-time']}
                     type="button"
