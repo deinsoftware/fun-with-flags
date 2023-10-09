@@ -1,6 +1,7 @@
 .container {
     position: absolute;
     top: calc(40px + 8px);
+    left: 0;
     display: flex;
     min-width: 100%;
     height: 100px;

@@ -1,5 +1,5 @@
 .search-bar-container {
-    padding: 12px 40px;
+    padding: var(--padding);
 
     & .search-bar {
         display: flex;
