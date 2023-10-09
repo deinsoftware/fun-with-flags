@@ -23,7 +23,7 @@ const LoginButton = () => {
   const session = useSession()
   const data = session.data as Session | DefaultSession
 
-  const [consentGranted, setConsentGranted] = useState()
+  const [consentGranted, setConsentGranted] = useState(false)
 
   useEffect(() => {
     const cookieValue = getCookieConsentValue('cookie-consent')
