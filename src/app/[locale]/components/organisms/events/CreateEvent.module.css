@@ -28,8 +28,8 @@
 
         & .container-event-name,
         .container-hyperlink {
-            width: 100%;
             display: flex;
+            width: 100%;
             flex-direction: column;
 
             & .event-name,
