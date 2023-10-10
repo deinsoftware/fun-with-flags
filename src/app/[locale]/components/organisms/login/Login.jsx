@@ -8,6 +8,14 @@ import { useSearchParams } from 'next/navigation'
 
 import { useTranslations } from 'next-intl'
 
+import { useEffect, useState } from 'react'
+
+import {
+  getCookieConsentValue,
+} from 'react-cookie-consent'
+
+import Button from '../../atoms/ui/Button'
+
 import styles from './Login.module.css'
 
 const Login = () => {
@@ -15,6 +23,15 @@ const Login = () => {
 
   const searchParams = useSearchParams()
   const callbackUrl = searchParams?.get('callbackUrl') ?? '/'
+
+  const [consentGranted, setConsentGranted] = useState(false)
+
+  useEffect(() => {
+    const cookieValue = getCookieConsentValue('cookie-consent')
+    if (cookieValue === 'true') {
+      setConsentGranted(true)
+    }
+  }, [])
 
   return (
     <>
@@ -24,9 +41,13 @@ const Login = () => {
         </div>
 
         <div className={styles['providers-button']}>
-          <button
-            className={`${styles['provider']} ${styles['google-provider']}`}
-            onClick={() => signIn('google', { callbackUrl })}
+          <Button
+            color={'--color-btn-google'}
+            disabled={!consentGranted}
+            handleClick={() => signIn('google', { callbackUrl })}
+            text={t('Providers.Google.text')}
+            textHover={'Necesitas aceptar las cookies para iniciar sesión'}
+            width={'420'}
           >
             <Image
               alt={t('Providers.Google.altImg')}
@@ -35,10 +56,7 @@ const Login = () => {
               src="/img/auth/google.svg"
               width={32}
             />
-            <span className={styles['name-provider']}>
-              {t('Providers.Google.text')}
-            </span>
-          </button>
+          </Button>
         </div>
 
         <div className="">

@@ -7,6 +7,7 @@ type Props = {
   textHover?: string
   text?: string
   children?: React.ReactNode
+  width?: string
 }
 
 const Button = ({
@@ -16,16 +17,23 @@ const Button = ({
   textHover,
   text,
   children,
+  width,
 }: Props) => {
   return (
-    <div className={styles['container']}>
+    <div
+      className={styles['container']}
+      style={{ maxWidth: width && `${width}px` }}
+    >
       {textHover && disabled && (
         <div className={styles['before']}> {textHover} </div>
       )}
       <button
         className={styles['button']}
         disabled={disabled}
-        style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
+        style={{
+          backgroundColor: color ? `var(${color})` : 'defaultColor',
+          maxWidth: width && `${width}px`,
+        }}
         type="button"
         onClick={(event) => {
           event.preventDefault()
