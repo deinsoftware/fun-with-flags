@@ -10,9 +10,16 @@
         "signIn": "Sign In",
         "signOut": "Sign Out"
       }
+    },
+    "Actions": {
+      "home": "Home",
+      "events": "Events",
+      "createEvent": "Create event",
+      "settings": "Settings"
     }
   },
   "Events": {
+    "title": "Event",
     "Create": {
       "title": "Create Event",
       "Form": {
@@ -28,7 +35,8 @@
           "date": "Use date",
           "hideMins": "Hide minutes",
           "showGmt": "Show GMT",
-          "onlyNum": "Only numbers"
+          "onlyNum": "Only numbers",
+          "hideEmojis": "Hide emojis"
         },
         "Button": {
           "create": "Create",
@@ -42,6 +50,9 @@
             "eventName": "Event name is required",
             "eventLink": "Hyperlink is required",
             "combo": "At least one time zone is required"
+          },
+          "Validation": {
+            "urlValidation": "Invalid URL"
           },
           "login": "You must be logged in to create an event"
         }
@@ -136,5 +147,21 @@
   },
   "Settings": {
     "title": "Settings"
+  },
+  "Response": {
+    "201": "{title} was created",
+    "200": "{title} was {action, select, update {updated} delete {deleted} other {completed with success}}",
+    "400": "Oops! Please check your request and try again",
+    "401": "Sorry, you are not authorized to access this resource",
+    "403": "Access to this resource is forbidden",
+    "404": "Oops! The requested {title} was not found",
+    "405": "Sorry, the requested method is not allowed",
+    "409": "Oops! The {title} already exists",
+    "500": "Oops! Something went wrong on our end, try again"
+  },
+  "Globals": {
+    "Buttons": {
+      "Back": "Back"
+    }
   }
 }

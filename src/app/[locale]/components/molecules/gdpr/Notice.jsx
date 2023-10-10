@@ -34,7 +34,13 @@ const Notice = () => {
       expires={30} // Los días que dura para expirar la cookie
       hideOnDecline={true} // Ocultar al declinar
       location="bottom" // Ubicación - top, bottom
-      style={{ background: '#1C1C1C', minHeight: '100px' }} // Estilo del banner
+      overlay={true}
+      overlayStyle={{ background: '#00000095' }} // Estilo del overlay
+      style={{
+        background: '#1C1C1C',
+        minHeight: '80px',
+        fontSize: 'var(--font-size-sm)',
+      }} // Estilo del banner
       onDecline={() => {
         toast(`${t('CookieConsent.Toast.onDecline')}.`, {
           style: toastStyle,

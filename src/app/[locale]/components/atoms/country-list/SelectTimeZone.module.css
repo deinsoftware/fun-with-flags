@@ -24,12 +24,12 @@
         gap: 12px;
 
         & .flag-country {
-            font-size: var(--font-size-title);
+            font-size: var(--font-size-lg);
         }
 
         & .name-country {
             width: 100%;
-            font-size: var(--font-size-large);
+            font-size: var(--font-size-sm);
             text-align: left;
         }
     }

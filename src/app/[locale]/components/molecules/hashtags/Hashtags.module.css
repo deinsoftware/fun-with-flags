@@ -19,7 +19,7 @@
             background-color: var(--color-darkgray-800);
             color: var(--color-whywhite-500);
             font-family: var(--font-family-primary);
-            font-size: var(--font-size-medium);
+            font-size: var(--font-size-sm);
 
             &::placeholder {
                 color: var(--color-gray-500);
@@ -39,7 +39,7 @@
             background-color: var(--color-darkgray-800);
             color: var(--color-purple-500);
             cursor: pointer;
-            font-size: var(--font-size-medium);
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-bold);
             outline: none;
 

@@ -26,8 +26,6 @@ type EventsTimeZone {
 model Events {
   id          String         @id @default(auto()) @map("_id") @db.ObjectId
   description String
-  img         String?
-  lang        String
   name        String
   tags        String[]
   timeZone    EventsTimeZone
