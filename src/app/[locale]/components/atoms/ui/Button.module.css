@@ -30,7 +30,6 @@
 .button {
     display: flex;
     width: 100%;
-    max-width: 132px;
     max-height: 37.14px;
     box-sizing: border-box;
     align-items: center;
@@ -88,3 +87,12 @@
     }
 }
 
+.button-provider {
+    /* min-width: 250px; */
+    max-width: 250px;
+    justify-content: start;
+
+    & .text {
+        width: 100%;
+    }
+}

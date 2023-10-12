@@ -23,21 +23,12 @@ const LoginButton = () => {
   const session = useSession()
   const data = session.data as Session | DefaultSession
 
-  const [consentGranted, setConsentGranted] = useState(false)
-
-  useEffect(() => {
-    const cookieValue = getCookieConsentValue('cookie-consent')
-    if (cookieValue === 'true') {
-      setConsentGranted(true)
-    }
-  }, [])
-
   const handleClick = () => {
     const cookieValue = getCookieConsentValue('cookie-consent')
 
     if (cookieValue === 'false') {
       resetCookieConsentValue('cookie-consent')
-      location.reload()
+      signIn()
       return
     }
 
@@ -47,8 +38,7 @@ const LoginButton = () => {
     }
   }
 
-  if (!consentGranted || !data)
-    return <Button handleClick={handleClick} text={t('signIn')} />
+  if (!data) return <Button handleClick={handleClick} text={t('signIn')} />
 
   return (
     <Button handleClick={() => signOut()} text={t('signOut')}>
