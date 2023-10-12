@@ -10,9 +10,7 @@ import { useTranslations } from 'next-intl'
 
 import { useEffect, useState } from 'react'
 
-import {
-  getCookieConsentValue,
-} from 'react-cookie-consent'
+import { getCookieConsentValue } from 'react-cookie-consent'
 
 import Button from '../../atoms/ui/Button'
 
@@ -42,12 +40,12 @@ const Login = () => {
 
         <div className={styles['providers-button']}>
           <Button
+            className={'button-provider'}
             color={'--color-btn-google'}
             disabled={!consentGranted}
             handleClick={() => signIn('google', { callbackUrl })}
             text={t('Providers.Google.text')}
             textHover={'Necesitas aceptar las cookies para iniciar sesión'}
-            width={'420'}
           >
             <Image
               alt={t('Providers.Google.altImg')}

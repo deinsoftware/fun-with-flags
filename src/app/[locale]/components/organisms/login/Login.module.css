@@ -32,6 +32,8 @@
         display: flex;
         width: 100%;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         gap: 16px;
 
         /* Estos estilos serviran para cuando tengamos más de un provider */

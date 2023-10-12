@@ -16,7 +16,7 @@ const Notice = () => {
 
   return (
     <CookieConsent
-      enableDeclineButton // Habilitar el botón de declinar
+      // enableDeclineButton // Habilitar el botón de declinar
       buttonStyle={{
         color: '#F9FBFC',
         background: '#7E56DA',
