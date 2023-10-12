@@ -18,7 +18,7 @@
 
         & .required {
             color: var(--color-error);
-            font-size: var(--font-size-small)
+            font-size: var(--font-size-sm)
         }
 
         & .description {
@@ -28,7 +28,9 @@
 
         & .container-event-name,
         .container-hyperlink {
+            display: flex;
             width: 100%;
+            flex-direction: column;
 
             & .event-name,
             .hyperlink,
@@ -92,7 +94,7 @@
 
                     & .text-toggle {
                         color: var(--color-gray-500);
-                        font-size: var(--font-size-small);
+                        font-size: var(--font-size-sm);
                     }
                 }
             }
@@ -102,13 +104,16 @@
 
                 &::after {
                     position: absolute;
-                    top: 10px;
-                    right: 20px;
+                    top: 5px;
+                    right: 4px;
                     display: flex;
-                    width: 30px;
-                    height: 20px;
+                    width: 40px;
+                    height: 30px;
                     align-items: center;
-                    justify-content: end;
+                    justify-content: flex-end;
+                    padding-top: 4px;
+                    padding-right: 9px;
+                    border-radius: 8px;
                     background-color: var(--color-darkgray-800);
                     content: url('/img/ui/date.svg');
                     pointer-events: none;
@@ -146,11 +151,7 @@
                 &::after {
                     @media (width >=730px) {
                         /* 120px = min-height container-toggle */
-
-                        /* 8px = gap between input and toggle-container */
-
-                        /* 12px = space to center it */
-                        right: calc(120px + 8px + 12px);
+                        right: calc(120px);
                     }
                 }
             }
@@ -174,7 +175,7 @@
             background-color: var(--color-darkgray-800);
             color: var(--color-whywhite-500);
             font-family: var(--font-family-primary);
-            font-size: var(--font-size-medium);
+            font-size: var(--font-size-sm);
 
             &::placeholder {
                 color: var(--color-gray-500);
@@ -192,13 +193,34 @@
 
         & .container-button {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
         }
     }
 }
 
+.container-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+
+}
+
 .container-options-combo {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+
+    @media screen and (width < 768px) {
+        flex-basis: calc(50% - 1rem);
+    }
+
+    & .text-toggle {
+        font-size: var(--font-size-sm);
+    }
 }

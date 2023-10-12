@@ -10,8 +10,6 @@ import { authOptions } from '@/libs/auth'
 const eventsSelect: Prisma.EventsSelect = {
   id: true,
   description: true,
-  img: true,
-  lang: true,
   name: true,
   tags: true,
   timeZone: true,

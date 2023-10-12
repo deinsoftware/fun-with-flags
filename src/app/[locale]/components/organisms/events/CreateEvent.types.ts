@@ -7,10 +7,8 @@ export type FormData = {
   eventName: string
   time: TimePattern | ''
   date: DatePattern | ''
-  language: string
   eventLink: string
   eventDescription: string
-  image: string
   combo: string
   country: Countries
   timezone: Timezones

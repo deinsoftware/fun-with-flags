@@ -1,8 +1,35 @@
-.button {
+.container {
     position: relative;
+    max-width: 132px;
+    max-height: 37.14px;
+    flex-basis: 100%;
+
+    & .before {
+        position: absolute;
+        bottom: 110%;
+        left: 50%;
+        display: flex;
+        overflow: hidden;
+        width: max-content;
+        height: 0;
+        align-items: center;
+        border-radius: 15px 15px 15px 0;
+        background-color: var(--color-purple-700);
+        color: var(--color-whywhite-500);
+        opacity: 0;
+        transition: all .3s ease-out;
+    }
+
+    &:hover .before {
+        height: 100%;
+        padding: 10px;
+        opacity: 1;
+    }
+}
+
+.button {
     display: flex;
     width: 100%;
-    max-width: 132px;
     max-height: 37.14px;
     box-sizing: border-box;
     align-items: center;
@@ -15,6 +42,8 @@
     /* Las sombras no deben ser blanco/negro */
 
     /* Investigar una buena sombra */
+
+    /* O quitar la sombra, porque nada más tiene #EduardoDelFuturo */
     box-shadow: 0 2px 2px black;
     cursor: pointer;
     gap: .5rem;
@@ -36,61 +65,34 @@
 
     & .text {
         color: var(--color-whywhite-500);
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-sm);
         font-weight: var(--font-weight-bold);
-
-        /* &:hover {
-                color: var(--color-whywhite-500);
-            } */
-
-        /* TODO: Agregar más variables de blanco para utilizar en el hover de los botones con texto blanco */
-    }
-
-    & .avatar {
-        overflow: hidden;
-        border-radius: 50%;
-    }
-
-    &::before {
-        position: absolute;
-        bottom: 110%;
-        left: 50%;
-        overflow: hidden;
-        width: max-content;
-        height: 0;
-        border-radius: 15px 15px 15px 0;
-        background-color: var(--color-purple-700);
-
-        /* clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%); */
-        color: var(--color-whywhite-500);
-        content: 'Need to be logged'; /*FIXME: this text can't be translated from here */
-        opacity: 0;
-        transition: all .3s ease-out;
     }
 }
 
+
+
 .button:disabled {
-    border: var(--color-darkpurple-700);
-    background-color: var(--color-darkpurple-700);
     cursor: not-allowed;
+    opacity: 0.3;
 
     &:hover {
-        background-color: var(--color-darkpurple-700);
-    }
-
-    &:hover::before {
-        height: 100%;
-        padding: 10px;
-        opacity: 1;
-
+        background-color: var(--color-purple-700);
     }
 
     &:active {
-        box-shadow: none;
+        border: 1px solid var(--color-purple-700);
+        background-color: var(--color-purple-700);
         box-shadow: 0 2px 2px black;
     }
+}
 
-    .text {
-        color: var(--color-darkgray-700);
+.button-provider {
+    /* min-width: 250px; */
+    max-width: 250px;
+    justify-content: start;
+
+    & .text {
+        width: 100%;
     }
 }

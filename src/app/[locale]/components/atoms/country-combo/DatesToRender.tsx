@@ -21,6 +21,7 @@ type Props = {
     hideMins: boolean
     showGmt: boolean
     onlyNum: boolean
+    hideEmojis: boolean
   }
 }
 
@@ -51,10 +52,9 @@ export const DatesToRender = ({
       return (
         <div key={gmt} className={style['countries']}>
           <p
-            className={
-              style[`time-${format}`] +
-              (optionsCombo.hideMins && ' ' + style[`time-short-${format}`])
-            }
+            className={`${style[`time-${format}`]}${
+              optionsCombo.hideMins ? ` ${style[`time-short-${format}`]}` : ''
+            }`}
           >
             {formatTime(countries[0].i18n.time, format, optionsCombo.hideMins)}
           </p>
@@ -107,7 +107,9 @@ export const DatesToRender = ({
         return (
           <div key={self.crypto.randomUUID()}>
             <p>
-              <strong>{`${date}\n`}</strong>
+              <strong>{`${
+                !optionsCombo.hideEmojis ? '📅 ' : ''
+              }${date}\n`}</strong>
             </p>
             {timeInfo}
           </div>

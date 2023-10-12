@@ -48,7 +48,7 @@
   "swpm": "pnpm",
   "volta": {
     "node": "18.17.0",
-    "pnpm": "8.7.1"
+    "pnpm": "8.7.4"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",

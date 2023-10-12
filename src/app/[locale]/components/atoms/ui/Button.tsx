@@ -1,46 +1,45 @@
-import Image from 'next/image'
-
 import styles from './Button.module.css'
-
-const sizeAvatar = {
-  height: 28,
-  width: 28,
-}
 
 type Props = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
-  avatar?: {
-    alt: string
-    img?: string | null
-  }
   disabled?: boolean
   color?: `--${string}-${string}-${string}`
-  children: React.ReactNode
+  textHover?: string
+  text?: string
+  children?: React.ReactNode
+  className?: string
 }
 
-const Button = ({ handleClick, avatar, disabled, color, children }: Props) => {
+const Button = ({
+  handleClick,
+  disabled,
+  color,
+  textHover,
+  text,
+  children,
+  className = '',
+}: Props) => {
   return (
-    <button
-      className={styles['button']}
-      disabled={disabled}
-      style={{ backgroundColor: color ? `var(${color})` : 'defaultColor' }}
-      type="button"
-      onClick={(event) => {
-        event.preventDefault()
-        handleClick(event)
-      }}
-    >
-      {avatar && (
-        <Image
-          alt={avatar.alt}
-          className={styles['avatar']}
-          height={sizeAvatar.height}
-          src={avatar.img ?? '/img/auth/avatar.png'}
-          width={sizeAvatar.width}
-        />
+    <div className={`${styles['container']} ${styles[className]}`}>
+      {textHover && disabled && (
+        <div className={styles['before']}> {textHover} </div>
       )}
-      <span className={styles.text}>{children}</span>
-    </button>
+      <button
+        className={`${styles['button']}`}
+        disabled={disabled}
+        style={{
+          backgroundColor: color ? `var(${color})` : 'defaultColor',
+        }}
+        type="button"
+        onClick={(event) => {
+          event.preventDefault()
+          handleClick(event)
+        }}
+      >
+        {children}
+        {text && <span className={styles['text']}>{text}</span>}
+      </button>
+    </div>
   )
 }
 
