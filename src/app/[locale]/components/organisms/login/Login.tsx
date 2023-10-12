@@ -12,9 +12,9 @@ import { useEffect, useState } from 'react'
 
 import { getCookieConsentValue } from 'react-cookie-consent'
 
-import Button from '../../atoms/ui/Button'
-
 import styles from './Login.module.css'
+
+import Button from '@/components/atoms/ui/Button'
 
 const Login = () => {
   const t = useTranslations('Login')
@@ -37,7 +37,6 @@ const Login = () => {
         <div className="">
           <span className={styles['paragraph']}>{`${t('instructions')}.`}</span>
         </div>
-
         <div className={styles['providers-button']}>
           <Button
             className={'button-provider'}
@@ -45,7 +44,7 @@ const Login = () => {
             disabled={!consentGranted}
             handleClick={() => signIn('google', { callbackUrl })}
             text={t('Providers.Google.text')}
-            textHover={'Necesitas aceptar las cookies para iniciar sesión'}
+            textHover={t('Providers.Google.hover')}
           >
             <Image
               alt={t('Providers.Google.altImg')}
@@ -56,7 +55,6 @@ const Login = () => {
             />
           </Button>
         </div>
-
         <div className="">
           <span className={styles['helper-text']}>
             {t('HelperText.TermsOfUse.text')}{' '}
