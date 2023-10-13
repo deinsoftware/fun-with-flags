@@ -106,6 +106,7 @@
     "Providers": {
       "Google": {
         "text": "Continue with Google",
+        "hover": "Cookies are required",
         "altImg": "Sign in with Google"
       }
     },
@@ -137,11 +138,7 @@
       "notice": "We use cookies to enhance your browsing experience and provide personalized content. To learn more about how we use cookies and your options, check out our ",
       "link": "Terms and conditions of Use",
       "Button": {
-        "agree": "Let's go!",
-        "decline": "I decline"
-      },
-      "Toast": {
-        "onDecline": "Sorry to hear that. If you change your mind and decide to use extra functions, we will ask you again"
+        "agree": "Let's go!"
       }
     }
   },
