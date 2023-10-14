@@ -7,6 +7,13 @@ import { useTranslations } from 'next-intl'
 
 import Image from 'next/image'
 
+import {
+  getCookieConsentValue,
+  resetCookieConsentValue,
+} from 'react-cookie-consent'
+
+import { useEffect, useState } from 'react'
+
 import Button from '@/components/atoms/ui/Button'
 import { sizeAvatar } from '@/libs/constants'
 
@@ -16,9 +23,22 @@ const LoginButton = () => {
   const session = useSession()
   const data = session.data as Session | DefaultSession
 
-  if (!data) {
-    return <Button handleClick={() => signIn()} text={t('signIn')} />
+  const handleClick = () => {
+    const cookieValue = getCookieConsentValue('cookie-consent')
+
+    if (cookieValue === 'false') {
+      resetCookieConsentValue('cookie-consent')
+      signIn()
+      return
+    }
+
+    if (cookieValue === 'true') {
+      signIn()
+      return
+    }
   }
+
+  if (!data) return <Button handleClick={handleClick} text={t('signIn')} />
 
   return (
     <Button handleClick={() => signOut()} text={t('signOut')}>

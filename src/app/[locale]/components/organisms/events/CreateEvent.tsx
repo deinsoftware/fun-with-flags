@@ -4,9 +4,16 @@ import toast from 'react-hot-toast'
 
 import { useTranslations } from 'next-intl'
 
-import { useState, useMemo, RefObject, useCallback, useEffect } from 'react'
+import {
+  useState,
+  useMemo,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
 
-import { Clock3, Copy, Save, Twitter } from 'lucide-react'
+import { Clock3, Copy, Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import styles from './CreateEvent.module.css'
@@ -20,6 +27,7 @@ import { Locale } from '@/types/locale.types'
 import {
   addYearsToDate,
   extractDate,
+  formatLocaleTime,
   getLocaleDayPeriod,
   joinISODate,
 } from '@/helpers/dates'
@@ -63,6 +71,7 @@ const CreateEvent = () => {
   const { timeZones, setOriginDate, addTimeZone } = useTimeZoneContext()
   const [isOpenSelectTimeZone, setIsOpenSelectTimeZone] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
+  const showTimePickerRef = useRef<HTMLDivElement | null>(null)
   const [optionsCombo, setOptionsCombo] = useState({
     hideMins: false,
     showGmt: true,
@@ -82,6 +91,7 @@ const CreateEvent = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    isUrlValid,
   } = useFormData()
 
   const { handleShareEventOnTwitter, handleCopyToClipboard } = useShareEvent({
@@ -109,6 +119,22 @@ const CreateEvent = () => {
     formData.time,
     formData.gmt,
   ])
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        showTimePickerRef.current &&
+        !showTimePickerRef.current.contains(e.target as Node)
+      ) {
+        setShowTimePicker(false)
+      }
+    }
+    if (showTimePicker) document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [showTimePicker])
 
   // FIXME: use values from user configuration
   const props = useMemo(
@@ -233,16 +259,18 @@ const CreateEvent = () => {
               <div
                 className={`${styles['container-with-toggle']} ${styles['container-time']}`}
               >
-                <div className={styles['input-button']}>
-                  <input
-                    aria-label={t('Create.Form.Fields.time')}
-                    className={`${styles['time']}`}
-                    id=""
-                    name="time"
-                    type="time"
-                    value={formData.time}
-                    onChange={handleChangeForm}
-                  />
+                <div
+                  ref={showTimePickerRef}
+                  className={`${styles['input-button']} ${styles['time']}`}
+                >
+                  <span onClick={() => setShowTimePicker(!showTimePicker)}>
+                    {formData.time !== '' &&
+                      formatLocaleTime(
+                        formData.time,
+                        formData.toggleState.timeFormat,
+                      )}
+                  </span>
+
                   <button
                     className={styles['select-time']}
                     type="button"
@@ -327,8 +355,13 @@ const CreateEvent = () => {
               onChange={handleChangeForm}
             />
             {wasSubmitted && !formData.eventLink && (
-              <span className={styles['required']}>
+              <span className={`${styles['required']}`}>
                 {t('Create.Form.Error.Required.eventLink')}
+              </span>
+            )}
+            {wasSubmitted && !isUrlValid && (
+              <span className={styles['required']}>
+                {t('Create.Form.Error.Validation.urlValidation')}
               </span>
             )}
           </div>
@@ -445,11 +478,14 @@ const CreateEvent = () => {
               handleClick={handleShareEventOnTwitter}
               text={t('Create.Form.Button.share')}
             >
-              <Twitter
-                color={lucidIconsButton.color.white}
-                size={lucidIconsButton.size}
-                strokeWidth={lucidIconsButton.strokeWidth}
-              />
+              {/* This SVG is here, because the icon library didn't update the Twitter icon for X */}
+              <svg
+                height={lucidIconsButton.size}
+                style={{ fill: lucidIconsButton.color.white }}
+                viewBox="0 0 512 512"
+              >
+                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+              </svg>
             </Button>
 
             <Button

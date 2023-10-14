@@ -21,10 +21,8 @@ export const useFormData = () => {
     eventName: '',
     time: '',
     date: '',
-    language: '',
     eventLink: '',
     eventDescription: '',
-    image: '',
     combo: '',
     country: 'US',
     timezone: 'America/New_York',
@@ -178,6 +176,20 @@ export const useFormData = () => {
     return !haveEmptyFields
   }
 
+  const validateUrl = (url: string) => {
+    const VALIDATION_URL_REGEX =
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+    const urlValidation = VALIDATION_URL_REGEX.test(url)
+    return urlValidation
+  }
+
+  const [isUrlValid, setIsUrlValid] = useState(false)
+  useEffect(() => {
+    const urlValidation = validateUrl(formData.eventLink)
+    setIsUrlValid(urlValidation)
+  }, [formData.eventLink])
+
   return {
     formData,
     setFormData,
@@ -190,5 +202,6 @@ export const useFormData = () => {
     setCountryInfo,
     wasSubmitted,
     requiredFieldsValidation,
+    isUrlValid,
   }
 }

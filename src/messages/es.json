@@ -51,6 +51,9 @@
             "eventLink": "El enlace es obligatorio",
             "combo": "Al menos una zona horaria es requerida"
           },
+          "Validation": {
+            "urlValidation": "Enlace inválido"
+          },
           "login": "Debes iniciar sesión para crear un evento."
         }
       },
@@ -103,6 +106,7 @@
     "Providers": {
       "Google": {
         "text": "Continuar con Google",
+        "hover": "Las cookies son requeridas",
         "altImg": "Iniciar sesión con Google"
       }
     },
@@ -134,11 +138,7 @@
       "notice": "Utilizamos cookies para mejorar tu experiencia de navegación y proporcionar contenido personalizado. Para obtener más información sobre cómo utilizamos las cookies y tus opciones, consulta nuestros ",
       "link": "Términos y Condiciones de Uso",
       "Button": {
-        "agree": "¡Claro que sí!",
-        "decline": "No acepto"
-      },
-      "Toast": {
-        "onDecline": "Lamentamos escuchar eso. Si cambias de opinión y decides utilizar las funciones extras, te lo volveremos a preguntar"
+        "agree": "¡Claro que sí!"
       }
     }
   },
@@ -155,5 +155,10 @@
     "405": "Lo siento, el método solicitado no está permitido",
     "409": "¡Ups! El {title} ya existe",
     "500": "¡Ups! Algo salió mal en nuestro lado, vuelve a intentarlo"
+  },
+  "Globals": {
+    "Buttons": {
+      "Back": "Volver"
+    }
   }
 }

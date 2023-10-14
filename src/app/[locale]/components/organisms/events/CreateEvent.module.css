@@ -28,7 +28,9 @@
 
         & .container-event-name,
         .container-hyperlink {
+            display: flex;
             width: 100%;
+            flex-direction: column;
 
             & .event-name,
             .hyperlink,
@@ -214,7 +216,7 @@
     gap: 0.25rem;
     text-align: center;
 
-    @media screen and (width < 768px ) {
+    @media screen and (width < 768px) {
         flex-basis: calc(50% - 1rem);
     }
 
