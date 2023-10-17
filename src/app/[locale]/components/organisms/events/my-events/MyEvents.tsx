@@ -48,6 +48,10 @@ export const MyEvents = () => {
   //     }
   //   }, [])
 
+
+  // ¿cuál es el lugar adecuado para este componente?
+  // ¿hay que crear carpetas para createEvent?
+
   return (
     <>
       <div className={styles['container-events']}>
