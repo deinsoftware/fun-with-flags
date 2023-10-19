@@ -20,6 +20,16 @@ export const MyEvents = () => {
   const [myEvents, setMyEvents] = useState([])
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setSignal(signal)
+
+    return () => {
+      controller.abort()
+    }
+  }, [])
+
+  useEffect(() => {
     const username = session?.user?.name
     setUserName(username as string)
   }, [session])
@@ -34,19 +44,16 @@ export const MyEvents = () => {
     // please, don't use any type in the newData 😂
     getEventsByUserName(body, signal).then((newData: any) => {
       setMyEvents(newData.data)
+
+      // response : {
+      //   message: Boolean
+      //   status: number
+      //   data: {}
+      // }
+      
       //   console.log(newData)
     })
   }, [userName])
-
-  //   useEffect(() => {
-  //     const controller = new AbortController()
-  //     const signal = controller.signal
-  //     setSignal(signal)
-
-  //     return () => {
-  //       controller.abort()
-  //     }
-  //   }, [])
 
 
   // ¿cuál es el lugar adecuado para este componente?
