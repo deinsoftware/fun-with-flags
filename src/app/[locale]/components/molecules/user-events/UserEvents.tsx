@@ -19,15 +19,12 @@ import Button from '../../atoms/ui/Button'
 import styles from './UserEvents.module.css'
 
 import { lucidUserEvents } from '@/libs/icon-config'
+import { TimeZoneData } from '@/types/context.types'
 
 type Props = {
   name: string
   url: string
-  timeZone: {
-    origin: {
-      name: string
-    }
-  }
+  timeZone: TimeZoneData
   date: string
   description: string
 }

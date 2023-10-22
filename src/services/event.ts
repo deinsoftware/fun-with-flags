@@ -91,7 +91,7 @@ export async function getEventsByUserName(
   try {
     const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/events`, params)
     const { ok, status } = response ?? {}
-    const result = { ok, status, data: {} }
+    const result = { ok, status, data: [] }
     if (response.ok) {
       result.data = await response.json()
     }
@@ -101,7 +101,7 @@ export async function getEventsByUserName(
     const result = {
       ok: false,
       status: 500,
-      data: {},
+      data: [],
     }
     return result
   }

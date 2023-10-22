@@ -10,6 +10,7 @@ import styles from './MyEvents.module.css'
 import Title from '@/components/atoms/ui/Title'
 import { UserEvents } from '@/components/molecules/user-events/UserEvents'
 import { getEventsByUserName } from '@/services/event'
+import { TimeZoneData } from '@/types/context.types'
 
 export const MyEvents = () => {
   const t = useTranslations('Events')
@@ -17,7 +18,7 @@ export const MyEvents = () => {
 
   const [signal, setSignal] = useState<AbortSignal>()
   const [userName, setUserName] = useState('')
-  const [myEvents, setMyEvents] = useState([])
+  const [myEvents, setMyEvents] = useState<object[]>([])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -41,24 +42,33 @@ export const MyEvents = () => {
       userName: userName,
     }
 
-    // type ResponseEvents = {
-    //   data: object[]
-    //   ok: boolean
-    //   status: number
-    // } ???
+    type ResponseEvents = {
+      ok: boolean
+      status: number
+      data: object[]
+    }
 
-    // FIXME: please, don't use any type in the newData 😂
-    getEventsByUserName(body, signal).then((newData: any) => {
+    getEventsByUserName(body, signal).then((newData: ResponseEvents) => {
       const { data } = newData
-      setMyEvents(data)
+      setMyEvents(data as object[])
     })
   }, [userName])
+
+  type Event = {
+    id: string
+    createdAt: string // definir cuál es la fecha que se utilizará, esta fue por el ejemplo
+    description: string
+    name: string
+    timeZone: TimeZoneData
+    url: string
+  }
 
   return (
     <>
       <div className={styles['container-events']}>
         <Title>{t('title')}</Title>
         <main className={styles['events']}>
+          {/* FIXME: Type 👇🏻👇🏻👇🏻 */}
           {myEvents?.map((event: any) => {
             return (
               <UserEvents
