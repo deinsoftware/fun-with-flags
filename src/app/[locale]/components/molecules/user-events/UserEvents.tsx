@@ -14,7 +14,7 @@ import Link from 'next/link'
 
 import { useState } from 'react'
 
-import Button from '../atoms/ui/Button'
+import Button from '../../atoms/ui/Button'
 
 import styles from './UserEvents.module.css'
 
@@ -76,11 +76,6 @@ export const UserEvents = ({
   }
 
   const formattedDate = formatDate(date)
-
-  // TODO: move this component in correct place
-  // TODO: move this component in correct place
-  // TODO: move this component in correct place
-  // TODO: move this component in correct place
 
   const [isOpen, setIsOpen] = useState(false)
 

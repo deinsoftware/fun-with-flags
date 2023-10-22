@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import styles from './MyEvents.module.css'
 
 import Title from '@/components/atoms/ui/Title'
-import { UserEvents } from '@/components/user-events/UserEvents'
+import { UserEvents } from '@/components/molecules/user-events/UserEvents'
 import { getEventsByUserName } from '@/services/event'
 
 export const MyEvents = () => {
@@ -41,23 +41,18 @@ export const MyEvents = () => {
       userName: userName,
     }
 
-    // please, don't use any type in the newData 😂
-    getEventsByUserName(body, signal).then((newData: any) => {
-      setMyEvents(newData.data)
+    // type ResponseEvents = {
+    //   data: object[]
+    //   ok: boolean
+    //   status: number
+    // } ???
 
-      // response : {
-      //   message: Boolean
-      //   status: number
-      //   data: {}
-      // }
-      
-      //   console.log(newData)
+    // FIXME: please, don't use any type in the newData 😂
+    getEventsByUserName(body, signal).then((newData: any) => {
+      const { data } = newData
+      setMyEvents(data)
     })
   }, [userName])
-
-
-  // ¿cuál es el lugar adecuado para este componente?
-  // ¿hay que crear carpetas para createEvent?
 
   return (
     <>
