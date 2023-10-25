@@ -14,28 +14,18 @@ import Link from 'next/link'
 
 import { useState } from 'react'
 
+import { Events } from '@prisma/client'
+
 import Button from '../../atoms/ui/Button'
 
 import styles from './UserEvents.module.css'
 
 import { lucidUserEvents } from '@/libs/icon-config'
-import { TimeZoneData } from '@/types/context.types'
 
-type Props = {
-  name: string
-  url: string
-  timeZone: TimeZoneData
-  date: string
-  description: string
-}
+type Props = Pick<Events, 'timeZone' | 'description' | 'name' | 'url'>
 
-export const UserEvents = ({
-  name,
-  url,
-  timeZone,
-  date,
-  description,
-}: Props) => {
+export const UserEvents = ({ name, url, timeZone, description }: Props) => {
+
   const getMonthName = (monthIndex: number) => {
     const months = [
       'enero',
@@ -72,7 +62,7 @@ export const UserEvents = ({
     return `${formattedDay} ${formattedMonth} ${formattedHours}:${minutes} ${ampm}`
   }
 
-  const formattedDate = formatDate(date)
+  const formattedDate = formatDate(timeZone.origin.date.toString())
 
   const [isOpen, setIsOpen] = useState(false)
 
