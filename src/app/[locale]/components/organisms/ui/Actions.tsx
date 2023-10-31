@@ -12,6 +12,18 @@ import styles from './Actions.module.css'
 
 import { lucidIcons } from '@/libs/icon-config'
 
+const pathnameWithoutLanguageCode = (pathname: string) => {
+  const prefixRegex = /^\/[a-z]{2}\//i
+  let pathnameWithoutCode = pathname.replace(prefixRegex, '/')
+
+  // In case of root path
+  if (pathnameWithoutCode.length === 3) {
+    pathnameWithoutCode = '/'
+  }
+
+  return pathnameWithoutCode
+}
+
 const Actions = () => {
   const t = useTranslations('Header.Actions')
 
@@ -71,18 +83,6 @@ const Actions = () => {
       ),
     },
   ]
-
-  const pathnameWithoutLanguageCode = (pathname: string) => {
-    const prefixRegex = /^\/[a-z]{2}\//i
-    let pathnameWithoutCode = pathname.replace(prefixRegex, '/')
-
-    // In case of root path
-    if (pathnameWithoutCode.length === 3) {
-      pathnameWithoutCode = '/'
-    }
-
-    return pathnameWithoutCode
-  }
 
   return (
     <>
