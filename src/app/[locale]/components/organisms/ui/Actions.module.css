@@ -15,7 +15,7 @@
         }
 
         &.is-active {
-            background-color: red;
+            background-color: var(--color-neutral-500);
         }
 
         & .container-icon {
