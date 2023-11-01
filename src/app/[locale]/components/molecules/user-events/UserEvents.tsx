@@ -12,57 +12,45 @@ import {
 
 import Link from 'next/link'
 
+import { useFormatter } from 'next-intl'
+
 import { useState } from 'react'
 
 import { Events } from '@prisma/client'
 
-import Button from '../../atoms/ui/Button'
-
 import styles from './UserEvents.module.css'
+
+import Button from '@/components/atoms/ui/Button'
 
 import { lucidUserEvents } from '@/libs/icon-config'
 
 type Props = Pick<Events, 'timeZone' | 'description' | 'name' | 'url'>
 
 export const UserEvents = ({ name, url, timeZone, description }: Props) => {
+  const format = useFormatter()
+  const date = new Date(timeZone.origin.date)
 
-  const getMonthName = (monthIndex: number) => {
-    const months = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre',
-    ]
+  const dateToShow = (date: Date) => {
+    const DAY_IN_SECONDS = 24 * 60 * 60 * 1000
+    const ONE_DAY_MORE = new Date(date.getTime() + DAY_IN_SECONDS)
+    const NOW = new Date()
 
-    return months[monthIndex]
-  } // <- How to do this better?
-
-  const capitalizeFirstLetter = (string: string | undefined) => {
-    if (!string) return ''
-    return string?.charAt(0).toUpperCase() + string?.slice(1)
+    if (date < NOW) {
+      return format.relativeTime(date, NOW)
+    }
+    if (date < ONE_DAY_MORE) {
+      return format.dateTime(date, { hour: 'numeric', minute: 'numeric' })
+    }
+    if (date > ONE_DAY_MORE) {
+      return format.dateTime(date, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    }
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const formattedDay = date.getDate()
-    const month = getMonthName(date.getMonth())?.substring(0, 3).toLowerCase()
-    const formattedMonth = capitalizeFirstLetter(month)
-    const hours = date.getHours()
-    const ampm = hours >= 12 ? 'p. m.' : 'a. m.'
-    const formattedHours = hours.toString().padStart(2, '0')
-    const minutes = date.getMinutes().toString().padStart(2, '0')
-    return `${formattedDay} ${formattedMonth} ${formattedHours}:${minutes} ${ampm}`
-  }
-
-  const formattedDate = formatDate(timeZone.origin.date.toString())
+  const formattedDate = dateToShow(date)
 
   const [isOpen, setIsOpen] = useState(false)
 

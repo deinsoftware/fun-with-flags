@@ -4,9 +4,9 @@ import { getServerSession } from 'next-auth'
 
 import { Events } from '@prisma/client'
 
-import { UserEvents } from '../components/molecules/user-events/UserEvents'
-
 import styles from './page.module.css'
+
+import { UserEvents } from '@/components/molecules/user-events/UserEvents'
 
 import { MetadataProps } from '@/app/layout.types'
 import { authOptions } from '@/libs/auth'
