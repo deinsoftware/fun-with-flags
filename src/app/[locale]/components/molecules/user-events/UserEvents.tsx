@@ -27,19 +27,19 @@ import { lucidUserEvents } from '@/libs/icon-config'
 type Props = Pick<Events, 'timeZone' | 'description' | 'name' | 'url'>
 
 export const UserEvents = ({ name, url, timeZone, description }: Props) => {
-  const format = useFormatter()
   const date = new Date(timeZone.origin.date)
+  const format = useFormatter()
 
   const dateToShow = (date: Date) => {
     const DAY_IN_SECONDS = 24 * 60 * 60 * 1000
-    const ONE_DAY_MORE = new Date(date.getTime() + DAY_IN_SECONDS)
-    const NOW = new Date()
+    const now = new Date()
+    const ONE_DAY_MORE = new Date(now.getTime() + DAY_IN_SECONDS)
 
-    if (date < NOW) {
-      return format.relativeTime(date, NOW)
+    if (date < now) {
+      return format.relativeTime(date, now)
     }
     if (date < ONE_DAY_MORE) {
-      return format.dateTime(date, { hour: 'numeric', minute: 'numeric' })
+      return format.relativeTime(date, { now, unit: 'hours' });
     }
     if (date > ONE_DAY_MORE) {
       return format.dateTime(date, {
