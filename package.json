@@ -47,7 +47,7 @@
   },
   "swpm": "pnpm",
   "volta": {
-    "node": "18.17.0",
+    "node": "20.9.0",
     "pnpm": "8.10.2"
   },
   "devDependencies": {
