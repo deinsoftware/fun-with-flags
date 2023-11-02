@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl'
 
 import { usePathname } from 'next/navigation'
 
+import { useSession } from 'next-auth/react'
+
 import styles from './Actions.module.css'
 
 import { lucidIcons } from '@/libs/icon-config'
@@ -28,26 +30,12 @@ const Actions = () => {
   const t = useTranslations('Header.Actions')
 
   const pathname = usePathname()
-
   const navLinks = [
     {
       href: '/',
       name: t('home'),
       icon: (
         <Home
-          absoluteStrokeWidth={false}
-          className={styles['icon']}
-          color={lucidIcons.color.main}
-          size={lucidIcons.size}
-          strokeWidth={lucidIcons.strokeWidth}
-        />
-      ),
-    },
-    {
-      href: '/events',
-      name: t('events'),
-      icon: (
-        <CalendarDays
           absoluteStrokeWidth={false}
           className={styles['icon']}
           color={lucidIcons.color.main}
@@ -83,6 +71,24 @@ const Actions = () => {
       ),
     },
   ]
+
+  const session = useSession()
+
+  if (session?.data) {
+    navLinks.splice(1, 0, {
+      href: '/events',
+      name: t('events'),
+      icon: (
+        <CalendarDays
+          absoluteStrokeWidth={false}
+          className={styles['icon']}
+          color={lucidIcons.color.main}
+          size={lucidIcons.size}
+          strokeWidth={lucidIcons.strokeWidth}
+        />
+      ),
+    })
+  }
 
   return (
     <>

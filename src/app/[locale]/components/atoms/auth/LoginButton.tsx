@@ -12,8 +12,6 @@ import {
   resetCookieConsentValue,
 } from 'react-cookie-consent'
 
-import { useEffect, useState } from 'react'
-
 import Button from '@/components/atoms/ui/Button'
 import { sizeAvatar } from '@/libs/constants'
 

@@ -33,3 +33,21 @@ export const lucidIconsButton = {
   },
   strokeWidth: 2,
 }
+
+export const lucidUserEvents = {
+  content: {
+    size: 14,
+    color: {
+      gray: '#A4A4A4',
+    },
+    strokeWidth: 2,
+  },
+  actions: {
+    size: 18,
+    color: {
+      main: '#7E56DA',
+      white: '#FEFEFE',
+    },
+    strokeWidth: 2,
+  },
+}

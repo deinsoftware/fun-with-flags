@@ -19,9 +19,9 @@
     }
   },
   "Events": {
-    "title": "Evento",
+    "title": "Mis eventos",
     "Create": {
-      "title": "Crear Evento",
+      "title": "Crear evento",
       "Form": {
         "Fields": {
           "eventName": "Nombre del evento",
