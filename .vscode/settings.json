@@ -153,7 +153,7 @@
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).*.ts, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts, $(capture)*.snap",
     "*.tsx": "$(capture).ts, $(capture).*.ts, $(capture).*.css, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture)*.snap",
-    "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*",
+    "next.config.*": "*.env, .env.*, .envrc, .postcssrc*, env.d.ts, next-env.d.ts, postcss.config.*, tsconfig.*, vitest.config.*, i18n.ts",
     "package.json": ".eslint*, .prettier*, .stylelint*, package-lock.json"
   },
   "html.autoClosingTags": true,

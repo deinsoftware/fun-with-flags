@@ -8,10 +8,14 @@
     & .link {
         padding: 8px;
         text-decoration: none;
+        border-radius: 10px;
 
         &:hover {
-            border-radius: 10px;
             background-color: var(--color-darkgray-800);
+        }
+
+        &.is-active {
+            background-color: var(--color-neutral-500);
         }
 
         & .container-icon {
