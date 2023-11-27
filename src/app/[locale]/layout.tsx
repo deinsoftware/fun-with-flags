@@ -12,7 +12,6 @@ import getRequestConfig from '@/libs/i18n'
 
 import '@/styles/globals.css'
 import '/node_modules/minireset.css/minireset.min.css'
-import { MetadataProps } from '@/app/layout.types'
 
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin']})
