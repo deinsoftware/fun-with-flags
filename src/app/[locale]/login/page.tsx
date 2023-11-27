@@ -1,12 +1,9 @@
-import { getTranslator } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import Login from '@/components/organisms/login/Login'
-import { MetadataProps } from '@/app/layout.types'
 
-export const generateMetadata = async ({
-  params: { locale },
-}: MetadataProps) => {
-  const t = await getTranslator(locale, 'Login')
+export const generateMetadata = async () => {
+  const t = await getTranslations('Login')
 
   return {
     title: t('title'),

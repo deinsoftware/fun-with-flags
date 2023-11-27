@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { getTranslator } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import styles from './page.module.css'
 
@@ -7,12 +7,8 @@ import ButtonBack from '@/components/atoms/ui/ButtonBack'
 
 import Subtitle from '@/components/atoms/ui/Subtitle'
 
-import { MetadataProps } from '@/app/layout.types'
-
-export const generateMetadata = async ({
-  params: { locale },
-}: MetadataProps) => {
-  const t = await getTranslator(locale, 'Notice')
+export const generateMetadata = async () => {
+  const t = await getTranslations('Notice')
 
   return {
     title: t('title'),
