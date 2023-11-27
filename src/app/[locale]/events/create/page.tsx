@@ -1,14 +1,13 @@
-import {  getTranslator } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import CreateEvent from '@/components/organisms/events/CreateEvent'
 import { TimeZoneProvider } from '@/context/timeZoneContext'
-import { MetadataProps } from '@/app/layout.types'
 
-export const generateMetadata = async({params: {locale}}: MetadataProps) => {
-  const t = await getTranslator(locale, 'Events.Create')
+export const generateMetadata = async () => {
+  const t = await getTranslations('Events.Create')
 
   return {
-    title: t('title')
+    title: t('title'),
   }
 }
 

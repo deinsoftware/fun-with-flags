@@ -1,4 +1,4 @@
-import { getTranslator } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { getServerSession } from 'next-auth'
 
@@ -8,24 +8,21 @@ import styles from './page.module.css'
 
 import { UserEvents } from '@/components/molecules/user-events/UserEvents'
 
-import { MetadataProps } from '@/app/layout.types'
 import { authOptions } from '@/libs/auth'
 import { getEventsByUserName } from '@/services/event'
 
 import Title from '@/components/atoms/ui/Title'
 
-export const generateMetadata = async ({
-  params: { locale },
-}: MetadataProps) => {
-  const t = await getTranslator(locale, 'Events')
+export const generateMetadata = async () => {
+  const t = await getTranslations('Events')
 
   return {
     title: t('title'),
   }
 }
 
-const EventsPage = async ({ params: { locale } }: MetadataProps) => {
-  const t = await getTranslator(locale, 'Events')
+const EventsPage = async () => {
+  const t = await getTranslations('Events')
 
   const session = await getServerSession(authOptions)
 
