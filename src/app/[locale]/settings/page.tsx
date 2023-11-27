@@ -1,10 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { MetadataProps } from '@/app/layout.types'
-
-export const generateMetadata = async ({
-  params: { locale },
-}: MetadataProps) => {
+export const generateMetadata = async () => {
   const t = await getTranslations('Settings')
 
   return {
